@@ -14,6 +14,7 @@ Usage: python3 scripts/ai_check.py new_entries.json > ai_results.json
 import ipaddress
 import json
 import os
+import re
 import socket
 import sys
 import urllib.request
@@ -116,8 +117,12 @@ def ask_claude(context, api_key):
         data = json.loads(resp.read())
 
     text = "".join(block.get("text", "") for block in data.get("content", []))
+    # Haiku sometimes wraps the answer in a ```json fence despite the
+    # system prompt saying not to — strip it before parsing.
+    cleaned = re.sub(r"^```(?:json)?\s*", "", text.strip(), flags=re.IGNORECASE)
+    cleaned = re.sub(r"```\s*$", "", cleaned)
     try:
-        return json.loads(text)
+        return json.loads(cleaned)
     except json.JSONDecodeError:
         return {"matches": None, "confidence": "low", "note": "model did not return valid JSON"}
 
