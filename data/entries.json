@@ -3,7 +3,7 @@
     "name": "TiddlyWiki",
     "url": "https://tiddlywiki.com/",
     "repo": "TiddlyWiki/TiddlyWiki5",
-    "desc": "The original: a non-linear personal wiki that saves its entire self back to disk as one HTML file. Two decades of plugins and forks trace back to it.",
+    "desc": "A non-linear personal wiki that saves its entire self back to disk as one HTML file. Two decades of plugins and forks trace back to it.",
     "tags": [
       "notes"
     ],
