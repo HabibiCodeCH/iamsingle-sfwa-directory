@@ -452,7 +452,7 @@ function render(){
       <img class="logo" alt="" loading="lazy">
       <div class="meta">
         <p class="name">
-          <a href="/entry/${slugify(e.name)}" data-nav>${e.name}</a>
+          <a href="${e.url}" target="_blank" rel="noopener">${e.name}</a>
           ${ghPill}
         </p>
         <p class="desc">${e.desc}</p>
