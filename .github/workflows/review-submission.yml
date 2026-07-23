@@ -1,0 +1,126 @@
+name: Review submission
+
+# Manually triggered by a maintainer after looking at the PR, not automatic
+# on every incoming pull_request. This is deliberate: security_scan.py and
+# ai_check.py run with contents:write / pull-requests:write and (once set)
+# ANTHROPIC_API_KEY. If this ran automatically on pull_request, checking out
+# the PR's own branch would mean a submitter's PR could modify these very
+# scripts and have them execute with that access — a classic GitHub Actions
+# "pwn request". Instead this workflow always runs the scripts from the base
+# branch (never the PR's checkout) and pulls only the PR's data/entries.json
+# as plain data via `git show`, so PR-controlled code never executes here.
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to review"
+        required: true
+        type: number
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout base branch (trusted scripts only)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install scanners
+        run: |
+          pip install --quiet detect-secrets semgrep
+
+      - name: Pull the PR's data/entries.json as data (not code)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_JSON=$(gh api "repos/${{ github.repository }}/pulls/${{ inputs.pr_number }}")
+          HEAD_SHA=$(echo "$PR_JSON" | jq -r .head.sha)
+          BASE_REF=$(echo "$PR_JSON" | jq -r .base.ref)
+          echo "HEAD_SHA=$HEAD_SHA" >> "$GITHUB_ENV"
+          echo "BASE_REF=$BASE_REF" >> "$GITHUB_ENV"
+          git fetch origin "$HEAD_SHA" --depth=1
+          # Overwrite the local data file with the PR's version. This is
+          # inert JSON data read by our own scripts below — never executed.
+          git show "$HEAD_SHA:data/entries.json" > data/entries.json
+
+      - name: Find new or changed entries
+        run: |
+          python3 scripts/diff_entries.py "origin/${{ env.BASE_REF }}" > new_entries.json
+          echo "Changed entries:"
+          cat new_entries.json
+
+      - name: Security scan
+        run: python3 scripts/security_scan.py new_entries.json > scan_results.json
+
+      - name: AI "does what it says" check
+        env:
+          # Add ANTHROPIC_API_KEY under
+          # Settings → Secrets and variables → Actions → New repository secret
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 scripts/ai_check.py new_entries.json > ai_results.json
+
+      - name: Merge results into data/entries.json
+        run: python3 scripts/merge_checks.py scan_results.json ai_results.json
+
+      - name: Push results to the PR branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/entries.json
+          if git diff --cached --quiet; then
+            echo "No check-result changes to commit."
+          else
+            git commit -m "chore: record automated check results"
+            # Only works for PRs from branches in this repo, not forks —
+            # GITHUB_TOKEN can't push to a fork's branch. Falls through to
+            # the PR comment below either way.
+            git push origin "HEAD:refs/heads/$(gh pr view ${{ inputs.pr_number }} --json headRefName --jq .headRefName)" || \
+              echo "::warning::Could not push results to the PR branch (likely a fork PR) — see the PR comment instead."
+          fi
+
+      - name: Post results to PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const entries = JSON.parse(fs.readFileSync('data/entries.json', 'utf8'));
+            const names = JSON.parse(fs.readFileSync('new_entries.json', 'utf8')).map(e => e.name);
+
+            let body = '### Automated submission review\n';
+            body += '_Heuristic checks for a human reviewer — not a guarantee of safety or accuracy. Full per-test detail is on the card once merged._\n\n';
+
+            for (const name of names) {
+              const entry = entries.find(e => e.name === name);
+              const checks = (entry && entry.checks) || [];
+              const applicable = checks.filter(c => c.status !== 'skip');
+              const passed = applicable.filter(c => c.status === 'pass').length;
+              body += `**${name}** — ${passed}/${applicable.length} passed\n`;
+              for (const c of checks) {
+                const icon = c.status === 'pass' ? '✅' : c.status === 'fail' ? '❌' : '⏭️';
+                body += `- ${icon} ${c.label}${c.detail ? ` — ${c.detail}` : ''}\n`;
+              }
+              body += '\n';
+            }
+
+            if (names.length === 0) {
+              body += 'No entries changed in `data/entries.json`.\n';
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ inputs.pr_number }},
+              body,
+            });
