@@ -143,6 +143,13 @@
   }
   button:hover{background:var(--stamp);}
   .form-note{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:4px;}
+  .repo-status{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:6px;min-height:14px;}
+  .spinner{
+    width:11px;height:11px;border:2px solid var(--line);border-top-color:var(--stamp);
+    border-radius:50%;display:inline-block;vertical-align:middle;margin-right:6px;
+    animation:spin .6s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
 
   .modal-overlay{
     position:fixed;inset:0;background:rgba(32,30,25,.55);
@@ -218,8 +225,9 @@
       <p class="sub">Submits directly — this opens a PR against the catalog's data for a maintainer to review, no GitHub account needed on your end.</p>
       <form id="submitForm">
         <div>
-          <label for="f-repo">GitHub repo (optional, owner/name)</label>
-          <input type="text" id="f-repo" placeholder="e.g. TiddlyWiki/TiddlyWiki5">
+          <label for="f-repo">GitHub repo (optional, owner/name or URL)</label>
+          <input type="text" id="f-repo" placeholder="e.g. TiddlyWiki/TiddlyWiki5 or a github.com URL">
+          <div class="repo-status" id="repoStatus"></div>
         </div>
         <div>
           <label for="f-name">Name</label>
@@ -438,13 +446,35 @@ document.addEventListener('keydown', (ev) => {
 
 // autofill Name/URL/Description from the repo's public GitHub metadata —
 // only fills fields the visitor hasn't already typed into, best-effort
-// (silent no-op on 404/rate-limit/network failure, never blocks submission)
-document.getElementById('f-repo').addEventListener('blur', async () => {
-  const repo = document.getElementById('f-repo').value.trim();
-  if(!/^[\w.-]+\/[\w.-]+$/.test(repo)) return;
+// (never blocks submission, but does show progress/errors so it doesn't
+// look like nothing happened)
+function parseRepoInput(raw){
+  const val = (raw || '').trim();
+  if(/^[\w.-]+\/[\w.-]+$/.test(val)) return val;
+  const m = val.match(/^(?:https?:\/\/)?(?:www\.)?github\.com\/([\w.-]+)\/([\w.-]+?)(?:\.git)?\/?$/i);
+  return m ? `${m[1]}/${m[2]}` : null;
+}
+
+const repoInputEl = document.getElementById('f-repo');
+const repoStatusEl = document.getElementById('repoStatus');
+
+repoInputEl.addEventListener('input', () => { repoStatusEl.textContent = ''; });
+
+repoInputEl.addEventListener('blur', async () => {
+  const raw = repoInputEl.value.trim();
+  const repo = parseRepoInput(raw);
+  if(!repo){
+    repoStatusEl.textContent = raw ? "Doesn't look like a GitHub repo — use owner/name or a github.com URL." : '';
+    return;
+  }
+  repoInputEl.value = repo; // normalize the visible field to owner/name
+  repoStatusEl.innerHTML = '<span class="spinner"></span>fetching repo info…';
   try{
     const res = await fetch('https://api.github.com/repos/' + repo);
-    if(!res.ok) return;
+    if(!res.ok){
+      repoStatusEl.textContent = res.status === 404 ? 'Repo not found — fill in the rest manually.' : 'Could not fetch repo info — fill in the rest manually.';
+      return;
+    }
     const data = await res.json();
     const nameEl = document.getElementById('f-name');
     const urlEl = document.getElementById('f-url');
@@ -452,8 +482,9 @@ document.getElementById('f-repo').addEventListener('blur', async () => {
     if(!nameEl.value.trim() && data.name) nameEl.value = data.name;
     if(!urlEl.value.trim()) urlEl.value = data.homepage || data.html_url || '';
     if(!descEl.value.trim() && data.description) descEl.value = data.description;
+    repoStatusEl.textContent = 'Filled in from the repo — check it over.';
   }catch(err){
-    // best-effort only — leave fields as the visitor left them
+    repoStatusEl.textContent = 'Could not fetch repo info — fill in the rest manually.';
   }
 });
 
