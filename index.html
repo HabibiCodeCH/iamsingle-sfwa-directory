@@ -100,19 +100,25 @@
     color:var(--ink-soft);border:1px solid var(--line);padding:2px 6px;
   }
   .gh-pill{
-    display:inline-flex;align-items:center;vertical-align:middle;
+    display:inline-flex;align-items:center;vertical-align:middle;max-width:100%;
     border:1px solid var(--line);font-family:var(--mono);font-size:10.5px;
     color:var(--ink-soft);line-height:1;
   }
-  .gh-pill a{
+  .gh-pill-icon{
     display:flex;align-items:center;padding:3px 6px;color:var(--ink-soft);
-    border-right:1px solid var(--line);
+    border-right:1px solid var(--line);flex-shrink:0;
   }
-  .gh-pill a:hover{color:var(--stamp);}
-  .gh-pill a svg{display:block;}
-  .gh-pill span{padding:3px 6px;white-space:nowrap;}
+  .gh-pill-icon:hover{color:var(--stamp);}
+  .gh-pill-icon svg{display:block;}
+  .gh-pill span{padding:3px 6px;white-space:nowrap;flex-shrink:0;}
   .gh-pill span + span{border-left:1px solid var(--line);}
   .gh-pill .gh-stars{color:var(--stamp);}
+  .gh-pill-by{
+    padding:3px 6px;color:var(--ink-soft);text-decoration:none;
+    border-left:1px solid var(--line);min-width:0;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap;max-width:110px;
+  }
+  .gh-pill-by:hover{color:var(--stamp);}
 
   .empty{font-family:var(--mono);font-size:13px;color:var(--ink-soft);padding:40px 0;}
 
@@ -424,10 +430,12 @@ function render(){
     const absent = e.repo && starInfo === null;
     const starsText = !e.repo ? '' : loading ? '···' : absent ? 'n/a' : '★ ' + formatStars(starInfo.stars);
     const dateText = !e.repo ? '' : loading ? '···' : absent ? 'n/a' : formatCreated(starInfo.created);
+    const owner = e.repo ? e.repo.split('/')[0] : '';
     const ghPill = e.repo ? `<span class="gh-pill">
-        <a href="https://github.com/${e.repo}" target="_blank" rel="noopener" aria-label="${e.repo} on GitHub">${GH_ICON_SVG}</a>
+        <a class="gh-pill-icon" href="https://github.com/${e.repo}" target="_blank" rel="noopener" aria-label="${e.repo} on GitHub">${GH_ICON_SVG}</a>
         <span class="gh-stars">${starsText}</span>
         <span class="gh-date">${dateText}</span>
+        <a class="gh-pill-by" href="https://github.com/${owner}" target="_blank" rel="noopener" title="${owner}">by ${owner}</a>
       </span>` : '';
 
     const checks = e.checks || [];
