@@ -40,7 +40,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -68,7 +68,7 @@
     "name": "Bento",
     "url": "https://bento.page/slides/",
     "repo": "nyblnet/bento",
-    "desc": "An entire slide deck — editor, viewer, data, and live collaboration — in one HTML file. Readable JSON up top, compressed app shell underneath.",
+    "desc": "An entire slide deck \u2014 editor, viewer, data, and live collaboration \u2014 in one HTML file. Readable JSON up top, compressed app shell underneath.",
     "tags": [
       "slides",
       "collab"
@@ -106,7 +106,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -134,7 +134,7 @@
     "name": "codeflow",
     "url": "https://codeflow-five.vercel.app",
     "repo": "braedonsaunders/codeflow",
-    "desc": "Paste any GitHub URL and get an interactive architecture map — how files connect, what breaks if you touch something. Runs entirely in the browser.",
+    "desc": "Paste any GitHub URL and get an interactive architecture map \u2014 how files connect, what breaks if you touch something. Runs entirely in the browser.",
     "tags": [
       "tools"
     ],
@@ -161,7 +161,7 @@
         "id": "pattern-eval",
         "label": "eval() usage",
         "status": "fail",
-        "detail": "eval() call found — needs manual review"
+        "detail": "eval() call found \u2014 needs manual review"
       },
       {
         "id": "pattern-function",
@@ -171,7 +171,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -199,7 +199,7 @@
     "name": "html-tools",
     "url": "https://tools.realtime-ai.chat",
     "repo": "chicogong/html-tools",
-    "desc": "Over a thousand small frontend utilities, each a single file — zero build, works offline, privacy-first.",
+    "desc": "Over a thousand small frontend utilities, each a single file \u2014 zero build, works offline, privacy-first.",
     "tags": [
       "tools"
     ],
@@ -236,7 +236,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -264,7 +264,7 @@
     "name": "hermes-ui",
     "url": "https://github.com/pyrate-llama/hermes-ui",
     "repo": "pyrate-llama/hermes-ui",
-    "desc": "A command center for an AI agent — chat, steer, browse files, manage skills — packed into one glassmorphic HTML app.",
+    "desc": "A command center for an AI agent \u2014 chat, steer, browse files, manage skills \u2014 packed into one glassmorphic HTML app.",
     "tags": [
       "ai",
       "tools"
@@ -302,7 +302,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -330,7 +330,7 @@
     "name": "Agent-Architecture",
     "url": "https://thejacksoncode.github.io/Agent-Architecture/",
     "repo": "TheJacksonCode/Agent-Architecture",
-    "desc": "A visual multi-agent system designer for Claude Code — 28 agents, human-in-the-loop gates, live simulation. Zero dependencies.",
+    "desc": "A visual multi-agent system designer for Claude Code \u2014 28 agents, human-in-the-loop gates, live simulation. Zero dependencies.",
     "tags": [
       "ai",
       "tools"
@@ -368,7 +368,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -433,7 +433,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -461,7 +461,7 @@
     "name": "httprd",
     "url": "https://github.com/bitrate16/httprd",
     "repo": "bitrate16/httprd",
-    "desc": "Remote desktop over a plain browser tab, driven by a single script — no client install on either end.",
+    "desc": "Remote desktop over a plain browser tab, driven by a single script \u2014 no client install on either end.",
     "tags": [
       "tools"
     ],
@@ -498,7 +498,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -526,7 +526,7 @@
     "name": "Offline-HTML-Games-Pack",
     "url": "https://github.com/CoolDude2349/Offline-HTML-Games-Pack",
     "repo": "CoolDude2349/Offline-HTML-Games-Pack",
-    "desc": "Three hundred small games, each shipped as its own single-file HTML — pick one up, play offline, no dependencies.",
+    "desc": "Three hundred small games, each shipped as its own single-file HTML \u2014 pick one up, play offline, no dependencies.",
     "tags": [
       "games"
     ],
@@ -563,7 +563,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -591,7 +591,7 @@
     "name": "gemini-chat-organizer-hub",
     "url": "https://github.com/MartinSantosT/gemini-chat-organizer-hub",
     "repo": "MartinSantosT/gemini-chat-organizer-hub",
-    "desc": "A local, offline-first hub for organizing AI chats, prompts, and projects — kanban board included, all in one file.",
+    "desc": "A local, offline-first hub for organizing AI chats, prompts, and projects \u2014 kanban board included, all in one file.",
     "tags": [
       "ai",
       "notes"
@@ -629,7 +629,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -667,19 +667,19 @@
         "id": "secrets",
         "label": "No leaked credentials (detect-secrets)",
         "status": "skip",
-        "detail": "no repo set — nothing to clone"
+        "detail": "no repo set \u2014 nothing to clone"
       },
       {
         "id": "semgrep-security",
         "label": "Semgrep security-audit ruleset",
         "status": "skip",
-        "detail": "no repo set — nothing to clone"
+        "detail": "no repo set \u2014 nothing to clone"
       },
       {
         "id": "semgrep-js",
         "label": "Semgrep javascript ruleset",
         "status": "skip",
-        "detail": "no repo set — nothing to clone"
+        "detail": "no repo set \u2014 nothing to clone"
       },
       {
         "id": "pattern-eval",
@@ -695,7 +695,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -733,19 +733,19 @@
         "id": "secrets",
         "label": "No leaked credentials (detect-secrets)",
         "status": "skip",
-        "detail": "no repo set — nothing to clone"
+        "detail": "no repo set \u2014 nothing to clone"
       },
       {
         "id": "semgrep-security",
         "label": "Semgrep security-audit ruleset",
         "status": "skip",
-        "detail": "no repo set — nothing to clone"
+        "detail": "no repo set \u2014 nothing to clone"
       },
       {
         "id": "semgrep-js",
         "label": "Semgrep javascript ruleset",
         "status": "skip",
-        "detail": "no repo set — nothing to clone"
+        "detail": "no repo set \u2014 nothing to clone"
       },
       {
         "id": "pattern-eval",
@@ -761,7 +761,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -826,7 +826,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -892,7 +892,7 @@
       },
       {
         "id": "pattern-decode-exec",
-        "label": "decode→eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
@@ -920,9 +920,65 @@
     "name": "orbital-notebook",
     "url": "https://github.com/kalpi-4/orbital-notebook",
     "repo": "kalpi-4/orbital-notebook",
-    "desc": "A single-file, zero-dependency N-body gravitational simulator with a built-in notebook — runs entirely in your browser, no server required.",
+    "desc": "A single-file, zero-dependency N-body gravitational simulator with a built-in notebook \u2014 runs entirely in your browser, no server required.",
     "tags": [
       "games"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      }
     ]
   }
 ]
