@@ -61,12 +61,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -133,12 +127,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -204,12 +192,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -275,12 +257,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -347,12 +323,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -419,12 +389,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -490,12 +454,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -561,12 +519,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -632,12 +584,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -704,12 +650,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -776,12 +716,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   },
@@ -848,12 +782,6 @@
         "label": "No decoded content injected into the DOM",
         "status": "pass",
         "detail": ""
-      },
-      {
-        "id": "ai-match",
-        "label": "Description matches README (Haiku)",
-        "status": "skip",
-        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
       }
     ]
   }

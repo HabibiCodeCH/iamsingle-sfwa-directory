@@ -337,16 +337,12 @@ function render(){
       : '';
 
     const checks = e.checks || [];
-    // The "security audit" score covers only security_scan.py's checks —
-    // ai-match is a different kind of check (an LLM's opinion on the
-    // description, not a security test) and is shown in the expanded list
-    // but doesn't count toward this score. A skip counts against the
-    // ratio (0, not excluded) so an incomplete audit can't read as 100%.
-    const securityChecks = checks.filter(c => c.id !== 'ai-match');
-    const passed = securityChecks.filter(c => c.status === 'pass').length;
+    // A skip counts against the ratio (0, not excluded) so an incomplete
+    // audit can't read as 100%.
+    const passed = checks.filter(c => c.status === 'pass').length;
     const hasChecks = checks.length > 0;
-    const badgeLabel = securityChecks.length ? `${passed}/${securityChecks.length}` : '';
-    const badgeColor = securityChecks.length ? scoreColor(passed / securityChecks.length) : '#8A8578';
+    const badgeLabel = checks.length ? `${passed}/${checks.length}` : '';
+    const badgeColor = checks.length ? scoreColor(passed / checks.length) : '#8A8578';
 
     const iconFor = s => s === 'pass' ? '✓' : s === 'fail' ? '✗' : '–';
     const linkify = text => text.replace(/(https?:\/\/\S+)/g, url => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);

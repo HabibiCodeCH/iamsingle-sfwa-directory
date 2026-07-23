@@ -20,8 +20,7 @@ assets/favicon-16/32/180/512.png     rendered favicon sizes
 assets/logo.png                      rendered logo, 720×160
 scripts/diff_entries.py             finds entries added/changed in a PR vs its base branch
 scripts/security_scan.py            heuristic security checks (see below)
-scripts/ai_check.py                 Haiku "does the description match reality" check (batch, via Actions)
-scripts/merge_checks.py             writes both results into data/entries.json as a `checks` array
+scripts/merge_checks.py             writes the results into data/entries.json as a `checks` array
 scripts/snapshot_stars.py           fetches star counts, writes data/stars.json
 .github/workflows/review-submission.yml   wires the review scripts into a manual PR-review flow
 .github/workflows/snapshot-stars.yml      runs snapshot_stars.py on a daily schedule
@@ -48,42 +47,41 @@ package.json                        marks this a Node/Vercel project (api/submit
 
 ## Submission backend (`api/submit.js`)
 
-A Vercel serverless function. Validates the form POST, runs the AI
-"description matches README" check inline, then opens a PR against
-`data/entries.json` directly via the GitHub API — no GitHub account needed
-on the submitter's end, and no manual issue→PR conversion by a maintainer.
+A Vercel serverless function. Validates the form POST, then opens a PR
+against `data/entries.json` directly via the GitHub API — no GitHub account
+needed on the submitter's end, and no manual issue→PR conversion by a
+maintainer.
 
-Needs two env vars set on the Vercel project (not committed anywhere):
+Needs one env var set on the Vercel project (not committed anywhere):
 
 - **`GITHUB_BOT_TOKEN`** — a fine-grained PAT scoped to *only* this repo,
   with **Contents: write** and **Pull requests: write** permissions. Don't
   reuse a broad personal token here — this one lives in Vercel, not a CI
   job gated by manual review, so it should carry the least privilege that
   still works.
-- **`ANTHROPIC_API_KEY`** — same key the batch `ai_check.py` uses. If unset,
-  the inline check is skipped (not the whole submission — the PR still
-  opens, just without that one check filled in).
+
+Also enforces a 100/day submission cap (`DAILY_SUBMISSION_CAP` in
+`api/submit.js`), counted via GitHub's own PR history — no extra
+infrastructure needed. Caps PR/branch spam from a public, unauthenticated
+endpoint.
 
 The heavier checks (`security_scan.py`: repo clone, `detect-secrets`,
 `semgrep`) are *not* run here — too slow for a synchronous request. Those
 still require a maintainer to manually run "Review submission" from the
 Actions tab before merging. A honeypot field (`hp`) provides basic bot
-resistance; there's no persistent rate limiting (would need Vercel KV or
-similar) — GitHub's own abuse detection and manual PR review are the
-backstop for now.
+resistance on top of the daily cap.
 
 ## How the review pipeline works
 
 **Manually triggered** by a maintainer (Actions tab → "Review submission" →
 Run workflow, entering the PR number) — not automatic on every incoming PR.
-This is deliberate: the scripts below run with `contents: write` /
-`pull-requests: write` and (once set) `ANTHROPIC_API_KEY`. Automatically
-checking out an untrusted PR's own branch and running its scripts with that
-access is a classic GitHub Actions "pwn request" — a submission PR could
-modify `scripts/*.py` itself and exfiltrate the secret. Instead the workflow
-always runs the scripts from the base branch, and pulls only the PR's
-`data/entries.json` as plain data via `git show` — the PR's own code is
-never checked out or executed.
+This is deliberate: the script below runs with `contents: write` /
+`pull-requests: write`. Automatically checking out an untrusted PR's own
+branch and running its scripts with that access is a classic GitHub Actions
+"pwn request" — a submission PR could modify `scripts/*.py` itself and
+exfiltrate the token. Instead the workflow always runs the scripts from the
+base branch, and pulls only the PR's `data/entries.json` as plain data via
+`git show` — the PR's own code is never checked out or executed.
 
 Per changed/new entry:
 
@@ -95,29 +93,14 @@ Per changed/new entry:
      dynamic content, `new Function()`, decode→eval chains, decoded content
      written into the DOM, `sendBeacon` calls
    - each test reports `pass` / `fail` / `skip` individually — no prose summary
-2. **`ai_check.py`** — asks `claude-haiku-4-5-20251001` whether the submitted
-   description matches the repo's own README (fetched via the GitHub API).
-   Entries with no `repo` are skipped — there's nothing to check against.
-   Never checks the live app page itself — those are often a canvas or a
-   compressed JS blob with no readable text to check against. The fetched
-   README is passed to the model as explicitly delimited, untrusted data,
-   not instructions, to reduce (not eliminate) prompt-injection risk from a
-   submitter-controlled README.
-3. **`merge_checks.py`** — combines both into a `checks` array on the
+2. **`merge_checks.py`** — writes the results into a `checks` array on the
    matching entry (matched by `url`, the same stable key `diff_entries.py`
    uses — not by `name`, which isn't unique) and rewrites `data/entries.json`.
-4. The workflow commits and tries to push that change back to the PR branch
+3. The workflow commits and tries to push that change back to the PR branch
    — this only works for PRs from branches in this repo; `GITHUB_TOKEN` can't
    push to a fork's branch, so fork PRs rely on the PR comment instead.
-5. A PR comment posts the same pass/fail list per entry, for reviewers who
+4. A PR comment posts the same pass/fail list per entry, for reviewers who
    don't want to open the diff.
-
-### Not wired yet
-
-- **`ANTHROPIC_API_KEY`** — add it under *Settings → Secrets and variables →
-  Actions → New repository secret* on `HabibiCodeCH/iamsingle-sfwa-directory`.
-  Until it's set, `ai_check.py` fails closed (marks the check `skip` with a
-  note), it does not silently pass.
 
 ### Known limitations worth reviewing
 
@@ -126,22 +109,17 @@ Per changed/new entry:
   not "verified safe." `semgrep`/`detect-secrets` versions aren't pinned in
   the workflow — consider pinning once this is stable, so results don't
   shift silently on a tool update.
-- GitHub's unauthenticated API rate limit (60/hr/IP) applies both to the
-  live star-ranking calls from visitors' browsers and to any repo/README
-  fetches the Action makes during a review run. Fine at current scale.
+- GitHub's unauthenticated API rate limit (60/hr/IP) applies to the live
+  star-ranking calls from visitors' browsers. Fine at current scale.
 - The site now depends on `fetch()` for `data/entries.json`, so opening
   `index.html` directly via `file://` will fail on CORS. It only works
   served over http(s) — Vercel, GitHub Pages, etc.
-- The SSRF guard on `url`/README fetches blocks private/loopback/link-local
+- The SSRF guard on the submitted `url` blocks private/loopback/link-local
   addresses at DNS-resolution time, not on every redirect hop — a submitted
   URL that redirects to an internal address after the initial check could
   still slip through. Not exploited in testing, but worth hardening
   (e.g. disabling redirects and re-checking each hop) before this sees
   real traffic.
-- The AI check's prompt-injection mitigation (delimiting the README as
-  untrusted data) reduces but doesn't eliminate the risk of a crafted
-  README manipulating the model's verdict — treat `ai-match` the same as
-  every other check here: a heuristic signal for a human, not a guarantee.
 
 ## If you rename the site
 
@@ -155,6 +133,6 @@ Update in one pass:
 
 Needs Vercel (or another host that runs `api/*.js` as serverless functions)
 — `api/submit.js` means this is no longer a pure static site. Set
-`GITHUB_BOT_TOKEN` and `ANTHROPIC_API_KEY` as project env vars (see
-"Submission backend" above) before the submission form will work; the
-catalog itself renders fine without them.
+`GITHUB_BOT_TOKEN` as a project env var (see "Submission backend" above)
+before the submission form will work; the catalog itself renders fine
+without it.

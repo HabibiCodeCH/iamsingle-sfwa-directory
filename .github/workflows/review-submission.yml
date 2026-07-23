@@ -1,14 +1,14 @@
 name: Review submission
 
 # Manually triggered by a maintainer after looking at the PR, not automatic
-# on every incoming pull_request. This is deliberate: security_scan.py and
-# ai_check.py run with contents:write / pull-requests:write and (once set)
-# ANTHROPIC_API_KEY. If this ran automatically on pull_request, checking out
-# the PR's own branch would mean a submitter's PR could modify these very
-# scripts and have them execute with that access — a classic GitHub Actions
-# "pwn request". Instead this workflow always runs the scripts from the base
-# branch (never the PR's checkout) and pulls only the PR's data/entries.json
-# as plain data via `git show`, so PR-controlled code never executes here.
+# on every incoming pull_request. This is deliberate: security_scan.py runs
+# with contents:write / pull-requests:write. If this ran automatically on
+# pull_request, checking out the PR's own branch would mean a submitter's
+# PR could modify this very script and have it execute with that access —
+# a classic GitHub Actions "pwn request". Instead this workflow always runs
+# the scripts from the base branch (never the PR's checkout) and pulls only
+# the PR's data/entries.json as plain data via `git show`, so PR-controlled
+# code never executes here.
 on:
   workflow_dispatch:
     inputs:
@@ -62,15 +62,8 @@ jobs:
       - name: Security scan
         run: python3 scripts/security_scan.py new_entries.json > scan_results.json
 
-      - name: AI "does what it says" check
-        env:
-          # Add ANTHROPIC_API_KEY under
-          # Settings → Secrets and variables → Actions → New repository secret
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python3 scripts/ai_check.py new_entries.json > ai_results.json
-
       - name: Merge results into data/entries.json
-        run: python3 scripts/merge_checks.py scan_results.json ai_results.json
+        run: python3 scripts/merge_checks.py scan_results.json
 
       - name: Push results to the PR branch
         env:
