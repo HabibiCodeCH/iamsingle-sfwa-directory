@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" width="360" height="80">
+  <rect width="360" height="80" fill="#EEEBE2"/>
+
+  <!-- mark, same as favicon, scaled -->
+  <g transform="translate(10,8) scale(0.9)">
+    <path d="M16 10 H40 L48 18 V54 H16 Z" fill="#EEEBE2" stroke="#201E19" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M40 10 L40 18 L48 18 Z" fill="#201E19"/>
+    <line x1="22" y1="30" x2="42" y2="30" stroke="#201E19" stroke-width="2" stroke-dasharray="3 3"/>
+    <line x1="22" y1="38" x2="42" y2="38" stroke="#201E19" stroke-width="2" stroke-dasharray="3 3"/>
+    <g transform="translate(40,44) rotate(-12)">
+      <circle cx="0" cy="0" r="9" fill="none" stroke="#A8331D" stroke-width="2.5"/>
+      <text x="0" y="4" font-family="ui-monospace, Menlo, monospace" font-size="11" font-weight="700" fill="#A8331D" text-anchor="middle">1</text>
+    </g>
+  </g>
+
+  <text x="80" y="40" font-family="Georgia, 'Iowan Old Style', serif" font-size="26" fill="#201E19">
+    iam<tspan font-style="italic" fill="#A8331D">single</tspan>.app
+  </text>
+  <text x="80" y="60" font-family="ui-monospace, Menlo, monospace" font-size="11" letter-spacing="1.5" fill="#57534A">
+    INDEX OF ONE-FILE SOFTWARE
+  </text>
+</svg>

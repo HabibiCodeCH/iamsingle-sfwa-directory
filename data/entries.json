@@ -1,0 +1,860 @@
+[
+  {
+    "name": "TiddlyWiki",
+    "url": "https://tiddlywiki.com/",
+    "repo": "TiddlyWiki/TiddlyWiki5",
+    "desc": "The original: a non-linear personal wiki that saves its entire self back to disk as one HTML file. Two decades of plugins and forks trace back to it.",
+    "tags": [
+      "notes"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "fail",
+        "detail": "7 finding(s)"
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "Bento",
+    "url": "https://bento.page/slides/",
+    "repo": "nyblnet/bento",
+    "desc": "An entire slide deck \u2014 editor, viewer, data, and live collaboration \u2014 in one HTML file. Readable JSON up top, compressed app shell underneath.",
+    "tags": [
+      "slides",
+      "collab"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "fail",
+        "detail": "6 finding(s)"
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "codeflow",
+    "url": "https://github.com/braedonsaunders/codeflow",
+    "repo": "braedonsaunders/codeflow",
+    "desc": "Paste any GitHub URL and get an interactive architecture map \u2014 how files connect, what breaks if you touch something. Runs entirely in the browser.",
+    "tags": [
+      "tools"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "fail",
+        "detail": "pattern matched \u2014 needs manual review"
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "html-tools",
+    "url": "https://github.com/chicogong/html-tools",
+    "repo": "chicogong/html-tools",
+    "desc": "Over a thousand small frontend utilities, each a single file \u2014 zero build, works offline, privacy-first.",
+    "tags": [
+      "tools"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "hermes-ui",
+    "url": "https://github.com/pyrate-llama/hermes-ui",
+    "repo": "pyrate-llama/hermes-ui",
+    "desc": "A command center for an AI agent \u2014 chat, steer, browse files, manage skills \u2014 packed into one glassmorphic HTML app.",
+    "tags": [
+      "ai",
+      "tools"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "fail",
+        "detail": "502 finding(s)"
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "Agent-Architecture",
+    "url": "https://github.com/TheJacksonCode/Agent-Architecture",
+    "repo": "TheJacksonCode/Agent-Architecture",
+    "desc": "A visual multi-agent system designer for Claude Code \u2014 28 agents, human-in-the-loop gates, live simulation. Zero dependencies.",
+    "tags": [
+      "ai",
+      "tools"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "portable-php",
+    "url": "https://github.com/cadars/portable-php",
+    "repo": "cadars/portable-php",
+    "desc": "A blog in one file. Not HTML-only (it's PHP), but the same instinct: no database, no build, drop it on a server and it works.",
+    "tags": [
+      "notes"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "httprd",
+    "url": "https://github.com/bitrate16/httprd",
+    "repo": "bitrate16/httprd",
+    "desc": "Remote desktop over a plain browser tab, driven by a single script \u2014 no client install on either end.",
+    "tags": [
+      "tools"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "Offline-HTML-Games-Pack",
+    "url": "https://github.com/CoolDude2349/Offline-HTML-Games-Pack",
+    "repo": "CoolDude2349/Offline-HTML-Games-Pack",
+    "desc": "Three hundred small games, each shipped as its own single-file HTML \u2014 pick one up, play offline, no dependencies.",
+    "tags": [
+      "games"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "gemini-chat-organizer-hub",
+    "url": "https://github.com/MartinSantosT/gemini-chat-organizer-hub",
+    "repo": "MartinSantosT/gemini-chat-organizer-hub",
+    "desc": "A local, offline-first hub for organizing AI chats, prompts, and projects \u2014 kanban board included, all in one file.",
+    "tags": [
+      "ai",
+      "notes"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "Hyperclay",
+    "url": "https://hyperclay.com/",
+    "repo": null,
+    "desc": "Frontend and done. Edit a running app by directly manipulating the page; it persists its own state back into the file itself.",
+    "tags": [
+      "tools",
+      "notes"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "skip",
+        "detail": "no repo set \u2014 nothing to clone"
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "skip",
+        "detail": "no repo set \u2014 nothing to clone"
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "skip",
+        "detail": "no repo set \u2014 nothing to clone"
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  },
+  {
+    "name": "Decker",
+    "url": "https://beyondloom.com/decker/",
+    "repo": null,
+    "desc": "A HyperCard-style authoring tool for the web. Draw, script, and stack cards together into one portable file.",
+    "tags": [
+      "tools",
+      "games"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "skip",
+        "detail": "no repo set \u2014 nothing to clone"
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "skip",
+        "detail": "no repo set \u2014 nothing to clone"
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "skip",
+        "detail": "no repo set \u2014 nothing to clone"
+      },
+      {
+        "id": "pattern-eval",
+        "label": "No eval() on dynamic content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "No dynamic Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "No decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "No decoded content written via document.write",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "No sendBeacon calls",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "No decoded content injected into the DOM",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "ai-match",
+        "label": "Description matches README (Haiku)",
+        "status": "skip",
+        "detail": "ANTHROPIC_API_KEY not set \u2014 needs manual review"
+      }
+    ]
+  }
+]

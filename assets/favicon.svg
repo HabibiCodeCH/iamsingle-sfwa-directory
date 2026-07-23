@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#EEEBE2"/>
+  <!-- document body with folded corner -->
+  <path d="M16 10 H40 L48 18 V54 H16 Z" fill="#EEEBE2" stroke="#201E19" stroke-width="3" stroke-linejoin="round"/>
+  <!-- folded corner -->
+  <path d="M40 10 L40 18 L48 18 Z" fill="#201E19"/>
+  <!-- perforation / single dashed rule -->
+  <line x1="22" y1="30" x2="42" y2="30" stroke="#201E19" stroke-width="2" stroke-dasharray="3 3"/>
+  <line x1="22" y1="38" x2="42" y2="38" stroke="#201E19" stroke-width="2" stroke-dasharray="3 3"/>
+  <!-- stamp: single mark, rotated -->
+  <g transform="translate(40,44) rotate(-12)">
+    <circle cx="0" cy="0" r="9" fill="none" stroke="#A8331D" stroke-width="2.5"/>
+    <text x="0" y="4" font-family="ui-monospace, Menlo, monospace" font-size="11" font-weight="700" fill="#A8331D" text-anchor="middle">1</text>
+  </g>
+</svg>
