@@ -218,16 +218,16 @@
       <p class="sub">Submits directly — this opens a PR against the catalog's data for a maintainer to review, no GitHub account needed on your end.</p>
       <form id="submitForm">
         <div>
+          <label for="f-repo">GitHub repo (optional, owner/name)</label>
+          <input type="text" id="f-repo" placeholder="e.g. TiddlyWiki/TiddlyWiki5">
+        </div>
+        <div>
           <label for="f-name">Name</label>
           <input type="text" id="f-name" required placeholder="e.g. Feather.wiki">
         </div>
         <div>
           <label for="f-url">URL</label>
           <input type="url" id="f-url" required placeholder="https://…">
-        </div>
-        <div>
-          <label for="f-repo">GitHub repo (optional, owner/name)</label>
-          <input type="text" id="f-repo" placeholder="e.g. TiddlyWiki/TiddlyWiki5">
         </div>
         <div>
           <label for="f-desc">One or two lines on what it does</label>
@@ -424,7 +424,7 @@ loadEntries();
 const submitOverlay = document.getElementById('submitOverlay');
 function openSubmitModal(){
   submitOverlay.classList.add('open');
-  document.getElementById('f-name').focus();
+  document.getElementById('f-repo').focus();
 }
 function closeSubmitModal(){
   submitOverlay.classList.remove('open');
@@ -434,6 +434,27 @@ document.getElementById('closeSubmit').addEventListener('click', closeSubmitModa
 submitOverlay.addEventListener('click', (ev) => { if(ev.target === submitOverlay) closeSubmitModal(); });
 document.addEventListener('keydown', (ev) => {
   if(ev.key === 'Escape' && submitOverlay.classList.contains('open')) closeSubmitModal();
+});
+
+// autofill Name/URL/Description from the repo's public GitHub metadata —
+// only fills fields the visitor hasn't already typed into, best-effort
+// (silent no-op on 404/rate-limit/network failure, never blocks submission)
+document.getElementById('f-repo').addEventListener('blur', async () => {
+  const repo = document.getElementById('f-repo').value.trim();
+  if(!/^[\w.-]+\/[\w.-]+$/.test(repo)) return;
+  try{
+    const res = await fetch('https://api.github.com/repos/' + repo);
+    if(!res.ok) return;
+    const data = await res.json();
+    const nameEl = document.getElementById('f-name');
+    const urlEl = document.getElementById('f-url');
+    const descEl = document.getElementById('f-desc');
+    if(!nameEl.value.trim() && data.name) nameEl.value = data.name;
+    if(!urlEl.value.trim()) urlEl.value = data.homepage || data.html_url || '';
+    if(!descEl.value.trim() && data.description) descEl.value = data.description;
+  }catch(err){
+    // best-effort only — leave fields as the visitor left them
+  }
 });
 
 // submission form -> POST /api/submit, which opens the PR directly
