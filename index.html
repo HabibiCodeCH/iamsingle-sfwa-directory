@@ -66,6 +66,7 @@
   }
   .chip:hover{border-color:var(--ink-soft);}
   .chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+  .tag-chips{display:flex;gap:6px;flex-wrap:wrap;}
   .spacer{flex:1;}
   select{
     font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
@@ -242,8 +243,15 @@
           <textarea id="f-desc" required></textarea>
         </div>
         <div>
-          <label for="f-tags">Tags (comma separated: notes, slides, tools, ai, games, collab)</label>
-          <input type="text" id="f-tags" placeholder="tools, notes">
+          <label>Tags</label>
+          <div class="tag-chips" id="tagChips">
+            <div class="chip" data-tag="notes">Notes</div>
+            <div class="chip" data-tag="slides">Slides</div>
+            <div class="chip" data-tag="tools">Tools</div>
+            <div class="chip" data-tag="ai">AI</div>
+            <div class="chip" data-tag="games">Games</div>
+            <div class="chip" data-tag="collab">Collab</div>
+          </div>
         </div>
         <div style="position:absolute;left:-9999px;" aria-hidden="true">
           <label for="f-hp">Leave this field blank</label>
@@ -488,6 +496,20 @@ repoInputEl.addEventListener('blur', async () => {
   }
 });
 
+// tag chips (click to toggle, same pattern as the catalog filter chips)
+const selectedTags = new Set();
+document.querySelectorAll('#tagChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('on');
+    if(chip.classList.contains('on')) selectedTags.add(chip.dataset.tag);
+    else selectedTags.delete(chip.dataset.tag);
+  });
+});
+function resetTagChips(){
+  selectedTags.clear();
+  document.querySelectorAll('#tagChips .chip').forEach(c => c.classList.remove('on'));
+}
+
 // submission form -> POST /api/submit, which opens the PR directly
 document.getElementById('submitForm').addEventListener('submit', async (ev) => {
   ev.preventDefault();
@@ -500,7 +522,7 @@ document.getElementById('submitForm').addEventListener('submit', async (ev) => {
     url: document.getElementById('f-url').value.trim(),
     repo: document.getElementById('f-repo').value.trim(),
     desc: document.getElementById('f-desc').value.trim(),
-    tags: document.getElementById('f-tags').value.trim(),
+    tags: [...selectedTags].join(', '),
     hp: document.getElementById('f-hp').value,
   };
 
@@ -517,6 +539,7 @@ document.getElementById('submitForm').addEventListener('submit', async (ev) => {
     if(res.ok && data.ok){
       noteEl.innerHTML = 'Submitted — opened <a href="' + data.prUrl + '" target="_blank" rel="noopener">the PR</a>. A maintainer will review it from there.';
       form.reset();
+      resetTagChips();
     } else {
       noteEl.textContent = 'Could not submit: ' + ((data.errors || ['unknown error']).join('; '));
     }
