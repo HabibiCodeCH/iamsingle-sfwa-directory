@@ -130,7 +130,15 @@
         "detail": ""
       }
     ],
-    "added": "2026-07-23"
+    "added": "2026-07-23",
+    "featured": [
+      {
+        "platform": "Hacker News",
+        "url": "https://news.ycombinator.com/item?id=49008211",
+        "title": "Show HN: Bento \u2014 An entire PowerPoint in one HTML file (edit+view+data+collab)",
+        "points": 947
+      }
+    ]
   },
   {
     "name": "codeflow",
@@ -728,7 +736,15 @@
         "detail": ""
       }
     ],
-    "added": "2026-07-23"
+    "added": "2026-07-23",
+    "featured": [
+      {
+        "platform": "Hacker News",
+        "url": "https://news.ycombinator.com/item?id=44937991",
+        "title": "Web apps in a single, portable, self-updating, vanilla HTML file",
+        "points": 646
+      }
+    ]
   },
   {
     "name": "Decker",
@@ -795,7 +811,15 @@
         "detail": ""
       }
     ],
-    "added": "2026-07-23"
+    "added": "2026-07-23",
+    "featured": [
+      {
+        "platform": "Hacker News",
+        "url": "https://news.ycombinator.com/item?id=40292181",
+        "title": "Decker: A reincarnation of HyperCard with 1-bit graphics",
+        "points": 280
+      }
+    ]
   },
   {
     "name": "xlsx2md",

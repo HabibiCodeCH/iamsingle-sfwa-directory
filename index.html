@@ -122,6 +122,16 @@
     text-overflow:ellipsis;white-space:nowrap;max-width:110px;
   }
   .gh-pill-by:hover{color:var(--stamp);}
+  .hn-badge{
+    display:inline-flex;align-items:center;gap:5px;vertical-align:middle;
+    background:#FF6600;border:1px solid #FF6600;color:#fff;text-decoration:none;
+    font-family:var(--mono);font-size:10.5px;font-weight:bold;padding:2px 7px 2px 4px;
+  }
+  .hn-badge:hover{background:#e35a00;border-color:#e35a00;}
+  .hn-badge .hn-y{
+    background:#fff;color:#FF6600;font-weight:900;font-size:10px;line-height:1;
+    width:14px;height:14px;display:flex;align-items:center;justify-content:center;
+  }
 
   .empty{font-family:var(--mono);font-size:13px;color:var(--ink-soft);padding:40px 0;}
 
@@ -458,6 +468,11 @@ function render(){
     const showMedal = sortEl.value === 'stars' && i < 3;
     const rankLabel = showMedal ? MEDALS[i] : pad(i+1);
 
+    const featuredHtml = (e.featured || []).map(f => f.platform === 'Hacker News'
+      ? `<a class="hn-badge" href="${f.url}" target="_blank" rel="noopener" title="${f.title || ''}"><span class="hn-y">Y</span>▲ ${f.points ?? '?'}</a>`
+      : `<a class="hn-badge" href="${f.url}" target="_blank" rel="noopener" title="${f.title || ''}">Featured on ${f.platform} ↗</a>`
+    ).join('');
+
     card.innerHTML = `
       <div class="stub"><span class="n">${rankLabel}</span></div>
       <img class="logo" alt="" loading="lazy">
@@ -467,7 +482,7 @@ function render(){
           ${ghPill}
         </p>
         <p class="desc">${e.desc}</p>
-        <div class="tags">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <div class="tags">${featuredHtml}${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
       </div>
       ${hasChecks ? `<div class="audit"><span class="audit-label">security audit</span><span class="badge" data-toggle style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</span></div>` : ''}
       ${hasChecks ? `<div class="tests">${testsHtml}</div>` : ''}

@@ -65,6 +65,12 @@ jobs:
       - name: Security scan
         run: python3 scripts/security_scan.py new_entries.json > scan_results.json
 
+      - name: Check Hacker News for existing coverage
+        # Heuristic leads only, not merged into data/entries.json — see
+        # the script's own docstring. Never fails the job; an empty/failed
+        # search just means no HN suggestions show up in the PR comment.
+        run: python3 scripts/check_hn_featured.py new_entries.json > hn_candidates.json || echo "[]" > hn_candidates.json
+
       - name: Merge results into data/entries.json
         run: python3 scripts/merge_checks.py scan_results.json
 
@@ -104,6 +110,8 @@ jobs:
             const fs = require('fs');
             const entries = JSON.parse(fs.readFileSync('data/entries.json', 'utf8'));
             const names = JSON.parse(fs.readFileSync('new_entries.json', 'utf8')).map(e => e.name);
+            let hnResults = [];
+            try { hnResults = JSON.parse(fs.readFileSync('hn_candidates.json', 'utf8')); } catch (e) {}
 
             let body = '### Automated submission review\n';
             body += '_Heuristic checks for a human reviewer — not a guarantee of safety or accuracy. Full per-test detail is on the card once merged._\n\n';
@@ -117,6 +125,14 @@ jobs:
               for (const c of checks) {
                 const icon = c.status === 'pass' ? '✅' : c.status === 'fail' ? '❌' : '⏭️';
                 body += `- ${icon} ${c.label}${c.detail ? ` — ${c.detail}` : ''}\n`;
+              }
+
+              const hn = hnResults.find(r => r.name === name);
+              if (hn && hn.candidates.length) {
+                body += `- 🔶 Possible Hacker News coverage — confirm before adding a \`featured\` entry:\n`;
+                for (const c of hn.candidates) {
+                  body += `  - [${c.title}](${c.url}) (${c.points ?? '?'} pts)\n`;
+                }
               }
               body += '\n';
             }

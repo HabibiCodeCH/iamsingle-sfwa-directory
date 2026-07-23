@@ -23,6 +23,7 @@ scripts/diff_entries.py             finds entries added/changed in a PR vs its b
 scripts/security_scan.py            heuristic security checks (see below)
 scripts/merge_checks.py             writes the results into data/entries.json as a `checks` array
 scripts/snapshot_stars.py           fetches star counts, writes data/stars.json
+scripts/check_hn_featured.py        heuristic Hacker News coverage lookup (see below) — leads only, never auto-applied
 .github/workflows/review-submission.yml   wires the review scripts into a manual PR-review flow
 .github/workflows/snapshot-stars.yml      runs snapshot_stars.py daily, plus on every push to main that touches data/entries.json
 package.json                        marks this a Node/Vercel project (api/submit.js needs it)
@@ -51,6 +52,16 @@ package.json                        marks this a Node/Vercel project (api/submit
 - **Submission form**: POSTs directly to `api/submit.js`, which opens the PR
   itself via the GitHub API — see "Submission backend" below. A manual
   "file it as an issue" link is kept as a fallback if the API is down.
+- **Featured badge**: an entry with a `featured` field
+  (`[{"platform", "url", "title", "points"}]`) shows a badge next to its
+  category tags. For `"platform": "Hacker News"` this renders as an
+  orange HN-branded pill (Y mark, ▲ point count) linking to the thread;
+  `points` is a static snapshot from when the entry was added, not
+  live-refreshed — HN scores are effectively frozen once a story ages off
+  the front page, so there's no daily-refresh job for this the way there
+  is for stars. Other platform values fall back to a plain text badge.
+  Nothing sets `featured` automatically — see `scripts/check_hn_featured.py`
+  below for how a maintainer finds candidates to confirm.
 - **Check badges**: each card shows `passed/total` from the entry's `checks`
   array, if present. Click the badge to expand the itemized pass/fail/skip
   list. Entries with no `checks` (hand-curated, never gone through a PR)
@@ -119,11 +130,18 @@ Per changed/new entry:
 2. **`merge_checks.py`** — writes the results into a `checks` array on the
    matching entry (matched by `url`, the same stable key `diff_entries.py`
    uses — not by `name`, which isn't unique) and rewrites `data/entries.json`.
-3. The workflow commits and tries to push that change back to the PR branch
+3. **`check_hn_featured.py`** — searches HN's free Algolia API
+   (`hn.algolia.com/api`, no auth) for stories matching the entry's
+   repo/URL/name. Common project names produce false positives (e.g.
+   searching "Bento" also surfaces an unrelated Steam Deck keyboard), so
+   results are only ever *candidates* in the PR comment — nothing writes
+   to the entry's `featured` field automatically. A maintainer confirms a
+   real match and adds it by hand.
+4. The workflow commits and tries to push that change back to the PR branch
    — this only works for PRs from branches in this repo; `GITHUB_TOKEN` can't
    push to a fork's branch, so fork PRs rely on the PR comment instead.
-4. A PR comment posts the same pass/fail list per entry, for reviewers who
-   don't want to open the diff.
+5. A PR comment posts the same pass/fail list per entry, plus any HN
+   candidates, for reviewers who don't want to open the diff.
 
 ### Known limitations worth reviewing
 
