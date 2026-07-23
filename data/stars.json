@@ -8,6 +8,7 @@
   "cadars/portable-php": 116,
   "chicogong/html-tools": 121,
   "igapyon/xlsx2md": 29,
-  "nyblnet/bento": 762,
-  "pyrate-llama/hermes-ui": 185
+  "nyblnet/bento": 790,
+  "pyrate-llama/hermes-ui": 185,
+  "zichy/vicco": 31
 }
