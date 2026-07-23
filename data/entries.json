@@ -915,5 +915,70 @@
         "detail": ""
       }
     ]
+  },
+  {
+    "name": "orbital-notebook",
+    "url": "https://github.com/kalpi-4/orbital-notebook",
+    "repo": "kalpi-4/orbital-notebook",
+    "desc": "A single-file, zero-dependency N-body gravitational simulator with a built-in notebook \u2014 runs entirely in your browser, no server required.",
+    "tags": [
+      "games"
+    ],
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
   }
 ]
