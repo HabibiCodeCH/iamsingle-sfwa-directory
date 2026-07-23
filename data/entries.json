@@ -28,37 +28,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -94,37 +94,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -132,7 +132,7 @@
   },
   {
     "name": "codeflow",
-    "url": "https://github.com/braedonsaunders/codeflow",
+    "url": "https://codeflow-five.vercel.app",
     "repo": "braedonsaunders/codeflow",
     "desc": "Paste any GitHub URL and get an interactive architecture map \u2014 how files connect, what breaks if you touch something. Runs entirely in the browser.",
     "tags": [
@@ -159,37 +159,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "fail",
-        "detail": "pattern matched \u2014 needs manual review"
+        "detail": "eval() call found \u2014 needs manual review"
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -197,7 +197,7 @@
   },
   {
     "name": "html-tools",
-    "url": "https://github.com/chicogong/html-tools",
+    "url": "https://tools.realtime-ai.chat",
     "repo": "chicogong/html-tools",
     "desc": "Over a thousand small frontend utilities, each a single file \u2014 zero build, works offline, privacy-first.",
     "tags": [
@@ -224,37 +224,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -290,37 +290,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -328,7 +328,7 @@
   },
   {
     "name": "Agent-Architecture",
-    "url": "https://github.com/TheJacksonCode/Agent-Architecture",
+    "url": "https://thejacksoncode.github.io/Agent-Architecture/",
     "repo": "TheJacksonCode/Agent-Architecture",
     "desc": "A visual multi-agent system designer for Claude Code \u2014 28 agents, human-in-the-loop gates, live simulation. Zero dependencies.",
     "tags": [
@@ -356,37 +356,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -394,7 +394,7 @@
   },
   {
     "name": "portable-php",
-    "url": "https://github.com/cadars/portable-php",
+    "url": "https://cadars.github.io/portable-php/",
     "repo": "cadars/portable-php",
     "desc": "A blog in one file. Not HTML-only (it's PHP), but the same instinct: no database, no build, drop it on a server and it works.",
     "tags": [
@@ -421,37 +421,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -486,37 +486,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -551,37 +551,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -617,37 +617,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -683,37 +683,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -749,37 +749,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -814,37 +814,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }
@@ -880,37 +880,37 @@
       },
       {
         "id": "pattern-eval",
-        "label": "No eval() on dynamic content",
+        "label": "eval() usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-function",
-        "label": "No dynamic Function() construction",
+        "label": "Function() construction",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-decode-exec",
-        "label": "No decode\u2192eval chain",
+        "label": "decode\u2192eval chain",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-write",
-        "label": "No decoded content written via document.write",
+        "label": "document.write of decoded content",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-beacon",
-        "label": "No sendBeacon calls",
+        "label": "sendBeacon usage",
         "status": "pass",
         "detail": ""
       },
       {
         "id": "pattern-dom-inject",
-        "label": "No decoded content injected into the DOM",
+        "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
       }

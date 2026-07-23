@@ -1,14 +1,50 @@
 {
-  "CoolDude2349/Offline-HTML-Games-Pack": 101,
-  "MartinSantosT/gemini-chat-organizer-hub": 26,
-  "TheJacksonCode/Agent-Architecture": 72,
-  "TiddlyWiki/TiddlyWiki5": 8610,
-  "bitrate16/httprd": 78,
-  "braedonsaunders/codeflow": 4666,
-  "cadars/portable-php": 116,
-  "chicogong/html-tools": 121,
-  "igapyon/xlsx2md": 29,
-  "nyblnet/bento": 790,
-  "pyrate-llama/hermes-ui": 185,
-  "zichy/vicco": 31
+  "CoolDude2349/Offline-HTML-Games-Pack": {
+    "stars": 102,
+    "created": "2025-08-07"
+  },
+  "MartinSantosT/gemini-chat-organizer-hub": {
+    "stars": 26,
+    "created": "2025-11-23"
+  },
+  "TheJacksonCode/Agent-Architecture": {
+    "stars": 72,
+    "created": "2026-04-07"
+  },
+  "TiddlyWiki/TiddlyWiki5": {
+    "stars": 8610,
+    "created": "2011-11-22"
+  },
+  "bitrate16/httprd": {
+    "stars": 78,
+    "created": "2022-12-02"
+  },
+  "braedonsaunders/codeflow": {
+    "stars": 4668,
+    "created": "2025-12-16"
+  },
+  "cadars/portable-php": {
+    "stars": 116,
+    "created": "2021-01-13"
+  },
+  "chicogong/html-tools": {
+    "stars": 121,
+    "created": "2025-12-25"
+  },
+  "igapyon/xlsx2md": {
+    "stars": 29,
+    "created": "2026-03-18"
+  },
+  "nyblnet/bento": {
+    "stars": 850,
+    "created": "2026-07-17"
+  },
+  "pyrate-llama/hermes-ui": {
+    "stars": 185,
+    "created": "2026-04-03"
+  },
+  "zichy/vicco": {
+    "stars": 31,
+    "created": "2015-11-01"
+  }
 }

@@ -8,9 +8,12 @@ that an entry is free of malicious code. It:
        - detect-secrets  (leaked credentials / tokens)
        - semgrep p/security-audit + p/javascript  (dangerous patterns)
   2. Fetches the entry's live URL and runs it through a fixed set of
-     pattern tests (eval/Function on dynamic data, decode-then-exec
-     chains, decoded content written into the DOM, etc). Every test is
-     reported individually as pass/fail/skip so results can be shown
+     regex presence tests (eval() calls, new Function() construction,
+     decode-then-exec chains, decoded content written into the DOM, etc).
+     These only detect the literal pattern's presence in the fetched
+     text — they don't parse or evaluate arguments, so a hit means
+     "found, needs a human look," not "confirmed dangerous." Every test
+     is reported individually as pass/fail/skip so results can be shown
      per-test on the site, not as a prose summary.
 
 Usage: python3 scripts/security_scan.py new_entries.json > scan_results.json
@@ -67,12 +70,23 @@ def is_safe_url(url: str):
 
 
 PATTERN_TESTS = [
-    ("pattern-eval", "No eval() on dynamic content", r"\beval\s*\("),
-    ("pattern-function", "No dynamic Function() construction", r"new\s+Function\s*\("),
-    ("pattern-decode-exec", "No decode\u2192eval chain", r"atob\s*\([^)]*\)\s*\)?\s*;?\s*eval"),
-    ("pattern-dom-write", "No decoded content written via document.write", r"document\.write\s*\(\s*(?:unescape|atob|decodeURIComponent)"),
-    ("pattern-beacon", "No sendBeacon calls", r"navigator\.sendBeacon\s*\("),
-    ("pattern-dom-inject", "No decoded content injected into the DOM", r"\.innerHTML\s*=\s*[^;]*(?:atob|decodeURIComponent)"),
+    # (id, label, pattern, fail_detail)
+    # Labels are neutral topic names, not pass/fail assertions \u2014 the icon
+    # (pass/fail) plus fail_detail carry the verdict, so a failing row
+    # reads as a plain statement ("eval() usage \u2014 eval() call found")
+    # instead of a negated claim contradicting its own fail marker.
+    ("pattern-eval", "eval() usage", r"\beval\s*\(",
+     "eval() call found \u2014 needs manual review"),
+    ("pattern-function", "Function() construction", r"new\s+Function\s*\(",
+     "new Function() call found \u2014 needs manual review"),
+    ("pattern-decode-exec", "decode\u2192eval chain", r"atob\s*\([^)]*\)\s*\)?\s*;?\s*eval",
+     "atob()-to-eval() chain found \u2014 needs manual review"),
+    ("pattern-dom-write", "document.write of decoded content", r"document\.write\s*\(\s*(?:unescape|atob|decodeURIComponent)",
+     "decoded content passed to document.write() \u2014 needs manual review"),
+    ("pattern-beacon", "sendBeacon usage", r"navigator\.sendBeacon\s*\(",
+     "navigator.sendBeacon() call found \u2014 needs manual review"),
+    ("pattern-dom-inject", "decoded content DOM injection", r"\.innerHTML\s*=\s*[^;]*(?:atob|decodeURIComponent)",
+     "decoded content assigned to innerHTML \u2014 needs manual review"),
 ]
 
 
@@ -156,16 +170,16 @@ def scan_url(url: str):
             body = resp.read(2_000_000).decode("utf-8", errors="ignore")
     except Exception as e:
         note = f"could not fetch URL for scanning: {e}"
-        return [{"id": pid, "label": label, "status": "skip", "detail": note} for pid, label, _ in PATTERN_TESTS]
+        return [{"id": pid, "label": label, "status": "skip", "detail": note} for pid, label, _, _ in PATTERN_TESTS]
 
     checks = []
-    for pid, label, pattern in PATTERN_TESTS:
+    for pid, label, pattern, fail_detail in PATTERN_TESTS:
         hit = re.search(pattern, body)
         checks.append({
             "id": pid,
             "label": label,
             "status": "fail" if hit else "pass",
-            "detail": "" if not hit else "pattern matched — needs manual review",
+            "detail": "" if not hit else fail_detail,
         })
     return checks
 

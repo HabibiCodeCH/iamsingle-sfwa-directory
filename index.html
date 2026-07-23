@@ -99,9 +99,20 @@
     font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
     color:var(--ink-soft);border:1px solid var(--line);padding:2px 6px;
   }
-  .stars{
-    font-family:var(--mono);font-size:11px;color:var(--stamp);white-space:nowrap;
+  .gh-pill{
+    display:inline-flex;align-items:center;vertical-align:middle;
+    border:1px solid var(--line);font-family:var(--mono);font-size:10.5px;
+    color:var(--ink-soft);line-height:1;
   }
+  .gh-pill a{
+    display:flex;align-items:center;padding:3px 6px;color:var(--ink-soft);
+    border-right:1px solid var(--line);
+  }
+  .gh-pill a:hover{color:var(--stamp);}
+  .gh-pill a svg{display:block;}
+  .gh-pill span{padding:3px 6px;white-space:nowrap;}
+  .gh-pill span + span{border-left:1px solid var(--line);}
+  .gh-pill .gh-stars{color:var(--stamp);}
 
   .empty{font-family:var(--mono);font-size:13px;color:var(--ink-soft);padding:40px 0;}
 
@@ -210,6 +221,7 @@
     <div class="spacer"></div>
     <select id="sort">
       <option value="stars">Sort: stars</option>
+      <option value="newest">Sort: newest</option>
       <option value="name">Sort: name</option>
     </select>
     <div class="count" id="count"></div>
@@ -280,7 +292,7 @@ const chips = document.querySelectorAll('.controls .chip');
 
 let activeFilter = 'all';
 let query = '';
-const starCache = {}; // repo -> number|null (null = fetch failed / no repo)
+const starCache = {}; // repo -> {stars,created}|null (null = fetch failed / no repo)
 
 function pad(n){ return String(n).padStart(2,'0'); }
 const MEDALS = ['🥇','🥈','🥉'];
@@ -289,6 +301,11 @@ function formatStars(n){
   if(n >= 1000) return (n/1000).toFixed(1).replace(/\.0$/,'') + 'k';
   return String(n);
 }
+function formatCreated(dateStr){
+  if(!dateStr) return null;
+  return new Date(dateStr + 'T00:00:00Z').toLocaleDateString('en-US', { month:'short', year:'numeric', timeZone:'UTC' });
+}
+const GH_ICON_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>';
 // 0 -> red (--stamp), 1 -> green, interpolated so a near-miss (e.g. 8/9)
 // reads as "mostly fine" rather than the same red as a near-total failure.
 function scoreColor(ratio){
@@ -310,10 +327,19 @@ function currentList(){
 
   if(sortEl.value === 'stars'){
     list = list.slice().sort((a,b) => {
-      const sa = a.repo ? (starCache[a.repo] ?? -1) : -1;
-      const sb = b.repo ? (starCache[b.repo] ?? -1) : -1;
+      const sa = a.repo ? (starCache[a.repo]?.stars ?? -1) : -1;
+      const sb = b.repo ? (starCache[b.repo]?.stars ?? -1) : -1;
       if(sa === sb) return a.name.localeCompare(b.name);
       return sb - sa;
+    });
+  } else if(sortEl.value === 'newest'){
+    list = list.slice().sort((a,b) => {
+      // ISO dates compare correctly as strings; entries with no repo/no
+      // snapshot data fall back to '', which sorts last (oldest) here.
+      const ca = a.repo ? (starCache[a.repo]?.created ?? '') : '';
+      const cb = b.repo ? (starCache[b.repo]?.created ?? '') : '';
+      if(ca === cb) return a.name.localeCompare(b.name);
+      return cb.localeCompare(ca);
     });
   } else {
     list = list.slice().sort((a,b) => a.name.localeCompare(b.name));
@@ -330,10 +356,16 @@ function render(){
   filtered.forEach((e, i) => {
     const card = document.createElement('div');
     card.className = 'card';
-    const starVal = e.repo ? starCache[e.repo] : null;
-    const starLabel = e.repo
-      ? (starVal === undefined ? '···' : (starVal === null ? 'n/a' : '★ ' + formatStars(starVal)))
-      : '';
+    const starInfo = e.repo ? starCache[e.repo] : null; // undefined = loading, null = confirmed absent
+    const loading = e.repo && starInfo === undefined;
+    const absent = e.repo && starInfo === null;
+    const starsText = !e.repo ? '' : loading ? '···' : absent ? 'n/a' : '★ ' + formatStars(starInfo.stars);
+    const dateText = !e.repo ? '' : loading ? '···' : absent ? 'n/a' : formatCreated(starInfo.created);
+    const ghPill = e.repo ? `<span class="gh-pill">
+        <a href="https://github.com/${e.repo}" target="_blank" rel="noopener" aria-label="${e.repo} on GitHub">${GH_ICON_SVG}</a>
+        <span class="gh-stars">${starsText}</span>
+        <span class="gh-date">${dateText}</span>
+      </span>` : '';
 
     const checks = e.checks || [];
     // A skip counts against the ratio (0, not excluded) so an incomplete
@@ -358,7 +390,7 @@ function render(){
       <div class="meta">
         <p class="name">
           <a href="${e.url}" target="_blank" rel="noopener">${e.name}</a>
-          ${starLabel ? `<span class="stars">${starLabel}</span>` : ''}
+          ${ghPill}
         </p>
         <p class="desc">${e.desc}</p>
         <div class="tags">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>

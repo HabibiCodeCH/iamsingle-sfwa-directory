@@ -14,7 +14,7 @@ Name: **iamsingle.app** (pun on "single-file app" / "I am single").
 index.html                          the site itself (fetches data/entries.json + data/stars.json at runtime)
 api/submit.js                       serverless function: POST here to open a submission PR directly
 data/entries.json                   the directory's data — this is what PRs edit
-data/stars.json                     GitHub star snapshot, refreshed daily — not hand-edited
+data/stars.json                     GitHub star count + repo creation date snapshot, refreshed daily — not hand-edited
 assets/favicon.svg, logo.svg         vector source (edit these, not the PNGs)
 assets/favicon-16/32/180/512.png     rendered favicon sizes
 assets/logo.png                      rendered logo, 720×160
@@ -31,12 +31,16 @@ package.json                        marks this a Node/Vercel project (api/submit
 
 - Static, three files at runtime: `index.html` + `data/entries.json` +
   `data/stars.json`. No backend.
-- **Star ranking**: for entries with a `repo` field, stars come from
-  `data/stars.json`, a snapshot refreshed daily by the scheduled
-  `snapshot-stars.yml` workflow (`scripts/snapshot_stars.py`, authenticated
-  with the default `GITHUB_TOKEN` for a 5000/hr rate limit). The site does
-  not call the GitHub API live per visitor — that was the original design
-  and it doesn't scale past a handful of concurrent visitors sharing an IP.
+- **Star ranking + GitHub pill**: for entries with a `repo` field, star
+  count and repo creation date come from `data/stars.json`
+  (`{repo: {"stars": N, "created": "YYYY-MM-DD"}}`), a snapshot refreshed
+  daily by the scheduled `snapshot-stars.yml` workflow
+  (`scripts/snapshot_stars.py`, authenticated with the default
+  `GITHUB_TOKEN` for a 5000/hr rate limit). The site does not call the
+  GitHub API live per visitor — that was the original design and it
+  doesn't scale past a handful of concurrent visitors sharing an IP. Each
+  card shows a small pill with a GitHub icon (links to the repo), the
+  star count, and the repo's creation month/year.
 - **Submission form**: POSTs directly to `api/submit.js`, which opens the PR
   itself via the GitHub API — see "Submission backend" below. A manual
   "file it as an issue" link is kept as a fallback if the API is down.
@@ -89,9 +93,11 @@ Per changed/new entry:
    - if `repo` is set: shallow-clones it, runs `detect-secrets` (leaked
      credentials) and `semgrep` (`p/security-audit`, `p/javascript` rulesets)
    - always: fetches the live `url` (http/https only, internal/private
-     hosts refused) and pattern-tests the raw HTML/JS for `eval()` on
-     dynamic content, `new Function()`, decode→eval chains, decoded content
-     written into the DOM, `sendBeacon` calls
+     hosts refused) and regex-tests the raw HTML/JS for the literal
+     presence of `eval(`, `new Function(`, decode→eval chains, decoded
+     content written into the DOM, `sendBeacon` calls — these are presence
+     checks on fetched text, not argument/taint analysis, so a `fail`
+     means "found, needs a human look," not "confirmed dangerous"
    - each test reports `pass` / `fail` / `skip` individually — no prose summary
 2. **`merge_checks.py`** — writes the results into a `checks` array on the
    matching entry (matched by `url`, the same stable key `diff_entries.py`
