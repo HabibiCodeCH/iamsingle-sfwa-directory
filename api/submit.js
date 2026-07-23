@@ -23,6 +23,7 @@ const REPO = "iamsingle-sfwa-directory";
 const BASE_BRANCH = "main";
 const VALID_TAGS = ["notes", "slides", "tools", "ai", "games", "collab"];
 const GITHUB_API = "https://api.github.com";
+const DAILY_SUBMISSION_CAP = 100;
 
 function ghHeaders(token, extra) {
   return {
@@ -67,6 +68,19 @@ async function ghJson(url, token, init) {
     throw new Error(`GitHub API ${res.status} on ${url}: ${text.slice(0, 300)}`);
   }
   return res.status === 204 ? null : res.json();
+}
+
+// Uses GitHub's own PR history as the counter — no extra infra. Caps both
+// Anthropic spend and PR/branch spam from repeated submissions. Not a
+// substitute for a hard spend cap in the Anthropic Console (a bug here
+// shouldn't be the only thing standing between a bad actor and the bill).
+async function submissionsInLast24h(token) {
+  const since = Date.now() - 24 * 60 * 60 * 1000;
+  const prs = await ghJson(
+    `${GITHUB_API}/repos/${OWNER}/${REPO}/pulls?state=all&per_page=100&sort=created&direction=desc`,
+    token
+  );
+  return prs.filter((pr) => pr.head.ref.startsWith("submit/") && new Date(pr.created_at).getTime() > since).length;
 }
 
 async function aiCheck(entry, apiKey) {
@@ -173,6 +187,15 @@ export default async function handler(req, res) {
   }
 
   try {
+    const recentCount = await submissionsInLast24h(token);
+    if (recentCount >= DAILY_SUBMISSION_CAP) {
+      res.status(429).json({
+        ok: false,
+        errors: [`Too many submissions in the last 24h (limit: ${DAILY_SUBMISSION_CAP}). Try again later, or file it manually as an issue.`],
+      });
+      return;
+    }
+
     const entriesFile = await ghJson(
       `${GITHUB_API}/repos/${OWNER}/${REPO}/contents/data/entries.json?ref=${BASE_BRANCH}`,
       token
