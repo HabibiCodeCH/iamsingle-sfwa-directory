@@ -142,7 +142,10 @@ async function aiCheck(entry, apiKey) {
     if (!res.ok) throw new Error(`Anthropic API ${res.status}`);
     const data = await res.json();
     const text = (data.content || []).map((b) => b.text || "").join("");
-    const verdict = JSON.parse(text);
+    // Haiku sometimes wraps the answer in a ```json fence despite the
+    // system prompt saying not to — strip it before parsing.
+    const cleaned = text.trim().replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "");
+    const verdict = JSON.parse(cleaned);
     const status = verdict.matches === true ? "pass" : verdict.matches === false ? "fail" : "skip";
     return {
       id: "ai-match",
