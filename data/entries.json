@@ -62,7 +62,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "Bento",
@@ -128,7 +129,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "codeflow",
@@ -193,7 +195,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "html-tools",
@@ -258,7 +261,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "hermes-ui",
@@ -324,7 +328,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "Agent-Architecture",
@@ -390,7 +395,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "portable-php",
@@ -455,7 +461,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "httprd",
@@ -520,7 +527,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "Offline-HTML-Games-Pack",
@@ -585,7 +593,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "gemini-chat-organizer-hub",
@@ -651,7 +660,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "Hyperclay",
@@ -717,7 +727,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "Decker",
@@ -783,7 +794,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "xlsx2md",
@@ -848,7 +860,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "vicco",
@@ -914,7 +927,8 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   },
   {
     "name": "orbital-notebook",
@@ -979,6 +993,7 @@
         "status": "pass",
         "detail": ""
       }
-    ]
+    ],
+    "added": "2026-07-23"
   }
 ]

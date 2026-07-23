@@ -1,12 +1,18 @@
 name: Snapshot GitHub stars
 
-# Scheduled, not PR-triggered — this always runs the base branch's own
-# trusted script against no PR-controlled input at all, so it doesn't carry
-# the "pwn request" risk that review-submission.yml is designed around.
+# Scheduled/push-triggered, not PR-triggered — this always runs the base
+# branch's own trusted script against no PR-controlled input at all, so it
+# doesn't carry the "pwn request" risk that review-submission.yml is
+# designed around: the push trigger only fires on commits already landed
+# on main (e.g. a merged submission PR), never on a PR branch itself.
 on:
   schedule:
-    - cron: "17 4 * * *" # once a day
+    - cron: "17 4 * * *" # once a day, as a backstop
   workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - data/entries.json # so a newly merged entry's stars/created date show up without waiting for the daily run
 
 permissions:
   contents: write

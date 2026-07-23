@@ -54,7 +54,8 @@ function validate(body) {
     : [];
 
   if (errors.length) return { errors };
-  return { entry: { name, url, repo: repo || null, desc, tags } };
+  const added = new Date().toISOString().slice(0, 10);
+  return { entry: { name, url, repo: repo || null, desc, tags, added } };
 }
 
 async function ghJson(url, token, init) {

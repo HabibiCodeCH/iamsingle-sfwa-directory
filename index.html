@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
 <title>iamsingle.app — a catalog of one-file web apps</title>
 <meta name="description" content="A working directory of SFWAs (single-file web apps) — apps that ship as one HTML file, no install, no build, no server required. Ranked by GitHub stars, searchable by what it does.">
 <link rel="canonical" href="https://iamsingle.app/">
@@ -194,41 +194,86 @@
     .logo{width:38px;height:38px;}
     .audit{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:flex-end;margin-top:6px;}
   }
+
+  /* detail page */
+  .crumb{font-family:var(--mono);font-size:12px;color:var(--ink-soft);margin-bottom:24px;}
+  .crumb a{color:var(--ink-soft);text-decoration:none;}
+  .crumb a:hover{color:var(--stamp);}
+  .crumb .sep{margin:0 6px;opacity:.5;}
+  .crumb .current{color:var(--ink);}
+
+  .detail-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:32px;flex-wrap:wrap;}
+  .detail-title{display:flex;gap:18px;align-items:flex-start;min-width:0;}
+  .detail-logo{width:64px;height:64px;border:1px solid var(--line);object-fit:cover;background:var(--paper-2);flex-shrink:0;}
+  .detail-title h1{font-size:32px;margin:0 0 8px;font-weight:400;line-height:1.1;}
+  .detail-desc{font-family:var(--mono);font-size:13px;color:var(--ink-soft);line-height:1.6;max-width:520px;margin:0;}
+  .detail-actions{display:flex;gap:8px;flex-shrink:0;}
+  .btn-outline, .btn-solid{
+    font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;
+    padding:8px 14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  }
+  .btn-outline{background:var(--paper-2);border:1px solid var(--line);color:var(--ink);}
+  .btn-outline:hover{border-color:var(--ink-soft);}
+  .btn-solid{background:var(--ink);color:var(--paper);border:none;}
+  .btn-solid:hover{background:var(--stamp);}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:28px;}
+  .stat-card{background:var(--paper);padding:16px;min-width:0;}
+  .stat-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:10px;}
+  .stat-value{font-size:21px;margin-bottom:4px;word-break:break-word;}
+  .stat-value.mono{font-family:var(--mono);font-size:14px;word-break:break-all;}
+  .stat-sub{font-family:var(--mono);font-size:11px;color:var(--ink-soft);}
+  .stat-sub a{color:var(--stamp);}
+  .detail-checks{border-top:1px dashed var(--line);padding-top:16px;font-family:var(--mono);font-size:12.5px;line-height:2;}
+  .detail-checks-label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:8px;}
+  .back-link{display:inline-block;margin-top:32px;}
+
+  @media (max-width:700px){ .stat-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){
+    .detail-header{flex-direction:column;}
+    .detail-actions{width:100%;}
+    .detail-title h1{font-size:26px;}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header>
-    <span class="kicker">iamsingle.app · est. 2026</span>
-    <h1>One app in one single file.<br>No strings attached.</h1>
-    <p class="sub">A working directory of SFWAs (single-file web apps), apps that ship as a single HTML file. No install, no build, no server required to run. Ranked by GitHub stars where the source is public. Search or filter by what it does.</p>
-  </header>
+  <div id="catalogView">
+    <header>
+      <span class="kicker">iamsingle.app · est. 2026</span>
+      <h1>One app in one single file.<br>No strings attached.</h1>
+      <p class="sub">A working directory of SFWAs (single-file web apps), apps that ship as a single HTML file. No install, no build, no server required to run. Ranked by GitHub stars where the source is public. Search or filter by what it does.</p>
+    </header>
 
-  <div class="submit-bar">
-    <button type="button" id="openSubmit">+ File a new entry</button>
+    <div class="submit-bar">
+      <button type="button" id="openSubmit">+ File a new entry</button>
+    </div>
+
+    <div class="controls">
+      <input type="search" id="search" placeholder="search the catalog…" autocomplete="off">
+      <div class="chip on" data-filter="all">All</div>
+      <div class="chip" data-filter="notes">Notes &amp; wikis</div>
+      <div class="chip" data-filter="slides">Slides</div>
+      <div class="chip" data-filter="tools">Tools</div>
+      <div class="chip" data-filter="ai">AI</div>
+      <div class="chip" data-filter="games">Games</div>
+      <div class="chip" data-filter="collab">Live collab</div>
+      <div class="spacer"></div>
+      <select id="sort">
+        <option value="stars">Sort: stars</option>
+        <option value="created">Sort: date created</option>
+        <option value="added">Sort: date added</option>
+        <option value="name">Sort: name</option>
+      </select>
+      <div class="count" id="count"></div>
+    </div>
+
+    <div class="catalog" id="catalog"></div>
+    <div class="empty" id="empty" style="display:none;">— no entries match. try another term, or clear filters —</div>
   </div>
 
-  <div class="controls">
-    <input type="search" id="search" placeholder="search the catalog…" autocomplete="off">
-    <div class="chip on" data-filter="all">All</div>
-    <div class="chip" data-filter="notes">Notes &amp; wikis</div>
-    <div class="chip" data-filter="slides">Slides</div>
-    <div class="chip" data-filter="tools">Tools</div>
-    <div class="chip" data-filter="ai">AI</div>
-    <div class="chip" data-filter="games">Games</div>
-    <div class="chip" data-filter="collab">Live collab</div>
-    <div class="spacer"></div>
-    <select id="sort">
-      <option value="stars">Sort: stars</option>
-      <option value="newest">Sort: newest</option>
-      <option value="name">Sort: name</option>
-    </select>
-    <div class="count" id="count"></div>
-  </div>
-
-  <div class="catalog" id="catalog"></div>
-  <div class="empty" id="empty" style="display:none;">— no entries match. try another term, or clear filters —</div>
+  <div id="detailView" style="display:none;"></div>
 
   <div class="modal-overlay" id="submitOverlay">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -283,12 +328,20 @@
 <script>
 let ENTRIES = [];
 
+const catalogViewEl = document.getElementById('catalogView');
+const detailViewEl = document.getElementById('detailView');
 const catalogEl = document.getElementById('catalog');
 const emptyEl = document.getElementById('empty');
 const countEl = document.getElementById('count');
 const searchEl = document.getElementById('search');
 const sortEl = document.getElementById('sort');
 const chips = document.querySelectorAll('.controls .chip');
+
+// Same slug rule as api/submit.js's slugify() — kept in sync by hand since
+// there's no shared module between the client and the serverless function.
+function slugify(s){
+  return (s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 40) || 'entry');
+}
 
 let activeFilter = 'all';
 let query = '';
@@ -332,12 +385,22 @@ function currentList(){
       if(sa === sb) return a.name.localeCompare(b.name);
       return sb - sa;
     });
-  } else if(sortEl.value === 'newest'){
+  } else if(sortEl.value === 'created'){
     list = list.slice().sort((a,b) => {
       // ISO dates compare correctly as strings; entries with no repo/no
       // snapshot data fall back to '', which sorts last (oldest) here.
       const ca = a.repo ? (starCache[a.repo]?.created ?? '') : '';
       const cb = b.repo ? (starCache[b.repo]?.created ?? '') : '';
+      if(ca === cb) return a.name.localeCompare(b.name);
+      return cb.localeCompare(ca);
+    });
+  } else if(sortEl.value === 'added'){
+    list = list.slice().sort((a,b) => {
+      // When this catalog was added to iamsingle.app, not the repo's own
+      // creation date. Entries predating this field fall back to '',
+      // sorting last.
+      const ca = a.added ?? '';
+      const cb = b.added ?? '';
       if(ca === cb) return a.name.localeCompare(b.name);
       return cb.localeCompare(ca);
     });
@@ -389,7 +452,7 @@ function render(){
       <img class="logo" alt="" loading="lazy">
       <div class="meta">
         <p class="name">
-          <a href="${e.url}" target="_blank" rel="noopener">${e.name}</a>
+          <a href="/entry/${slugify(e.name)}" data-nav>${e.name}</a>
           ${ghPill}
         </p>
         <p class="desc">${e.desc}</p>
@@ -423,11 +486,162 @@ function render(){
   });
 }
 
+function renderNotFound(slug){
+  detailViewEl.innerHTML = `
+    <nav class="crumb"><a href="/" data-nav>iamsingle.app</a><span class="sep">›</span><span class="current">not found</span></nav>
+    <p class="sub">No entry matches "${slug}". It may have been renamed or removed.</p>
+    <p><a href="/" data-nav class="back-link">← back to the full catalog</a></p>
+  `;
+  document.title = 'Not found — iamsingle.app';
+}
+
+function renderDetail(e){
+  const starInfo = e.repo ? starCache[e.repo] : null; // undefined = loading, null = confirmed absent
+  const loading = e.repo && starInfo === undefined;
+  const absent = e.repo && starInfo === null;
+  const haveStarInfo = e.repo && !loading && !absent;
+
+  const starsVal = !e.repo ? 'n/a' : loading ? '···' : absent ? 'n/a' : '★ ' + formatStars(starInfo.stars);
+  const createdVal = !e.repo ? 'n/a' : loading ? '···' : absent ? 'n/a' : formatCreated(starInfo.created);
+  const createdFull = haveStarInfo ? starInfo.created : ' ';
+
+  const checks = e.checks || [];
+  const passed = checks.filter(c => c.status === 'pass').length;
+  const hasChecks = checks.length > 0;
+  const badgeColor = checks.length ? scoreColor(passed / checks.length) : '#8A8578';
+  const iconFor = s => s === 'pass' ? '✓' : s === 'fail' ? '✗' : '–';
+  const linkify = text => text.replace(/(https?:\/\/\S+)/g, url => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
+  const testsHtml = checks.map(c =>
+    `<div class="t-${c.status}">${iconFor(c.status)} ${c.label}${c.detail ? ' — ' + linkify(c.detail) : ''}</div>`
+  ).join('');
+
+  const repoCard = e.repo ? `
+    <div class="stat-card">
+      <div class="stat-label">Repository</div>
+      <div class="stat-value mono">${e.repo}</div>
+      <div class="stat-sub"><a href="https://github.com/${e.repo}" target="_blank" rel="noopener">View on GitHub ↗</a></div>
+    </div>` : `
+    <div class="stat-card">
+      <div class="stat-label">Repository</div>
+      <div class="stat-value mono">n/a</div>
+      <div class="stat-sub">no public repo linked</div>
+    </div>`;
+
+  const auditCard = hasChecks ? `
+    <div class="stat-card">
+      <div class="stat-label">Security audit</div>
+      <div class="stat-value" style="color:${badgeColor};">${passed}/${checks.length}</div>
+      <div class="stat-sub">see checks below</div>
+    </div>` : `
+    <div class="stat-card">
+      <div class="stat-label">Security audit</div>
+      <div class="stat-value mono">n/a</div>
+      <div class="stat-sub">not yet reviewed</div>
+    </div>`;
+
+  detailViewEl.innerHTML = `
+    <nav class="crumb"><a href="/" data-nav>iamsingle.app</a><span class="sep">›</span><span class="current">${e.name}</span></nav>
+    <div class="detail-header">
+      <div class="detail-title">
+        <img class="detail-logo" alt="" id="detailLogoImg">
+        <div>
+          <h1>${e.name}</h1>
+          <p class="detail-desc">${e.desc}</p>
+          <div class="tags" style="margin-top:10px;">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="detail-actions">
+        <button type="button" class="btn-outline" id="shareBtn">Share</button>
+        <a class="btn-solid" href="${e.url}" target="_blank" rel="noopener">Visit ↗</a>
+      </div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">GitHub stars</div>
+        <div class="stat-value">${starsVal}</div>
+        <div class="stat-sub">${e.repo ? 'daily snapshot' : 'no public repo'}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Created</div>
+        <div class="stat-value mono">${createdVal}</div>
+        <div class="stat-sub">${createdFull}</div>
+      </div>
+      ${repoCard}
+      ${auditCard}
+    </div>
+    ${hasChecks ? `<div class="detail-checks-label">Security audit — full results</div><div class="detail-checks">${testsHtml}</div>` : ''}
+    <a href="/" data-nav class="back-link sub">← back to the full catalog</a>
+  `;
+
+  const logoImgEl = document.getElementById('detailLogoImg');
+  const homepageFavicon = 'https://www.google.com/s2/favicons?sz=128&domain_url=' + encodeURIComponent(e.url);
+  if(e.repo){
+    logoImgEl.src = 'https://github.com/' + e.repo.split('/')[0] + '.png?size=128';
+    logoImgEl.addEventListener('error', function onGithubError(){
+      logoImgEl.removeEventListener('error', onGithubError);
+      logoImgEl.addEventListener('error', () => logoImgEl.remove(), { once: true });
+      logoImgEl.src = homepageFavicon;
+    }, { once: true });
+  } else {
+    logoImgEl.src = homepageFavicon;
+    logoImgEl.addEventListener('error', () => logoImgEl.remove(), { once: true });
+  }
+
+  const shareBtn = document.getElementById('shareBtn');
+  shareBtn.addEventListener('click', async () => {
+    try{
+      await navigator.clipboard.writeText(location.href);
+      shareBtn.textContent = 'Copied!';
+    }catch(err){
+      shareBtn.textContent = 'Copy failed';
+    }
+    setTimeout(() => { shareBtn.textContent = 'Share'; }, 1500);
+  });
+
+  document.title = e.name + ' — iamsingle.app';
+}
+
+function parseRoute(){
+  const m = location.pathname.match(/^\/entry\/([^/]+)\/?$/);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+
+function update(){
+  const slug = parseRoute();
+  if(slug){
+    catalogViewEl.style.display = 'none';
+    detailViewEl.style.display = 'block';
+    const entry = ENTRIES.find(e => slugify(e.name) === slug);
+    if(entry) renderDetail(entry);
+    else renderNotFound(slug);
+  } else {
+    catalogViewEl.style.display = '';
+    detailViewEl.style.display = 'none';
+    document.title = 'iamsingle.app — a catalog of one-file web apps';
+    render();
+  }
+}
+
+function navigateTo(path){
+  if(location.pathname === path) return;
+  history.pushState({}, '', path);
+  update();
+  window.scrollTo(0, 0);
+}
+
+document.body.addEventListener('click', (ev) => {
+  const a = ev.target.closest('a[data-nav]');
+  if(!a) return;
+  ev.preventDefault();
+  navigateTo(a.getAttribute('href'));
+});
+window.addEventListener('popstate', update);
+
 async function loadStars(){
   // One static snapshot fetch, refreshed daily by a scheduled Action —
   // not a live per-visitor call to the GitHub API (see data/stars.json).
   try{
-    const res = await fetch('data/stars.json');
+    const res = await fetch('/data/stars.json');
     if(res.ok) Object.assign(starCache, await res.json());
   }catch(err){
     // no snapshot yet — falls through to "n/a" below rather than hanging on "···"
@@ -436,7 +650,7 @@ async function loadStars(){
   ENTRIES.forEach(e => {
     if(e.repo && !(e.repo in starCache)) starCache[e.repo] = null;
   });
-  render();
+  update();
 }
 
 searchEl.addEventListener('input', () => { query = searchEl.value.trim().toLowerCase(); render(); });
@@ -452,12 +666,12 @@ chips.forEach(chip => {
 
 async function loadEntries(){
   try{
-    const res = await fetch('data/entries.json');
+    const res = await fetch('/data/entries.json');
     ENTRIES = await res.json();
   }catch(err){
     countEl.textContent = 'couldn\'t load data/entries.json';
   }
-  render();
+  update();
   loadStars();
 }
 

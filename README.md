@@ -12,6 +12,7 @@ Name: **iamsingle.app** (pun on "single-file app" / "I am single").
 
 ```
 index.html                          the site itself (fetches data/entries.json + data/stars.json at runtime)
+vercel.json                         rewrites /entry/:slug to index.html for the client-side detail-page router
 api/submit.js                       serverless function: POST here to open a submission PR directly
 data/entries.json                   the directory's data — this is what PRs edit
 data/stars.json                     GitHub star count + repo creation date snapshot, refreshed daily — not hand-edited
@@ -23,7 +24,7 @@ scripts/security_scan.py            heuristic security checks (see below)
 scripts/merge_checks.py             writes the results into data/entries.json as a `checks` array
 scripts/snapshot_stars.py           fetches star counts, writes data/stars.json
 .github/workflows/review-submission.yml   wires the review scripts into a manual PR-review flow
-.github/workflows/snapshot-stars.yml      runs snapshot_stars.py on a daily schedule
+.github/workflows/snapshot-stars.yml      runs snapshot_stars.py daily, plus on every push to main that touches data/entries.json
 package.json                        marks this a Node/Vercel project (api/submit.js needs it)
 ```
 
@@ -34,13 +35,19 @@ package.json                        marks this a Node/Vercel project (api/submit
 - **Star ranking + GitHub pill**: for entries with a `repo` field, star
   count and repo creation date come from `data/stars.json`
   (`{repo: {"stars": N, "created": "YYYY-MM-DD"}}`), a snapshot refreshed
-  daily by the scheduled `snapshot-stars.yml` workflow
+  daily (and right after any merged submission) by the `snapshot-stars.yml` workflow
   (`scripts/snapshot_stars.py`, authenticated with the default
   `GITHUB_TOKEN` for a 5000/hr rate limit). The site does not call the
   GitHub API live per visitor — that was the original design and it
   doesn't scale past a handful of concurrent visitors sharing an IP. Each
   card shows a small pill with a GitHub icon (links to the repo), the
   star count, and the repo's creation month/year.
+- **Sort options**: stars, "date created" (the repo's own GitHub creation
+  date, from `data/stars.json`), "date added" (when the entry was added to
+  *this* catalog, from each entry's `added` field), or name. `added` is
+  stamped automatically by `api/submit.js` at submission time; entries from
+  before this field existed keep whatever date was backfilled from git
+  history when it was introduced.
 - **Submission form**: POSTs directly to `api/submit.js`, which opens the PR
   itself via the GitHub API — see "Submission backend" below. A manual
   "file it as an issue" link is kept as a fallback if the API is down.
@@ -48,6 +55,16 @@ package.json                        marks this a Node/Vercel project (api/submit
   array, if present. Click the badge to expand the itemized pass/fail/skip
   list. Entries with no `checks` (hand-curated, never gone through a PR)
   show no badge — that's intentional, not a bug.
+- **Detail pages**: clicking an entry's name goes to `/entry/{slug}` (a
+  slugified version of its name) instead of straight to the live demo — a
+  client-side view, still rendered by `index.html`, with a bigger header,
+  Share/Visit buttons, stat cards (GitHub stars, created date, repo, security
+  audit score), and the full checks list. `vercel.json` rewrites any
+  `/entry/:slug` request to `index.html` so a hard refresh or a shared link
+  works, not just in-app navigation. There's no server-side rendering, so a
+  shared link's social-preview card falls back to the generic site-wide
+  `og:image`/description, not per-entry content — the page itself renders
+  correctly once loaded, this only affects unfurled link previews.
 
 ## Submission backend (`api/submit.js`)
 
