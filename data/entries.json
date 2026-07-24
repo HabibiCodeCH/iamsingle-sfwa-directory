@@ -1233,5 +1233,69 @@
         "points": 143
       }
     ]
+  },
+  {
+    "name": "FuzzyGraph",
+    "url": "https://fuzzygraph.com",
+    "repo": "calebmadrigal/fuzzygraph",
+    "desc": "Graphs where equations are not only exactly true, but close to true. Instead of black lines on a white background, this creates beautiful gradients.",
+    "tags": [],
+    "added": "2026-07-24",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "fail",
+        "detail": "eval() call found \u2014 needs manual review"
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
   }
 ]
