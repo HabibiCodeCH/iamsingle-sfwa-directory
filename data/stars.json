@@ -12,7 +12,7 @@
     "created": "2026-04-07"
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8612,
+    "stars": 8613,
     "created": "2011-11-22"
   },
   "akissinger/htpad": {
@@ -24,12 +24,16 @@
     "created": "2022-12-02"
   },
   "braedonsaunders/codeflow": {
-    "stars": 4692,
+    "stars": 4705,
     "created": "2025-12-16"
   },
   "cadars/portable-php": {
     "stars": 116,
     "created": "2021-01-13"
+  },
+  "calebmadrigal/fuzzygraph": {
+    "stars": 6,
+    "created": "2025-05-31"
   },
   "chicogong/html-tools": {
     "stars": 121,
@@ -52,7 +56,7 @@
     "created": "2025-03-05"
   },
   "nyblnet/bento": {
-    "stars": 1308,
+    "stars": 1387,
     "created": "2026-07-17"
   },
   "pyrate-llama/hermes-ui": {
