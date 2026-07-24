@@ -1297,5 +1297,69 @@
         "detail": ""
       }
     ]
+  },
+  {
+    "name": "Hypervault",
+    "url": "https://hypervault.github.io/",
+    "repo": "hypervault/hypervault.github.io",
+    "desc": "Hypervault is client-side file encryption web app that embeds a copy of the decryption logic along with the encrypted data in a Single-File Web App.",
+    "tags": [],
+    "added": "2026-07-24",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
   }
 ]
