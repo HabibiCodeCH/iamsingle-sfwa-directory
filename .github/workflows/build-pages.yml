@@ -1,0 +1,42 @@
+name: Build static pages
+
+# Regenerates the pre-rendered catalog, per-entry pages, sitemap, robots.txt
+# and llms.txt whenever the underlying data changes, so crawlers that don't
+# execute JavaScript still see real content. Path-filtered to data files only
+# (not index.html/entry/**/sitemap.xml/etc, which this workflow itself
+# writes) so it can't trigger itself.
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - data/entries.json
+      - data/stars.json
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate static pages
+        run: node scripts/build_pages.mjs
+
+      - name: Commit generated pages if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html entry/ sitemap.xml robots.txt llms.txt
+          if git diff --cached --quiet; then
+            echo "No page changes."
+          else
+            git commit -m "chore: regenerate static pages"
+            git push
+          fi

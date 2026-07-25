@@ -1,0 +1,26 @@
+# iamsingle.app
+
+> A working directory of SFWAs (single-file web apps) — apps that ship as one HTML file, no install, no build, no server required. Ranked by GitHub stars, searchable by what it does.
+
+## Catalog
+
+- [TiddlyWiki](https://iamsingle.app/entry/tiddlywiki): A non-linear personal wiki that saves its entire self back to disk as one HTML file. Two decades of plugins and forks trace back to it.
+- [codeflow](https://iamsingle.app/entry/codeflow): Paste any GitHub URL and get an interactive architecture map — how files connect, what breaks if you touch something. Runs entirely in the browser.
+- [Bento](https://iamsingle.app/entry/bento): An entire slide deck — editor, viewer, data, and live collaboration — in one HTML file. Readable JSON up top, compressed app shell underneath.
+- [minimal-pwa](https://iamsingle.app/entry/minimal-pwa): Minimal files + config for a PWA
+- [nash](https://iamsingle.app/entry/nash): Note as HTML
+- [hermes-ui](https://iamsingle.app/entry/hermes-ui): A command center for an AI agent — chat, steer, browse files, manage skills — packed into one glassmorphic HTML app.
+- [Hypervault](https://iamsingle.app/entry/hypervault): Hypervault is client-side file encryption web app that embeds a copy of the decryption logic along with the encrypted data in a Single-File Web App.
+- [html-tools](https://iamsingle.app/entry/html-tools): Over a thousand small frontend utilities, each a single file — zero build, works offline, privacy-first.
+- [portable-php](https://iamsingle.app/entry/portable-php): A blog in one file. Not HTML-only (it's PHP), but the same instinct: no database, no build, drop it on a server and it works.
+- [Offline-HTML-Games-Pack](https://iamsingle.app/entry/offline-html-games-pack): Three hundred small games, each shipped as its own single-file HTML — pick one up, play offline, no dependencies.
+- [httprd](https://iamsingle.app/entry/httprd): Remote desktop over a plain browser tab, driven by a single script — no client install on either end.
+- [Agent-Architecture](https://iamsingle.app/entry/agent-architecture): A visual multi-agent system designer for Claude Code — 28 agents, human-in-the-loop gates, live simulation. Zero dependencies.
+- [vicco](https://iamsingle.app/entry/vicco): Blogging in a single file
+- [xlsx2md](https://iamsingle.app/entry/xlsx2md): xlsx2md is a Single-file Web App that reads Excel (`.xlsx`) files locally and extracts narrative text, tables, and images as Markdown.
+- [gemini-chat-organizer-hub](https://iamsingle.app/entry/gemini-chat-organizer-hub): A local, offline-first hub for organizing AI chats, prompts, and projects — kanban board included, all in one file.
+- [FuzzyGraph](https://iamsingle.app/entry/fuzzygraph): Graphs where equations are not only exactly true, but close to true. Instead of black lines on a white background, this creates beautiful gradients.
+- [htpad](https://iamsingle.app/entry/htpad): A super-simple HTML notepad for handwritten notes
+- [orbital-notebook](https://iamsingle.app/entry/orbital-notebook): A single-file, zero-dependency N-body gravitational simulator with a built-in notebook — runs entirely in your browser, no server required.
+- [Decker](https://iamsingle.app/entry/decker): A HyperCard-style authoring tool for the web. Draw, script, and stack cards together into one portable file.
+- [Hyperclay](https://iamsingle.app/entry/hyperclay): Frontend and done. Edit a running app by directly manipulating the page; it persists its own state back into the file itself.
