@@ -1,0 +1,47 @@
+name: Promote pending submissions
+
+# Runs right after a merged submission PR lands its data/pending/*.json
+# file on main. Folds it into data/entries.json and deletes the consumed
+# pending file. Never touches PR-controlled code — by the time this runs,
+# the pending file is already part of main's own history (post-merge),
+# same trust level as any other commit here.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/pending/**"
+
+# Serializes runs so two merges landing close together can't race each
+# other reading/writing data/entries.json — a queued run always starts
+# from whatever the previous run just committed, not a stale checkout.
+concurrency:
+  group: promote-pending
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fold pending entries into data/entries.json
+        run: python3 scripts/promote_pending.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A data/entries.json data/pending
+          if git diff --cached --quiet; then
+            echo "Nothing to promote."
+            exit 0
+          fi
+          git commit -m "chore: promote pending submission(s) into data/entries.json"
+          git push

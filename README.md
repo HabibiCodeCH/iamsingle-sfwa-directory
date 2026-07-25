@@ -14,20 +14,41 @@ Name: **iamsingle.app** (pun on "single-file app" / "I am single").
 index.html                          the site itself (fetches data/entries.json + data/stars.json at runtime)
 vercel.json                         rewrites /entry/:slug to index.html for the client-side detail-page router
 api/submit.js                       serverless function: POST here to open a submission PR directly
-data/entries.json                   the directory's data — this is what PRs edit
+data/entries.json                   the directory's data — never touched directly by a submission PR, see below
+data/pending/                       one file per open submission PR — see "How submissions merge without conflicting"
 data/stars.json                     GitHub star count + repo creation date snapshot, refreshed daily — not hand-edited
 assets/favicon.svg, logo.svg         vector source (edit these, not the PNGs)
 assets/favicon-16/32/180/512.png     rendered favicon sizes
 assets/logo.png                      rendered logo, 720×160
-scripts/diff_entries.py             finds entries added/changed in a PR vs its base branch
+scripts/collect_pending.py          gathers data/pending/*.json into a list for the review scripts
 scripts/security_scan.py            heuristic security checks (see below)
-scripts/merge_checks.py             writes the results into data/entries.json as a `checks` array
+scripts/merge_checks.py             writes results into each matching data/pending/*.json as a `checks` array
+scripts/promote_pending.py          folds a merged data/pending/*.json file into data/entries.json
 scripts/snapshot_stars.py           fetches star counts, writes data/stars.json
 scripts/check_hn_featured.py        heuristic Hacker News coverage lookup (see below) — leads only, never auto-applied
 .github/workflows/review-submission.yml   wires the review scripts into a manual PR-review flow
+.github/workflows/promote-pending.yml     runs promote_pending.py after a submission PR merges
 .github/workflows/snapshot-stars.yml      runs snapshot_stars.py daily, plus on every push to main that touches data/entries.json
 package.json                        marks this a Node/Vercel project (api/submit.js needs it)
 ```
+
+## How submissions merge without conflicting
+
+Early on, every submission PR contained a full rewritten copy of
+`data/entries.json` (the new entry appended to the end). That meant two
+PRs open around the same time would both edit the same lines of the same
+file — a textbook git merge conflict, every time, requiring the same
+manual fix (rebuild the entry on top of current `main`, force-push,
+re-merge) by hand.
+
+Now a submission PR only ever adds one new file, `data/pending/{slug}.json`,
+holding just that one entry. Two PRs can never collide, because they're
+never editing the same file. The actual fold into `data/entries.json`
+happens after a PR merges, via `promote-pending.yml` — it always reads
+`data/entries.json` fresh off current `main`, appends the entry, and
+deletes the consumed pending file. If two merges land close together, the
+workflow's `concurrency` group queues the second run to start only after
+the first finishes, so there's no race on the shared file either.
 
 ## How the site works
 
@@ -80,9 +101,10 @@ package.json                        marks this a Node/Vercel project (api/submit
 ## Submission backend (`api/submit.js`)
 
 A Vercel serverless function. Validates the form POST, then opens a PR
-against `data/entries.json` directly via the GitHub API — no GitHub account
-needed on the submitter's end, and no manual issue→PR conversion by a
-maintainer.
+adding one new file under `data/pending/` directly via the GitHub API —
+no GitHub account needed on the submitter's end, and no manual
+issue→PR conversion by a maintainer. It still reads `data/entries.json`
+once, read-only, to reject an obvious duplicate URL before opening the PR.
 
 Needs one env var set on the Vercel project (not committed anywhere):
 
@@ -112,12 +134,14 @@ This is deliberate: the script below runs with `contents: write` /
 branch and running its scripts with that access is a classic GitHub Actions
 "pwn request" — a submission PR could modify `scripts/*.py` itself and
 exfiltrate the token. Instead the workflow always runs the scripts from the
-base branch, and pulls only the PR's `data/entries.json` as plain data via
-`git show` — the PR's own code is never checked out or executed.
+base branch, and pulls only the PR's `data/pending/*.json` file(s) as plain
+data via `git show` — the PR's own code is never checked out or executed.
 
-Per changed/new entry:
+Per pending entry:
 
-1. **`security_scan.py`** — heuristic only, not a guarantee:
+1. **`collect_pending.py`** — gathers every `data/pending/*.json` file the
+   PR added into a single list for the scripts below.
+2. **`security_scan.py`** — heuristic only, not a guarantee:
    - if `repo` is set: shallow-clones it, runs `detect-secrets` (leaked
      credentials) and `semgrep` (`p/security-audit`, `p/javascript` rulesets)
    - always: fetches the live `url` (http/https only, internal/private
@@ -127,21 +151,25 @@ Per changed/new entry:
      checks on fetched text, not argument/taint analysis, so a `fail`
      means "found, needs a human look," not "confirmed dangerous"
    - each test reports `pass` / `fail` / `skip` individually — no prose summary
-2. **`merge_checks.py`** — writes the results into a `checks` array on the
-   matching entry (matched by `url`, the same stable key `diff_entries.py`
-   uses — not by `name`, which isn't unique) and rewrites `data/entries.json`.
-3. **`check_hn_featured.py`** — searches HN's free Algolia API
+3. **`merge_checks.py`** — writes the results into a `checks` array on the
+   matching pending file (matched by `url`, not `name`, which isn't unique)
+   and rewrites that `data/pending/*.json` file in place — never
+   `data/entries.json` directly, see "How submissions merge without
+   conflicting" above.
+4. **`check_hn_featured.py`** — searches HN's free Algolia API
    (`hn.algolia.com/api`, no auth) for stories matching the entry's
    repo/URL/name. Common project names produce false positives (e.g.
    searching "Bento" also surfaces an unrelated Steam Deck keyboard), so
    results are only ever *candidates* in the PR comment — nothing writes
    to the entry's `featured` field automatically. A maintainer confirms a
    real match and adds it by hand.
-4. The workflow commits and tries to push that change back to the PR branch
+5. The workflow commits and tries to push that change back to the PR branch
    — this only works for PRs from branches in this repo; `GITHUB_TOKEN` can't
    push to a fork's branch, so fork PRs rely on the PR comment instead.
-5. A PR comment posts the same pass/fail list per entry, plus any HN
+6. A PR comment posts the same pass/fail list per entry, plus any HN
    candidates, for reviewers who don't want to open the diff.
+7. Once the PR merges, `promote-pending.yml` folds the (now checks-annotated)
+   pending file into `data/entries.json` and deletes it — see above.
 
 ### Known limitations worth reviewing
 

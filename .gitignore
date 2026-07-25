@@ -4,3 +4,8 @@ __pycache__/
 .vercel
 node_modules/
 PROJECT_STATE.md
+
+# transient review-pipeline outputs (review-submission.yml), not committed
+new_entries.json
+scan_results.json
+hn_candidates.json

@@ -7,8 +7,13 @@ name: Review submission
 # PR could modify this very script and have it execute with that access —
 # a classic GitHub Actions "pwn request". Instead this workflow always runs
 # the scripts from the base branch (never the PR's checkout) and pulls only
-# the PR's data/entries.json as plain data via `git show`, so PR-controlled
-# code never executes here.
+# the PR's data/pending/*.json file(s) as plain data via `git show`, so
+# PR-controlled code never executes here.
+#
+# Each submission PR adds exactly one new file under data/pending/ instead
+# of rewriting the shared data/entries.json array. That's what lets PRs
+# merge without conflicting with each other — see promote-pending.yml for
+# the step that actually folds a merged pending file into entries.json.
 on:
   workflow_dispatch:
     inputs:
@@ -39,27 +44,32 @@ jobs:
         run: |
           pip install --quiet detect-secrets semgrep
 
-      - name: Pull the PR's data/entries.json as data (not code)
+      - name: Pull the PR's data/pending/*.json as data (not code)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           PR_JSON=$(gh api "repos/${{ github.repository }}/pulls/${{ inputs.pr_number }}")
           HEAD_SHA=$(echo "$PR_JSON" | jq -r .head.sha)
           HEAD_REF=$(echo "$PR_JSON" | jq -r .head.ref)
-          BASE_REF=$(echo "$PR_JSON" | jq -r .base.ref)
           echo "HEAD_SHA=$HEAD_SHA" >> "$GITHUB_ENV"
           echo "HEAD_REF=$HEAD_REF" >> "$GITHUB_ENV"
-          echo "BASE_REF=$BASE_REF" >> "$GITHUB_ENV"
           git fetch origin "$HEAD_SHA" --depth=1
-          # Overwrite the local data file with the PR's version. This is
-          # inert JSON data read by our own scripts below — never executed.
-          git show "$HEAD_SHA:data/entries.json" > data/entries.json
-          cp data/entries.json /tmp/entries-before-merge.json
 
-      - name: Find new or changed entries
+          mkdir -p data/pending
+          # List, then pull, each pending file the PR added — inert JSON
+          # data read by our own scripts below, never executed.
+          git ls-tree -r --name-only "$HEAD_SHA" -- data/pending/ > /tmp/pending-files.txt
+          while IFS= read -r f; do
+            [ -n "$f" ] && git show "$HEAD_SHA:$f" > "$f"
+          done < /tmp/pending-files.txt
+
+          rm -rf /tmp/pending-before-merge
+          cp -r data/pending /tmp/pending-before-merge
+
+      - name: Collect pending entries
         run: |
-          python3 scripts/diff_entries.py "origin/${{ env.BASE_REF }}" > new_entries.json
-          echo "Changed entries:"
+          python3 scripts/collect_pending.py > new_entries.json
+          echo "Pending entries:"
           cat new_entries.json
 
       - name: Security scan
@@ -71,44 +81,46 @@ jobs:
         # search just means no HN suggestions show up in the PR comment.
         run: python3 scripts/check_hn_featured.py new_entries.json > hn_candidates.json || echo "[]" > hn_candidates.json
 
-      - name: Merge results into data/entries.json
+      - name: Merge results into data/pending/*.json
         run: python3 scripts/merge_checks.py scan_results.json
 
       - name: Push results to the PR branch
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if diff -q /tmp/entries-before-merge.json data/entries.json > /dev/null; then
-            echo "No check-result changes to commit."
-            exit 0
-          fi
-          # Update the single file via the Contents API instead of a git
-          # push. A git push needs the branch we're pushing to be a
-          # fast-forward from our local HEAD — but our local HEAD is built
-          # on the *base* branch (see the checkout step above), which will
-          # almost always have moved on since this PR branch was created.
-          # That made every push here fail with "non-fast-forward" once the
-          # repo had any activity at all. The Contents API only needs the
-          # current blob sha of this one file on the target branch, so it
-          # doesn't care that the rest of the branch's history has diverged.
-          # Same limitation as before: only works for PRs from branches in
-          # this repo, not forks — a fork's contents aren't writable with
-          # this token either way. Falls through to the PR comment below.
-          FILE_SHA=$(gh api "repos/${{ github.repository }}/contents/data/entries.json?ref=${{ env.HEAD_SHA }}" --jq .sha)
-          gh api --method PUT "repos/${{ github.repository }}/contents/data/entries.json" \
-            -f message="chore: record automated check results" \
-            -f content="$(base64 -w0 data/entries.json)" \
-            -f sha="$FILE_SHA" \
-            -f branch="${{ env.HEAD_REF }}" \
-            > /dev/null || \
-            echo "::warning::Could not push results to the PR branch (likely a fork PR) — see the PR comment instead."
+          # Same Contents-API approach as before, now per pending file
+          # instead of the one shared entries.json — each file's own blob
+          # sha is all that's needed, so this doesn't care that the rest
+          # of the branch's history has diverged from a fast-forward push.
+          # Same fork limitation as before: only works for PRs from
+          # branches in this repo. Falls through to the PR comment below.
+          CHANGED=0
+          for f in data/pending/*.json; do
+            [ -e "$f" ] || continue
+            base=$(basename "$f")
+            if ! diff -q "/tmp/pending-before-merge/$base" "$f" > /dev/null 2>&1; then
+              CHANGED=1
+              FILE_SHA=$(gh api "repos/${{ github.repository }}/contents/$f?ref=${{ env.HEAD_SHA }}" --jq .sha)
+              gh api --method PUT "repos/${{ github.repository }}/contents/$f" \
+                -f message="chore: record automated check results" \
+                -f content="$(base64 -w0 "$f")" \
+                -f sha="$FILE_SHA" \
+                -f branch="${{ env.HEAD_REF }}" \
+                > /dev/null || \
+                echo "::warning::Could not push results for $f (likely a fork PR) — see the PR comment instead."
+            fi
+          done
+          [ "$CHANGED" -eq 0 ] && echo "No check-result changes to commit."
+          exit 0
 
       - name: Post results to PR
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            const entries = JSON.parse(fs.readFileSync('data/entries.json', 'utf8'));
+            const glob = require('fs').readdirSync('data/pending')
+              .filter(f => f.endsWith('.json'))
+              .map(f => JSON.parse(fs.readFileSync(`data/pending/${f}`, 'utf8')));
             const names = JSON.parse(fs.readFileSync('new_entries.json', 'utf8')).map(e => e.name);
             let hnResults = [];
             try { hnResults = JSON.parse(fs.readFileSync('hn_candidates.json', 'utf8')); } catch (e) {}
@@ -117,7 +129,7 @@ jobs:
             body += '_Heuristic checks for a human reviewer — not a guarantee of safety or accuracy. Full per-test detail is on the card once merged._\n\n';
 
             for (const name of names) {
-              const entry = entries.find(e => e.name === name);
+              const entry = glob.find(e => e.name === name);
               const checks = (entry && entry.checks) || [];
               const applicable = checks.filter(c => c.status !== 'skip');
               const passed = applicable.filter(c => c.status === 'pass').length;
@@ -138,7 +150,7 @@ jobs:
             }
 
             if (names.length === 0) {
-              body += 'No entries changed in `data/entries.json`.\n';
+              body += 'No pending entries found in this PR.\n';
             }
 
             await github.rest.issues.createComment({

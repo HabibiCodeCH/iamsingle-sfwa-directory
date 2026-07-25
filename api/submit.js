@@ -1,7 +1,14 @@
 // Vercel serverless function: POST /api/submit
 //
 // Replaces the old "open a pre-filled GitHub issue" flow. Validates the
-// submission, then opens a PR against data/entries.json via the GitHub API.
+// submission, then opens a PR adding one new file under data/pending/ via
+// the GitHub API — never touches data/entries.json directly. That's
+// deliberate: when two submissions are in flight at once, each PR only
+// ever contains its own new file, so they can never collide in a git
+// merge the way two PRs both rewriting the same shared array used to.
+// A separate workflow (promote-pending.yml) folds each pending file into
+// data/entries.json after its PR merges. See README.md.
+//
 // The security_scan.py checks (repo clone, semgrep, detect-secrets) run
 // separately via the maintainer-triggered review-submission.yml workflow —
 // too slow/heavy for a synchronous request here.
@@ -128,21 +135,21 @@ export default async function handler(req, res) {
     }
 
     const baseRef = await ghJson(`${GITHUB_API}/repos/${OWNER}/${REPO}/git/ref/heads/${BASE_BRANCH}`, token);
-    const branch = `submit/${slugify(entry.name)}-${Date.now()}`;
+    const slug = `${slugify(entry.name)}-${Date.now()}`;
+    const branch = `submit/${slug}`;
+    const pendingPath = `data/pending/${slug}.json`;
     await ghJson(`${GITHUB_API}/repos/${OWNER}/${REPO}/git/refs`, token, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: baseRef.object.sha }),
     });
 
-    const updated = [...currentEntries, entry];
-    await ghJson(`${GITHUB_API}/repos/${OWNER}/${REPO}/contents/data/entries.json`, token, {
+    await ghJson(`${GITHUB_API}/repos/${OWNER}/${REPO}/contents/${pendingPath}`, token, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message: `Add entry: ${entry.name}`,
-        content: Buffer.from(JSON.stringify(updated, null, 2) + "\n").toString("base64"),
-        sha: entriesFile.sha,
+        content: Buffer.from(JSON.stringify(entry, null, 2) + "\n").toString("base64"),
         branch,
       }),
     });
