@@ -213,9 +213,6 @@ function renderDetailHtml(e, slug) {
   } else {
     statParts.push('no public repo linked');
   }
-  if (hasChecks) {
-    statParts.push(`<span class="badge" style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</span>`);
-  }
   const statStripHtml = `<div class="stat-strip">${statParts.join(' <span class="sep">·</span> ')}</div>`;
 
   const langHtml = languages.length ? `
@@ -249,7 +246,7 @@ function renderDetailHtml(e, slug) {
     ${screenshotHtml}
     ${statStripHtml}
     ${langHtml}
-    ${hasChecks ? `<div class="detail-checks-label" id="audit-results">Security audit — full results</div><div class="detail-checks">${testsHtml}</div>` : ''}
+    ${hasChecks ? `<div class="detail-checks-label" id="audit-results">Security audit — full results <span class="badge" style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</span></div><div class="detail-checks">${testsHtml}</div>` : ''}
     ${embedBadgeHtml(slug, checks, passed)}
     <a href="/" data-nav class="back-link sub">← back to the full catalog</a>
   `;

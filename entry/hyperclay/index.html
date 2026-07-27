@@ -203,7 +203,8 @@
   }
   footer a{color:var(--stamp);}
 
-  .stat-forks-icon, .stat-contrib-icon, .stat-date-icon{display:none;vertical-align:-1px;margin-right:2px;}
+  .stat-forks-icon, .stat-contrib-icon, .stat-date-icon{display:inline-block;vertical-align:-1px;margin-right:2px;}
+  .stat-word, .stat-forks-text, .stat-contrib-text{display:none;}
   .stat-repo-link svg{vertical-align:-1px;margin-right:3px;}
   .stat-repo-link{color:var(--ink);}
   .stat-repo-link:hover{color:var(--stamp);}
@@ -220,12 +221,6 @@
     .btn-label{display:none;}
     .btn-outline, .btn-solid{width:30px;height:30px;padding:0;justify-content:center;font-size:21px;}
     .btn-outline .btn-icon{display:block;width:25px;height:25px;}
-    .stat-word{display:none;}
-    .stat-forks-text{display:none;}
-    .stat-forks-icon{display:inline-block;}
-    .stat-contrib-text{display:none;}
-    .stat-contrib-icon{display:inline-block;}
-    .stat-date-icon{display:inline-block;}
   }
 
   /* detail page */
@@ -340,9 +335,9 @@
     <a class="screenshot-link" href="https://hyperclay.com/" target="_blank" rel="noopener">
       <img class="entry-screenshot" src="https://iamsingle.app/screenshot/hyperclay.png" alt="Screenshot of Hyperclay" loading="lazy">
     </a>
-    <div class="stat-strip">no public repo linked <span class="sep">·</span> <span class="badge" style="color:rgb(98, 88, 52);border-color:rgb(98, 88, 52);">6/9</span></div>
+    <div class="stat-strip">no public repo linked</div>
     
-    <div class="detail-checks-label" id="audit-results">Security audit — full results</div><div class="detail-checks"><div class="t-skip">– No leaked credentials (detect-secrets) — no repo set — nothing to clone</div><div class="t-skip">– Semgrep security-audit ruleset — no repo set — nothing to clone</div><div class="t-skip">– Semgrep javascript ruleset — no repo set — nothing to clone</div><div class="t-pass">✓ eval() usage</div><div class="t-pass">✓ Function() construction</div><div class="t-pass">✓ decode→eval chain</div><div class="t-pass">✓ document.write of decoded content</div><div class="t-pass">✓ sendBeacon usage</div><div class="t-pass">✓ decoded content DOM injection</div></div>
+    <div class="detail-checks-label" id="audit-results">Security audit — full results <span class="badge" style="color:rgb(98, 88, 52);border-color:rgb(98, 88, 52);">6/9</span></div><div class="detail-checks"><div class="t-skip">– No leaked credentials (detect-secrets) — no repo set — nothing to clone</div><div class="t-skip">– Semgrep security-audit ruleset — no repo set — nothing to clone</div><div class="t-skip">– Semgrep javascript ruleset — no repo set — nothing to clone</div><div class="t-pass">✓ eval() usage</div><div class="t-pass">✓ Function() construction</div><div class="t-pass">✓ decode→eval chain</div><div class="t-pass">✓ document.write of decoded content</div><div class="t-pass">✓ sendBeacon usage</div><div class="t-pass">✓ decoded content DOM injection</div></div>
     
     <div class="embed-badge">
       <div class="detail-checks-label">Embed this badge</div>
@@ -624,9 +619,6 @@ function renderDetail(e){
   } else {
     statParts.push('no public repo linked');
   }
-  if(hasChecks){
-    statParts.push(`<span class="badge" style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</span>`);
-  }
   const statStripHtml = `<div class="stat-strip">${statParts.join(' <span class="sep">·</span> ')}</div>`;
 
   const langHtml = languages.length ? `
@@ -666,7 +658,7 @@ function renderDetail(e){
     </a>
     ${statStripHtml}
     ${langHtml}
-    ${hasChecks ? `<div class="detail-checks-label" id="audit-results">Security audit — full results</div><div class="detail-checks">${testsHtml}</div>` : ''}
+    ${hasChecks ? `<div class="detail-checks-label" id="audit-results">Security audit — full results <span class="badge" style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</span></div><div class="detail-checks">${testsHtml}</div>` : ''}
     ${embedBadgeHtml}
     <a href="/" data-nav class="back-link sub">← back to the full catalog</a>
   `;
