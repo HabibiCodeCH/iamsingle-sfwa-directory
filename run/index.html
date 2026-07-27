@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  Fixed, permanent loader for the "run from a QR code" feature (see
+  scripts/screenshot.mjs's QR generation). This page never changes per
+  entry and never fetches anything: the URL fragment (after #) holds a
+  base64-encoded copy of a whole SFWA's HTML, put there by whoever scanned
+  the QR. Fragments never reach the server, so the app's source only ever
+  exists in the visitor's own browser.
+
+  QR codes encode a plain https:// URL rather than a data: URI directly
+  because iOS Camera/Safari refuse to navigate to a data: URI triggered
+  externally (anti-phishing protection) — this static intermediary page
+  is a same-origin, script-initiated render instead, which isn't blocked.
+-->
+<html>
+<head><meta charset="utf-8"><title>iamsingle.app — running from URL</title></head>
+<body>
+<script>
+  var b64 = location.hash.slice(1);
+  if (b64) {
+    var bytes = Uint8Array.from(atob(b64), function(c){ return c.charCodeAt(0); });
+    var html = new TextDecoder('utf-8').decode(bytes);
+    document.open();
+    document.write(html);
+    document.close();
+  } else {
+    document.body.textContent = 'No app data found in the URL.';
+  }
+</script>
+</body>
+</html>

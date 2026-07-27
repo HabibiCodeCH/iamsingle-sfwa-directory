@@ -83,13 +83,19 @@
   .stub{font-family:var(--mono);font-size:11px;color:var(--ink-soft);padding-top:4px;}
   .stub .n{display:block;font-size:16px;color:var(--ink);}
   .meta{min-width:0;}
-  .name{font-size:20px;margin:0 0 2px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .name{font-size:20px;margin:0 0 6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .logo{
     width:46px;height:46px;border:1px solid var(--line);object-fit:cover;
     flex-shrink:0;background:var(--paper-2);align-self:start;
   }
   .name a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--stamp);}
   .name a:hover{color:var(--stamp);}
+  .qr-btn{
+    background:none;border:none;padding:2px;cursor:pointer;color:var(--ink-soft);
+    display:inline-flex;align-items:center;
+  }
+  .qr-btn:hover{color:#fff;}
+  .qr-preview{display:block;width:220px;height:220px;margin:0 auto 16px;border:1px solid var(--line);}
   .desc{
     font-family:var(--mono);font-size:11.5px;line-height:1.42;color:var(--ink-soft);margin:0 0 5px;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
@@ -118,6 +124,7 @@
   .gh-pill span{padding:3px 6px;white-space:nowrap;flex-shrink:0;}
   .gh-pill span + span{border-left:1px solid var(--line);}
   .gh-pill .gh-stars{color:var(--stamp);}
+  .gh-pill .gh-size{color:var(--ink-soft);}
   .gh-pill-by{
     padding:3px 6px;color:var(--ink-soft);text-decoration:none;
     border-left:1px solid var(--line);min-width:0;overflow:hidden;
@@ -147,13 +154,39 @@
   .detail-checks .t-skip{opacity:.6;}
   .detail-checks a{color:var(--stamp);}
 
+  .highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0;}
+  .highlight-card{border:1px solid var(--line);padding:12px 14px;background:var(--paper-2);}
+  .highlight-label{
+    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--ink-soft);margin-bottom:8px;
+  }
+  .highlight-row{display:flex;align-items:center;gap:10px;min-width:0;}
+  .highlight-icon{width:36px;height:36px;border:1px solid var(--line);object-fit:cover;flex-shrink:0;background:var(--paper);}
+  .highlight-text{min-width:0;}
+  .highlight-name{
+    display:block;font-size:14px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--stamp);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .highlight-name:hover{color:var(--stamp);}
+  .highlight-stat{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+
+  @media (max-width:560px){
+    .highlights{grid-template-columns:1fr;}
+  }
+
   /* submission form */
-  .submit-bar{margin:22px 0 4px;}
+  .submit-bar{margin:22px 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .submit-bar button{
     font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
     background:var(--ink);color:var(--paper);border:none;padding:7px 12px;cursor:pointer;
   }
   .submit-bar button:hover{background:var(--stamp);}
+  .download-all{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+    padding:7px 12px;text-decoration:none;color:var(--ink-soft);
+    border:1px solid var(--line);background:var(--paper-2);
+  }
+  .download-all:hover{color:var(--stamp);border-color:var(--ink-soft);}
   .modal .sub{margin-bottom:18px;}
   form{display:grid;gap:12px;max-width:480px;}
   label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);display:block;margin-bottom:4px;}
@@ -203,7 +236,7 @@
   }
   footer a{color:var(--stamp);}
 
-  .stat-forks-icon, .stat-contrib-icon, .stat-date-icon{display:inline-block;vertical-align:-1px;margin-right:2px;}
+  .stat-forks-icon, .stat-contrib-icon, .stat-date-icon, .stat-size-icon{display:inline-block;vertical-align:-1px;margin-right:2px;}
   .stat-word, .stat-forks-text, .stat-contrib-text{display:none;}
   .stat-repo-link svg{vertical-align:-1px;margin-right:3px;}
   .stat-repo-link{color:var(--ink);}
@@ -282,11 +315,44 @@
     <header>
       <span class="kicker">iamsingle.app · est. 2026</span>
       <h1>One app in one single file.<br>No strings attached.</h1>
-      <p class="sub">A working directory of SFWAs (single-file web apps), apps that ship as a single HTML file. No install, no build, no server required to run. Ranked by GitHub stars where the source is public. Search or filter by what it does.</p>
+      <p class="sub">A working directory of SFWAs (single-file web apps), apps that ship as a single HTML file. No install, no build, no server required to run.</p>
     </header>
+
+    <div class="highlights"><!-- BUILD:HIGHLIGHTS:START -->
+      <div class="highlight-card">
+        <div class="highlight-label">Smallest file size</div>
+        <div class="highlight-row">
+          <img class="highlight-icon" alt="" loading="lazy" src="https://github.com/chr15m.png?size=64">
+          <div class="highlight-text">
+            <a class="highlight-name" href="/entry/minimal-pwa" data-nav>minimal-pwa</a>
+            <div class="highlight-stat">593 B</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-label">Most stars</div>
+        <div class="highlight-row">
+          <img class="highlight-icon" alt="" loading="lazy" src="https://github.com/TiddlyWiki.png?size=64">
+          <div class="highlight-text">
+            <a class="highlight-name" href="/entry/tiddlywiki" data-nav>TiddlyWiki</a>
+            <div class="highlight-stat">★ 8.6k</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-label">Last added</div>
+        <div class="highlight-row">
+          <img class="highlight-icon" alt="" loading="lazy" src="https://github.com/wildriver.png?size=64">
+          <div class="highlight-text">
+            <a class="highlight-name" href="/entry/paper-viewer-local-llm" data-nav>paper-viewer-local-llm</a>
+            <div class="highlight-stat">Jul 27, 2026</div>
+          </div>
+        </div>
+      </div><!-- BUILD:HIGHLIGHTS:END --></div>
 
     <div class="submit-bar">
       <button type="button" id="openSubmit">+ File a new entry</button>
+      <a class="download-all" href="/index.html" download="iamsingle-directory.html">Download the whole directory (<!-- BUILD:DLSIZE:START -->121 KB<!-- BUILD:DLSIZE:END -->, one file)</a>
     </div>
 
     <div class="controls">
@@ -301,6 +367,7 @@
       <div class="spacer"></div>
       <select id="sort">
         <option value="stars">Sort: stars</option>
+        <option value="size">Sort: smallest first</option>
         <option value="created">Sort: date created</option>
         <option value="added" selected>Sort: date added</option>
         <option value="name">Sort: name</option>
@@ -315,15 +382,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/paper-viewer-local-llm" data-nav>paper-viewer-local-llm</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/wildriver/paper-viewer-local-llm" target="_blank" rel="noopener" aria-label="wildriver/paper-viewer-local-llm on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 8</span>
-      <span class="gh-date">May 2026</span>
-      <a class="gh-pill-by" href="https://github.com/wildriver" target="_blank" rel="noopener" title="wildriver">by wildriver</a>
-    </span>
+          
         </p>
         <p class="desc">📚 Single-file browser viewer for academic PDFs powered by your local LLM (LM Studio / Ollama).</p>
-        <div class="tags"><span class="tag">tools</span><span class="tag">ai</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/wildriver/paper-viewer-local-llm" target="_blank" rel="noopener" aria-label="wildriver/paper-viewer-local-llm on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 8</span>
+      <span class="gh-size">323 KB</span>
+      <span class="gh-date">May 2026</span>
+      <a class="gh-pill-by" href="https://github.com/wildriver" target="_blank" rel="noopener" title="wildriver">by wildriver</a>
+    </span><span class="tag">tools</span><span class="tag">ai</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/paper-viewer-local-llm#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -334,15 +402,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/fuzzygraph" data-nav>FuzzyGraph</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/calebmadrigal/fuzzygraph" target="_blank" rel="noopener" aria-label="calebmadrigal/fuzzygraph on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 6</span>
-      <span class="gh-date">May 2025</span>
-      <a class="gh-pill-by" href="https://github.com/calebmadrigal" target="_blank" rel="noopener" title="calebmadrigal">by calebmadrigal</a>
-    </span>
+          
         </p>
         <p class="desc">Graphs where equations are not only exactly true, but close to true. Instead of black lines on a white background, this creates beautiful gradients.</p>
-        <div class="tags"></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/calebmadrigal/fuzzygraph" target="_blank" rel="noopener" aria-label="calebmadrigal/fuzzygraph on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 6</span>
+      <span class="gh-size">1.3 MB</span>
+      <span class="gh-date">May 2025</span>
+      <a class="gh-pill-by" href="https://github.com/calebmadrigal" target="_blank" rel="noopener" title="calebmadrigal">by calebmadrigal</a>
+    </span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/fuzzygraph#audit-results" data-nav style="color:rgb(75, 101, 59);border-color:rgb(75, 101, 59);">8/9</a></div>
     </div>
@@ -353,15 +422,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/htpad" data-nav>htpad</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/akissinger/htpad" target="_blank" rel="noopener" aria-label="akissinger/htpad on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 4</span>
-      <span class="gh-date">May 2020</span>
-      <a class="gh-pill-by" href="https://github.com/akissinger" target="_blank" rel="noopener" title="akissinger">by akissinger</a>
-    </span>
+          
         </p>
         <p class="desc">A super-simple HTML notepad for handwritten notes</p>
-        <div class="tags"><span class="tag">notes</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/akissinger/htpad" target="_blank" rel="noopener" aria-label="akissinger/htpad on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 4</span>
+      <span class="gh-size">260 KB</span>
+      <span class="gh-date">May 2020</span>
+      <a class="gh-pill-by" href="https://github.com/akissinger" target="_blank" rel="noopener" title="akissinger">by akissinger</a>
+    </span><span class="tag">notes</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/htpad#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -372,15 +442,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/hypervault" data-nav>Hypervault</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/hypervault/hypervault.github.io" target="_blank" rel="noopener" aria-label="hypervault/hypervault.github.io on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 128</span>
-      <span class="gh-date">Jul 2015</span>
-      <a class="gh-pill-by" href="https://github.com/hypervault" target="_blank" rel="noopener" title="hypervault">by hypervault</a>
-    </span>
+          
         </p>
         <p class="desc">Hypervault is client-side file encryption web app that embeds a copy of the decryption logic along with the encrypted data in a Single-File Web App.</p>
-        <div class="tags"></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/hypervault/hypervault.github.io" target="_blank" rel="noopener" aria-label="hypervault/hypervault.github.io on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 128</span>
+      <span class="gh-size">178 KB</span>
+      <span class="gh-date">Jul 2015</span>
+      <a class="gh-pill-by" href="https://github.com/hypervault" target="_blank" rel="noopener" title="hypervault">by hypervault</a>
+    </span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/hypervault#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -391,15 +462,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/minimal-pwa" data-nav>minimal-pwa</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/chr15m/minimal-pwa" target="_blank" rel="noopener" aria-label="chr15m/minimal-pwa on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 480</span>
-      <span class="gh-date">Mar 2025</span>
-      <a class="gh-pill-by" href="https://github.com/chr15m" target="_blank" rel="noopener" title="chr15m">by chr15m</a>
-    </span>
+          <button type="button" class="qr-btn" data-qr-slug="minimal-pwa" data-qr-name="minimal-pwa" aria-label="Scan to run minimal-pwa from a QR code"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="3" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="3" y="15" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="18.5" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="15" y="18.5" width="2.5" height="2.5" fill="currentColor"></rect></svg></button>
         </p>
         <p class="desc">Minimal files + config for a PWA</p>
-        <div class="tags"><a class="hn-badge" href="https://news.ycombinator.com/item?id=45437326" target="_blank" rel="noopener" title="Minimal files and config for a PWA"><span class="hn-y">Y</span>▲ 143</a><span class="tag">tools</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/chr15m/minimal-pwa" target="_blank" rel="noopener" aria-label="chr15m/minimal-pwa on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 480</span>
+      <span class="gh-size">593 B</span>
+      <span class="gh-date">Mar 2025</span>
+      <a class="gh-pill-by" href="https://github.com/chr15m" target="_blank" rel="noopener" title="chr15m">by chr15m</a>
+    </span><span class="tag">tools</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/minimal-pwa#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -410,15 +482,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/nash" data-nav>nash</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/keepworking/nash" target="_blank" rel="noopener" aria-label="keepworking/nash on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 292</span>
-      <span class="gh-date">Mar 2025</span>
-      <a class="gh-pill-by" href="https://github.com/keepworking" target="_blank" rel="noopener" title="keepworking">by keepworking</a>
-    </span>
+          
         </p>
         <p class="desc">Note as HTML</p>
-        <div class="tags"><a class="hn-badge" href="https://news.ycombinator.com/item?id=43358914" target="_blank" rel="noopener" title="Show HN: Nash, I made a standalone note with single HTML file"><span class="hn-y">Y</span>▲ 536</a><span class="tag">notes</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/keepworking/nash" target="_blank" rel="noopener" aria-label="keepworking/nash on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 292</span>
+      <span class="gh-size">556 KB</span>
+      <span class="gh-date">Mar 2025</span>
+      <a class="gh-pill-by" href="https://github.com/keepworking" target="_blank" rel="noopener" title="keepworking">by keepworking</a>
+    </span><span class="tag">notes</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/nash#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -429,15 +502,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/agent-architecture" data-nav>Agent-Architecture</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/TheJacksonCode/Agent-Architecture" target="_blank" rel="noopener" aria-label="TheJacksonCode/Agent-Architecture on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 72</span>
-      <span class="gh-date">Apr 2026</span>
-      <a class="gh-pill-by" href="https://github.com/TheJacksonCode" target="_blank" rel="noopener" title="TheJacksonCode">by TheJacksonCode</a>
-    </span>
+          
         </p>
         <p class="desc">A visual multi-agent system designer for Claude Code — 28 agents, human-in-the-loop gates, live simulation. Zero dependencies.</p>
-        <div class="tags"><span class="tag">ai</span><span class="tag">tools</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/TheJacksonCode/Agent-Architecture" target="_blank" rel="noopener" aria-label="TheJacksonCode/Agent-Architecture on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 72</span>
+      <span class="gh-size">5.4 MB</span>
+      <span class="gh-date">Apr 2026</span>
+      <a class="gh-pill-by" href="https://github.com/TheJacksonCode" target="_blank" rel="noopener" title="TheJacksonCode">by TheJacksonCode</a>
+    </span><span class="tag">ai</span><span class="tag">tools</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/agent-architecture#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -448,15 +522,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/bento" data-nav>Bento</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/nyblnet/bento" target="_blank" rel="noopener" aria-label="nyblnet/bento on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 2.5k</span>
-      <span class="gh-date">Jul 2026</span>
-      <a class="gh-pill-by" href="https://github.com/nyblnet" target="_blank" rel="noopener" title="nyblnet">by nyblnet</a>
-    </span>
+          
         </p>
         <p class="desc">An entire slide deck — editor, viewer, data, and live collaboration — in one HTML file. Readable JSON up top, compressed app shell underneath.</p>
-        <div class="tags"><a class="hn-badge" href="https://news.ycombinator.com/item?id=49008211" target="_blank" rel="noopener" title="Show HN: Bento — An entire PowerPoint in one HTML file (edit+view+data+collab)"><span class="hn-y">Y</span>▲ 947</a><span class="tag">slides</span><span class="tag">collab</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/nyblnet/bento" target="_blank" rel="noopener" aria-label="nyblnet/bento on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 2.5k</span>
+      <span class="gh-size">643 KB</span>
+      <span class="gh-date">Jul 2026</span>
+      <a class="gh-pill-by" href="https://github.com/nyblnet" target="_blank" rel="noopener" title="nyblnet">by nyblnet</a>
+    </span><span class="tag">slides</span><span class="tag">collab</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/bento#audit-results" data-nav style="color:rgb(75, 101, 59);border-color:rgb(75, 101, 59);">8/9</a></div>
     </div>
@@ -467,15 +542,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/codeflow" data-nav>codeflow</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/braedonsaunders/codeflow" target="_blank" rel="noopener" aria-label="braedonsaunders/codeflow on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 4.8k</span>
-      <span class="gh-date">Dec 2025</span>
-      <a class="gh-pill-by" href="https://github.com/braedonsaunders" target="_blank" rel="noopener" title="braedonsaunders">by braedonsaunders</a>
-    </span>
+          
         </p>
         <p class="desc">Paste any GitHub URL and get an interactive architecture map — how files connect, what breaks if you touch something. Runs entirely in the browser.</p>
-        <div class="tags"><span class="tag">tools</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/braedonsaunders/codeflow" target="_blank" rel="noopener" aria-label="braedonsaunders/codeflow on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 4.8k</span>
+      <span class="gh-size">577 KB</span>
+      <span class="gh-date">Dec 2025</span>
+      <a class="gh-pill-by" href="https://github.com/braedonsaunders" target="_blank" rel="noopener" title="braedonsaunders">by braedonsaunders</a>
+    </span><span class="tag">tools</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/codeflow#audit-results" data-nav style="color:rgb(75, 101, 59);border-color:rgb(75, 101, 59);">8/9</a></div>
     </div>
@@ -489,7 +565,7 @@
           
         </p>
         <p class="desc">A HyperCard-style authoring tool for the web. Draw, script, and stack cards together into one portable file.</p>
-        <div class="tags"><a class="hn-badge" href="https://news.ycombinator.com/item?id=40292181" target="_blank" rel="noopener" title="Decker: A reincarnation of HyperCard with 1-bit graphics"><span class="hn-y">Y</span>▲ 280</a><span class="tag">tools</span><span class="tag">games</span></div>
+        <div class="tags"><span class="gh-pill"><span class="gh-size">7.0 KB</span></span><span class="tag">tools</span><span class="tag">games</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/decker#audit-results" data-nav style="color:rgb(98, 88, 52);border-color:rgb(98, 88, 52);">6/9</a></div>
     </div>
@@ -500,15 +576,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/gemini-chat-organizer-hub" data-nav>gemini-chat-organizer-hub</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/MartinSantosT/gemini-chat-organizer-hub" target="_blank" rel="noopener" aria-label="MartinSantosT/gemini-chat-organizer-hub on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 26</span>
-      <span class="gh-date">Nov 2025</span>
-      <a class="gh-pill-by" href="https://github.com/MartinSantosT" target="_blank" rel="noopener" title="MartinSantosT">by MartinSantosT</a>
-    </span>
+          
         </p>
         <p class="desc">A local, offline-first hub for organizing AI chats, prompts, and projects — kanban board included, all in one file.</p>
-        <div class="tags"><span class="tag">ai</span><span class="tag">notes</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/MartinSantosT/gemini-chat-organizer-hub" target="_blank" rel="noopener" aria-label="MartinSantosT/gemini-chat-organizer-hub on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 26</span>
+      <span class="gh-size">290 KB</span>
+      <span class="gh-date">Nov 2025</span>
+      <a class="gh-pill-by" href="https://github.com/MartinSantosT" target="_blank" rel="noopener" title="MartinSantosT">by MartinSantosT</a>
+    </span><span class="tag">ai</span><span class="tag">notes</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/gemini-chat-organizer-hub#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -519,15 +596,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/hermes-ui" data-nav>hermes-ui</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/pyrate-llama/hermes-ui" target="_blank" rel="noopener" aria-label="pyrate-llama/hermes-ui on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 187</span>
-      <span class="gh-date">Apr 2026</span>
-      <a class="gh-pill-by" href="https://github.com/pyrate-llama" target="_blank" rel="noopener" title="pyrate-llama">by pyrate-llama</a>
-    </span>
+          
         </p>
         <p class="desc">A command center for an AI agent — chat, steer, browse files, manage skills — packed into one glassmorphic HTML app.</p>
-        <div class="tags"><span class="tag">ai</span><span class="tag">tools</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/pyrate-llama/hermes-ui" target="_blank" rel="noopener" aria-label="pyrate-llama/hermes-ui on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 187</span>
+      <span class="gh-size">501 KB</span>
+      <span class="gh-date">Apr 2026</span>
+      <a class="gh-pill-by" href="https://github.com/pyrate-llama" target="_blank" rel="noopener" title="pyrate-llama">by pyrate-llama</a>
+    </span><span class="tag">ai</span><span class="tag">tools</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/hermes-ui#audit-results" data-nav style="color:rgb(75, 101, 59);border-color:rgb(75, 101, 59);">8/9</a></div>
     </div>
@@ -538,15 +616,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/html-tools" data-nav>html-tools</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/chicogong/html-tools" target="_blank" rel="noopener" aria-label="chicogong/html-tools on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 124</span>
-      <span class="gh-date">Dec 2025</span>
-      <a class="gh-pill-by" href="https://github.com/chicogong" target="_blank" rel="noopener" title="chicogong">by chicogong</a>
-    </span>
+          
         </p>
         <p class="desc">Over a thousand small frontend utilities, each a single file — zero build, works offline, privacy-first.</p>
-        <div class="tags"><span class="tag">tools</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/chicogong/html-tools" target="_blank" rel="noopener" aria-label="chicogong/html-tools on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 124</span>
+      <span class="gh-size">364 KB</span>
+      <span class="gh-date">Dec 2025</span>
+      <a class="gh-pill-by" href="https://github.com/chicogong" target="_blank" rel="noopener" title="chicogong">by chicogong</a>
+    </span><span class="tag">tools</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/html-tools#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -557,15 +636,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/httprd" data-nav>httprd</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/bitrate16/httprd" target="_blank" rel="noopener" aria-label="bitrate16/httprd on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 78</span>
-      <span class="gh-date">Dec 2022</span>
-      <a class="gh-pill-by" href="https://github.com/bitrate16" target="_blank" rel="noopener" title="bitrate16">by bitrate16</a>
-    </span>
+          
         </p>
         <p class="desc">Remote desktop over a plain browser tab, driven by a single script — no client install on either end.</p>
-        <div class="tags"><span class="tag">tools</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/bitrate16/httprd" target="_blank" rel="noopener" aria-label="bitrate16/httprd on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 78</span>
+      <span class="gh-size">303 KB</span>
+      <span class="gh-date">Dec 2022</span>
+      <a class="gh-pill-by" href="https://github.com/bitrate16" target="_blank" rel="noopener" title="bitrate16">by bitrate16</a>
+    </span><span class="tag">tools</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/httprd#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -579,7 +659,7 @@
           
         </p>
         <p class="desc">Frontend and done. Edit a running app by directly manipulating the page; it persists its own state back into the file itself.</p>
-        <div class="tags"><a class="hn-badge" href="https://news.ycombinator.com/item?id=44937991" target="_blank" rel="noopener" title="Web apps in a single, portable, self-updating, vanilla HTML file"><span class="hn-y">Y</span>▲ 646</a><span class="tag">tools</span><span class="tag">notes</span></div>
+        <div class="tags"><span class="gh-pill"><span class="gh-size">275 KB</span></span><span class="tag">tools</span><span class="tag">notes</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/hyperclay#audit-results" data-nav style="color:rgb(98, 88, 52);border-color:rgb(98, 88, 52);">6/9</a></div>
     </div>
@@ -590,15 +670,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/offline-html-games-pack" data-nav>Offline-HTML-Games-Pack</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/CoolDude2349/Offline-HTML-Games-Pack" target="_blank" rel="noopener" aria-label="CoolDude2349/Offline-HTML-Games-Pack on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 105</span>
-      <span class="gh-date">Aug 2025</span>
-      <a class="gh-pill-by" href="https://github.com/CoolDude2349" target="_blank" rel="noopener" title="CoolDude2349">by CoolDude2349</a>
-    </span>
+          
         </p>
         <p class="desc">Three hundred small games, each shipped as its own single-file HTML — pick one up, play offline, no dependencies.</p>
-        <div class="tags"><span class="tag">games</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/CoolDude2349/Offline-HTML-Games-Pack" target="_blank" rel="noopener" aria-label="CoolDude2349/Offline-HTML-Games-Pack on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 105</span>
+      <span class="gh-size">260 KB</span>
+      <span class="gh-date">Aug 2025</span>
+      <a class="gh-pill-by" href="https://github.com/CoolDude2349" target="_blank" rel="noopener" title="CoolDude2349">by CoolDude2349</a>
+    </span><span class="tag">games</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/offline-html-games-pack#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -609,15 +690,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/orbital-notebook" data-nav>orbital-notebook</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/kalpi-4/orbital-notebook" target="_blank" rel="noopener" aria-label="kalpi-4/orbital-notebook on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 1</span>
-      <span class="gh-date">Jun 2026</span>
-      <a class="gh-pill-by" href="https://github.com/kalpi-4" target="_blank" rel="noopener" title="kalpi-4">by kalpi-4</a>
-    </span>
+          
         </p>
         <p class="desc">A single-file, zero-dependency N-body gravitational simulator with a built-in notebook — runs entirely in your browser, no server required.</p>
-        <div class="tags"><span class="tag">games</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/kalpi-4/orbital-notebook" target="_blank" rel="noopener" aria-label="kalpi-4/orbital-notebook on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 1</span>
+      <span class="gh-size">293 KB</span>
+      <span class="gh-date">Jun 2026</span>
+      <a class="gh-pill-by" href="https://github.com/kalpi-4" target="_blank" rel="noopener" title="kalpi-4">by kalpi-4</a>
+    </span><span class="tag">games</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/orbital-notebook#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -628,15 +710,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/portable-php" data-nav>portable-php</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/cadars/portable-php" target="_blank" rel="noopener" aria-label="cadars/portable-php on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 116</span>
-      <span class="gh-date">Jan 2021</span>
-      <a class="gh-pill-by" href="https://github.com/cadars" target="_blank" rel="noopener" title="cadars">by cadars</a>
-    </span>
+          
         </p>
         <p class="desc">A blog in one file. Not HTML-only (it&#39;s PHP), but the same instinct: no database, no build, drop it on a server and it works.</p>
-        <div class="tags"><span class="tag">notes</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/cadars/portable-php" target="_blank" rel="noopener" aria-label="cadars/portable-php on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 116</span>
+      <span class="gh-size">33 KB</span>
+      <span class="gh-date">Jan 2021</span>
+      <a class="gh-pill-by" href="https://github.com/cadars" target="_blank" rel="noopener" title="cadars">by cadars</a>
+    </span><span class="tag">notes</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/portable-php#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -647,15 +730,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/tiddlywiki" data-nav>TiddlyWiki</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/TiddlyWiki/TiddlyWiki5" target="_blank" rel="noopener" aria-label="TiddlyWiki/TiddlyWiki5 on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 8.6k</span>
-      <span class="gh-date">Nov 2011</span>
-      <a class="gh-pill-by" href="https://github.com/TiddlyWiki" target="_blank" rel="noopener" title="TiddlyWiki">by TiddlyWiki</a>
-    </span>
+          
         </p>
         <p class="desc">A non-linear personal wiki that saves its entire self back to disk as one HTML file. Two decades of plugins and forks trace back to it.</p>
-        <div class="tags"><span class="tag">notes</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/TiddlyWiki/TiddlyWiki5" target="_blank" rel="noopener" aria-label="TiddlyWiki/TiddlyWiki5 on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 8.6k</span>
+      <span class="gh-size">6.5 MB</span>
+      <span class="gh-date">Nov 2011</span>
+      <a class="gh-pill-by" href="https://github.com/TiddlyWiki" target="_blank" rel="noopener" title="TiddlyWiki">by TiddlyWiki</a>
+    </span><span class="tag">notes</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/tiddlywiki#audit-results" data-nav style="color:rgb(75, 101, 59);border-color:rgb(75, 101, 59);">8/9</a></div>
     </div>
@@ -666,15 +750,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/vicco" data-nav>vicco</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/zichy/vicco" target="_blank" rel="noopener" aria-label="zichy/vicco on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 31</span>
-      <span class="gh-date">Nov 2015</span>
-      <a class="gh-pill-by" href="https://github.com/zichy" target="_blank" rel="noopener" title="zichy">by zichy</a>
-    </span>
+          
         </p>
         <p class="desc">Blogging in a single file</p>
-        <div class="tags"><span class="tag">tools</span><span class="tag">notes</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/zichy/vicco" target="_blank" rel="noopener" aria-label="zichy/vicco on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 31</span>
+      <span class="gh-size">269 KB</span>
+      <span class="gh-date">Nov 2015</span>
+      <a class="gh-pill-by" href="https://github.com/zichy" target="_blank" rel="noopener" title="zichy">by zichy</a>
+    </span><span class="tag">tools</span><span class="tag">notes</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/vicco#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div>
@@ -685,15 +770,16 @@
       <div class="meta">
         <p class="name">
           <a href="/entry/xlsx2md" data-nav>xlsx2md</a>
-          <span class="gh-pill">
-      <a class="gh-pill-icon" href="https://github.com/igapyon/xlsx2md" target="_blank" rel="noopener" aria-label="igapyon/xlsx2md on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-      <span class="gh-stars">★ 29</span>
-      <span class="gh-date">Mar 2026</span>
-      <a class="gh-pill-by" href="https://github.com/igapyon" target="_blank" rel="noopener" title="igapyon">by igapyon</a>
-    </span>
+          
         </p>
         <p class="desc">xlsx2md is a Single-file Web App that reads Excel (`.xlsx`) files locally and extracts narrative text, tables, and images as Markdown.</p>
-        <div class="tags"><span class="tag">tools</span></div>
+        <div class="tags"><span class="gh-pill">
+      <a class="gh-pill-icon" href="https://github.com/igapyon/xlsx2md" target="_blank" rel="noopener" aria-label="igapyon/xlsx2md on GitHub"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+      <span class="gh-stars">★ 29</span>
+      <span class="gh-size">16 KB</span>
+      <span class="gh-date">Mar 2026</span>
+      <a class="gh-pill-by" href="https://github.com/igapyon" target="_blank" rel="noopener" title="igapyon">by igapyon</a>
+    </span><span class="tag">tools</span></div>
       </div>
       <div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/xlsx2md#audit-results" data-nav style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</a></div>
     </div><!-- BUILD:CATALOG:END --></div>
@@ -747,6 +833,15 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="qrOverlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle">
+      <button type="button" class="modal-close" id="closeQr" aria-label="Close">×</button>
+      <h2 id="qrModalTitle">Scan to run <span id="qrEntryName"></span></h2>
+      <img class="qr-preview" id="qrImage" alt="QR code — scan to run this app">
+      <textarea class="badge-snippet" id="qrCaption" readonly rows="2"></textarea>
+    </div>
+  </div>
+
   <footer>
     A single-file web app (SFWA) is one .html file containing its UI, logic, and often its data, that runs straight from disk or a static host with no build step and no backend to keep alive. Star counts come from a daily snapshot for entries with a public repo; entries without one are unranked. See the thread that sparked this: <a href="https://news.ycombinator.com/item?id=49008211" target="_blank" rel="noopener">Show HN: Bento</a>. New entries: <a href="/feed.xml">RSS feed</a>.
   </footer>
@@ -754,6 +849,12 @@
 
 <script>
 let ENTRIES = [];
+
+// Injected at build time with the full entries+stars dataset so every
+// generated page is self-contained and works over file:// (no fetch()
+// needed). Falls back to fetch() below if still null — e.g. editing
+// this template directly without running scripts/build_pages.mjs.
+/* BUILD:INLINE_DATA:START */const INLINE_DATA = {"entries":[{"name":"TiddlyWiki","url":"https://tiddlywiki.com/","repo":"TiddlyWiki/TiddlyWiki5","desc":"A non-linear personal wiki that saves its entire self back to disk as one HTML file. Two decades of plugins and forks trace back to it.","tags":["notes"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"fail","detail":"7 finding(s)"},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"Bento","url":"https://bento.page/slides/","repo":"nyblnet/bento","desc":"An entire slide deck — editor, viewer, data, and live collaboration — in one HTML file. Readable JSON up top, compressed app shell underneath.","tags":["slides","collab"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"fail","detail":"6 finding(s)"},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23","featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=49008211","title":"Show HN: Bento — An entire PowerPoint in one HTML file (edit+view+data+collab)","points":947}]},{"name":"codeflow","url":"https://codeflow-five.vercel.app","repo":"braedonsaunders/codeflow","desc":"Paste any GitHub URL and get an interactive architecture map — how files connect, what breaks if you touch something. Runs entirely in the browser.","tags":["tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"fail","detail":"eval() call found — needs manual review"},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"html-tools","url":"https://tools.realtime-ai.chat","repo":"chicogong/html-tools","desc":"Over a thousand small frontend utilities, each a single file — zero build, works offline, privacy-first.","tags":["tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"hermes-ui","url":"https://github.com/pyrate-llama/hermes-ui","repo":"pyrate-llama/hermes-ui","desc":"A command center for an AI agent — chat, steer, browse files, manage skills — packed into one glassmorphic HTML app.","tags":["ai","tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"fail","detail":"502 finding(s)"},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"Agent-Architecture","url":"https://thejacksoncode.github.io/Agent-Architecture/","repo":"TheJacksonCode/Agent-Architecture","desc":"A visual multi-agent system designer for Claude Code — 28 agents, human-in-the-loop gates, live simulation. Zero dependencies.","tags":["ai","tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"portable-php","url":"https://cadars.github.io/portable-php/","repo":"cadars/portable-php","desc":"A blog in one file. Not HTML-only (it's PHP), but the same instinct: no database, no build, drop it on a server and it works.","tags":["notes"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"httprd","url":"https://github.com/bitrate16/httprd","repo":"bitrate16/httprd","desc":"Remote desktop over a plain browser tab, driven by a single script — no client install on either end.","tags":["tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"Offline-HTML-Games-Pack","url":"https://github.com/CoolDude2349/Offline-HTML-Games-Pack","repo":"CoolDude2349/Offline-HTML-Games-Pack","desc":"Three hundred small games, each shipped as its own single-file HTML — pick one up, play offline, no dependencies.","tags":["games"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"gemini-chat-organizer-hub","url":"https://github.com/MartinSantosT/gemini-chat-organizer-hub","repo":"MartinSantosT/gemini-chat-organizer-hub","desc":"A local, offline-first hub for organizing AI chats, prompts, and projects — kanban board included, all in one file.","tags":["ai","notes"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"Hyperclay","url":"https://hyperclay.com/","repo":null,"desc":"Frontend and done. Edit a running app by directly manipulating the page; it persists its own state back into the file itself.","tags":["tools","notes"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"skip","detail":"no repo set — nothing to clone"},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"skip","detail":"no repo set — nothing to clone"},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"skip","detail":"no repo set — nothing to clone"},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23","featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=44937991","title":"Web apps in a single, portable, self-updating, vanilla HTML file","points":646}]},{"name":"Decker","url":"https://beyondloom.com/decker/","repo":null,"desc":"A HyperCard-style authoring tool for the web. Draw, script, and stack cards together into one portable file.","tags":["tools","games"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"skip","detail":"no repo set — nothing to clone"},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"skip","detail":"no repo set — nothing to clone"},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"skip","detail":"no repo set — nothing to clone"},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23","featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=40292181","title":"Decker: A reincarnation of HyperCard with 1-bit graphics","points":280}]},{"name":"xlsx2md","url":"https://igapyon.github.io/xlsx2md/","repo":"igapyon/xlsx2md","desc":"xlsx2md is a Single-file Web App that reads Excel (`.xlsx`) files locally and extracts narrative text, tables, and images as Markdown.","tags":["tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"vicco","url":"https://github.com/zichy/vicco","repo":"zichy/vicco","desc":"Blogging in a single file","tags":["tools","notes"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"orbital-notebook","url":"https://github.com/kalpi-4/orbital-notebook","repo":"kalpi-4/orbital-notebook","desc":"A single-file, zero-dependency N-body gravitational simulator with a built-in notebook — runs entirely in your browser, no server required.","tags":["games"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"htpad","url":"https://github.com/akissinger/htpad","repo":"akissinger/htpad","desc":"A super-simple HTML notepad for handwritten notes","tags":["notes"],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}]},{"name":"nash","url":"https://keepworking.github.io/nash/","repo":"keepworking/nash","desc":"Note as HTML","tags":["notes"],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=43358914","title":"Show HN: Nash, I made a standalone note with single HTML file","points":536}]},{"name":"minimal-pwa","url":"https://mccormick.cx/minimal-pwa","repo":"chr15m/minimal-pwa","desc":"Minimal files + config for a PWA","tags":["tools"],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=45437326","title":"Minimal files and config for a PWA","points":143}]},{"name":"FuzzyGraph","url":"https://fuzzygraph.com","repo":"calebmadrigal/fuzzygraph","desc":"Graphs where equations are not only exactly true, but close to true. Instead of black lines on a white background, this creates beautiful gradients.","tags":[],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"fail","detail":"eval() call found — needs manual review"},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}]},{"name":"Hypervault","url":"https://hypervault.github.io/","repo":"hypervault/hypervault.github.io","desc":"Hypervault is client-side file encryption web app that embeds a copy of the decryption logic along with the encrypted data in a Single-File Web App.","tags":[],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}]},{"name":"paper-viewer-local-llm","url":"https://github.com/wildriver/paper-viewer-local-llm","repo":"wildriver/paper-viewer-local-llm","desc":"📚 Single-file browser viewer for academic PDFs powered by your local LLM (LM Studio / Ollama).","tags":["tools","ai"],"added":"2026-07-27","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}]}],"stars":{"CoolDude2349/Offline-HTML-Games-Pack":{"stars":105,"created":"2025-08-07","forks":121,"contributors":4,"languages":[{"name":"HTML","pct":100},{"name":"JavaScript","pct":0},{"name":"Python","pct":0}]},"MartinSantosT/gemini-chat-organizer-hub":{"stars":26,"created":"2025-11-23","forks":3,"contributors":1,"languages":[{"name":"HTML","pct":100}]},"TheJacksonCode/Agent-Architecture":{"stars":72,"created":"2026-04-07","forks":9,"contributors":1,"languages":[{"name":"HTML","pct":99.8},{"name":"JavaScript","pct":0.2}]},"TiddlyWiki/TiddlyWiki5":{"stars":8616,"created":"2011-11-22","forks":1251,"contributors":320,"languages":[{"name":"JavaScript","pct":97},{"name":"TeX","pct":1.3},{"name":"Shell","pct":0.8},{"name":"CSS","pct":0.6},{"name":"Batchfile","pct":0.1}]},"akissinger/htpad":{"stars":4,"created":"2020-05-07","forks":1,"contributors":1,"languages":[{"name":"HTML","pct":52.3},{"name":"JavaScript","pct":47.7}]},"bitrate16/httprd":{"stars":78,"created":"2022-12-02","forks":7,"contributors":1,"languages":[{"name":"HTML","pct":56.7},{"name":"Python","pct":42},{"name":"Batchfile","pct":1.3}]},"braedonsaunders/codeflow":{"stars":4808,"created":"2025-12-16","forks":734,"contributors":13,"languages":[{"name":"HTML","pct":80.4},{"name":"JavaScript","pct":19.6}]},"cadars/portable-php":{"stars":116,"created":"2021-01-13","forks":11,"contributors":2,"languages":[{"name":"HTML","pct":77.5},{"name":"CSS","pct":13.6},{"name":"PHP","pct":8.9}]},"calebmadrigal/fuzzygraph":{"stars":6,"created":"2025-05-31","forks":1,"contributors":1,"languages":[{"name":"HTML","pct":76.9},{"name":"JavaScript","pct":22.7},{"name":"Shell","pct":0.4},{"name":"CSS","pct":0}]},"chicogong/html-tools":{"stars":124,"created":"2025-12-25","forks":50,"contributors":3,"languages":[{"name":"HTML","pct":99.4},{"name":"JavaScript","pct":0.5},{"name":"CSS","pct":0.1},{"name":"EJS","pct":0}]},"chr15m/minimal-pwa":{"stars":480,"created":"2025-03-08","forks":27,"contributors":1,"languages":[{"name":"HTML","pct":97.7},{"name":"Makefile","pct":1.7},{"name":"JavaScript","pct":0.6}]},"hypervault/hypervault.github.io":{"stars":128,"created":"2015-07-21","forks":14,"contributors":4,"languages":[{"name":"HTML","pct":84.2},{"name":"JavaScript","pct":13},{"name":"CSS","pct":2.8},{"name":"Shell","pct":0}]},"igapyon/xlsx2md":{"stars":29,"created":"2026-03-18","forks":5,"contributors":1,"languages":[{"name":"JavaScript","pct":42.7},{"name":"HTML","pct":35.3},{"name":"TypeScript","pct":20.3},{"name":"CSS","pct":1.7}]},"kalpi-4/orbital-notebook":{"stars":1,"created":"2026-06-11","forks":0,"contributors":1,"languages":[{"name":"HTML","pct":100}]},"keepworking/nash":{"stars":292,"created":"2025-03-05","forks":34,"contributors":5,"languages":[{"name":"HTML","pct":97.6},{"name":"M4","pct":2.3},{"name":"Makefile","pct":0}]},"nyblnet/bento":{"stars":2523,"created":"2026-07-17","forks":153,"contributors":4,"languages":[{"name":"TypeScript","pct":74.6},{"name":"HTML","pct":16.1},{"name":"JavaScript","pct":6.9},{"name":"CSS","pct":1.5},{"name":"Swift","pct":0.8}]},"pyrate-llama/hermes-ui":{"stars":187,"created":"2026-04-03","forks":24,"contributors":2,"languages":[{"name":"HTML","pct":69},{"name":"Python","pct":30.8},{"name":"JavaScript","pct":0.2}]},"wildriver/paper-viewer-local-llm":{"stars":8,"created":"2026-05-17","forks":0,"contributors":1,"languages":[{"name":"HTML","pct":100}]},"zichy/vicco":{"stars":31,"created":"2015-11-01","forks":7,"contributors":5,"languages":[{"name":"PHP","pct":100}]}},"sizes":{"tiddlywiki":6793927,"bento":658733,"codeflow":591305,"html-tools":373192,"hermes-ui":512690,"agent-architecture":5703482,"portable-php":33621,"httprd":310125,"offline-html-games-pack":266725,"gemini-chat-organizer-hub":296968,"hyperclay":281870,"decker":7143,"xlsx2md":16564,"vicco":275519,"orbital-notebook":299849,"htpad":266326,"nash":569266,"minimal-pwa":593,"fuzzygraph":1346172,"hypervault":181956,"paper-viewer-local-llm":331204},"qrSlugs":["minimal-pwa"]};/* BUILD:INLINE_DATA:END */
 
 const catalogViewEl = document.getElementById('catalogView');
 const detailViewEl = document.getElementById('detailView');
@@ -773,6 +874,8 @@ function slugify(s){
 let activeFilter = 'all';
 let query = '';
 const starCache = {}; // repo -> {stars,created}|null (null = fetch failed / no repo)
+const sizeCache = {}; // slug -> byte size of the entry's main document, from data/sizes.json
+let qrSlugSet = new Set(); // slugs small enough to have a scan-and-run QR code
 
 function pad(n){ return String(n).padStart(2,'0'); }
 const MEDALS = ['🥇','🥈','🥉'];
@@ -785,12 +888,20 @@ function formatCreated(dateStr){
   if(!dateStr) return null;
   return new Date(dateStr + 'T00:00:00Z').toLocaleDateString('en-US', { month:'short', year:'numeric', timeZone:'UTC' });
 }
+// Mirrors formatSize() in scripts/build_pages.mjs and scripts/screenshot.mjs.
+function formatSize(bytes){
+  if(bytes < 1024) return `${bytes} B`;
+  const kb = bytes / 1024;
+  if(kb < 1024) return `${kb < 10 ? kb.toFixed(1) : Math.round(kb)} KB`;
+  return `${(kb / 1024).toFixed(1)} MB`;
+}
 function isNew(e){
   if(!e.added) return false;
   const addedMs = new Date(e.added + 'T00:00:00Z').getTime();
   return (Date.now() - addedMs) <= 7 * 24 * 60 * 60 * 1000;
 }
 const GH_ICON_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>';
+const QR_ICON_SVG = '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="3" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="3" y="15" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="18.5" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="15" y="18.5" width="2.5" height="2.5" fill="currentColor"></rect></svg>';
 // 0 -> red (--stamp), 1 -> green, interpolated so a near-miss (e.g. 8/9)
 // reads as "mostly fine" rather than the same red as a near-total failure.
 function scoreColor(ratio){
@@ -834,6 +945,15 @@ function currentList(){
       if(sa === sb) return a.name.localeCompare(b.name);
       return sb - sa;
     });
+  } else if(sortEl.value === 'size'){
+    list = list.slice().sort((a,b) => {
+      // Entries without a measured size (screenshot capture hasn't run yet
+      // for a brand-new entry) sort last, not first.
+      const za = sizeCache[slugify(a.name)] ?? Infinity;
+      const zb = sizeCache[slugify(b.name)] ?? Infinity;
+      if(za === zb) return a.name.localeCompare(b.name);
+      return za - zb;
+    });
   } else if(sortEl.value === 'created'){
     list = list.slice().sort((a,b) => {
       // ISO dates compare correctly as strings; entries with no repo/no
@@ -868,18 +988,21 @@ function render(){
   filtered.forEach((e, i) => {
     const card = document.createElement('div');
     card.className = 'card';
+    const entrySlug = slugify(e.name);
     const starInfo = e.repo ? starCache[e.repo] : null; // undefined = loading, null = confirmed absent
     const loading = e.repo && starInfo === undefined;
     const absent = e.repo && starInfo === null;
     const starsText = !e.repo ? '' : loading ? '···' : absent ? 'n/a' : '★ ' + formatStars(starInfo.stars);
     const dateText = !e.repo ? '' : loading ? '···' : absent ? 'n/a' : formatCreated(starInfo.created);
+    const sizeText = sizeCache[entrySlug] != null ? formatSize(sizeCache[entrySlug]) : '';
     const owner = e.repo ? e.repo.split('/')[0] : '';
     const ghPill = e.repo ? `<span class="gh-pill">
         <a class="gh-pill-icon" href="https://github.com/${e.repo}" target="_blank" rel="noopener" aria-label="${e.repo} on GitHub">${GH_ICON_SVG}</a>
         <span class="gh-stars">${starsText}</span>
+        ${sizeText ? `<span class="gh-size">${sizeText}</span>` : ''}
         <span class="gh-date">${dateText}</span>
         <a class="gh-pill-by" href="https://github.com/${owner}" target="_blank" rel="noopener" title="${owner}">by ${owner}</a>
-      </span>` : '';
+      </span>` : (sizeText ? `<span class="gh-pill"><span class="gh-size">${sizeText}</span></span>` : '');
 
     const checks = e.checks || [];
     // A skip counts against the ratio (0, not excluded) so an incomplete
@@ -891,12 +1014,7 @@ function render(){
 
     const showMedal = sortEl.value === 'stars' && i < 3;
     const rankLabel = showMedal ? MEDALS[i] : pad(i+1);
-
-    const featuredHtml = (e.featured || []).map(f => f.platform === 'Hacker News'
-      ? `<a class="hn-badge" href="${f.url}" target="_blank" rel="noopener" title="${f.title || ''}"><span class="hn-y">Y</span>▲ ${f.points ?? '?'}</a>`
-      : `<a class="hn-badge" href="${f.url}" target="_blank" rel="noopener" title="${f.title || ''}">Featured on ${f.platform} ↗</a>`
-    ).join('');
-    const entrySlug = slugify(e.name);
+    const qrBtn = qrSlugSet.has(entrySlug) ? `<button type="button" class="qr-btn" data-qr-slug="${entrySlug}" data-qr-name="${e.name}" aria-label="Scan to run ${e.name} from a QR code">${QR_ICON_SVG}</button>` : '';
 
     card.innerHTML = `
       <div class="stub"><span class="n">${rankLabel}</span></div>
@@ -904,10 +1022,10 @@ function render(){
       <div class="meta">
         <p class="name">
           <a href="/entry/${entrySlug}" data-nav>${e.name}</a>
-          ${ghPill}
+          ${qrBtn}
         </p>
         <p class="desc">${e.desc}</p>
-        <div class="tags">${featuredHtml}${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <div class="tags">${ghPill}${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
       </div>
       ${hasChecks ? `<div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/${entrySlug}#audit-results" data-nav style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</a></div>` : ''}
     `;
@@ -963,23 +1081,27 @@ function renderDetail(e){
   const contributorsVal = haveStarInfo && starInfo.contributors != null ? starInfo.contributors : null;
   const languages = haveStarInfo && starInfo.languages && starInfo.languages.length ? starInfo.languages : [];
 
+  const slug = slugify(e.name);
   const statParts = [];
   if(e.repo){
     statParts.push(starsVal === 'n/a' ? '<span class="stat-word">stars </span>n/a' : `${starsVal}<span class="stat-word"> stars</span>`);
     if(forksVal != null) statParts.push(`<span class="stat-forks-text">${forksVal} fork${forksVal === 1 ? '' : 's'}</span><svg class="stat-forks-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg><span class="stat-forks-num">${forksVal}</span>`);
     if(contributorsVal != null) statParts.push(`<span class="stat-contrib-text">${contributorsVal} contributor${contributorsVal === 1 ? '' : 's'}</span><svg class="stat-contrib-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path></svg><span class="stat-contrib-num">${contributorsVal}</span>`);
-    statParts.push(createdVal === 'n/a' ? '<span class="stat-word">created </span>n/a' : `<svg class="stat-date-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="stat-word">created </span>${createdVal}`);
-    statParts.push(`<a class="stat-repo-link" href="https://github.com/${e.repo}" target="_blank" rel="noopener">${GH_ICON_SVG}${e.repo.split('/')[1] || e.repo} ↗</a>`);
   } else {
     statParts.push('no public repo linked');
+  }
+  if(sizeCache[slug] != null){
+    statParts.push(`<svg class="stat-size-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg>${formatSize(sizeCache[slug])}`);
+  }
+  if(e.repo){
+    statParts.push(createdVal === 'n/a' ? '<span class="stat-word">created </span>n/a' : `<svg class="stat-date-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="stat-word">created </span>${createdVal}`);
+    statParts.push(`<a class="stat-repo-link" href="https://github.com/${e.repo}" target="_blank" rel="noopener">${GH_ICON_SVG}${e.repo.split('/')[1] || e.repo} ↗</a>`);
   }
   const statStripHtml = `<div class="stat-strip">${statParts.join(' <span class="sep">·</span> ')}</div>`;
 
   const langHtml = languages.length ? `
     <div class="lang-bar">${languages.map((l, i) => `<span style="width:${l.pct}%;background:${langColor(l.name, i)};"></span>`).join('')}</div>
     <div class="lang-legend">${languages.map((l, i) => `<span class="lang-dot" style="background:${langColor(l.name, i)};"></span>${l.name} ${l.pct}%`).join(' <span class="sep">·</span> ')}</div>` : '';
-
-  const slug = slugify(e.name);
   const embedBadgeHtml = hasChecks ? `
     <div class="embed-badge">
       <div class="detail-checks-label">Embed this badge</div>
@@ -1075,8 +1197,10 @@ function parseRoute(){
   return m ? decodeURIComponent(m[1]) : null;
 }
 
+let currentRoute = parseRoute();
+
 function update(){
-  const slug = parseRoute();
+  const slug = currentRoute;
   if(slug){
     catalogViewEl.style.display = 'none';
     detailViewEl.style.display = 'block';
@@ -1092,8 +1216,18 @@ function update(){
 }
 
 function navigateTo(path){
-  if(location.pathname === path) return;
-  history.pushState({}, '', path);
+  const m = path.match(/^\/entry\/([^/]+)\/?$/);
+  const nextRoute = m ? decodeURIComponent(m[1]) : null;
+  if(currentRoute === nextRoute) return;
+  currentRoute = nextRoute;
+  try{
+    history.pushState({}, '', path);
+  }catch(err){
+    // Opened as a standalone file:// download — pushState can't create a
+    // history entry for an arbitrary absolute path there. The view still
+    // switches via currentRoute above, it just won't show in the address
+    // bar or support browser back/forward in that mode.
+  }
   update();
   const hash = path.includes('#') ? path.slice(path.indexOf('#') + 1) : '';
   const target = hash && document.getElementById(hash);
@@ -1107,16 +1241,28 @@ document.body.addEventListener('click', (ev) => {
   ev.preventDefault();
   navigateTo(a.getAttribute('href'));
 });
-window.addEventListener('popstate', update);
+window.addEventListener('popstate', () => { currentRoute = parseRoute(); update(); });
 
 async function loadStars(){
-  // One static snapshot fetch, refreshed daily by a scheduled Action —
-  // not a live per-visitor call to the GitHub API (see data/stars.json).
-  try{
-    const res = await fetch('/data/stars.json');
-    if(res.ok) Object.assign(starCache, await res.json());
-  }catch(err){
-    // no snapshot yet — falls through to "n/a" below rather than hanging on "···"
+  if(INLINE_DATA){
+    Object.assign(starCache, INLINE_DATA.stars);
+    Object.assign(sizeCache, INLINE_DATA.sizes);
+    qrSlugSet = new Set(INLINE_DATA.qrSlugs || []);
+  } else {
+    // One static snapshot fetch, refreshed daily by a scheduled Action —
+    // not a live per-visitor call to the GitHub API (see data/stars.json).
+    try{
+      const res = await fetch('/data/stars.json');
+      if(res.ok) Object.assign(starCache, await res.json());
+    }catch(err){
+      // no snapshot yet — falls through to "n/a" below rather than hanging on "···"
+    }
+    try{
+      const res = await fetch('/data/sizes.json');
+      if(res.ok) Object.assign(sizeCache, await res.json());
+    }catch(err){
+      // no size data yet — sort by size just falls back to name order below
+    }
   }
   // Anything with a repo but no snapshot entry is confirmed absent, not still loading.
   ENTRIES.forEach(e => {
@@ -1137,11 +1283,15 @@ chips.forEach(chip => {
 });
 
 async function loadEntries(){
-  try{
-    const res = await fetch('/data/entries.json');
-    ENTRIES = await res.json();
-  }catch(err){
-    countEl.textContent = 'couldn\'t load data/entries.json';
+  if(INLINE_DATA){
+    ENTRIES = INLINE_DATA.entries;
+  } else {
+    try{
+      const res = await fetch('/data/entries.json');
+      ENTRIES = await res.json();
+    }catch(err){
+      countEl.textContent = 'couldn\'t load data/entries.json';
+    }
   }
   update();
   loadStars();
@@ -1163,6 +1313,33 @@ document.getElementById('closeSubmit').addEventListener('click', closeSubmitModa
 submitOverlay.addEventListener('click', (ev) => { if(ev.target === submitOverlay) closeSubmitModal(); });
 document.addEventListener('keydown', (ev) => {
   if(ev.key === 'Escape' && submitOverlay.classList.contains('open')) closeSubmitModal();
+});
+
+// QR modal open/close — .qr-btn is inside dynamically re-rendered cards,
+// so this is delegated on the body rather than bound per-button.
+const qrOverlay = document.getElementById('qrOverlay');
+const qrImage = document.getElementById('qrImage');
+const qrEntryName = document.getElementById('qrEntryName');
+const qrCaption = document.getElementById('qrCaption');
+const QR_CAPTION = 'SFWA below 2 KB can be entirely run from a QR code. Try it for yourself.';
+function openQrModal(slug, name){
+  qrImage.src = '/qr/' + slug + '.png';
+  qrEntryName.textContent = name;
+  qrCaption.value = QR_CAPTION;
+  qrOverlay.classList.add('open');
+}
+function closeQrModal(){
+  qrOverlay.classList.remove('open');
+}
+document.body.addEventListener('click', (ev) => {
+  const btn = ev.target.closest('.qr-btn');
+  if(!btn) return;
+  openQrModal(btn.dataset.qrSlug, btn.dataset.qrName);
+});
+document.getElementById('closeQr').addEventListener('click', closeQrModal);
+qrOverlay.addEventListener('click', (ev) => { if(ev.target === qrOverlay) closeQrModal(); });
+document.addEventListener('keydown', (ev) => {
+  if(ev.key === 'Escape' && qrOverlay.classList.contains('open')) closeQrModal();
 });
 
 // autofill Name/URL/Description from the repo's public GitHub metadata —

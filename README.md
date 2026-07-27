@@ -11,12 +11,17 @@ Name: **iamsingle.app** (pun on "single-file app" / "I am single").
 ## What's here
 
 ```
-index.html                          the site itself (fetches data/entries.json + data/stars.json at runtime)
+index.html                          the site itself — build_pages.mjs inlines entries.json/stars.json/sizes.json into
+                                     every generated page, so it's self-contained (works over file://, no fetch needed);
+                                     falls back to fetching data/*.json if that inline data is ever missing
 vercel.json                         rewrites /entry/:slug to index.html for the client-side detail-page router
 api/submit.js                       serverless function: POST here to open a submission PR directly
 data/entries.json                   the directory's data — never touched directly by a submission PR, see below
 data/pending/                       one file per open submission PR — see "How submissions merge without conflicting"
 data/stars.json                     GitHub star count + repo creation date snapshot, refreshed daily — not hand-edited
+data/sizes.json                     byte size of each entry's live URL response, from scripts/screenshot.mjs — not hand-edited
+og/                                 generated per-entry share card (name, stars, size, score over the app's own screenshot),
+                                     used as each entry page's og:image/twitter:image — from scripts/screenshot.mjs
 assets/favicon.svg, logo.svg         vector source (edit these, not the PNGs)
 assets/favicon-16/32/180/512.png     rendered favicon sizes
 assets/logo.png                      rendered logo, 720×160
@@ -180,9 +185,6 @@ Per pending entry:
   shift silently on a tool update.
 - GitHub's unauthenticated API rate limit (60/hr/IP) applies to the live
   star-ranking calls from visitors' browsers. Fine at current scale.
-- The site now depends on `fetch()` for `data/entries.json`, so opening
-  `index.html` directly via `file://` will fail on CORS. It only works
-  served over http(s) — Vercel, GitHub Pages, etc.
 - The SSRF guard on the submitted `url` blocks private/loopback/link-local
   addresses at DNS-resolution time, not on every redirect hop — a submitted
   URL that redirects to an internal address after the initial check could

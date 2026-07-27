@@ -2,8 +2,9 @@
 // Pre-renders the catalog list and one static page per entry so crawlers
 // that don't execute JavaScript (most LLM crawlers) can see the actual
 // directory content, not just the empty #catalog shell. The client-side
-// script in index.html is unchanged: it still fetches data/entries.json
-// and re-renders on top of whatever is baked in here.
+// script in index.html also gets the full entries+stars dataset inlined
+// (INLINE_DATA below) so every generated page is self-contained and
+// works over file://, no fetch() needed.
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,6 +15,9 @@ const SITE_URL = 'https://iamsingle.app';
 const entries = JSON.parse(readFileSync(join(ROOT, 'data/entries.json'), 'utf8'));
 const stars = existsSync(join(ROOT, 'data/stars.json'))
   ? JSON.parse(readFileSync(join(ROOT, 'data/stars.json'), 'utf8'))
+  : {};
+const sizes = existsSync(join(ROOT, 'data/sizes.json'))
+  ? JSON.parse(readFileSync(join(ROOT, 'data/sizes.json'), 'utf8'))
   : {};
 
 // Kept in sync by hand with the identical function in index.html's client
@@ -37,9 +41,19 @@ function formatStars(n) {
   if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
   return String(n);
 }
+// Mirrors formatSize() in index.html's client script and scripts/screenshot.mjs.
+function formatSize(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  const kb = bytes / 1024;
+  if (kb < 1024) return `${kb < 10 ? kb.toFixed(1) : Math.round(kb)} KB`;
+  return `${(kb / 1024).toFixed(1)} MB`;
+}
 function formatCreated(dateStr) {
   if (!dateStr) return null;
   return new Date(dateStr + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+}
+function formatAdded(dateStr) {
+  return new Date(dateStr + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
 // Mirrors scoreColor() in index.html's client script.
 function scoreColor(ratio) {
@@ -65,6 +79,8 @@ function langColor(name, i) {
   return LANG_COLORS[name] || LANG_FALLBACK[i % LANG_FALLBACK.length];
 }
 const GH_ICON_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>';
+// Three finder-pattern corners + a few data modules — a minimal QR glyph.
+const QR_ICON_SVG = '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="3" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="3" y="15" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="18.5" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="15" y="18.5" width="2.5" height="2.5" fill="currentColor"></rect></svg>';
 
 function linkify(text) {
   return escapeHtml(text).replace(/(https?:\/\/\S+)/g, url => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
@@ -140,17 +156,20 @@ function logoSrc(e, size) {
 
 // Mirrors render()'s per-card markup in index.html's client script.
 function renderCard(e, i) {
+  const entrySlug = slugify(e.name);
   const starInfo = e.repo ? stars[e.repo] : null;
   const absent = e.repo && !starInfo;
   const starsText = !e.repo ? '' : absent ? 'n/a' : '★ ' + formatStars(starInfo.stars);
   const dateText = !e.repo ? '' : absent ? 'n/a' : formatCreated(starInfo.created);
+  const sizeText = sizes[entrySlug] != null ? formatSize(sizes[entrySlug]) : '';
   const owner = e.repo ? e.repo.split('/')[0] : '';
   const ghPill = e.repo ? `<span class="gh-pill">
       <a class="gh-pill-icon" href="https://github.com/${e.repo}" target="_blank" rel="noopener" aria-label="${escapeHtml(e.repo)} on GitHub">${GH_ICON_SVG}</a>
       <span class="gh-stars">${starsText}</span>
+      ${sizeText ? `<span class="gh-size">${sizeText}</span>` : ''}
       <span class="gh-date">${dateText}</span>
       <a class="gh-pill-by" href="https://github.com/${owner}" target="_blank" rel="noopener" title="${escapeHtml(owner)}">by ${escapeHtml(owner)}</a>
-    </span>` : '';
+    </span>` : (sizeText ? `<span class="gh-pill"><span class="gh-size">${sizeText}</span></span>` : '');
 
   const checks = e.checks || [];
   const passed = checks.filter(c => c.status === 'pass').length;
@@ -159,12 +178,8 @@ function renderCard(e, i) {
   const badgeColor = checks.length ? scoreColor(passed / checks.length) : '#8A8578';
 
   const rankLabel = pad(i + 1);
-
-  const featuredHtml = (e.featured || []).map(f => f.platform === 'Hacker News'
-    ? `<a class="hn-badge" href="${f.url}" target="_blank" rel="noopener" title="${escapeHtml(f.title || '')}"><span class="hn-y">Y</span>▲ ${f.points ?? '?'}</a>`
-    : `<a class="hn-badge" href="${f.url}" target="_blank" rel="noopener" title="${escapeHtml(f.title || '')}">Featured on ${escapeHtml(f.platform)} ↗</a>`
-  ).join('');
-  const entrySlug = slugify(e.name);
+  const hasQr = existsSync(join(ROOT, 'qr', `${entrySlug}.png`));
+  const qrBtn = hasQr ? `<button type="button" class="qr-btn" data-qr-slug="${entrySlug}" data-qr-name="${escapeHtml(e.name)}" aria-label="Scan to run ${escapeHtml(e.name)} from a QR code">${QR_ICON_SVG}</button>` : '';
 
   return `
     <div class="card">
@@ -173,10 +188,10 @@ function renderCard(e, i) {
       <div class="meta">
         <p class="name">
           <a href="/entry/${entrySlug}" data-nav>${escapeHtml(e.name)}</a>
-          ${ghPill}
+          ${qrBtn}
         </p>
         <p class="desc">${escapeHtml(e.desc)}</p>
-        <div class="tags">${featuredHtml}${e.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
+        <div class="tags">${ghPill}${e.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
       </div>
       ${hasChecks ? `<div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/${entrySlug}#audit-results" data-nav style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</a></div>` : ''}
     </div>`;
@@ -208,10 +223,15 @@ function renderDetailHtml(e, slug) {
     statParts.push(starsVal === 'n/a' ? '<span class="stat-word">stars </span>n/a' : `${starsVal}<span class="stat-word"> stars</span>`);
     if (forksVal != null) statParts.push(`<span class="stat-forks-text">${forksVal} fork${forksVal === 1 ? '' : 's'}</span><svg class="stat-forks-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg><span class="stat-forks-num">${forksVal}</span>`);
     if (contributorsVal != null) statParts.push(`<span class="stat-contrib-text">${contributorsVal} contributor${contributorsVal === 1 ? '' : 's'}</span><svg class="stat-contrib-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path></svg><span class="stat-contrib-num">${contributorsVal}</span>`);
-    statParts.push(createdVal === 'n/a' ? '<span class="stat-word">created </span>n/a' : `<svg class="stat-date-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="stat-word">created </span>${createdVal}`);
-    statParts.push(`<a class="stat-repo-link" href="https://github.com/${e.repo}" target="_blank" rel="noopener">${GH_ICON_SVG}${escapeHtml(e.repo.split('/')[1] || e.repo)} ↗</a>`);
   } else {
     statParts.push('no public repo linked');
+  }
+  if (sizes[slug] != null) {
+    statParts.push(`<svg class="stat-size-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg>${formatSize(sizes[slug])}`);
+  }
+  if (e.repo) {
+    statParts.push(createdVal === 'n/a' ? '<span class="stat-word">created </span>n/a' : `<svg class="stat-date-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="stat-word">created </span>${createdVal}`);
+    statParts.push(`<a class="stat-repo-link" href="https://github.com/${e.repo}" target="_blank" rel="noopener">${GH_ICON_SVG}${escapeHtml(e.repo.split('/')[1] || e.repo)} ↗</a>`);
   }
   const statStripHtml = `<div class="stat-strip">${statParts.join(' <span class="sep">·</span> ')}</div>`;
 
@@ -287,22 +307,88 @@ function mustReplace(str, from, to) {
   return str.replace(from, to);
 }
 
-function replaceBetweenMarkers(str, markerName, content) {
-  const start = `<!-- BUILD:${markerName}:START -->`;
-  const end = `<!-- BUILD:${markerName}:END -->`;
-  const re = new RegExp(`${start}[\\s\\S]*?${end}`);
+function escapeRe(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Leaves start/end markers in place around the substituted content so
+// re-running the build against its own prior output (index.html is both
+// the template source and the write target) finds them again idempotently.
+function replaceBetween(str, start, end, content) {
+  const re = new RegExp(`${escapeRe(start)}[\\s\\S]*?${escapeRe(end)}`);
   if (!re.test(str)) {
     throw new Error(`build_pages: markers ${start} / ${end} not found in template`);
   }
   return str.replace(re, `${start}${content}${end}`);
 }
 
+function replaceBetweenMarkers(str, markerName, content) {
+  return replaceBetween(str, `<!-- BUILD:${markerName}:START -->`, `<!-- BUILD:${markerName}:END -->`, content);
+}
+
 const templateSrc = readFileSync(join(ROOT, 'index.html'), 'utf8');
+
+const INLINE_DATA_START = '/* BUILD:INLINE_DATA:START */';
+const INLINE_DATA_END = '/* BUILD:INLINE_DATA:END */';
+// Entries small enough to have a scan-and-run QR code (see scripts/screenshot.mjs).
+const qrSlugs = entries.map(e => slugify(e.name)).filter(slug => existsSync(join(ROOT, 'qr', `${slug}.png`)));
+// </script sequences are escaped defensively since check details/descriptions
+// are free text that could otherwise break out of the inline <script> tag.
+const inlineDataJs = `const INLINE_DATA = ${JSON.stringify({ entries, stars, sizes, qrSlugs }).replace(/<\/script/gi, '<\\/script')};`;
+
+// --- homepage-only highlight cards: smallest file, most stars, last added ---
+function renderHighlights() {
+  let smallest = null;
+  for (const e of entries) {
+    const slug = slugify(e.name);
+    if (sizes[slug] == null) continue;
+    if (!smallest || sizes[slug] < sizes[slugify(smallest.name)]) smallest = e;
+  }
+  let mostStars = null, mostStarsVal = -1;
+  for (const e of entries) {
+    const s = e.repo ? stars[e.repo]?.stars : null;
+    if (s != null && s > mostStarsVal) { mostStarsVal = s; mostStars = e; }
+  }
+  let lastAdded = null;
+  for (const e of entries) {
+    if (!e.added) continue;
+    if (!lastAdded || e.added > lastAdded.added) lastAdded = e;
+  }
+
+  const card = (label, e, statText) => {
+    if (!e) return '';
+    const slug = slugify(e.name);
+    return `
+      <div class="highlight-card">
+        <div class="highlight-label">${label}</div>
+        <div class="highlight-row">
+          <img class="highlight-icon" alt="" loading="lazy" src="${logoSrc(e, 64)}">
+          <div class="highlight-text">
+            <a class="highlight-name" href="/entry/${slug}" data-nav>${escapeHtml(e.name)}</a>
+            <div class="highlight-stat">${statText}</div>
+          </div>
+        </div>
+      </div>`;
+  };
+
+  return [
+    card('Smallest file size', smallest, smallest ? formatSize(sizes[slugify(smallest.name)]) : ''),
+    card('Most stars', mostStars, mostStars ? '★ ' + formatStars(mostStarsVal) : ''),
+    card('Last added', lastAdded, lastAdded ? formatAdded(lastAdded.added) : ''),
+  ].join('');
+}
 
 // --- homepage: inject the pre-rendered catalog + ItemList JSON-LD ---
 let home = templateSrc;
 home = replaceBetweenMarkers(home, 'CATALOG', sorted.map(renderCard).join('\n'));
+home = replaceBetweenMarkers(home, 'HIGHLIGHTS', renderHighlights());
 home = replaceBetweenMarkers(home, 'JSONLD', `<script type="application/ld+json">${jsonLdItemList()}</script>`);
+home = replaceBetween(home, INLINE_DATA_START, INLINE_DATA_END, inlineDataJs);
+// Size of the self-contained downloadable file — same label shown on every
+// page's (hidden, on entry pages) download button, since they all link to
+// this one homepage file.
+const downloadSizeLabel = `${Math.round(Buffer.byteLength(home, 'utf8') / 1024)} KB`;
+home = replaceBetweenMarkers(home, 'DLSIZE', downloadSizeLabel);
 writeFileSync(join(ROOT, 'index.html'), home);
 
 // --- per-entry static pages + badges ---
@@ -320,6 +406,8 @@ const OG_DESC_ANCHOR = '<meta property="og:description" content="A working direc
 const OG_URL_ANCHOR = '<meta property="og:url" content="https://iamsingle.app/">';
 const TW_TITLE_ANCHOR = '<meta name="twitter:title" content="iamsingle.app - single-file web app directory">';
 const TW_DESC_ANCHOR = '<meta name="twitter:description" content="A working directory of SFWAs (single-file web apps) — no install, no build, no server required.">';
+const OG_IMAGE_ANCHOR = '<meta property="og:image" content="https://iamsingle.app/assets/iamsingle.app.png">';
+const TW_IMAGE_ANCHOR = '<meta name="twitter:image" content="https://iamsingle.app/assets/iamsingle.app.png">';
 const DETAILVIEW_ANCHOR = '<div id="detailView" style="display:none;"></div>';
 const CATALOGVIEW_ANCHOR = '<div id="catalogView">';
 
@@ -342,10 +430,17 @@ for (const e of sorted) {
   page = mustReplace(page, OG_URL_ANCHOR, `<meta property="og:url" content="${SITE_URL}/entry/${slug}">`);
   page = mustReplace(page, TW_TITLE_ANCHOR, `<meta name="twitter:title" content="${escapeHtml(e.name)} — iamsingle.app">`);
   page = mustReplace(page, TW_DESC_ANCHOR, `<meta name="twitter:description" content="${escapeHtml(metaDesc)}">`);
+  if (existsSync(join(ROOT, 'og', `${slug}.png`))) {
+    page = mustReplace(page, OG_IMAGE_ANCHOR, `<meta property="og:image" content="${SITE_URL}/og/${slug}.png">`);
+    page = mustReplace(page, TW_IMAGE_ANCHOR, `<meta name="twitter:image" content="${SITE_URL}/og/${slug}.png">`);
+  }
   page = replaceBetweenMarkers(page, 'CATALOG', ''); // don't bloat every entry page with the full hidden catalog
+  page = replaceBetweenMarkers(page, 'HIGHLIGHTS', ''); // homepage-only
   page = replaceBetweenMarkers(page, 'JSONLD', `<script type="application/ld+json">${jsonLdForEntry(e)}</script>`);
   page = mustReplace(page, CATALOGVIEW_ANCHOR, '<div id="catalogView" style="display:none;">');
   page = mustReplace(page, DETAILVIEW_ANCHOR, `<div id="detailView">${renderDetailHtml(e, slug)}</div>`);
+  page = replaceBetween(page, INLINE_DATA_START, INLINE_DATA_END, inlineDataJs);
+  page = replaceBetweenMarkers(page, 'DLSIZE', downloadSizeLabel);
 
   const dir = join(entryDir, slug);
   mkdirSync(dir, { recursive: true });
