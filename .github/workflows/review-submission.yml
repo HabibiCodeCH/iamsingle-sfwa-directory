@@ -118,7 +118,7 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const glob = require('fs').readdirSync('data/pending')
+            const pendingEntries = require('fs').readdirSync('data/pending')
               .filter(f => f.endsWith('.json'))
               .map(f => JSON.parse(fs.readFileSync(`data/pending/${f}`, 'utf8')));
             const names = JSON.parse(fs.readFileSync('new_entries.json', 'utf8')).map(e => e.name);
@@ -129,7 +129,7 @@ jobs:
             body += '_Heuristic checks for a human reviewer — not a guarantee of safety or accuracy. Full per-test detail is on the card once merged._\n\n';
 
             for (const name of names) {
-              const entry = glob.find(e => e.name === name);
+              const entry = pendingEntries.find(e => e.name === name);
               const checks = (entry && entry.checks) || [];
               const applicable = checks.filter(c => c.status !== 'skip');
               const passed = applicable.filter(c => c.status === 'pass').length;
