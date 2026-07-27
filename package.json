@@ -1,5 +1,8 @@
 {
   "name": "iamsingle-sfwa-directory",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
 }

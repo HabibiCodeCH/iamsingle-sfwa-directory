@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://iamsingle.app/</loc></url>
-  <url><loc>https://iamsingle.app/entry/tiddlywiki</loc></url>
-  <url><loc>https://iamsingle.app/entry/codeflow</loc></url>
-  <url><loc>https://iamsingle.app/entry/bento</loc></url>
-  <url><loc>https://iamsingle.app/entry/minimal-pwa</loc></url>
-  <url><loc>https://iamsingle.app/entry/nash</loc></url>
-  <url><loc>https://iamsingle.app/entry/hermes-ui</loc></url>
-  <url><loc>https://iamsingle.app/entry/hypervault</loc></url>
-  <url><loc>https://iamsingle.app/entry/html-tools</loc></url>
-  <url><loc>https://iamsingle.app/entry/portable-php</loc></url>
-  <url><loc>https://iamsingle.app/entry/offline-html-games-pack</loc></url>
-  <url><loc>https://iamsingle.app/entry/httprd</loc></url>
-  <url><loc>https://iamsingle.app/entry/agent-architecture</loc></url>
-  <url><loc>https://iamsingle.app/entry/vicco</loc></url>
-  <url><loc>https://iamsingle.app/entry/xlsx2md</loc></url>
-  <url><loc>https://iamsingle.app/entry/gemini-chat-organizer-hub</loc></url>
   <url><loc>https://iamsingle.app/entry/fuzzygraph</loc></url>
   <url><loc>https://iamsingle.app/entry/htpad</loc></url>
-  <url><loc>https://iamsingle.app/entry/orbital-notebook</loc></url>
+  <url><loc>https://iamsingle.app/entry/hypervault</loc></url>
+  <url><loc>https://iamsingle.app/entry/minimal-pwa</loc></url>
+  <url><loc>https://iamsingle.app/entry/nash</loc></url>
+  <url><loc>https://iamsingle.app/entry/agent-architecture</loc></url>
+  <url><loc>https://iamsingle.app/entry/bento</loc></url>
+  <url><loc>https://iamsingle.app/entry/codeflow</loc></url>
   <url><loc>https://iamsingle.app/entry/decker</loc></url>
+  <url><loc>https://iamsingle.app/entry/gemini-chat-organizer-hub</loc></url>
+  <url><loc>https://iamsingle.app/entry/hermes-ui</loc></url>
+  <url><loc>https://iamsingle.app/entry/html-tools</loc></url>
+  <url><loc>https://iamsingle.app/entry/httprd</loc></url>
   <url><loc>https://iamsingle.app/entry/hyperclay</loc></url>
+  <url><loc>https://iamsingle.app/entry/offline-html-games-pack</loc></url>
+  <url><loc>https://iamsingle.app/entry/orbital-notebook</loc></url>
+  <url><loc>https://iamsingle.app/entry/portable-php</loc></url>
+  <url><loc>https://iamsingle.app/entry/tiddlywiki</loc></url>
+  <url><loc>https://iamsingle.app/entry/vicco</loc></url>
+  <url><loc>https://iamsingle.app/entry/xlsx2md</loc></url>
 </urlset>
