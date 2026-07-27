@@ -203,12 +203,29 @@
   }
   footer a{color:var(--stamp);}
 
+  .stat-forks-icon, .stat-contrib-icon, .stat-date-icon{display:none;vertical-align:-1px;margin-right:2px;}
+  .stat-repo-link svg{vertical-align:-1px;margin-right:3px;}
+  .stat-repo-link{color:var(--ink);}
+  .stat-repo-link:hover{color:var(--stamp);}
+
   @media (max-width:560px){
     .wrap{padding:20px 16px 90px;}
     h1{font-size:32px;}
-    .card{grid-template-columns:22px 38px 1fr;}
+    .card{grid-template-columns:22px 38px 1fr;position:relative;}
     .logo{width:38px;height:38px;}
-    .audit{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:flex-end;margin-top:6px;}
+    .meta{padding-right:46px;}
+    .audit{position:absolute;top:13px;right:0;margin-top:0;}
+    .audit-label{display:none;}
+    .gh-date, .gh-pill-by{display:none;}
+    .btn-label{display:none;}
+    .btn-outline, .btn-solid{width:30px;height:30px;padding:0;justify-content:center;font-size:21px;}
+    .btn-outline .btn-icon{display:block;width:25px;height:25px;}
+    .stat-word{display:none;}
+    .stat-forks-text{display:none;}
+    .stat-forks-icon{display:inline-block;}
+    .stat-contrib-text{display:none;}
+    .stat-contrib-icon{display:inline-block;}
+    .stat-date-icon{display:inline-block;}
   }
 
   /* detail page */
@@ -222,8 +239,13 @@
   .detail-title{display:flex;gap:18px;align-items:flex-start;min-width:0;}
   .detail-logo{width:64px;height:64px;border:1px solid var(--line);object-fit:cover;background:var(--paper-2);flex-shrink:0;}
   .detail-title-text{flex:1;min-width:0;}
-  .detail-name-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:8px;}
+  .detail-name-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:2px;}
   .detail-title h1{font-size:32px;margin:0;font-weight:400;line-height:1.1;}
+  .detail-by{
+    display:inline-block;font-family:var(--mono);font-size:11px;color:var(--stamp);
+    text-decoration:none;margin-bottom:8px;
+  }
+  .detail-by:hover{color:var(--ink);}
   .detail-desc{font-family:var(--mono);font-size:13px;color:var(--ink-soft);line-height:1.6;margin:0;}
   .detail-actions{display:flex;gap:8px;flex-shrink:0;margin-left:auto;}
   .btn-outline, .btn-solid{
@@ -304,10 +326,11 @@
           <div class="detail-name-row">
             <h1>portable-php</h1>
             <div class="detail-actions">
-              <button type="button" class="btn-outline" id="shareBtn">Share</button>
-              <a class="btn-solid" href="https://cadars.github.io/portable-php/" target="_blank" rel="noopener">Visit ↗</a>
+              <button type="button" class="btn-outline" id="shareBtn" aria-label="Share"><svg class="btn-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg><span class="btn-label">Share</span></button>
+              <a class="btn-solid" href="https://cadars.github.io/portable-php/" target="_blank" rel="noopener" aria-label="Visit"><span class="btn-label">Visit</span> ↗</a>
             </div>
           </div>
+          <a class="detail-by" href="https://github.com/cadars" target="_blank" rel="noopener">by cadars</a>
           <p class="detail-desc">A blog in one file. Not HTML-only (it&#39;s PHP), but the same instinct: no database, no build, drop it on a server and it works.</p>
           <div class="tags" style="margin-top:10px;"><span class="tag">notes</span></div>
         </div>
@@ -317,7 +340,7 @@
     <a class="screenshot-link" href="https://cadars.github.io/portable-php/" target="_blank" rel="noopener">
       <img class="entry-screenshot" src="https://iamsingle.app/screenshot/portable-php.png" alt="Screenshot of portable-php" loading="lazy">
     </a>
-    <div class="stat-strip">★ 116 stars <span class="sep">·</span> 11 forks <span class="sep">·</span> 2 contributors <span class="sep">·</span> created Jan 2021 <span class="sep">·</span> <a href="https://github.com/cadars/portable-php" target="_blank" rel="noopener">cadars/portable-php ↗</a> <span class="sep">·</span> <span class="badge" style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</span></div>
+    <div class="stat-strip">★ 116<span class="stat-word"> stars</span> <span class="sep">·</span> <span class="stat-forks-text">11 forks</span><svg class="stat-forks-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg><span class="stat-forks-num">11</span> <span class="sep">·</span> <span class="stat-contrib-text">2 contributors</span><svg class="stat-contrib-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path></svg><span class="stat-contrib-num">2</span> <span class="sep">·</span> <svg class="stat-date-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="stat-word">created </span>Jan 2021 <span class="sep">·</span> <a class="stat-repo-link" href="https://github.com/cadars/portable-php" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>portable-php ↗</a> <span class="sep">·</span> <span class="badge" style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">9/9</span></div>
     
     <div class="lang-bar"><span style="width:77.5%;background:#e34c26;"></span><span style="width:13.6%;background:#563d7c;"></span><span style="width:8.9%;background:#4F5D95;"></span></div>
     <div class="lang-legend"><span class="lang-dot" style="background:#e34c26;"></span>HTML 77.5% <span class="sep">·</span> <span class="lang-dot" style="background:#563d7c;"></span>CSS 13.6% <span class="sep">·</span> <span class="lang-dot" style="background:#4F5D95;"></span>PHP 8.9%</div>
@@ -587,6 +610,7 @@ function renderDetail(e){
     `<div class="t-${c.status}">${iconFor(c.status)} ${c.label}${c.detail ? ' — ' + linkify(c.detail) : ''}</div>`
   ).join('');
 
+  const owner = e.repo ? e.repo.split('/')[0] : '';
   const badgeLabel = checks.length ? `${passed}/${checks.length}` : '';
   const forksVal = haveStarInfo && starInfo.forks != null ? starInfo.forks : null;
   const contributorsVal = haveStarInfo && starInfo.contributors != null ? starInfo.contributors : null;
@@ -594,11 +618,11 @@ function renderDetail(e){
 
   const statParts = [];
   if(e.repo){
-    statParts.push(starsVal === 'n/a' ? 'stars n/a' : `${starsVal} stars`);
-    if(forksVal != null) statParts.push(`${forksVal} fork${forksVal === 1 ? '' : 's'}`);
-    if(contributorsVal != null) statParts.push(`${contributorsVal} contributor${contributorsVal === 1 ? '' : 's'}`);
-    statParts.push(createdVal === 'n/a' ? 'created n/a' : `created ${createdVal}`);
-    statParts.push(`<a href="https://github.com/${e.repo}" target="_blank" rel="noopener">${e.repo} ↗</a>`);
+    statParts.push(starsVal === 'n/a' ? '<span class="stat-word">stars </span>n/a' : `${starsVal}<span class="stat-word"> stars</span>`);
+    if(forksVal != null) statParts.push(`<span class="stat-forks-text">${forksVal} fork${forksVal === 1 ? '' : 's'}</span><svg class="stat-forks-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg><span class="stat-forks-num">${forksVal}</span>`);
+    if(contributorsVal != null) statParts.push(`<span class="stat-contrib-text">${contributorsVal} contributor${contributorsVal === 1 ? '' : 's'}</span><svg class="stat-contrib-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path></svg><span class="stat-contrib-num">${contributorsVal}</span>`);
+    statParts.push(createdVal === 'n/a' ? '<span class="stat-word">created </span>n/a' : `<svg class="stat-date-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="stat-word">created </span>${createdVal}`);
+    statParts.push(`<a class="stat-repo-link" href="https://github.com/${e.repo}" target="_blank" rel="noopener">${GH_ICON_SVG}${e.repo.split('/')[1] || e.repo} ↗</a>`);
   } else {
     statParts.push('no public repo linked');
   }
@@ -629,10 +653,11 @@ function renderDetail(e){
           <div class="detail-name-row">
             <h1>${e.name}</h1>
             <div class="detail-actions">
-              <button type="button" class="btn-outline" id="shareBtn">Share</button>
-              <a class="btn-solid" href="${e.url}" target="_blank" rel="noopener">Visit ↗</a>
+              <button type="button" class="btn-outline" id="shareBtn" aria-label="Share"><svg class="btn-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg><span class="btn-label">Share</span></button>
+              <a class="btn-solid" href="${e.url}" target="_blank" rel="noopener" aria-label="Visit"><span class="btn-label">Visit</span> ↗</a>
             </div>
           </div>
+          ${owner ? `<a class="detail-by" href="https://github.com/${owner}" target="_blank" rel="noopener">by ${owner}</a>` : ''}
           <p class="detail-desc">${e.desc}</p>
           <div class="tags" style="margin-top:10px;">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
         </div>
@@ -669,14 +694,19 @@ function renderDetail(e){
   document.getElementById('entryScreenshot').addEventListener('error', () => screenshotLinkEl.remove(), { once: true });
 
   const shareBtn = document.getElementById('shareBtn');
+  const shareLabel = shareBtn.querySelector('.btn-label');
   shareBtn.addEventListener('click', async () => {
+    if(navigator.share){
+      try{ await navigator.share({ title: document.title, url: location.href }); }catch(err){}
+      return;
+    }
     try{
       await navigator.clipboard.writeText(location.href);
-      shareBtn.textContent = 'Copied!';
+      shareLabel.textContent = 'Copied!';
     }catch(err){
-      shareBtn.textContent = 'Copy failed';
+      shareLabel.textContent = 'Copy failed';
     }
-    setTimeout(() => { shareBtn.textContent = 'Share'; }, 1500);
+    setTimeout(() => { shareLabel.textContent = 'Share'; }, 1500);
   });
 
   const copyBadgeBtn = document.getElementById('copyBadgeBtn');

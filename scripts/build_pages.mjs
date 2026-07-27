@@ -197,6 +197,7 @@ function renderDetailHtml(e, slug) {
     `<div class="t-${c.status}">${iconFor(c.status)} ${escapeHtml(c.label)}${c.detail ? ' — ' + linkify(c.detail) : ''}</div>`
   ).join('');
 
+  const owner = e.repo ? e.repo.split('/')[0] : '';
   const badgeLabel = checks.length ? `${passed}/${checks.length}` : '';
   const forksVal = (e.repo && !absent && starInfo.forks != null) ? starInfo.forks : null;
   const contributorsVal = (e.repo && !absent && starInfo.contributors != null) ? starInfo.contributors : null;
@@ -204,11 +205,11 @@ function renderDetailHtml(e, slug) {
 
   const statParts = [];
   if (e.repo) {
-    statParts.push(starsVal === 'n/a' ? 'stars n/a' : `${starsVal} stars`);
-    if (forksVal != null) statParts.push(`${forksVal} fork${forksVal === 1 ? '' : 's'}`);
-    if (contributorsVal != null) statParts.push(`${contributorsVal} contributor${contributorsVal === 1 ? '' : 's'}`);
-    statParts.push(createdVal === 'n/a' ? 'created n/a' : `created ${createdVal}`);
-    statParts.push(`<a href="https://github.com/${e.repo}" target="_blank" rel="noopener">${escapeHtml(e.repo)} ↗</a>`);
+    statParts.push(starsVal === 'n/a' ? '<span class="stat-word">stars </span>n/a' : `${starsVal}<span class="stat-word"> stars</span>`);
+    if (forksVal != null) statParts.push(`<span class="stat-forks-text">${forksVal} fork${forksVal === 1 ? '' : 's'}</span><svg class="stat-forks-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg><span class="stat-forks-num">${forksVal}</span>`);
+    if (contributorsVal != null) statParts.push(`<span class="stat-contrib-text">${contributorsVal} contributor${contributorsVal === 1 ? '' : 's'}</span><svg class="stat-contrib-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path></svg><span class="stat-contrib-num">${contributorsVal}</span>`);
+    statParts.push(createdVal === 'n/a' ? '<span class="stat-word">created </span>n/a' : `<svg class="stat-date-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="stat-word">created </span>${createdVal}`);
+    statParts.push(`<a class="stat-repo-link" href="https://github.com/${e.repo}" target="_blank" rel="noopener">${GH_ICON_SVG}${escapeHtml(e.repo.split('/')[1] || e.repo)} ↗</a>`);
   } else {
     statParts.push('no public repo linked');
   }
@@ -235,10 +236,11 @@ function renderDetailHtml(e, slug) {
           <div class="detail-name-row">
             <h1>${escapeHtml(e.name)}</h1>
             <div class="detail-actions">
-              <button type="button" class="btn-outline" id="shareBtn">Share</button>
-              <a class="btn-solid" href="${e.url}" target="_blank" rel="noopener">Visit ↗</a>
+              <button type="button" class="btn-outline" id="shareBtn" aria-label="Share"><svg class="btn-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg><span class="btn-label">Share</span></button>
+              <a class="btn-solid" href="${e.url}" target="_blank" rel="noopener" aria-label="Visit"><span class="btn-label">Visit</span> ↗</a>
             </div>
           </div>
+          ${owner ? `<a class="detail-by" href="https://github.com/${owner}" target="_blank" rel="noopener">by ${escapeHtml(owner)}</a>` : ''}
           <p class="detail-desc">${escapeHtml(e.desc)}</p>
           <div class="tags" style="margin-top:10px;">${e.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
         </div>
