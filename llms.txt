@@ -4,6 +4,7 @@
 
 ## Catalog
 
+- [paper-viewer-local-llm](https://iamsingle.app/entry/paper-viewer-local-llm): 📚 Single-file browser viewer for academic PDFs powered by your local LLM (LM Studio / Ollama).
 - [FuzzyGraph](https://iamsingle.app/entry/fuzzygraph): Graphs where equations are not only exactly true, but close to true. Instead of black lines on a white background, this creates beautiful gradients.
 - [htpad](https://iamsingle.app/entry/htpad): A super-simple HTML notepad for handwritten notes
 - [Hypervault](https://iamsingle.app/entry/hypervault): Hypervault is client-side file encryption web app that embeds a copy of the decryption logic along with the encrypted data in a Single-File Web App.
