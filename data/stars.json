@@ -112,7 +112,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4801,
+    "stars": 4808,
     "created": "2025-12-16",
     "forks": 734,
     "contributors": 13,
@@ -296,9 +296,9 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 2467,
+    "stars": 2523,
     "created": "2026-07-17",
-    "forks": 152,
+    "forks": 153,
     "contributors": 4,
     "languages": [
       {
@@ -340,6 +340,18 @@
       {
         "name": "JavaScript",
         "pct": 0.2
+      }
+    ]
+  },
+  "wildriver/paper-viewer-local-llm": {
+    "stars": 8,
+    "created": "2026-05-17",
+    "forks": 0,
+    "contributors": 1,
+    "languages": [
+      {
+        "name": "HTML",
+        "pct": 100.0
       }
     ]
   },
