@@ -1,0 +1,11 @@
+{
+  "name": "paper-viewer-local-llm",
+  "url": "https://github.com/wildriver/paper-viewer-local-llm",
+  "repo": "wildriver/paper-viewer-local-llm",
+  "desc": "📚 Single-file browser viewer for academic PDFs powered by your local LLM (LM Studio / Ollama).",
+  "tags": [
+    "tools",
+    "ai"
+  ],
+  "added": "2026-07-27"
+}
