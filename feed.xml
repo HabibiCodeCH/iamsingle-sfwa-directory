@@ -6,7 +6,7 @@
   <description>New single-file web apps added to the iamsingle.app catalog.</description>
   <language>en</language>
   <atom:link href="https://iamsingle.app/feed.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Tue, 28 Jul 2026 12:06:33 GMT</lastBuildDate>
+  <lastBuildDate>Tue, 28 Jul 2026 12:39:08 GMT</lastBuildDate>
   <item>
     <title>paper-viewer-local-llm</title>
     <link>https://iamsingle.app/entry/paper-viewer-local-llm</link>
@@ -89,13 +89,6 @@
     <link>https://iamsingle.app/entry/agent-architecture</link>
     <guid isPermaLink="true">https://iamsingle.app/entry/agent-architecture</guid>
     <description>A visual multi-agent system designer for Claude Code — 28 agents, human-in-the-loop gates, live simulation. Zero dependencies.</description>
-    <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
-  </item>
-  <item>
-    <title>portable-php</title>
-    <link>https://iamsingle.app/entry/portable-php</link>
-    <guid isPermaLink="true">https://iamsingle.app/entry/portable-php</guid>
-    <description>A blog in one file. Not HTML-only (it&#39;s PHP), but the same instinct: no database, no build, drop it on a server and it works.</description>
     <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
   </item>
   <item>

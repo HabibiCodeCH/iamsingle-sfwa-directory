@@ -293,15 +293,6 @@
     ],
     "insecure": []
   },
-  "portable-php": {
-    "mode": "live",
-    "measured": "https://cadars.github.io/portable-php/",
-    "selfContained": true,
-    "codeDeps": [],
-    "contentReqs": [],
-    "thirdPartyHosts": [],
-    "insecure": []
-  },
   "httprd": {
     "mode": "unmeasurable",
     "reason": "entry URL points at a code-host page, not a running app, and no repo artifact is set"

@@ -127,26 +127,6 @@
       }
     ]
   },
-  "cadars/portable-php": {
-    "stars": 116,
-    "created": "2021-01-13",
-    "forks": 11,
-    "contributors": 2,
-    "languages": [
-      {
-        "name": "HTML",
-        "pct": 77.5
-      },
-      {
-        "name": "CSS",
-        "pct": 13.6
-      },
-      {
-        "name": "PHP",
-        "pct": 8.9
-      }
-    ]
-  },
   "calebmadrigal/fuzzygraph": {
     "stars": 6,
     "created": "2025-05-31",
