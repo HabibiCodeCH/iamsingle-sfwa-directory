@@ -19,6 +19,17 @@ const stars = existsSync(join(ROOT, 'data/stars.json'))
 const sizes = existsSync(join(ROOT, 'data/sizes.json'))
   ? JSON.parse(readFileSync(join(ROOT, 'data/sizes.json'), 'utf8'))
   : {};
+// Per-entry network profile from scripts/screenshot.mjs — drives the
+// "single file" badge and the third-party contact disclosure.
+const network = existsSync(join(ROOT, 'data/network.json'))
+  ? JSON.parse(readFileSync(join(ROOT, 'data/network.json'), 'utf8'))
+  : {};
+// Verified fix credits, written by api/recheck.js when someone reports a fix
+// and GitHub confirms who authored the commit. Kept in its own file because
+// screenshot.mjs rewrites network.json wholesale on every re-measurement.
+const fixes = existsSync(join(ROOT, 'data/fixes.json'))
+  ? JSON.parse(readFileSync(join(ROOT, 'data/fixes.json'), 'utf8'))
+  : {};
 
 // Kept in sync by hand with the identical function in index.html's client
 // script and api/submit.js's slugify() — no shared module between the three.
@@ -79,6 +90,119 @@ function langColor(name, i) {
   return LANG_COLORS[name] || LANG_FALLBACK[i % LANG_FALLBACK.length];
 }
 const GH_ICON_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>';
+// Webfont sources. A font is still an external request, so it bars an entry
+// from being certified, but it isn't the app's logic: block it and the app
+// runs identically in a fallback typeface. Treating it like fetching React
+// from a CDN would put an app whose code genuinely is in one file into the
+// same bucket as one that isn't.
+const FONT_HOSTS = new Set(['fonts.googleapis.com', 'fonts.gstatic.com', 'use.typekit.net']);
+const FIX_LIST_MAX = 8;
+const LIB_CDN_HOSTS = new Set(['cdn.jsdelivr.net', 'unpkg.com', 'cdnjs.cloudflare.com']);
+
+function hostOf(url) {
+  try { return new URL(url).hostname; } catch { return ''; }
+}
+
+/** Splits code dependencies into { fonts, logic }, deduplicated by URL.
+ *  The same file fetched twice is still one file the app needs, and counting
+ *  requests instead made the verdict disagree with the fix list below it. */
+function classifyDeps(deps) {
+  const fonts = [];
+  const logic = [];
+  const seen = new Set();
+  for (const d of deps || []) {
+    if (seen.has(d.url)) continue;
+    seen.add(d.url);
+    (d.type === 'font' || FONT_HOSTS.has(hostOf(d.url)) ? fonts : logic).push(d);
+  }
+  return { fonts, logic };
+}
+
+/** The single verdict every entry gets, so no card is left blank.
+ *  'sfa' | 'certified' | 'nearly' | 'no' | null (not measurable) */
+function sfwaStatus(e, net) {
+  if (e.kind === 'sfa') return 'sfa';
+  if (!net || net.mode === 'unmeasurable') return null;
+  if (net.selfContained) return 'certified';
+  // One stray dependency, or nothing but fonts, is "nearly there".
+  return classifyDeps(net.codeDeps).logic.length <= 1 ? 'nearly' : 'no';
+}
+
+/** Turns one dependency into a concrete, actionable step rather than a
+ *  generic "inline your dependencies". Deduplicated by the caller. */
+function fixFor(dep, docOrigin) {
+  const host = hostOf(dep.url);
+  const file = dep.url.split('/').pop().split('?')[0] || dep.url;
+  if (dep.url.startsWith('http://')) {
+    return `Load \`${file}\` over https — it currently comes in over plain http and can be modified in transit`;
+  }
+  if (/google-analytics|googletagmanager|plausible|segment|mixpanel/.test(host)) {
+    return `Drop the analytics beacon (\`${host}\`) — it reports every visitor to a third party`;
+  }
+  if (host === 'cdn.tailwindcss.com') {
+    return 'Replace the Tailwind CDN script with a compiled stylesheet inlined in a `<style>` tag';
+  }
+  if (FONT_HOSTS.has(host)) {
+    return `Self-host the webfont as a base64 \`@font-face\`, or fall back to a system font stack (currently \`${host}\`)`;
+  }
+  if (LIB_CDN_HOSTS.has(host)) {
+    return `Inline \`${file}\` into a \`<script>\`/\`<style>\` tag instead of fetching it from \`${host}\``;
+  }
+  if (docOrigin && dep.url.startsWith(docOrigin)) {
+    return `Inline \`${file}\` — it's already your own file, it just needs to move into the HTML`;
+  }
+  return `Inline \`${file}\` from \`${host}\` so it ships with the app`;
+}
+
+
+/** Credit for whoever fixed an entry. Only rendered when the entry is
+ *  certified now — a recorded fix that didn't work earns nothing. */
+function fixCreditHtml(slug, status) {
+  const f = fixes[slug];
+  if (status !== 'certified' || !f || !f.by) return '';
+  const when = f.date ? formatAdded(f.date) : '';
+  const label = `fixed by @${escapeHtml(f.by)}${when ? ` · ${when}` : ''}`;
+  return f.url
+    ? `<a class="fix-credit" href="${escapeHtml(f.url)}" target="_blank" rel="noopener" title="View the commit that fixed this">${label}</a>`
+    : `<span class="fix-credit">${label}</span>`;
+}
+
+/** One badge per status, shared by the catalog card and the entry heading so
+ *  the two can't drift apart. Mirrored in index.html's client script. */
+function statusBadgeHtml(status, e) {
+  switch (status) {
+    case 'sfa':
+      return `<span class="sfa-tag" title="A single-file app, but it needs ${escapeHtml(e.runtime)} to run — not a browser-only single-file web app">sfa · ${escapeHtml(e.runtime)}</span>`;
+    case 'certified':
+      return `<span class="sf-badge" title="The entire app sits in one file. No imports, no server calls, no build.">${SF_ICON_SVG}certified sfwa</span>`;
+    case 'nearly':
+      return `<span class="sf-badge sf-badge-near" title="Almost: its own code is in one file, but it still pulls something in.">${SF_ICON_SVG}nearly a sfwa</span>`;
+    case 'no':
+      return `<span class="sf-badge sf-badge-no" title="The app fetches code it needs from elsewhere.">${SF_ICON_SVG}not a sfwa</span>`;
+    default:
+      return '';
+  }
+}
+
+/** Backticked spans in the fix text become <code>, after escaping. */
+function fixText(s) {
+  return escapeHtml(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
+function fixesFor(net) {
+  const { fonts, logic } = classifyDeps(net.codeDeps);
+  const seen = new Set();
+  const out = [];
+  for (const d of [...logic, ...fonts]) {
+    const tip = fixFor(d, net.measured ? new URL(net.measured).origin : null);
+    if (!seen.has(tip)) { seen.add(tip); out.push(tip); }
+  }
+  return out;
+}
+
+// Document glyph with a "1" — the single-file mark, matching the site favicon.
+const SF_ICON_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path d="M6 2h9l5 5v15H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M15 2v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><text x="12" y="18" font-size="9" font-family="ui-monospace,monospace" font-weight="bold" text-anchor="middle" fill="currentColor">1</text></svg>';
+
 // Three finder-pattern corners + a few data modules — a minimal QR glyph.
 const QR_ICON_SVG = '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="3" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="3" y="15" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="18.5" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="15" y="18.5" width="2.5" height="2.5" fill="currentColor"></rect></svg>';
 
@@ -114,7 +238,12 @@ function isNew(e) {
 function svgBadge(passed, total) {
   const color = scoreColor(passed / total);
   const line1 = 'iamsingle.app';
-  const line2 = 'verified sfwa';
+  // Says what the number actually is. It used to read "verified sfwa", which
+  // claimed something this score doesn't measure — an entry loading 24 files
+  // from CDNs could still embed a badge implying it was a verified SFWA.
+  // That claim now lives on its own badge (svgCertifiedBadge), which is only
+  // generated for entries that earn it.
+  const line2 = 'security audit';
   const value = `${passed}/${total}`;
   const charW1 = 5.1, padL = 10;
   const charW2 = 7.8, padR = 14;
@@ -137,16 +266,92 @@ function svgBadge(passed, total) {
 `;
 }
 
+/** The earned badge: no number, because it isn't a score — either the whole
+ *  app is in one file or it isn't. Only generated for entries that pass, so
+ *  there's nothing to embed unless it's true. */
+function svgCertifiedBadge() {
+  const line1 = 'iamsingle.app';
+  const line2 = 'certified sfwa';
+  const charW = 5.1, padL = 10, padR = 16;
+  const leftW = Math.round(line2.length * charW) + padL * 2;
+  const rightW = 30;
+  const totalW = leftW + rightW;
+  const h = 34;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="${h}" role="img" aria-label="${line1} — ${line2}">
+  <clipPath id="r"><rect width="${totalW}" height="${h}" rx="4" fill="#fff"/></clipPath>
+  <g clip-path="url(#r)">
+    <rect width="${leftW}" height="${h}" fill="#201E19"/>
+    <rect x="${leftW}" width="${rightW}" height="${h}" fill="#3F6B3F"/>
+  </g>
+  <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif">
+    <text x="${padL}" y="15" font-size="9" fill="#EEEBE2">${line1}</text>
+    <text x="${padL}" y="26" font-size="9" font-weight="bold" fill="#fff">${line2}</text>
+    <text x="${leftW + rightW / 2 - 1}" y="${Math.round(h / 2 + 6)}" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle">✓</text>
+  </g>
+</svg>
+`;
+}
+
 // Mirrors the embed-badge block added to renderDetail() in index.html's client script.
-function embedBadgeHtml(slug, checks, passed) {
+function embedBadgeHtml(slug, checks, passed, certified) {
   if (!checks.length) return '';
+  const certifiedBlock = certified ? `
+      <div class="detail-checks-label" style="margin-top:22px;">Embed the certified badge</div>
+      <img class="badge-preview" src="${SITE_URL}/certified/${slug}.svg" alt="iamsingle.app — certified sfwa">
+      <textarea class="badge-snippet" id="certifiedSnippet" readonly rows="2">[![iamsingle.app — certified sfwa](${SITE_URL}/certified/${slug}.svg)](${SITE_URL}/entry/${slug})</textarea>
+      <button type="button" class="btn-outline" id="copyCertifiedBtn">Copy markdown</button>` : '';
   return `
     <div class="embed-badge">
       <div class="detail-checks-label">Embed this badge</div>
-      <img class="badge-preview" src="${SITE_URL}/badge/${slug}.svg" alt="iamsingle.app — verified sfwa — ${passed}/${checks.length}">
-      <textarea class="badge-snippet" id="badgeSnippet" readonly rows="2">[![iamsingle.app — verified sfwa — ${passed}/${checks.length}](${SITE_URL}/badge/${slug}.svg)](${SITE_URL}/entry/${slug})</textarea>
-      <button type="button" class="btn-outline" id="copyBadgeBtn">Copy markdown</button>
+      <img class="badge-preview" src="${SITE_URL}/badge/${slug}.svg" alt="iamsingle.app — security audit — ${passed}/${checks.length}">
+      <textarea class="badge-snippet" id="badgeSnippet" readonly rows="2">[![iamsingle.app — security audit — ${passed}/${checks.length}](${SITE_URL}/badge/${slug}.svg)](${SITE_URL}/entry/${slug})</textarea>
+      <button type="button" class="btn-outline" id="copyBadgeBtn">Copy markdown</button>${certifiedBlock}
     </div>`;
+}
+
+/** Pre-filled GitHub issue inviting the author to inline their dependencies.
+ *
+ * An issue rather than a PR: GitHub can't pre-fill a pull request from a URL
+ * (that needs a fork, a branch and an actual diff), so this opens a populated
+ * "new issue" form on the project's own repo instead. Mirrored in
+ * index.html's renderDetail().
+ */
+// Asks for a re-measurement; structurally cannot assert a verdict. See api/recheck.js.
+function recheckBtnHtml(slug) {
+  // Opens the re-check modal (static markup in index.html), which explains
+  // what happens next and takes the optional handle.
+  return `<button type="button" class="btn-outline recheck-btn" data-recheck-slug="${slug}">I fixed it ↻</button>`;
+}
+
+function suggestFixHtml(e, slug, fixes) {
+  // The GitHub buttons need a repo; the re-check button doesn't — a hosted
+  // app with no linked repo can still be fixed and re-measured.
+  if (!e.repo) {
+    return `<div class="fix-suggest">${recheckBtnHtml(slug)}</div>`;
+  }
+  // Capped because the whole issue travels in a URL, which has a practical
+  // length limit — the entry page carries the complete list and is linked.
+  const shown = fixes.slice(0, FIX_LIST_MAX);
+  const more = fixes.length - shown.length;
+  const list = shown.map(f => `- [ ] ${f}`).join('\n')
+    + (more > 0 ? `\n- [ ] …and ${more} more — full list: ${SITE_URL}/entry/${slug}#network` : '');
+  const body = [
+    `Spotted via [iamsingle.app](${SITE_URL}), a directory of single-file web apps.`,
+    '',
+    'This one loads files it needs from elsewhere. Suggested changes:',
+    '',
+    list,
+    '',
+    'Doing that would make it fully self-contained: no imports, no server calls, no build,',
+    'and it would qualify as a certified SFWA in the directory.',
+    '',
+    `Entry: ${SITE_URL}/entry/${slug}`,
+  ].join('\n');
+  const url = `https://github.com/${e.repo}/issues/new`
+    + `?title=${encodeURIComponent('Make this a true single-file web app?')}`
+    + `&body=${encodeURIComponent(body)}`;
+  const issueBtn = `<a class="btn-outline" href="${escapeHtml(url)}" target="_blank" rel="noopener">Open issue ↗</a>`;
+  return `<div class="fix-suggest">${issueBtn}${recheckBtnHtml(slug)}</div>`;
 }
 
 function logoSrc(e, size) {
@@ -178,6 +383,13 @@ function renderCard(e, i) {
   const badgeColor = checks.length ? scoreColor(passed / checks.length) : '#8A8578';
 
   const rankLabel = pad(i + 1);
+  // Certified at zero external code deps, "nearly" at exactly one — past
+  // that it's a different claim about the project and gets no badge.
+  // Every measurable entry carries exactly one verdict badge — a blank card
+  // read as "we failed to check" rather than "this didn't qualify".
+  // Credit is deliberately entry-page only — the catalog row already carries
+  // a status badge, tags and stats, and a second attribution there is noise.
+  const sfBadge = statusBadgeHtml(sfwaStatus(e, network[entrySlug]), e);
   const hasQr = existsSync(join(ROOT, 'qr', `${entrySlug}.png`));
   const qrBtn = hasQr ? `<button type="button" class="qr-btn" data-qr-slug="${entrySlug}" data-qr-name="${escapeHtml(e.name)}" aria-label="Scan to run ${escapeHtml(e.name)} from a QR code">${QR_ICON_SVG}</button>` : '';
 
@@ -191,7 +403,7 @@ function renderCard(e, i) {
           ${qrBtn}
         </p>
         <p class="desc">${escapeHtml(e.desc)}</p>
-        <div class="tags">${ghPill}${e.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
+        <div class="tags">${ghPill}${sfBadge}${e.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
       </div>
       ${hasChecks ? `<div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/${entrySlug}#audit-results" data-nav style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</a></div>` : ''}
     </div>`;
@@ -239,6 +451,65 @@ function renderDetailHtml(e, slug) {
     <div class="lang-bar">${languages.map((l, i) => `<span style="width:${l.pct}%;background:${langColor(l.name, i)};"></span>`).join('')}</div>
     <div class="lang-legend">${languages.map((l, i) => `<span class="lang-dot" style="background:${langColor(l.name, i)};"></span>${escapeHtml(l.name)} ${l.pct}%`).join(' <span class="sep">·</span> ')}</div>` : '';
 
+  // Informational, deliberately not part of the pass/fail audit score: this
+  // comes from one passive page load, so a request that only fires on user
+  // interaction wouldn't be seen. Reported as observation, not verdict.
+  const net = network[slug];
+  let networkHtml = '';
+  if (net) {
+    const status = sfwaStatus(e, net);
+    const { fonts, logic } = classifyDeps(net.codeDeps);
+    // One source of truth for "how many files": the verdict and the fix list
+    // below it are both derived from this, so they can't disagree.
+    const fixes = fixesFor(net);
+    const rows = [];
+    let extras = '';
+    const headingBadge = status ? ' ' + statusBadgeHtml(status, e) + fixCreditHtml(slug, status) : '';
+
+    if (status === 'sfa') {
+      rows.push(`<div class="t-skip">– No. It's a single-file app, but it needs ${escapeHtml(e.runtime)} to run, so it can't open straight from disk in a browser.</div>`);
+    } else if (!status) {
+      rows.push(`<div class="t-skip">– Not checked — ${escapeHtml(net.reason || 'no measurable target')}</div>`);
+    } else if (status === 'certified') {
+      rows.push('<div class="t-pass">✓ Yes, the entire app sits in one file. No imports, no server calls, no build.</div>');
+    } else if (status === 'nearly') {
+      rows.push(logic.length === 0
+        ? `<div class="t-fail">✗ Almost — its own code is self-contained, but it loads ${fonts.length} font file${fonts.length === 1 ? '' : 's'} from elsewhere</div>`
+        : '<div class="t-fail">✗ The app needs 1 external file</div>');
+    } else {
+      rows.push(`<div class="t-fail">✗ Not a SFWA, the app needs ${fixes.length} file${fixes.length === 1 ? '' : 's'} from elsewhere.</div>`);
+    }
+
+    if (status !== 'sfa' && status) {
+      for (const host of net.thirdPartyHosts || []) {
+        rows.push(`<div class="t-skip">– Contacts <code>${escapeHtml(host)}</code></div>`);
+      }
+    }
+    for (const u of net.insecure || []) {
+      rows.push(`<div class="t-fail">✗ Loaded over plain http, modifiable in transit: ${escapeHtml(u)}</div>`);
+    }
+
+    // Concrete steps rather than a generic nudge — the same list populates
+    // the pre-filled GitHub issue below.
+    if (status === 'nearly' || status === 'no') {
+      if (fixes.length) {
+        // Native <details> so the toggle needs no JS and behaves the same in
+        // the pre-rendered page and the client-rendered one.
+        const head = fixes.slice(0, FIX_LIST_MAX);
+        const rest = fixes.slice(FIX_LIST_MAX);
+        const row = f => `<div class="t-skip">→ ${fixText(f)}</div>`;
+        extras = `<div class="detail-checks-label">How to fix it</div><div class="detail-checks">`
+          + head.map(row).join('')
+          + (rest.length
+            ? `<details class="fix-more"><summary>Show full list (${fixes.length})</summary>${rest.map(row).join('')}</details>`
+            : '')
+          + `</div>${suggestFixHtml(e, slug, fixes)}`;
+      }
+    }
+
+    networkHtml = `<div class="detail-checks-label" id="network">Is it a true single-file web app?${headingBadge}</div><div class="detail-checks">${rows.join('')}</div>${extras}`;
+  }
+
   const screenshotHtml = existsSync(join(ROOT, 'screenshot', `${slug}.png`)) ? `
     <a class="screenshot-link" href="${e.url}" target="_blank" rel="noopener">
       <img class="entry-screenshot" src="${SITE_URL}/screenshot/${slug}.png" alt="Screenshot of ${escapeHtml(e.name)}" loading="lazy">
@@ -266,8 +537,9 @@ function renderDetailHtml(e, slug) {
     ${screenshotHtml}
     ${statStripHtml}
     ${langHtml}
+    ${networkHtml}
     ${hasChecks ? `<div class="detail-checks-label" id="audit-results">Security audit — full results <span class="badge" style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</span></div><div class="detail-checks">${testsHtml}</div>` : ''}
-    ${embedBadgeHtml(slug, checks, passed)}
+    ${embedBadgeHtml(slug, checks, passed, !!network[slug]?.selfContained)}
     <a href="/" data-nav class="back-link sub">← back to the full catalog</a>
   `;
 }
@@ -334,7 +606,25 @@ const INLINE_DATA_END = '/* BUILD:INLINE_DATA:END */';
 const qrSlugs = entries.map(e => slugify(e.name)).filter(slug => existsSync(join(ROOT, 'qr', `${slug}.png`)));
 // </script sequences are escaped defensively since check details/descriptions
 // are free text that could otherwise break out of the inline <script> tag.
-const inlineDataJs = `const INLINE_DATA = ${JSON.stringify({ entries, stars, sizes, qrSlugs }).replace(/<\/script/gi, '<\\/script')};`;
+// Only the fields the client actually renders — the full per-request URL
+// lists in data/network.json would bloat every page for no benefit.
+const networkSlim = Object.fromEntries(Object.entries(network).map(([slug, v]) => {
+  const { fonts, logic } = classifyDeps(v.codeDeps);
+  return [slug, {
+    mode: v.mode,
+    reason: v.reason,
+    selfContained: v.selfContained,
+    fontCount: fonts.length,
+    logicCount: logic.length,
+    // Pre-computed here so the client doesn't need a second copy of the
+    // host-classification rules; capped so a 24-dependency entry doesn't
+    // inline its whole list into all 22 pages.
+    fixes: fixesFor(v),
+    thirdPartyHosts: v.thirdPartyHosts || [],
+    insecure: v.insecure || [],
+  }];
+}));
+const inlineDataJs = `const INLINE_DATA = ${JSON.stringify({ entries, stars, sizes, qrSlugs, network: networkSlim, fixes }).replace(/<\/script/gi, '<\\/script')};`;
 
 // --- homepage-only highlight cards: smallest file, most stars, last added ---
 function renderHighlights() {
@@ -397,6 +687,11 @@ rmSync(entryDir, { recursive: true, force: true });
 const badgeDir = join(ROOT, 'badge');
 rmSync(badgeDir, { recursive: true, force: true });
 mkdirSync(badgeDir, { recursive: true });
+// Regenerated from scratch each build so a badge disappears the moment an
+// entry stops qualifying — a stale "certified" file would be a false claim.
+const certifiedDir = join(ROOT, 'certified');
+rmSync(certifiedDir, { recursive: true, force: true });
+mkdirSync(certifiedDir, { recursive: true });
 
 const TITLE_ANCHOR = '<title>iamsingle.app - single-file web app directory</title>';
 const DESC_ANCHOR = '<meta name="description" content="A working directory of SFWAs (single-file web apps) — apps that ship as one HTML file, no install, no build, no server required. Ranked by GitHub stars, searchable by what it does.">';
@@ -419,6 +714,9 @@ for (const e of sorted) {
   if (checks.length) {
     const passed = checks.filter(c => c.status === 'pass').length;
     writeFileSync(join(badgeDir, `${slug}.svg`), svgBadge(passed, checks.length));
+  }
+  if (network[slug]?.selfContained) {
+    writeFileSync(join(certifiedDir, `${slug}.svg`), svgCertifiedBadge());
   }
 
   let page = templateSrc; // fresh copy each time, not the homepage's populated `home`

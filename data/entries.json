@@ -29,14 +29,14 @@
       {
         "id": "pattern-eval",
         "label": "eval() usage",
-        "status": "pass",
-        "detail": ""
+        "status": "fail",
+        "detail": "eval() call found \u2014 needs manual review"
       },
       {
         "id": "pattern-function",
         "label": "Function() construction",
-        "status": "pass",
-        "detail": ""
+        "status": "fail",
+        "detail": "new Function() call found \u2014 needs manual review"
       },
       {
         "id": "pattern-decode-exec",
@@ -276,6 +276,7 @@
     "name": "hermes-ui",
     "url": "https://github.com/pyrate-llama/hermes-ui",
     "repo": "pyrate-llama/hermes-ui",
+    "file": "hermes-ui.html",
     "desc": "A command center for an AI agent \u2014 chat, steer, browse files, manage skills \u2014 packed into one glassmorphic HTML app.",
     "tags": [
       "ai",
@@ -476,6 +477,8 @@
     "name": "httprd",
     "url": "https://github.com/bitrate16/httprd",
     "repo": "bitrate16/httprd",
+    "kind": "sfa",
+    "runtime": "Python",
     "desc": "Remote desktop over a plain browser tab, driven by a single script \u2014 no client install on either end.",
     "tags": [
       "tools"
@@ -542,6 +545,7 @@
     "name": "Offline-HTML-Games-Pack",
     "url": "https://github.com/CoolDude2349/Offline-HTML-Games-Pack",
     "repo": "CoolDude2349/Offline-HTML-Games-Pack",
+    "file": "compressed.html",
     "desc": "Three hundred small games, each shipped as its own single-file HTML \u2014 pick one up, play offline, no dependencies.",
     "tags": [
       "games"
@@ -608,6 +612,7 @@
     "name": "gemini-chat-organizer-hub",
     "url": "https://github.com/MartinSantosT/gemini-chat-organizer-hub",
     "repo": "MartinSantosT/gemini-chat-organizer-hub",
+    "file": "index.html",
     "desc": "A local, offline-first hub for organizing AI chats, prompts, and projects \u2014 kanban board included, all in one file.",
     "tags": [
       "ai",
@@ -891,6 +896,8 @@
     "name": "vicco",
     "url": "https://github.com/zichy/vicco",
     "repo": "zichy/vicco",
+    "kind": "sfa",
+    "runtime": "PHP",
     "desc": "Blogging in a single file",
     "tags": [
       "tools",
@@ -958,6 +965,7 @@
     "name": "orbital-notebook",
     "url": "https://github.com/kalpi-4/orbital-notebook",
     "repo": "kalpi-4/orbital-notebook",
+    "file": "orbital-notebook.html",
     "desc": "A single-file, zero-dependency N-body gravitational simulator with a built-in notebook \u2014 runs entirely in your browser, no server required.",
     "tags": [
       "games"
@@ -1024,6 +1032,7 @@
     "name": "htpad",
     "url": "https://github.com/akissinger/htpad",
     "repo": "akissinger/htpad",
+    "file": "blank.html",
     "desc": "A super-simple HTML notepad for handwritten notes",
     "tags": [
       "notes"
@@ -1366,6 +1375,7 @@
     "name": "paper-viewer-local-llm",
     "url": "https://github.com/wildriver/paper-viewer-local-llm",
     "repo": "wildriver/paper-viewer-local-llm",
+    "file": "paper_viewer.html",
     "desc": "\ud83d\udcda Single-file browser viewer for academic PDFs powered by your local LLM (LM Studio / Ollama).",
     "tags": [
       "tools",

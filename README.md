@@ -148,14 +148,24 @@ Per pending entry:
    PR added into a single list for the scripts below.
 2. **`security_scan.py`** — heuristic only, not a guarantee:
    - if `repo` is set: shallow-clones it, runs `detect-secrets` (leaked
-     credentials) and `semgrep` (`p/security-audit`, `p/javascript` rulesets)
-   - always: fetches the live `url` (http/https only, internal/private
-     hosts refused) and regex-tests the raw HTML/JS for the literal
-     presence of `eval(`, `new Function(`, decode→eval chains, decoded
-     content written into the DOM, `sendBeacon` calls — these are presence
-     checks on fetched text, not argument/taint analysis, so a `fail`
-     means "found, needs a human look," not "confirmed dangerous"
+     credentials) and `semgrep` (`p/security-audit`, `p/javascript` rulesets).
+     Only `ERROR`-severity semgrep findings that aren't explicitly
+     low-confidence fail the check: `p/security-audit` is a high-recall audit
+     ruleset meant to surface things for human review, so a raw finding count
+     is noise rather than a verdict. Lower-severity hits are still counted in
+     the check's detail text, so a noisy entry isn't presented as spotless.
+   - always: fetches the live `url` (http/https only; internal/private hosts
+     refused, and re-checked on every redirect hop) and regex-tests the raw
+     HTML/JS for the literal presence of `eval(`, `new Function(`, decode→eval
+     chains, decoded content written into the DOM, `sendBeacon` calls — these
+     are presence checks on fetched text, not argument/taint analysis, so a
+     `fail` means "found, needs a human look," not "confirmed dangerous"
+   - a page over the 20 MB read cap is reported `skip`, never `pass` — a
+     truncated body matches no patterns and would otherwise be
+     indistinguishable from a clean result
    - each test reports `pass` / `fail` / `skip` individually — no prose summary
+   - `scripts/test_security_scan.py` covers the above (`python3
+     scripts/test_security_scan.py`, stdlib only)
 3. **`merge_checks.py`** — writes the results into a `checks` array on the
    matching pending file (matched by `url`, not `name`, which isn't unique)
    and rewrites that `data/pending/*.json` file in place — never
@@ -185,12 +195,28 @@ Per pending entry:
   shift silently on a tool update.
 - GitHub's unauthenticated API rate limit (60/hr/IP) applies to the live
   star-ranking calls from visitors' browsers. Fine at current scale.
-- The SSRF guard on the submitted `url` blocks private/loopback/link-local
-  addresses at DNS-resolution time, not on every redirect hop — a submitted
-  URL that redirects to an internal address after the initial check could
-  still slip through. Not exploited in testing, but worth hardening
-  (e.g. disabling redirects and re-checking each hop) before this sees
-  real traffic.
+- The SSRF guard re-checks every redirect hop, but it validates a host by
+  resolving it and then reconnects by name — so a DNS record that changes
+  between those two steps (rebinding) could still slip through. Closing that
+  means pinning the connection to the validated IP, which `urllib` can't
+  express without reimplementing TLS hostname verification.
+- Nothing re-scans an entry *automatically* after its PR merges. A live URL is
+  checked once and never again, so a project that fixes its dependencies keeps
+  its old verdict until someone asks for a re-check:
+
+      node scripts/screenshot.mjs --refresh <slug>[,<slug>]   # re-measure some
+      node scripts/screenshot.mjs --refresh-all               # re-measure everything
+
+  That re-does the screenshot, size, QR eligibility and network profile for
+  those entries, then `build_pages.mjs` regenerates their badges. A scheduled
+  version still wants a guard against a network blip flipping a certified
+  entry to failed — see the note on downgrades below.
+- There's no check for whether an app phones home. `sendBeacon` is
+  pattern-matched, but `fetch(`/`XMLHttpRequest`/WebSockets/remote
+  `<script src>` are not, and regex is the wrong instrument for it anyway —
+  intercepting requests in the headless browser that already loads every
+  entry (`scripts/screenshot.mjs`) would be both more accurate and a more
+  meaningful badge than anything in the current set.
 
 ## If you rename the site
 

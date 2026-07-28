@@ -7,7 +7,7 @@
 // cause pointless git churn. A stale artifact (app's UI changed, checks
 // re-ran) just sits there until someone deletes the file and triggers a
 // re-shoot; there's no auto-refresh.
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lookup } from 'node:dns/promises';
@@ -25,6 +25,14 @@ const QR_DIR = join(ROOT, 'qr');
 // bytes of binary payload at the lowest error-correction level.
 const QR_MAX_BYTES = 2048;
 const SIZES_PATH = join(ROOT, 'data/sizes.json');
+const NETWORK_PATH = join(ROOT, 'data/network.json');
+// Synthetic origin for artifact-mode capture. .invalid is reserved and never
+// resolves; the document is served from memory via route interception, so no
+// request for it ever leaves the machine.
+const ARTIFACT_ORIGIN = 'https://sfwa-artifact.invalid/';
+// An entry whose `url` is a repo page can't be profiled by loading that URL —
+// it would measure the code host, not the app.
+const CODE_HOST_HOSTS = new Set(['github.com', 'www.github.com', 'gitlab.com', 'bitbucket.org']);
 const VIEWPORT = { width: 1200, height: 750 };
 const OG_VIEWPORT = { width: 1200, height: 630 };
 const NAV_TIMEOUT_MS = 15_000;
@@ -180,7 +188,120 @@ async function isSafeUrl(rawUrl) {
   }
 }
 
+function isCodeHostUrl(u) {
+  try {
+    return CODE_HOST_HOSTS.has(new URL(u).hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
+/** Where an entry should actually be measured from.
+ *
+ * Some entries are distributed as a file you download and open rather than a
+ * hosted demo, so their `url` is the repo page. Loading that would profile the
+ * code host instead of the app, so those carry an explicit `file` (the repo
+ * artifact) and are measured from raw.githubusercontent instead. `HEAD`
+ * resolves to the default branch, so no branch name has to be stored.
+ */
+function measurementTarget(e) {
+  if (e.repo && e.file) {
+    return {
+      mode: 'artifact',
+      fetchUrl: `https://raw.githubusercontent.com/${e.repo}/HEAD/${e.file}`,
+      pageUrl: ARTIFACT_ORIGIN,
+    };
+  }
+  if (isCodeHostUrl(e.url)) {
+    return {
+      mode: 'unmeasurable',
+      reason: 'entry URL points at a code-host page, not a running app, and no repo artifact is set',
+    };
+  }
+  return { mode: 'live', pageUrl: e.url };
+}
+
+// Same-origin requests of these types are the app's own logic or styling
+// arriving from a separate file, which is what "not a single file" means.
+const CODE_RESOURCE_TYPES = new Set(['script', 'stylesheet', 'font']);
+
+/** Turns a raw request log into the signals the site reports.
+ *
+ * The badge asks "does this app's *code* live in one file", not "did the page
+ * request anything at all". Those differ: tiddlywiki.com pulls a wiki image
+ * and xlsx2md embeds documentation screenshots, but both are genuinely
+ * single-file apps — failing them on page content would make the badge
+ * meaningless. So a request disqualifies only if it's code: anything
+ * cross-origin (which could be a CDN serving the app's own logic, as
+ * htpad does), or a same-origin script/stylesheet/font.
+ *
+ * Never counted at all: the main document, the browser's automatic
+ * /favicon.ico probe (it fires whether or not the page asks for one), and
+ * data:/blob: URLs, which are inlined content rather than separate files.
+ */
+function summarizeRequests(requests, pageUrl, mode) {
+  let docOrigin = null;
+  try {
+    docOrigin = new URL(pageUrl).origin;
+  } catch {
+    /* leave null — everything then counts as cross-origin */
+  }
+  const normalize = u => u.replace(/\/$/, '');
+
+  const sub = requests.filter(r => {
+    if (/^(data|blob|about):/i.test(r.url)) return false;
+    if (r.type === 'document' && normalize(r.url) === normalize(pageUrl)) return false;
+    if (/\/favicon\.ico(\?.*)?$/i.test(r.url)) return false;
+    return true;
+  });
+
+  const codeDeps = [];
+  const contentReqs = [];
+  const hosts = new Set();
+  for (const r of sub) {
+    let crossOrigin = true;
+    try {
+      const u = new URL(r.url);
+      crossOrigin = u.origin !== docOrigin;
+      if (crossOrigin) hosts.add(u.hostname);
+    } catch {
+      /* unparseable — treat as cross-origin, the conservative reading */
+    }
+    (crossOrigin || CODE_RESOURCE_TYPES.has(r.type) ? codeDeps : contentReqs).push(r);
+  }
+
+  return {
+    mode,
+    measured: pageUrl,
+    selfContained: codeDeps.length === 0,
+    codeDeps,
+    contentReqs,
+    thirdPartyHosts: [...hosts].sort(),
+    // Plain-http subresources are worth surfacing on their own: they execute
+    // in the page and are modifiable in transit.
+    insecure: [...new Set(sub.filter(r => r.url.startsWith('http://')).map(r => r.url))].sort(),
+  };
+}
+
+/** --refresh <slug[,slug]> | --refresh-all
+ *
+ * Everything here is normally generated once and then skipped, which is what
+ * keeps CI fast — but it also means a project that fixed its dependencies
+ * would keep its old verdict forever. This re-measures the named entries
+ * from scratch: screenshot, size, QR eligibility and network profile.
+ */
+function refreshTargets(argv) {
+  if (argv.includes('--refresh-all')) return { all: true, slugs: new Set() };
+  const i = argv.indexOf('--refresh');
+  if (i === -1 || !argv[i + 1]) return { all: false, slugs: new Set() };
+  return { all: false, slugs: new Set(argv[i + 1].split(',').map(x => x.trim()).filter(Boolean)) };
+}
+
 async function main() {
+  const refresh = refreshTargets(process.argv.slice(2));
+  if (refresh.all) console.log('refreshing every entry');
+  else if (refresh.slugs.size) console.log(`refreshing: ${[...refresh.slugs].join(', ')}`);
+
   const entries = JSON.parse(readFileSync(join(ROOT, 'data/entries.json'), 'utf8'));
   const stars = existsSync(join(ROOT, 'data/stars.json'))
     ? JSON.parse(readFileSync(join(ROOT, 'data/stars.json'), 'utf8'))
@@ -190,47 +311,107 @@ async function main() {
   mkdirSync(OG_DIR, { recursive: true });
   mkdirSync(QR_DIR, { recursive: true });
 
+  const network = existsSync(NETWORK_PATH) ? JSON.parse(readFileSync(NETWORK_PATH, 'utf8')) : {};
+
+  // A slug missing from network.json means a full re-measure, not just a
+  // network profile. api/recheck.js requests a re-check by deleting exactly
+  // that key, so one deletion refreshes the screenshot, size, QR eligibility
+  // and OG card too — otherwise an app that inlined its dependencies would
+  // get a new badge while still showing its old (much smaller) size.
+  const isRefreshing = slug => refresh.all || refresh.slugs.has(slug) || !(slug in network);
+
   const items = entries.map(e => {
     const slug = slugify(e.name);
     return {
       e,
       slug,
+      target: measurementTarget(e),
       dest: join(SCREENSHOT_DIR, `${slug}.png`),
       ogDest: join(OG_DIR, `${slug}.png`),
       qrDest: join(QR_DIR, `${slug}.png`),
-      needsScreenshot: !existsSync(join(SCREENSHOT_DIR, `${slug}.png`)),
-      needsSize: !(slug in sizes),
-      needsOg: !existsSync(join(OG_DIR, `${slug}.png`)),
-      needsQr: !existsSync(join(QR_DIR, `${slug}.png`)),
+      needsScreenshot: isRefreshing(slug) || !existsSync(join(SCREENSHOT_DIR, `${slug}.png`)),
+      needsSize: isRefreshing(slug) || !(slug in sizes),
+      needsOg: isRefreshing(slug) || !existsSync(join(OG_DIR, `${slug}.png`)),
+      needsQr: isRefreshing(slug) || !existsSync(join(QR_DIR, `${slug}.png`)),
+      needsNetwork: isRefreshing(slug) || !(slug in network),
     };
   });
 
   const browser = await chromium.launch();
-  let shot = 0, sized = 0, ogGenerated = 0, qrGenerated = 0, skipped = 0;
+  let shot = 0, sized = 0, ogGenerated = 0, qrGenerated = 0, profiled = 0, skipped = 0;
   try {
-    // Screenshot + size measurement + QR generation all come from the same
-    // live-URL navigation, so they're done together per entry when any is
-    // needed — QR only for entries small enough to scan (see QR_MAX_BYTES).
+    // Screenshot, size, QR and the network profile all come from one page
+    // load per entry, so they're done together whenever any of them is
+    // missing — QR only for entries small enough to scan (see QR_MAX_BYTES).
     for (const item of items) {
-      if (!item.needsScreenshot && !item.needsSize && !item.needsQr) continue;
-      const { e, slug, dest, qrDest, needsScreenshot, needsSize, needsQr } = item;
-      const safe = await isSafeUrl(e.url);
-      if (!safe) {
-        console.warn(`skip ${slug}: URL failed safety check (${e.url})`);
+      const { e, slug, dest, qrDest, target, needsScreenshot, needsSize, needsQr, needsNetwork } = item;
+      if (!needsScreenshot && !needsSize && !needsQr && !needsNetwork) continue;
+
+      if (target.mode === 'unmeasurable') {
+        // Recorded rather than silently omitted, so the site can say "not
+        // checked, and why" instead of implying a clean result.
+        if (needsNetwork) network[slug] = { mode: 'unmeasurable', reason: target.reason };
+        console.warn(`skip ${slug}: ${target.reason}`);
         skipped++;
         continue;
       }
-      const page = await browser.newPage({ viewport: VIEWPORT });
-      try {
-        const response = await page.goto(e.url, { timeout: NAV_TIMEOUT_MS, waitUntil: 'load' });
-        let body = null;
-        if ((needsSize || needsQr) && response) {
-          try {
-            body = await response.text();
-          } catch (err) {
-            console.warn(`couldn't read response body for ${slug}: ${err.message}`);
-          }
+
+      // Artifact mode pulls the file itself and serves it from memory below;
+      // live mode just navigates to the hosted page.
+      let artifactHtml = null;
+      const guardUrl = target.mode === 'artifact' ? target.fetchUrl : target.pageUrl;
+      if (!(await isSafeUrl(guardUrl))) {
+        console.warn(`skip ${slug}: URL failed safety check (${guardUrl})`);
+        skipped++;
+        continue;
+      }
+      if (target.mode === 'artifact') {
+        try {
+          const res = await fetch(target.fetchUrl, { signal: AbortSignal.timeout(NAV_TIMEOUT_MS) });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          artifactHtml = await res.text();
+        } catch (err) {
+          console.warn(`skip ${slug}: could not fetch artifact — ${err.message}`);
+          skipped++;
+          continue;
         }
+      }
+
+      // A refreshed app may have grown past the QR limit — drop the old code
+      // first so an ineligible entry doesn't keep a stale one.
+      if (isRefreshing(slug) && existsSync(qrDest)) rmSync(qrDest, { force: true });
+
+      const page = await browser.newPage({ viewport: VIEWPORT });
+      const requests = [];
+      page.on('request', r => requests.push({ url: r.url(), type: r.resourceType() }));
+      try {
+        if (target.mode === 'artifact') {
+          const wanted = target.pageUrl.replace(/\/$/, '');
+          await page.route('**/*', async (route, request) => {
+            if (request.url().replace(/\/$/, '') === wanted) {
+              await route.fulfill({
+                status: 200,
+                contentType: 'text/html; charset=utf-8',
+                body: artifactHtml,
+              });
+            } else {
+              // Subresources are allowed through so the screenshot shows the
+              // app as it really renders; the request is already recorded
+              // above either way.
+              await route.continue().catch(() => {});
+            }
+          });
+        }
+
+        const response = await page.goto(target.pageUrl, { timeout: NAV_TIMEOUT_MS, waitUntil: 'load' });
+        let body = artifactHtml;
+        if (body == null && response) {
+          body = await response.text().catch(err => {
+            console.warn(`couldn't read response body for ${slug}: ${err.message}`);
+            return null;
+          });
+        }
+
         if (needsSize && body != null) {
           sizes[slug] = Buffer.byteLength(body, 'utf8');
           sized++;
@@ -249,11 +430,17 @@ async function main() {
             qrGenerated++;
           }
         }
+
+        await page.waitForLoadState('networkidle', { timeout: NETWORK_IDLE_TIMEOUT_MS }).catch(() => {});
+        await page.waitForTimeout(SETTLE_DELAY_MS);
+
         if (needsScreenshot) {
-          await page.waitForLoadState('networkidle', { timeout: NETWORK_IDLE_TIMEOUT_MS }).catch(() => {});
-          await page.waitForTimeout(SETTLE_DELAY_MS);
           await page.screenshot({ path: dest, type: 'png' });
           shot++;
+        }
+        if (needsNetwork) {
+          network[slug] = summarizeRequests(requests, target.pageUrl, target.mode);
+          profiled++;
         }
       } catch (err) {
         console.warn(`skip ${slug}: ${err.message}`);
@@ -288,7 +475,8 @@ async function main() {
   }
 
   writeFileSync(SIZES_PATH, JSON.stringify(sizes, null, 2));
-  console.log(`Screenshotted ${shot}, measured ${sized}, OG cards ${ogGenerated}, QR codes ${qrGenerated}, skipped ${skipped}.`);
+  writeFileSync(NETWORK_PATH, JSON.stringify(network, null, 2));
+  console.log(`Screenshotted ${shot}, measured ${sized}, OG cards ${ogGenerated}, QR codes ${qrGenerated}, profiled ${profiled}, skipped ${skipped}.`);
 }
 
 main();

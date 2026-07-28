@@ -1,0 +1,705 @@
+{
+  "tiddlywiki": {
+    "mode": "live",
+    "measured": "https://tiddlywiki.com/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [
+      {
+        "url": "https://tiddlywiki.com/",
+        "type": "xhr"
+      },
+      {
+        "url": "https://tiddlywiki.com/",
+        "type": "xhr"
+      },
+      {
+        "url": "https://tiddlywiki.com/images/Introduction%2520Video%2520Thumbnail.jpg",
+        "type": "image"
+      }
+    ],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "bento": {
+    "mode": "live",
+    "measured": "https://bento.page/slides/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [
+      {
+        "url": "https://bento.page/releases/slides/manifest.json",
+        "type": "fetch"
+      }
+    ],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "codeflow": {
+    "mode": "live",
+    "measured": "https://codeflow-five.vercel.app",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/d3-sankey/0.12.3/d3-sankey.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/acorn/8.11.3/acorn.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/11.1.0/jsrsasign-all-min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/web-tree-sitter@0.20.8/tree-sitter.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://unpkg.com/3d-force-graph",
+        "type": "script"
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://unpkg.com/3d-force-graph@1.80.0/dist/3d-force-graph.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwgknk-4.woff2",
+        "type": "font"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "cdn.jsdelivr.net",
+      "cdnjs.cloudflare.com",
+      "fonts.googleapis.com",
+      "fonts.gstatic.com",
+      "unpkg.com"
+    ],
+    "insecure": []
+  },
+  "html-tools": {
+    "mode": "live",
+    "measured": "https://tools.realtime-ai.chat",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://tools.realtime-ai.chat/assets/css/main.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://tools.realtime-ai.chat/assets/js/tool-chrome.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/pinyin-pro@3/dist/index.js",
+        "type": "script"
+      },
+      {
+        "url": "https://tools.realtime-ai.chat/assets/js/main.js",
+        "type": "script"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwgknk-4.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwgknk-6nFg.woff2",
+        "type": "font"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "cdn.jsdelivr.net",
+      "fonts.googleapis.com",
+      "fonts.gstatic.com"
+    ],
+    "insecure": []
+  },
+  "hermes-ui": {
+    "mode": "artifact",
+    "measured": "https://sfwa-artifact.invalid/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwgknk-4.woff2",
+        "type": "font"
+      }
+    ],
+    "contentReqs": [
+      {
+        "url": "https://sfwa-artifact.invalid/api/auth/status",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/filler-bg.png",
+        "type": "image"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/assets/hermes-agent-wordmark.png",
+        "type": "image"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/workspaces",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/delegation/info",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/version",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/work-items",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/models",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/hermes-profiles",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/skills",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/health",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/tools/toolsets",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/ui-conversations?compact=1",
+        "type": "fetch"
+      },
+      {
+        "url": "https://sfwa-artifact.invalid/api/tools/web-extract",
+        "type": "fetch"
+      }
+    ],
+    "thirdPartyHosts": [
+      "cdnjs.cloudflare.com",
+      "fonts.googleapis.com",
+      "fonts.gstatic.com"
+    ],
+    "insecure": []
+  },
+  "agent-architecture": {
+    "mode": "live",
+    "measured": "https://thejacksoncode.github.io/Agent-Architecture/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwgknk-4.woff2",
+        "type": "font"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "fonts.googleapis.com",
+      "fonts.gstatic.com"
+    ],
+    "insecure": []
+  },
+  "portable-php": {
+    "mode": "live",
+    "measured": "https://cadars.github.io/portable-php/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "httprd": {
+    "mode": "unmeasurable",
+    "reason": "entry URL points at a code-host page, not a running app, and no repo artifact is set"
+  },
+  "offline-html-games-pack": {
+    "mode": "artifact",
+    "measured": "https://sfwa-artifact.invalid/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "gemini-chat-organizer-hub": {
+    "mode": "artifact",
+    "measured": "https://sfwa-artifact.invalid/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://cdn.tailwindcss.com/",
+        "type": "script"
+      },
+      {
+        "url": "https://unpkg.com/@phosphor-icons/web",
+        "type": "script"
+      },
+      {
+        "url": "https://unpkg.com/@phosphor-icons/web@2.1.2/src/index.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.tailwindcss.com/3.4.17",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/thin/style.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/light/style.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/duotone/style.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/Phosphor-Bold.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/Phosphor-Fill.woff2",
+        "type": "font"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "cdn.jsdelivr.net",
+      "cdn.tailwindcss.com",
+      "unpkg.com"
+    ],
+    "insecure": []
+  },
+  "hyperclay": {
+    "mode": "live",
+    "measured": "https://hyperclay.com/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://hyperclay.com/public/css/hyperclay-app-dist.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://hyperclay.com/public/js/website.js",
+        "type": "script"
+      },
+      {
+        "url": "https://hyperclay.com/public/js/vendor/datastar.js",
+        "type": "script"
+      },
+      {
+        "url": "https://www.googletagmanager.com/gtag/js?id=G-XLQ7N1PJLC",
+        "type": "script"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/maze.js",
+        "type": "script"
+      },
+      {
+        "url": "https://hyperclay.com/public/js/animation/lottie.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://hyperclay.com/public/js/animation/anime.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/BerkeleyMonoVariable-Regular.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/fixedsys-webfont.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/hyperclayjs@latest/src/hyperclay.js?features=toast,cookie,the-modal,dialogs,export-to-window",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/hyperclayjs@latest/src/core/exportToWindow.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/hyperclayjs@latest/src/ui/toast.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/hyperclayjs@latest/src/utilities/cookie.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/hyperclayjs@latest/src/ui/theModal.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/hyperclayjs@latest/src/ui/prompts.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/hyperclayjs@latest/src/dom-utilities/onDomReady.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/hyperclayjs@latest/src/string-utilities/copy-to-clipboard.js",
+        "type": "script"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/home.js",
+        "type": "script"
+      },
+      {
+        "url": "https://region1.google-analytics.com/g/collect?v=2&tid=G-XLQ7N1PJLC&gtm=45je67o1h1v9227932272za200zd9227932272&_p=1785215975788&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1772140618.1785215976&frm=0&ngs=1&pscdl=noapi&rcb=3&sr=1200x750&uaa=arm&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CHeadlessChrome%3B151.0.7922.34%7CChromium%3B151.0.7922.34&uam=&uamb=0&uap=macOS&uapv=15.1.0&uaw=0&ul=en-us&_s=1&tag_exp=115616985~115938465~115938469~118897920~118897930~119896802&sid=1785215976&sct=1&seg=0&dl=https%3A%2F%2Fhyperclay.com%2F&dt=Hyperclay%20-%20Frontend%20and%20done%20-%20Hyperclay&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=829",
+        "type": "fetch"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/bigpicture-esm.js",
+        "type": "script"
+      },
+      {
+        "url": "https://websharebox.s3.amazonaws.com/toggle-thing%20(2).json",
+        "type": "xhr"
+      },
+      {
+        "url": "https://websharebox.s3.amazonaws.com/yes-1.json",
+        "type": "xhr"
+      },
+      {
+        "url": "https://hyperclay.com/public/js/website/newsletter-form.js",
+        "type": "script"
+      },
+      {
+        "url": "https://hyperclay.com/public/js/ui/toast.js",
+        "type": "script"
+      }
+    ],
+    "contentReqs": [
+      {
+        "url": "https://hyperclay.com/public/app-icons/hyperclay-logo-condensed.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/app-icons/hyperclay-logo.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/david-signature.png",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/example-html-apps-heading.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/example-app-dev-log.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/example-app-writer.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/example-app-kanban.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/example-app-landing.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/the-why-and-the-how.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/flow.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/video-bg.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/transform-input.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/example-html-apps.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/static-website-easy-hosting.svg",
+        "type": "image"
+      },
+      {
+        "url": "https://hyperclay.com/public/home/maze.json",
+        "type": "fetch"
+      }
+    ],
+    "thirdPartyHosts": [
+      "cdn.jsdelivr.net",
+      "region1.google-analytics.com",
+      "websharebox.s3.amazonaws.com",
+      "www.googletagmanager.com"
+    ],
+    "insecure": []
+  },
+  "decker": {
+    "mode": "live",
+    "measured": "https://beyondloom.com/decker/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://beyondloom.com/style.css",
+        "type": "stylesheet"
+      }
+    ],
+    "contentReqs": [
+      {
+        "url": "https://beyondloom.com/decker/images/wings.gif",
+        "type": "image"
+      },
+      {
+        "url": "https://beyondloom.com/decker/images/calc.gif",
+        "type": "image"
+      },
+      {
+        "url": "https://beyondloom.com/decker/images/contrap.gif",
+        "type": "image"
+      }
+    ],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "xlsx2md": {
+    "mode": "live",
+    "measured": "https://igapyon.github.io/xlsx2md/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [
+      {
+        "url": "https://igapyon.github.io/xlsx2md/docs/screenshots/xlsx2md_0.png",
+        "type": "image"
+      },
+      {
+        "url": "https://igapyon.github.io/xlsx2md/docs/screenshots/xlsx2md_1.png",
+        "type": "image"
+      },
+      {
+        "url": "https://igapyon.github.io/xlsx2md/docs/screenshots/xlsx2md_2a.png",
+        "type": "image"
+      },
+      {
+        "url": "https://igapyon.github.io/xlsx2md/docs/screenshots/xlsx2md_2b.png",
+        "type": "image"
+      }
+    ],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "vicco": {
+    "mode": "unmeasurable",
+    "reason": "entry URL points at a code-host page, not a running app, and no repo artifact is set"
+  },
+  "orbital-notebook": {
+    "mode": "artifact",
+    "measured": "https://sfwa-artifact.invalid/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "nash": {
+    "mode": "live",
+    "measured": "https://keepworking.github.io/nash/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "minimal-pwa": {
+    "mode": "live",
+    "measured": "https://mccormick.cx/minimal-pwa",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "fuzzygraph": {
+    "mode": "live",
+    "measured": "https://fuzzygraph.com",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "hypervault": {
+    "mode": "live",
+    "measured": "https://hypervault.github.io/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "paper-viewer-local-llm": {
+    "mode": "artifact",
+    "measured": "https://sfwa-artifact.invalid/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs",
+        "type": "script"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "cdn.jsdelivr.net"
+    ],
+    "insecure": []
+  },
+  "htpad": {
+    "mode": "artifact",
+    "measured": "https://sfwa-artifact.invalid/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/d3-lasso@0.0.5/build/d3-lasso.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/akissinger/htpad@1.1/htpad.js",
+        "type": "script"
+      },
+      {
+        "url": "http://d3js.org/d3.v4.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0",
+        "type": "font"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "cdn.jsdelivr.net",
+      "d3js.org"
+    ],
+    "insecure": [
+      "http://d3js.org/d3.v4.min.js"
+    ]
+  }
+}

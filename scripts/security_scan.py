@@ -26,11 +26,16 @@ import socket
 import subprocess
 import sys
 import tempfile
+import urllib.error
 import urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
 
 TIMEOUT = 60
+# Live pages are read up to this cap. Anything larger is reported as an
+# explicit skip rather than scanned partially: a truncated body matches no
+# patterns and would otherwise be indistinguishable from a clean pass.
+MAX_SCAN_BYTES = 20_000_000
 
 
 def ci_run_url():
@@ -67,6 +72,73 @@ def is_safe_url(url: str):
         if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
             return False, f"host resolves to a non-public address ({ip})"
     return True, ""
+
+
+class SafeRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Re-checks is_safe_url() on every redirect hop.
+
+    urlopen() follows redirects by default, so validating only the submitted
+    URL leaves the guard trivially bypassable: a public host can answer with
+    a 302 to 169.254.169.254 (or any internal address) and the runner would
+    follow it. Checking per-hop closes that.
+
+    Residual risk, not closed here: this resolves the host to validate it and
+    then reconnects by name, so a DNS record that changes between those two
+    steps (rebinding) could still slip through. Closing that properly means
+    pinning the connection to the validated IP, which urllib can't express
+    without reimplementing TLS hostname verification.
+    """
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        ok, why = is_safe_url(newurl)
+        if not ok:
+            raise urllib.error.URLError(f"blocked redirect to a disallowed address: {why}")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+def semgrep_counts(raw_json: str):
+    """Splits semgrep findings into (blocking, informational).
+
+    p/security-audit is explicitly a high-recall audit ruleset: it surfaces
+    things for a human to look at, so a raw finding count is noise rather
+    than a verdict (one entry in this catalog reports 502 of them). Only
+    ERROR-severity findings that aren't explicitly low-confidence fail the
+    check; the rest are reported alongside a passing result so they stay
+    visible without sinking the score.
+    """
+    results = json.loads(raw_json).get("results", [])
+    blocking = 0
+    for r in results:
+        extra = r.get("extra", {})
+        severity = str(extra.get("severity", "")).upper()
+        # Rules that don't declare a confidence are treated as MEDIUM, i.e.
+        # counted — only an explicit LOW is discounted.
+        confidence = str(extra.get("metadata", {}).get("confidence", "MEDIUM")).upper()
+        if severity == "ERROR" and confidence != "LOW":
+            blocking += 1
+    return blocking, len(results) - blocking
+
+
+def semgrep_check(check_id: str, label: str, raw_json: str, run_url):
+    """Builds one semgrep check dict from that ruleset's raw JSON output."""
+    try:
+        blocking, informational = semgrep_counts(raw_json)
+    except json.JSONDecodeError:
+        return {"id": check_id, "label": label, "status": "skip", "detail": "scan did not complete"}
+
+    link = f" — {run_url}" if run_url else ""
+    if blocking:
+        detail = f"{blocking} high-severity finding(s){link}"
+    elif informational:
+        detail = f"{informational} informational finding(s), none high-severity{link}"
+    else:
+        detail = ""
+    return {
+        "id": check_id,
+        "label": label,
+        "status": "fail" if blocking else "pass",
+        "detail": detail,
+    }
 
 
 PATTERN_TESTS = [
@@ -134,43 +206,48 @@ def scan_repo(repo: str):
         semgrep_out, _ = run(
             ["semgrep", "--config", "p/security-audit", "--json", "--quiet", tmp]
         )
-        try:
-            n = len(json.loads(semgrep_out).get("results", []))
-            checks.append({
-                "id": "semgrep-security",
-                "label": "Semgrep security-audit ruleset",
-                "status": "pass" if n == 0 else "fail",
-                "detail": "" if n == 0 else (f"{n} finding(s) — {run_url}" if run_url else f"{n} finding(s)"),
-            })
-        except json.JSONDecodeError:
-            checks.append({"id": "semgrep-security", "label": "Semgrep security-audit ruleset", "status": "skip", "detail": "scan did not complete"})
+        checks.append(semgrep_check(
+            "semgrep-security", "Semgrep security-audit ruleset", semgrep_out, run_url
+        ))
 
         semgrep_js_out, _ = run(
             ["semgrep", "--config", "p/javascript", "--json", "--quiet", tmp]
         )
-        try:
-            n = len(json.loads(semgrep_js_out).get("results", []))
-            checks.append({
-                "id": "semgrep-js",
-                "label": "Semgrep javascript ruleset",
-                "status": "pass" if n == 0 else "fail",
-                "detail": "" if n == 0 else (f"{n} finding(s) — {run_url}" if run_url else f"{n} finding(s)"),
-            })
-        except json.JSONDecodeError:
-            checks.append({"id": "semgrep-js", "label": "Semgrep javascript ruleset", "status": "skip", "detail": "scan did not complete"})
+        checks.append(semgrep_check(
+            "semgrep-js", "Semgrep javascript ruleset", semgrep_js_out, run_url
+        ))
 
     return checks
 
 
 def scan_url(url: str):
     """Returns a list of check dicts, one per pattern test in PATTERN_TESTS."""
+
+    def all_skipped(note):
+        return [{"id": pid, "label": label, "status": "skip", "detail": note}
+                for pid, label, _, _ in PATTERN_TESTS]
+
+    ok, why = is_safe_url(url)
+    if not ok:
+        return all_skipped(f"URL failed safety check: {why}")
+
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "sfwa-directory-bot"})
-        with urllib.request.urlopen(req, timeout=20) as resp:
-            body = resp.read(2_000_000).decode("utf-8", errors="ignore")
+        opener = urllib.request.build_opener(SafeRedirectHandler)
+        with opener.open(req, timeout=20) as resp:
+            # One byte past the cap, so a body sitting exactly at it is still
+            # distinguishable from one that was cut off.
+            raw = resp.read(MAX_SCAN_BYTES + 1)
     except Exception as e:
-        note = f"could not fetch URL for scanning: {e}"
-        return [{"id": pid, "label": label, "status": "skip", "detail": note} for pid, label, _, _ in PATTERN_TESTS]
+        return all_skipped(f"could not fetch URL for scanning: {e}")
+
+    if len(raw) > MAX_SCAN_BYTES:
+        return all_skipped(
+            f"page exceeds the {MAX_SCAN_BYTES // 1_000_000} MB scan limit — "
+            "reported as unscanned rather than scanned partially"
+        )
+
+    body = raw.decode("utf-8", errors="ignore")
 
     checks = []
     for pid, label, pattern, fail_detail in PATTERN_TESTS:

@@ -1,0 +1,111 @@
+name: Verify recheck
+
+# Runs on the PR that api/recheck.js opens when someone clicks "I fixed it".
+# That PR deletes one entry's cached measurement; this workflow re-measures
+# the live app and comments the verdict, so the merge decision (and whether
+# to credit the reporter as a co-author) is made knowing the answer instead
+# of on faith. Without this, the measurement would only happen after merge.
+#
+# Safety, same reasoning as review-submission.yml: the scripts that run here
+# always come from the base branch, never the PR's checkout. The PR's own
+# diff is read only as data (which JSON key disappeared), so a PR can't
+# modify the code that executes with this workflow's token.
+on:
+  pull_request:
+    paths:
+      - data/network.json
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout base branch (trusted scripts only)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Work out which entry is being re-checked
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          # The PR's version of the file, pulled as plain data — never executed.
+          gh api "repos/${{ github.repository }}/contents/data/network.json?ref=$HEAD_SHA" \
+            --jq '.content' | base64 -d > /tmp/head-network.json
+
+          # Whichever key the PR removed is the entry to re-measure. Anything
+          # other than exactly one means it isn't a recheck PR, so bail rather
+          # than guess.
+          python3 - <<'PY' > /tmp/removed.txt
+          import json
+          base = json.load(open('data/network.json'))
+          head = json.load(open('/tmp/head-network.json'))
+          print(' '.join(sorted(set(base) - set(head))))
+          PY
+          SLUGS=$(cat /tmp/removed.txt)
+          COUNT=$(wc -w < /tmp/removed.txt | tr -d ' ')
+          echo "removed: '$SLUGS' (count $COUNT)"
+          if [ "$COUNT" != "1" ]; then
+            echo "Not a single-entry recheck PR — skipping verification."
+            echo "SKIP=1" >> "$GITHUB_ENV"
+          else
+            echo "SLUG=$SLUGS" >> "$GITHUB_ENV"
+          fi
+
+      - name: Re-measure that entry
+        if: env.SKIP != '1'
+        run: |
+          # Drop the cached measurement locally so --refresh re-does everything
+          # for this one entry (network profile, size, screenshot, OG card).
+          python3 - <<PY
+          import json
+          d = json.load(open('data/network.json'))
+          d.pop("$SLUG", None)
+          json.dump(d, open('data/network.json', 'w'), indent=2)
+          PY
+          node scripts/screenshot.mjs --refresh "$SLUG"
+
+      - name: Comment the verdict
+        if: env.SKIP != '1'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const slug = process.env.SLUG;
+            const net = JSON.parse(fs.readFileSync('data/network.json', 'utf8'))[slug];
+
+            let verdict;
+            if (!net) {
+              verdict = `Could not measure \`${slug}\` — the app may be unreachable. Worth a manual look before merging.`;
+            } else if (net.selfContained) {
+              verdict = `**Confirmed: \`${slug}\` is now a certified SFWA.** The whole app loads from one file, nothing fetched from elsewhere.`;
+            } else {
+              const deps = net.codeDeps || [];
+              const list = deps.slice(0, 10).map(d => `- \`${d.url}\``).join('\n');
+              const more = deps.length > 10 ? `\n- …and ${deps.length - 10} more` : '';
+              verdict = `**Not fixed yet: \`${slug}\` still loads ${deps.length} file(s) from elsewhere.**\n\n${list}${more}`;
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: `### Re-check result\n\n${verdict}\n\n` +
+                `_Measured just now from the live URL, by the base branch's \`scripts/screenshot.mjs\`. ` +
+                `Merging this PR makes the site re-measure and publish the same result. ` +
+                `Only add the \`Co-authored-by:\` trailer from the PR description if this confirms the fix._`,
+            });
