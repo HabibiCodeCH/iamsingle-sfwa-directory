@@ -21,6 +21,13 @@ const sizes = existsSync(join(ROOT, 'data/sizes.json'))
   : {};
 // Per-entry network profile from scripts/screenshot.mjs — drives the
 // "single file" badge and the third-party contact disclosure.
+// Vendored and inlined rather than hotlinked: the site's own pitch is that a
+// page ships as one file, and the "download the whole directory" button would
+// otherwise produce a file with a dead image in it. nicklaunches.com's stated
+// condition for a free listing is that the *backlink* stays live, which the
+// anchor below preserves exactly.
+const NL_BADGE_DATA_URI = `data:image/png;base64,${readFileSync(join(ROOT, 'assets/nicklaunches-featured.png')).toString('base64')}`;
+
 const network = existsSync(join(ROOT, 'data/network.json'))
   ? JSON.parse(readFileSync(join(ROOT, 'data/network.json'), 'utf8'))
   : {};
@@ -598,7 +605,14 @@ function replaceBetweenMarkers(str, markerName, content) {
   return replaceBetween(str, `<!-- BUILD:${markerName}:START -->`, `<!-- BUILD:${markerName}:END -->`, content);
 }
 
-const templateSrc = readFileSync(join(ROOT, 'index.html'), 'utf8');
+let templateSrc = readFileSync(join(ROOT, 'index.html'), 'utf8');
+// Same footer badge on every generated page.
+templateSrc = replaceBetweenMarkers(
+  templateSrc,
+  'FOOTERBADGE',
+  `<a href="https://nicklaunches.com/products/iamsingle-app/?utm_source=iamsingle.app&amp;utm_medium=badge&amp;utm_campaign=featured" target="_blank" rel="noopener">`
+    + `<img src="${NL_BADGE_DATA_URI}" alt="iamsingle.app on Nick Launches" width="244" height="56"></a>`
+);
 
 const INLINE_DATA_START = '/* BUILD:INLINE_DATA:START */';
 const INLINE_DATA_END = '/* BUILD:INLINE_DATA:END */';
