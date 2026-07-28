@@ -20,6 +20,7 @@ const FAVICON_DATA_URI = `data:image/png;base64,${readFileSync(join(ROOT, 'asset
 const SCREENSHOT_DIR = join(ROOT, 'screenshot');
 const OG_DIR = join(ROOT, 'og');
 const QR_DIR = join(ROOT, 'qr');
+const LOGO_DIR = join(ROOT, 'assets/logos');
 // Rough ceiling for "small enough to scan reliably" once base64-encoded into
 // a data: URI (~33% overhead) — a standard QR code tops out around 2950
 // bytes of binary payload at the lowest error-correction level.
@@ -297,6 +298,35 @@ function refreshTargets(argv) {
   return { all: false, slugs: new Set(argv[i + 1].split(',').map(x => x.trim()).filter(Boolean)) };
 }
 
+
+/** Vendors each entry's logo so the site stops hotlinking GitHub and Google.
+ *
+ * Every card used to load an avatar straight from github.com (or Google's
+ * favicon service for entries with no repo), which handed both of them a
+ * request log of every visitor on every page view. Fetched once and served
+ * same-origin instead. Cheap to keep current: a refreshed entry re-fetches,
+ * so a changed profile picture is one --refresh away.
+ */
+async function fetchLogo(e, slug, dest) {
+  const owner = e.repo ? e.repo.split('/')[0] : null;
+  const sources = owner
+    ? [`https://github.com/${owner}.png?size=128`]
+    : [`https://www.google.com/s2/favicons?sz=128&domain_url=${encodeURIComponent(e.url)}`];
+  for (const url of sources) {
+    try {
+      const res = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(NAV_TIMEOUT_MS) });
+      if (!res.ok) continue;
+      const buf = Buffer.from(await res.arrayBuffer());
+      if (!buf.length) continue;
+      writeFileSync(dest, buf);
+      return true;
+    } catch (err) {
+      // try the next source, or fall through to the remote URL at render time
+    }
+  }
+  return false;
+}
+
 async function main() {
   const refresh = refreshTargets(process.argv.slice(2));
   if (refresh.all) console.log('refreshing every entry');
@@ -310,6 +340,7 @@ async function main() {
   mkdirSync(SCREENSHOT_DIR, { recursive: true });
   mkdirSync(OG_DIR, { recursive: true });
   mkdirSync(QR_DIR, { recursive: true });
+  mkdirSync(LOGO_DIR, { recursive: true });
 
   const network = existsSync(NETWORK_PATH) ? JSON.parse(readFileSync(NETWORK_PATH, 'utf8')) : {};
 
@@ -334,11 +365,13 @@ async function main() {
       needsOg: isRefreshing(slug) || !existsSync(join(OG_DIR, `${slug}.png`)),
       needsQr: isRefreshing(slug) || !existsSync(join(QR_DIR, `${slug}.png`)),
       needsNetwork: isRefreshing(slug) || !(slug in network),
+      logoDest: join(LOGO_DIR, `${slug}.png`),
+      needsLogo: isRefreshing(slug) || !existsSync(join(LOGO_DIR, `${slug}.png`)),
     };
   });
 
   const browser = await chromium.launch();
-  let shot = 0, sized = 0, ogGenerated = 0, qrGenerated = 0, profiled = 0, skipped = 0;
+  let shot = 0, sized = 0, ogGenerated = 0, qrGenerated = 0, profiled = 0, logos = 0, skipped = 0;
   try {
     // Screenshot, size, QR and the network profile all come from one page
     // load per entry, so they're done together whenever any of them is
@@ -450,6 +483,14 @@ async function main() {
       }
     }
 
+    // Logos are plain image fetches, so they run even for entries whose app
+    // can't be profiled (a code-host URL still has an owner avatar).
+    for (const { e, slug, logoDest, needsLogo } of items) {
+      if (!needsLogo) continue;
+      if (await fetchLogo(e, slug, logoDest)) logos++;
+      else console.warn(`could not fetch a logo for ${slug} — the page falls back to the remote URL`);
+    }
+
     // OG cards are rendered from local data only — no external navigation,
     // so every entry missing one gets generated regardless of the above.
     for (const { e, slug, dest, ogDest, needsOg } of items) {
@@ -476,7 +517,7 @@ async function main() {
 
   writeFileSync(SIZES_PATH, JSON.stringify(sizes, null, 2));
   writeFileSync(NETWORK_PATH, JSON.stringify(network, null, 2));
-  console.log(`Screenshotted ${shot}, measured ${sized}, OG cards ${ogGenerated}, QR codes ${qrGenerated}, profiled ${profiled}, skipped ${skipped}.`);
+  console.log(`Screenshotted ${shot}, measured ${sized}, OG cards ${ogGenerated}, QR codes ${qrGenerated}, profiled ${profiled}, logos ${logos}, skipped ${skipped}.`);
 }
 
 main();

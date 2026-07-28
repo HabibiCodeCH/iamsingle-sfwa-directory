@@ -180,12 +180,14 @@ function statusBadgeHtml(status, e) {
   switch (status) {
     case 'sfa':
       return `<span class="sfa-tag" title="A single-file app, but it needs ${escapeHtml(e.runtime)} to run — not a browser-only single-file web app">sfa · ${escapeHtml(e.runtime)}</span>`;
+    // Icon carries the verdict, the word stays short enough not to wrap on a
+    // phone. The title attribute holds the full explanation.
     case 'certified':
-      return `<span class="sf-badge" title="The entire app sits in one file. No imports, no server calls, no build.">${SF_ICON_SVG}certified sfwa</span>`;
+      return `<span class="sf-badge" title="Certified: the entire app sits in one file. No imports, no server calls, no build."><span class="sf-mark">\u{1F3C5}</span>sfwa</span>`;
     case 'nearly':
-      return `<span class="sf-badge sf-badge-near" title="Almost: its own code is in one file, but it still pulls something in.">${SF_ICON_SVG}nearly a sfwa</span>`;
+      return `<span class="sf-badge sf-badge-near" title="Nearly: its own code is in one file, but it still pulls something in."><span class="sf-mark">\u{1F90F}</span>sfwa</span>`;
     case 'no':
-      return `<span class="sf-badge sf-badge-no" title="The app fetches code it needs from elsewhere.">${SF_ICON_SVG}not a sfwa</span>`;
+      return `<span class="sf-badge sf-badge-no" title="Not a SFWA: the app fetches code it needs from elsewhere."><span class="sf-mark">\u{1F6AB}</span>sfwa</span>`;
     default:
       return '';
   }
@@ -361,7 +363,13 @@ function suggestFixHtml(e, slug, fixes) {
   return `<div class="fix-suggest">${issueBtn}${recheckBtnHtml(slug)}</div>`;
 }
 
+// Prefers the vendored copy (assets/logos/<slug>.png, fetched once by
+// scripts/screenshot.mjs) so the page stops handing GitHub and Google a
+// request log of every visitor. Falls back to the remote URL only when the
+// vendored file is missing, e.g. a brand-new entry before the next build.
 function logoSrc(e, size) {
+  const slug = slugify(e.name);
+  if (existsSync(join(ROOT, 'assets/logos', `${slug}.png`))) return `/assets/logos/${slug}.png`;
   const homepageFavicon = 'https://www.google.com/s2/favicons?sz=' + size + '&domain_url=' + encodeURIComponent(e.url);
   return e.repo ? 'https://github.com/' + e.repo.split('/')[0] + '.png?size=' + size : homepageFavicon;
 }
@@ -480,11 +488,13 @@ function renderDetailHtml(e, slug) {
     } else if (status === 'certified') {
       rows.push('<div class="t-pass">✓ Yes, the entire app sits in one file. No imports, no server calls, no build.</div>');
     } else if (status === 'nearly') {
+      // Each verdict opens by answering the heading's question, so the three
+      // states read as parallel answers rather than one answer and two lists.
       rows.push(logic.length === 0
-        ? `<div class="t-fail">✗ Almost — its own code is self-contained, but it loads ${fonts.length} font file${fonts.length === 1 ? '' : 's'} from elsewhere</div>`
-        : '<div class="t-fail">✗ The app needs 1 external file</div>');
+        ? `<div class="t-fail">✗ Nearly. Its own code is all in one file, but it loads ${fonts.length} font file${fonts.length === 1 ? '' : 's'} from elsewhere.</div>`
+        : '<div class="t-fail">✗ Nearly. Its own code is all in one file, but it still pulls in 1 file from elsewhere.</div>');
     } else {
-      rows.push(`<div class="t-fail">✗ Not a SFWA, the app needs ${fixes.length} file${fixes.length === 1 ? '' : 's'} from elsewhere.</div>`);
+      rows.push(`<div class="t-fail">✗ No, this is not a single-file web app. It needs ${fixes.length} file${fixes.length === 1 ? '' : 's'} from elsewhere.</div>`);
     }
 
     if (status !== 'sfa' && status) {
@@ -514,7 +524,7 @@ function renderDetailHtml(e, slug) {
       }
     }
 
-    networkHtml = `<div class="detail-checks-label" id="network">Is it a true single-file web app?${headingBadge}</div><div class="detail-checks">${rows.join('')}</div>${extras}`;
+    networkHtml = `<div class="detail-checks-label" id="network">Is it a true single-file web app?</div><div class="detail-checks">${rows.join('')}</div>${extras}`;
   }
 
   const screenshotHtml = existsSync(join(ROOT, 'screenshot', `${slug}.png`)) ? `
@@ -529,7 +539,7 @@ function renderDetailHtml(e, slug) {
         <img class="detail-logo" alt="" id="detailLogoImg" src="${logoSrc(e, 128)}">
         <div class="detail-title-text">
           <div class="detail-name-row">
-            <h1>${escapeHtml(e.name)}</h1>
+            <h1>${escapeHtml(e.name)}</h1>${sfwaStatus(e, net) ? statusBadgeHtml(sfwaStatus(e, net), e) : ''}
             <div class="detail-actions">
               <button type="button" class="btn-outline" id="shareBtn" aria-label="Share"><svg class="btn-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg><span class="btn-label">Share</span></button>
               <a class="btn-solid" href="${e.url}" target="_blank" rel="noopener" aria-label="Visit"><span class="btn-label">Visit</span> ↗</a>
@@ -638,7 +648,8 @@ const networkSlim = Object.fromEntries(Object.entries(network).map(([slug, v]) =
     insecure: v.insecure || [],
   }];
 }));
-const inlineDataJs = `const INLINE_DATA = ${JSON.stringify({ entries, stars, sizes, qrSlugs, network: networkSlim, fixes }).replace(/<\/script/gi, '<\\/script')};`;
+const logoSlugs = entries.map(e => slugify(e.name)).filter(slug => existsSync(join(ROOT, 'assets/logos', `${slug}.png`)));
+const inlineDataJs = `const INLINE_DATA = ${JSON.stringify({ entries, stars, sizes, qrSlugs, network: networkSlim, fixes, logoSlugs }).replace(/<\/script/gi, '<\\/script')};`;
 
 // --- homepage-only highlight cards: smallest file, most stars, last added ---
 function renderHighlights() {

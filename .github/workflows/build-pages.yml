@@ -49,7 +49,7 @@ jobs:
           # being redone every build. It's also a trigger path above, so this
           # push starts one more run — that run finds everything cached, writes
           # an identical file, produces no diff, and stops. No loop.
-          git add index.html entry/ badge/ certified/ screenshot/ og/ qr/ \
+          git add index.html entry/ badge/ certified/ screenshot/ og/ qr/ assets/logos/ \
                   data/sizes.json data/network.json \
                   sitemap.xml robots.txt llms.txt feed.xml
           if git diff --cached --quiet; then
