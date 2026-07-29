@@ -1,0 +1,1434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<title>Shade Sail Simulator — iamsingle.app</title>
+<meta name="description" content="3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.">
+<link rel="canonical" href="https://iamsingle.app/entry/shade-sail-simulator">
+<link rel="alternate" type="application/rss+xml" title="iamsingle.app — new entries" href="/feed.xml">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="iamsingle.app">
+<meta property="og:title" content="Shade Sail Simulator — iamsingle.app">
+<meta property="og:description" content="3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.">
+<meta property="og:url" content="https://iamsingle.app/entry/shade-sail-simulator">
+<meta property="og:image" content="https://iamsingle.app/og/shade-sail-simulator.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shade Sail Simulator — iamsingle.app">
+<meta name="twitter:description" content="3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.">
+<meta name="twitter:image" content="https://iamsingle.app/og/shade-sail-simulator.png">
+<!-- BUILD:JSONLD:START --><script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Shade Sail Simulator","description":"3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.","url":"https://nomiknomik.github.io/shade-sail-simulator/","applicationCategory":"WebApplication","operatingSystem":"Any (browser)","codeRepository":"https://github.com/nomiknomik/shade-sail-simulator"}</script><!-- BUILD:JSONLD:END -->
+<style>
+  :root{
+    --paper:#EEEBE2;
+    --paper-2:#E4E0D3;
+    --ink:#201E19;
+    --ink-soft:#57534A;
+    --stamp:#A8331D;
+    --line:#C9C3B2;
+    --mono: ui-monospace, "SF Mono", "Courier New", monospace;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);}
+  .wrap{max-width:820px;margin:0 auto;padding:28px 20px 120px;}
+
+  header{margin-bottom:44px;}
+  .header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .site-nav{display:flex;gap:16px;}
+  .site-nav a{
+    font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+    color:var(--ink-soft);text-decoration:none;border-bottom:1px dashed var(--ink-soft);
+  }
+  .site-nav a:hover{color:var(--stamp);border-bottom-color:var(--stamp);}
+  .kicker{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--stamp);border:1px solid var(--stamp);display:inline-block;padding:3px 8px;
+    transform:rotate(-1.2deg);
+  }
+  h1{font-size:44px;line-height:1.05;margin:18px 0 10px;font-weight:400;letter-spacing:-0.01em;}
+  h1 em{font-style:italic;color:var(--stamp);}
+  .sub{font-family:var(--mono);font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
+
+  .controls{
+    margin:32px 0 8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;
+  }
+  input[type="search"]{
+    font-family:var(--mono);font-size:13px;background:transparent;border:none;
+    border-bottom:1px dashed var(--ink-soft);padding:6px 2px;color:var(--ink);width:180px;outline:none;
+  }
+  input[type="search"]:focus{border-bottom-color:var(--stamp);}
+  .chip{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+    padding:5px 10px;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;
+    color:var(--ink-soft);user-select:none;
+  }
+  .chip:hover{border-color:var(--ink-soft);}
+  .chip.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+  .tag-chips{display:flex;gap:6px;flex-wrap:wrap;}
+  .spacer{flex:1;}
+  select{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+    background:var(--paper-2);border:1px solid var(--line);color:var(--ink-soft);padding:5px 8px;
+  }
+  .count{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);}
+
+  .catalog{margin-top:8px;}
+  .card{
+    display:grid;grid-template-columns:26px 46px 1fr auto;gap:14px;padding:13px 0;
+    border-bottom:1px dashed var(--line);align-items:start;
+  }
+  .stub{font-family:var(--mono);font-size:11px;color:var(--ink-soft);padding-top:4px;}
+  .stub .n{display:block;font-size:16px;color:var(--ink);}
+  .meta{min-width:0;}
+  .name{font-size:20px;margin:0 0 6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .logo{
+    width:46px;height:46px;border:1px solid var(--line);object-fit:cover;
+    flex-shrink:0;background:var(--paper-2);align-self:start;
+  }
+  .name a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--stamp);}
+  .name a:hover{color:var(--stamp);}
+  .sf-badge{
+    display:inline-flex;align-items:center;gap:5px;vertical-align:middle;
+    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+    font-weight:bold;color:#fff;background:#3F6B3F;border:1px solid #3F6B3F;
+    padding:2px 7px;white-space:nowrap;
+  }
+  .sf-badge-near{background:#C2610C;border-color:#C2610C;}
+  .sf-badge-no{background:var(--stamp);border-color:var(--stamp);}
+  /* Descriptive, not a verdict: these can't be certified either way, so the
+     tag is deliberately neutral rather than green or orange. */
+  .fix-credit{
+    display:inline-flex;align-items:center;vertical-align:middle;margin-left:8px;
+    font-family:var(--mono);font-size:10.5px;text-transform:none;letter-spacing:.03em;
+    color:var(--ink-soft);border-bottom:1px dotted var(--ink-soft);text-decoration:none;
+    white-space:nowrap;
+  }
+  .fix-credit:hover{color:var(--stamp);border-bottom-color:var(--stamp);}
+  .sfa-tag{
+    display:inline-flex;align-items:center;vertical-align:middle;
+    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--ink-soft);border:1px dashed var(--ink-soft);padding:2px 7px;white-space:nowrap;
+  }
+  .sf-badge svg{display:block;}
+  .sf-mark{font-size:11px;line-height:1;filter:saturate(1.15);}
+  .qr-btn{
+    background:none;border:none;padding:2px;cursor:pointer;color:var(--ink-soft);
+    display:inline-flex;align-items:center;
+  }
+  .qr-btn:hover{color:#fff;}
+  .qr-preview{display:block;width:220px;height:220px;margin:0 auto 16px;border:1px solid var(--line);}
+  .desc{
+    font-family:var(--mono);font-size:11.5px;line-height:1.42;color:var(--ink-soft);margin:0 0 5px;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .tags{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .audit{display:flex;flex-direction:row;align-items:center;gap:8px;padding-top:2px;}
+  .audit-label{
+    font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;
+    color:var(--ink-soft);white-space:nowrap;
+  }
+  .tag{
+    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--ink-soft);border:1px solid var(--line);padding:2px 6px;
+  }
+  .gh-pill{
+    display:inline-flex;align-items:center;vertical-align:middle;max-width:100%;
+    border:1px solid var(--line);font-family:var(--mono);font-size:10.5px;
+    color:var(--ink-soft);line-height:1;
+  }
+  .gh-pill-icon{
+    display:flex;align-items:center;padding:3px 6px;color:var(--ink-soft);
+    border-right:1px solid var(--line);flex-shrink:0;
+  }
+  .gh-pill-icon:hover{color:var(--stamp);}
+  .gh-pill-icon svg{display:block;}
+  .gh-pill span{padding:3px 6px;white-space:nowrap;flex-shrink:0;}
+  .gh-pill span + span{border-left:1px solid var(--line);}
+  .gh-pill .gh-stars{color:var(--stamp);}
+  .gh-pill .gh-size{color:var(--ink-soft);}
+  .gh-pill-by{
+    padding:3px 6px;color:var(--ink-soft);text-decoration:none;
+    border-left:1px solid var(--line);min-width:0;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap;max-width:110px;
+  }
+  .gh-pill-by:hover{color:var(--stamp);}
+  .hn-badge{
+    display:inline-flex;align-items:center;gap:5px;vertical-align:middle;
+    background:#FF6600;border:1px solid #FF6600;color:#fff;text-decoration:none;
+    font-family:var(--mono);font-size:10.5px;font-weight:bold;padding:2px 7px 2px 4px;
+  }
+  .hn-badge:hover{background:#e35a00;border-color:#e35a00;}
+  .hn-badge .hn-y{
+    background:#fff;color:#FF6600;font-weight:900;font-size:10px;line-height:1;
+    width:14px;height:14px;display:flex;align-items:center;justify-content:center;
+  }
+
+  .empty{font-family:var(--mono);font-size:13px;color:var(--ink-soft);padding:40px 0;}
+
+  .badge{
+    font-family:var(--mono);font-size:11px;border:1px solid var(--line);
+    padding:2px 7px;cursor:pointer;user-select:none;white-space:nowrap;text-decoration:none;
+  }
+  .detail-checks div{color:var(--ink-soft);}
+  .detail-checks .t-pass{color:#3F6B3F;}
+  .detail-checks .t-fail{color:var(--stamp);}
+  .detail-checks .t-skip{opacity:.6;}
+  .detail-checks a{color:var(--stamp);}
+
+  .highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0;}
+  .highlight-card{border:1px solid var(--line);padding:12px 14px;background:var(--paper-2);}
+  .highlight-label{
+    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--ink-soft);margin-bottom:8px;
+  }
+  .highlight-row{display:flex;align-items:center;gap:10px;min-width:0;}
+  .highlight-icon{width:36px;height:36px;border:1px solid var(--line);object-fit:cover;flex-shrink:0;background:var(--paper);}
+  .highlight-text{min-width:0;}
+  .highlight-name{
+    display:block;font-size:14px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--stamp);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .highlight-name:hover{color:var(--stamp);}
+  .highlight-stat{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+
+  @media (max-width:560px){
+    .highlights{grid-template-columns:1fr;}
+  }
+
+  /* submission form */
+  .submit-bar{margin:22px 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .submit-bar button{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+    background:var(--ink);color:var(--paper);border:none;padding:7px 12px;cursor:pointer;
+  }
+  .submit-bar button:hover{background:var(--stamp);}
+  .download-all{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+    padding:7px 12px;text-decoration:none;color:var(--ink-soft);
+    border:1px solid var(--line);background:var(--paper-2);
+  }
+  .download-all:hover{color:var(--stamp);border-color:var(--ink-soft);}
+  .modal .sub{margin-bottom:18px;}
+  form{display:grid;gap:12px;max-width:480px;}
+  label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);display:block;margin-bottom:4px;}
+  input[type="text"], input[type="url"], textarea{
+    width:100%;font-family:var(--mono);font-size:13px;background:var(--paper-2);
+    border:1px solid var(--line);padding:8px;color:var(--ink);outline:none;
+  }
+  input[type="text"]:focus, input[type="url"]:focus, textarea:focus{border-color:var(--stamp);}
+  textarea{resize:vertical;min-height:60px;}
+  button{
+    font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;
+    background:var(--ink);color:var(--paper);border:none;padding:10px 16px;cursor:pointer;
+    width:fit-content;
+  }
+  button:hover{background:var(--stamp);}
+  .form-note{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:4px;}
+  .repo-status{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:6px;min-height:14px;}
+  .spinner{
+    width:11px;height:11px;border:2px solid var(--line);border-top-color:var(--stamp);
+    border-radius:50%;display:inline-block;vertical-align:middle;margin-right:6px;
+    animation:spin .6s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(32,30,25,.55);
+    display:none;align-items:center;justify-content:center;
+    padding:20px;z-index:50;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:var(--paper);border:1px solid var(--line);
+    max-width:520px;width:100%;max-height:88vh;overflow-y:auto;
+    padding:28px;position:relative;
+  }
+  .modal h2{font-size:22px;font-weight:400;margin:0 0 18px;}
+  .modal-close{
+    position:absolute;top:14px;right:14px;
+    background:none;border:none;font-family:var(--mono);font-size:20px;line-height:1;
+    cursor:pointer;color:var(--ink-soft);padding:4px 8px;
+  }
+  .modal-close:hover{color:var(--stamp);}
+
+  footer{
+    margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);line-height:1.7;
+  }
+  footer a{color:var(--stamp);}
+  .footer-badges{margin-top:18px;}
+  .footer-badges img{display:block;max-width:100%;height:auto;}
+
+  .stat-forks-icon, .stat-contrib-icon, .stat-date-icon, .stat-size-icon{display:inline-block;vertical-align:-1px;margin-right:2px;}
+  .stat-word, .stat-forks-text, .stat-contrib-text{display:none;}
+  .stat-repo-link svg{vertical-align:-1px;margin-right:3px;}
+  .stat-repo-link{color:var(--ink);}
+  .stat-repo-link:hover{color:var(--stamp);}
+
+  @media (max-width:560px){
+    .wrap{padding:20px 16px 90px;}
+    h1{font-size:32px;}
+    .card{grid-template-columns:22px 38px 1fr;position:relative;}
+    .logo{width:38px;height:38px;}
+    .meta{padding-right:46px;}
+    .audit{position:absolute;top:13px;right:0;margin-top:0;}
+    .audit-label{display:none;}
+    .gh-date, .gh-pill-by{display:none;}
+    .btn-label{display:none;}
+    .btn-outline, .btn-solid{width:30px;height:30px;padding:0;justify-content:center;font-size:21px;}
+    .btn-outline .btn-icon{display:block;width:25px;height:25px;}
+  }
+
+  /* detail page */
+  .crumb{font-family:var(--mono);font-size:12px;color:var(--ink-soft);margin-bottom:24px;}
+  .crumb a{color:var(--ink-soft);text-decoration:none;}
+  .crumb a:hover{color:var(--stamp);}
+  .crumb .sep{margin:0 6px;opacity:.5;}
+  .crumb .current{color:var(--ink);}
+
+  .detail-header{margin-bottom:32px;}
+  .detail-title{display:flex;gap:18px;align-items:flex-start;min-width:0;}
+  .detail-logo{width:64px;height:64px;border:1px solid var(--line);object-fit:cover;background:var(--paper-2);flex-shrink:0;}
+  .detail-title-text{flex:1;min-width:0;}
+  .detail-name-row{display:flex;justify-content:flex-start;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:2px;}
+  .detail-name-row .detail-actions{margin-left:auto;}
+  .detail-name-row .sf-badge,
+  .detail-name-row .sfa-tag{flex:0 0 auto;}
+  .detail-title h1{font-size:32px;margin:0;font-weight:400;line-height:1.1;}
+  .detail-by{
+    display:inline-block;font-family:var(--mono);font-size:11px;color:var(--stamp);
+    text-decoration:none;margin-bottom:8px;
+  }
+  .detail-by:hover{color:var(--ink);}
+  .detail-desc{font-family:var(--mono);font-size:13px;color:var(--ink-soft);line-height:1.6;margin:0;}
+  .detail-actions{display:flex;gap:8px;flex-shrink:0;margin-left:auto;}
+  .btn-outline, .btn-solid{
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+    padding:6px 11px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;
+  }
+  .btn-outline{background:var(--paper-2);border:1px solid var(--line);color:var(--ink);}
+  /* Fills on hover — setting only color:var(--paper) left near-white text on
+     the near-white page background, making the label disappear. */
+  .btn-outline:hover{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+  .btn-solid{background:var(--ink);color:var(--paper);border:none;}
+  .btn-solid:hover{background:var(--stamp);}
+
+  .screenshot-link{display:block;margin-bottom:28px;}
+  .entry-screenshot{display:block;width:100%;height:auto;border:1px solid var(--line);background:var(--paper-2);}
+  .stat-strip{font-family:var(--mono);font-size:12px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;}
+  .stat-strip .sep{opacity:.5;}
+  .stat-strip a{color:var(--stamp);}
+  .lang-bar{display:flex;height:6px;width:100%;overflow:hidden;margin-bottom:8px;background:var(--line);}
+  .lang-bar span{height:100%;}
+  .lang-legend{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-bottom:28px;}
+  .lang-legend .sep{opacity:.5;}
+  .lang-dot{display:inline-block;width:7px;height:7px;margin-right:4px;vertical-align:middle;}
+  .detail-checks{border-top:1px dashed var(--line);padding-top:16px;font-family:var(--mono);font-size:12.5px;line-height:2;}
+  .detail-checks-label{
+    font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--ink-soft);margin-bottom:8px;scroll-margin-top:20px;
+    /* Flex rather than inline flow: a baseline-aligned badge sits low by its
+       own padding, so the row does the centring instead. */
+    display:flex;align-items:center;flex-wrap:wrap;
+  }
+  .detail-checks-label .badge{margin-left:8px;}
+  /* Section headings space themselves by default, so a newly added section
+     doesn't silently render flush against the block above it. Scoping this to
+     specific ids meant every new heading had to be remembered separately.
+     The embed-badge labels opt out — that block has its own bordered box. */
+  .detail-checks-label{margin-top:34px;}
+  .embed-badge .detail-checks-label{margin-top:0;}
+  .fix-more summary{
+    font-family:var(--mono);font-size:12.5px;color:var(--stamp);cursor:pointer;
+    list-style:none;display:inline-block;
+  }
+  .fix-more summary::-webkit-details-marker{display:none;}
+  .fix-more summary::marker{content:'';}
+  .fix-more summary:hover{text-decoration:underline;}
+  .fix-more[open] summary{color:var(--ink-soft);}
+  .fix-suggest{margin-top:14px;margin-bottom:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  /* The one action that changes something, so it reads as primary next to the
+     two outline links. Same green as the pass rows and the certified badge
+     (#3F6B3F), darkened on hover. Written as .btn-outline.recheck-btn so it
+     outranks .btn-outline regardless of rule order. */
+  .btn-outline.recheck-btn{background:#3F6B3F;border-color:#3F6B3F;color:#fff;}
+  .btn-outline.recheck-btn:hover{background:#2F5230;border-color:#2F5230;color:#fff;}
+  /* The modal's confirm button is the same action, so it carries the same
+     green rather than the default ink fill. */
+  /* Right-aligned as the dialog's confirming action. margin-left:auto works
+     because the global button{width:fit-content} keeps it from filling the row. */
+  #recheckSubmit{background:#3F6B3F;display:block;margin-left:auto;}
+  #recheckSubmit:hover{background:#2F5230;}
+  /* The submission modal gets its rhythm from form{gap:12px}; a modal whose
+     action button isn't inside a form needs the same breathing room. Written
+     as a rule for any such button, not for this one instance. */
+  .modal > button:not(.modal-close){margin-top:18px;}
+  .recheck-steps{
+    font-family:var(--mono);font-size:12px;color:var(--ink-soft);line-height:1.65;
+    margin:0 0 18px;
+    /* Numbers sit flush with the heading and paragraph above, rather than
+       hanging outside them; the negative text-indent keeps wrapped lines
+       aligned under the text instead of under the number. */
+    padding-left:0;list-style-position:inside;
+  }
+  .recheck-steps li{margin-bottom:6px;padding-left:1.6em;text-indent:-1.6em;}
+  .recheck-steps strong{color:var(--ink);}
+  /* Scoped to .fix-suggest to outrank the submission form's
+     input[type="text"]{width:100%} — an attribute selector beats a plain
+     class, which stretched this to full width and wrapped it onto its own
+     line. Same leak as the generic label{} rule hit earlier. */
+  .fix-suggest .recheck-handle{
+    font-family:var(--mono);font-size:11px;background:var(--paper-2);
+    border:1px solid var(--line);padding:5px 8px;color:var(--ink);outline:none;
+    width:190px;flex:0 0 auto;margin:0;
+  }
+  .fix-suggest .recheck-handle:focus{border-color:var(--stamp);}
+  .recheck-status{
+    font-family:var(--mono);font-size:11px;color:var(--ink-soft);
+    flex-basis:100%;min-height:14px;
+  }
+  .recheck-status a{color:var(--stamp);}
+  .fix-suggest .btn-outline{font-size:10.5px;padding:5px 10px;}
+  /* The verdict badge sits inline in the section heading, which is uppercase
+     mono at 10.5px — the badge keeps its own casing and weight. */
+  .detail-checks-label .sf-badge,
+  .detail-checks-label .sfa-tag{margin-left:8px;text-transform:uppercase;}
+  .back-link{display:inline-block;margin-top:32px;}
+
+  .embed-badge{margin-top:20px;padding-top:16px;border-top:1px dashed var(--line);}
+  .badge-preview{display:block;margin-bottom:10px;}
+  .badge-snippet{font-family:var(--mono);font-size:11px;resize:none;margin-bottom:8px;}
+
+
+  /* One row of like-for-like controls: a text field, two selects and a
+     toggle. Categories used to be seven wrapping chips and sort a dropdown,
+     which put three unrelated jobs (search / filter / order) on the same
+     ragged line in three different control languages. */
+  .controls select{flex:0 0 auto;}
+  .toggle-pill{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+    background:var(--paper-2);border:1px solid var(--line);color:var(--ink-soft);
+    padding:5px 10px;cursor:pointer;width:auto;flex:0 0 auto;
+  }
+  .toggle-pill:hover{border-color:var(--ink-soft);color:var(--ink);background:var(--paper-2);}
+  .toggle-pill[aria-pressed="true"]{background:#3F6B3F;border-color:#3F6B3F;color:#fff;}
+
+  @media (max-width:560px){
+    /* Three rows: search / the two selects / certified + count. */
+    .controls{gap:8px;}
+    .controls input[type="search"]{flex:1 1 100%;width:100%;}
+    .controls select{flex:1 1 calc(50% - 4px);min-width:0;}
+    .toggle-pill{flex:0 0 auto;}
+    #count{flex:1 1 auto;text-align:right;}
+  }
+
+  @media (max-width:560px){
+    .detail-title h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="catalogView" style="display:none;">
+    <header>
+      <div class="header-top">
+        <span class="kicker">iamsingle.app · est. 2026</span>
+        <nav class="site-nav"><a href="/docs/">Docs</a> <a href="/resources">SFWA Resources</a></nav>
+      </div>
+      <h1>One app in one single file.<br>No strings attached.</h1>
+      <p class="sub">A working directory of SFWAs (single-file web apps), apps that ship as a single HTML file. No install, no build, no server required to run.</p>
+    </header>
+
+    <div class="highlights"><!-- BUILD:HIGHLIGHTS:START --><!-- BUILD:HIGHLIGHTS:END --></div>
+
+    <div class="submit-bar">
+      <button type="button" id="openSubmit">+ File a new entry</button>
+      <a class="download-all" href="/index.html" download="iamsingle-directory.html">Download directory (<!-- BUILD:DLSIZE:START -->199 KB<!-- BUILD:DLSIZE:END -->)</a>
+    </div>
+
+    <div class="controls">
+      <input type="search" id="search" placeholder="search the catalog…" autocomplete="off">
+      <select id="category" aria-label="Filter by category">
+        <option value="all">All categories</option>
+        <option value="notes">Notes &amp; wikis</option>
+        <option value="slides">Slides</option>
+        <option value="tools">Tools</option>
+        <option value="ai">AI</option>
+        <option value="games">Games</option>
+        <option value="collab">Live collab</option>
+      </select>
+      <select id="sort" aria-label="Sort order">
+        <option value="added" selected>Newest</option>
+        <option value="size">Smallest</option>
+        <option value="stars">Most starred</option>
+        <option value="created">Oldest repo</option>
+        <option value="name">A to Z</option>
+      </select>
+      <button type="button" class="toggle-pill" id="certifiedOnly" aria-pressed="false">🏅 Certified</button>
+      <div class="count" id="count"></div>
+    </div>
+
+    <div class="catalog" id="catalog"><!-- BUILD:CATALOG:START --><!-- BUILD:CATALOG:END --></div>
+    <div class="empty" id="empty" style="display:none;">— no entries match. try another term, or clear filters —</div>
+  </div>
+
+  <div id="detailView">
+    <nav class="crumb"><a href="/" data-nav>iamsingle.app</a><span class="sep">›</span><span class="current">Shade Sail Simulator</span></nav>
+    <div class="detail-header">
+      <div class="detail-title">
+        <img class="detail-logo" alt="" id="detailLogoImg" src="/assets/logos/shade-sail-simulator.png">
+        <div class="detail-title-text">
+          <div class="detail-name-row">
+            <h1>Shade Sail Simulator</h1><span class="sf-badge sf-badge-no" title="Not a SFWA: the app fetches code it needs from elsewhere."><span class="sf-mark">🚫</span>sfwa</span>
+            <div class="detail-actions">
+              <button type="button" class="btn-outline" id="shareBtn" aria-label="Share"><svg class="btn-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg><span class="btn-label">Share</span></button>
+              <a class="btn-solid" href="https://nomiknomik.github.io/shade-sail-simulator/" target="_blank" rel="noopener" aria-label="Visit"><span class="btn-label">Visit</span> ↗</a>
+            </div>
+          </div>
+          <a class="detail-by" href="https://github.com/nomiknomik" target="_blank" rel="noopener">by nomiknomik</a>
+          <p class="detail-desc">3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.</p>
+          <div class="tags" style="margin-top:10px;"><span class="tag">tools</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <a class="screenshot-link" href="https://nomiknomik.github.io/shade-sail-simulator/" target="_blank" rel="noopener">
+      <img class="entry-screenshot" src="https://iamsingle.app/screenshot/shade-sail-simulator.png" alt="Screenshot of Shade Sail Simulator" loading="lazy">
+    </a>
+    <div class="stat-strip"><span class="stat-word">stars </span>n/a <span class="sep">·</span> <svg class="stat-size-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg>138 KB <span class="sep">·</span> <span class="stat-word">created </span>n/a <span class="sep">·</span> <a class="stat-repo-link" href="https://github.com/nomiknomik/shade-sail-simulator" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>shade-sail-simulator ↗</a></div>
+    
+    <div class="detail-checks-label" id="network">Is it a true single-file web app?</div><div class="detail-checks"><div class="t-fail">✗ No, this is not a single-file web app. It needs 3 files from elsewhere.</div><div class="t-skip">– Contacts <code>unpkg.com</code></div></div><div class="detail-checks-label">How to fix it</div><div class="detail-checks"><div class="t-skip">→ Inline <code>suncalc.js</code> into a <code>&lt;script&gt;</code>/<code>&lt;style&gt;</code> tag instead of fetching it from <code>unpkg.com</code></div><div class="t-skip">→ Inline <code>three.module.js</code> into a <code>&lt;script&gt;</code>/<code>&lt;style&gt;</code> tag instead of fetching it from <code>unpkg.com</code></div><div class="t-skip">→ Inline <code>OrbitControls.js</code> into a <code>&lt;script&gt;</code>/<code>&lt;style&gt;</code> tag instead of fetching it from <code>unpkg.com</code></div></div><div class="fix-suggest"><a class="btn-outline" href="https://github.com/nomiknomik/shade-sail-simulator/issues/new?title=Make%20this%20a%20true%20single-file%20web%20app%3F&amp;body=Spotted%20via%20%5Biamsingle.app%5D(https%3A%2F%2Fiamsingle.app)%2C%20a%20directory%20of%20single-file%20web%20apps.%0A%0AThis%20one%20loads%20files%20it%20needs%20from%20elsewhere.%20Suggested%20changes%3A%0A%0A-%20%5B%20%5D%20Inline%20%60suncalc.js%60%20into%20a%20%60%3Cscript%3E%60%2F%60%3Cstyle%3E%60%20tag%20instead%20of%20fetching%20it%20from%20%60unpkg.com%60%0A-%20%5B%20%5D%20Inline%20%60three.module.js%60%20into%20a%20%60%3Cscript%3E%60%2F%60%3Cstyle%3E%60%20tag%20instead%20of%20fetching%20it%20from%20%60unpkg.com%60%0A-%20%5B%20%5D%20Inline%20%60OrbitControls.js%60%20into%20a%20%60%3Cscript%3E%60%2F%60%3Cstyle%3E%60%20tag%20instead%20of%20fetching%20it%20from%20%60unpkg.com%60%0A%0ADoing%20that%20would%20make%20it%20fully%20self-contained%3A%20no%20imports%2C%20no%20server%20calls%2C%20no%20build%2C%0Aand%20it%20would%20qualify%20as%20a%20certified%20SFWA%20in%20the%20directory.%0A%0AEntry%3A%20https%3A%2F%2Fiamsingle.app%2Fentry%2Fshade-sail-simulator" target="_blank" rel="noopener">Open issue ↗</a><button type="button" class="btn-outline recheck-btn" data-recheck-slug="shade-sail-simulator">I fixed it ↻</button></div>
+    <div class="detail-checks-label" id="audit-results">Security audit — full results <span class="badge" style="color:rgb(63, 107, 63);border-color:rgb(63, 107, 63);">13/13</span></div><div class="detail-checks"><div class="t-pass">✓ No leaked credentials (detect-secrets)</div><div class="t-pass">✓ Semgrep security-audit ruleset</div><div class="t-pass">✓ Semgrep javascript ruleset</div><div class="t-pass">✓ eval() usage</div><div class="t-pass">✓ Function() construction</div><div class="t-pass">✓ decode→eval chain</div><div class="t-pass">✓ document.write of decoded content</div><div class="t-pass">✓ sendBeacon usage</div><div class="t-pass">✓ decoded content DOM injection</div><div class="t-pass">✓ Ships an HTML file</div><div class="t-pass">✓ No build step required</div><div class="t-pass">✓ No backend required</div><div class="t-pass">✓ Submitted URL looks like the app itself</div></div>
+    
+    <div class="embed-badge">
+      <div class="detail-checks-label">Embed this badge</div>
+      <img class="badge-preview" src="https://iamsingle.app/badge/shade-sail-simulator.svg" alt="iamsingle.app — security audit — 13/13">
+      <textarea class="badge-snippet" id="badgeSnippet" readonly rows="2">[![iamsingle.app — security audit — 13/13](https://iamsingle.app/badge/shade-sail-simulator.svg)](https://iamsingle.app/entry/shade-sail-simulator)</textarea>
+      <button type="button" class="btn-outline" id="copyBadgeBtn">Copy markdown</button>
+    </div>
+    <a href="/" data-nav class="back-link sub">← back to the full catalog</a>
+  </div>
+
+  <div class="modal-overlay" id="submitOverlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" class="modal-close" id="closeSubmit" aria-label="Close">×</button>
+      <h2 id="modalTitle">File a new entry</h2>
+      <p class="sub">Submits directly — this opens a PR against the catalog's data for a maintainer to review, no GitHub account needed on your end.</p>
+      <form id="submitForm">
+        <div>
+          <label for="f-repo">GitHub repo (optional, owner/name or URL)</label>
+          <input type="text" id="f-repo" placeholder="e.g. TiddlyWiki/TiddlyWiki5 or a github.com URL">
+          <div class="repo-status" id="repoStatus"></div>
+        </div>
+        <div>
+          <label for="f-name">Name</label>
+          <input type="text" id="f-name" required placeholder="e.g. Feather.wiki">
+        </div>
+        <div>
+          <label for="f-url">URL</label>
+          <input type="url" id="f-url" required placeholder="https://…">
+        </div>
+        <div>
+          <label for="f-desc">One or two lines on what it does</label>
+          <textarea id="f-desc" required></textarea>
+        </div>
+        <div>
+          <label for="f-github">Your GitHub handle (optional)</label>
+          <input type="text" id="f-github" placeholder="e.g. octocat — we'll credit you and mention you when it's live">
+        </div>
+        <div>
+          <label>Tags</label>
+          <div class="tag-chips" id="tagChips">
+            <div class="chip" data-tag="notes">Notes</div>
+            <div class="chip" data-tag="slides">Slides</div>
+            <div class="chip" data-tag="tools">Tools</div>
+            <div class="chip" data-tag="ai">AI</div>
+            <div class="chip" data-tag="games">Games</div>
+            <div class="chip" data-tag="collab">Collab</div>
+          </div>
+        </div>
+        <div style="position:absolute;left:-9999px;" aria-hidden="true">
+          <label for="f-hp">Leave this field blank</label>
+          <input type="text" id="f-hp" name="hp" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit">Submit entry →</button>
+        <div class="form-note" id="formNote"></div>
+        <div class="form-note">Having trouble? <a href="https://github.com/HabibiCodeCH/iamsingle-sfwa-directory/issues/new" target="_blank" rel="noopener">file it manually as an issue</a> instead.</div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="qrOverlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle">
+      <button type="button" class="modal-close" id="closeQr" aria-label="Close">×</button>
+      <h2 id="qrModalTitle">Scan to run <span id="qrEntryName"></span></h2>
+      <img class="qr-preview" id="qrImage" alt="QR code — scan to run this app">
+      <textarea class="badge-snippet" id="qrCaption" readonly rows="2"></textarea>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="recheckOverlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="recheckTitle">
+      <button type="button" class="modal-close" id="closeRecheck" aria-label="Close">&times;</button>
+      <h2 id="recheckTitle">Get your fix recorded in the directory</h2>
+      <p class="sub">The badge will only be updated if the app passes our automated checks, here is what will happen:</p>
+      <ol class="recheck-steps">
+        <li>You paste the commit or pull request where the fix landed.</li>
+        <li>We look it up on GitHub, check it belongs to <strong id="recheckSlugLabel">this entry</strong>&rsquo;s repo, and read who wrote it. No need to tell us your handle, the commit already says.</li>
+        <li>A request opens on this directory with that author added as co-author, so the credit lands on their GitHub profile.</li>
+        <li>An automated check re-loads the app and records every file it pulls in. If it pulls in nothing, the badge becomes <strong>certified sfwa</strong> and the fixer is credited on the entry, with the date.</li>
+      </ol>
+      <div>
+        <label for="r-commit">Merged commit or pull request</label>
+        <input type="text" id="r-commit" placeholder="https://github.com/owner/repo/commit/&hellip;" autocomplete="off">
+        <div class="form-note">A commit URL, a PR URL, or just the commit sha. This is what proves the fix is real, and who made it.</div>
+      </div>
+      <div style="position:absolute;left:-9999px;" aria-hidden="true">
+        <label for="r-hp">Leave this field blank</label>
+        <input type="text" id="r-hp" tabindex="-1" autocomplete="off">
+      </div>
+      <button type="button" id="recheckSubmit">Record your fix &rarr;</button>
+      <div class="form-note" id="recheckStatus"></div>
+    </div>
+  </div>
+
+  <footer>
+    A single-file web app (SFWA) is one .html file containing its UI, logic, and often its data, that runs straight from disk or a static host with no build step and no backend to keep alive. Star counts come from a daily snapshot for entries with a public repo; entries without one are unranked. See the thread that sparked this: <a href="https://news.ycombinator.com/item?id=49008211" target="_blank" rel="noopener">Show HN: Bento</a>. New entries: <a href="/feed.xml">RSS feed</a>.
+    <div class="footer-badges"><!-- BUILD:FOOTERBADGE:START --><a href="https://nicklaunches.com/products/iamsingle-app/?utm_source=iamsingle.app&amp;utm_medium=badge&amp;utm_campaign=featured" target="_blank" rel="noopener"><img src="data:image/png;base64,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" alt="iamsingle.app on Nick Launches" width="244" height="56"></a><!-- BUILD:FOOTERBADGE:END --></div>
+  </footer>
+</div>
+
+<script>
+let ENTRIES = [];
+
+// Injected at build time with the full entries+stars dataset so every
+// generated page is self-contained and works over file:// (no fetch()
+// needed). Falls back to fetch() below if still null — e.g. editing
+// this template directly without running scripts/build_pages.mjs.
+/* BUILD:INLINE_DATA:START */const INLINE_DATA = {"entries":[{"name":"TiddlyWiki","url":"https://tiddlywiki.com/","repo":"TiddlyWiki/TiddlyWiki5","desc":"A non-linear personal wiki that saves its entire self back to disk as one HTML file. Two decades of plugins and forks trace back to it.","tags":["notes"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"fail","detail":"7 finding(s)"},{"id":"pattern-eval","label":"eval() usage","status":"fail","detail":"eval() call found — needs manual review"},{"id":"pattern-function","label":"Function() construction","status":"fail","detail":"new Function() call found — needs manual review"},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"Bento","url":"https://bento.page/slides/","repo":"nyblnet/bento","desc":"An entire slide deck — editor, viewer, data, and live collaboration — in one HTML file. Readable JSON up top, compressed app shell underneath.","tags":["slides","collab"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"fail","detail":"6 finding(s)"},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23","featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=49008211","title":"Show HN: Bento — An entire PowerPoint in one HTML file (edit+view+data+collab)","points":947}]},{"name":"codeflow","url":"https://codeflow-five.vercel.app","repo":"braedonsaunders/codeflow","desc":"Paste any GitHub URL and get an interactive architecture map — how files connect, what breaks if you touch something. Runs entirely in the browser.","tags":["tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"fail","detail":"eval() call found — needs manual review"},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"html-tools","url":"https://tools.realtime-ai.chat","repo":"chicogong/html-tools","desc":"Over a thousand small frontend utilities, each a single file — zero build, works offline, privacy-first.","tags":["tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"hermes-ui","url":"https://github.com/pyrate-llama/hermes-ui","repo":"pyrate-llama/hermes-ui","file":"hermes-ui.html","desc":"A command center for an AI agent — chat, steer, browse files, manage skills — packed into one glassmorphic HTML app.","tags":["ai","tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"fail","detail":"502 finding(s)"},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"Agent-Architecture","url":"https://thejacksoncode.github.io/Agent-Architecture/","repo":"TheJacksonCode/Agent-Architecture","desc":"A visual multi-agent system designer for Claude Code — 28 agents, human-in-the-loop gates, live simulation. Zero dependencies.","tags":["ai","tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"httprd","url":"https://github.com/bitrate16/httprd","repo":"bitrate16/httprd","kind":"sfa","runtime":"Python","desc":"Remote desktop over a plain browser tab, driven by a single script — no client install on either end.","tags":["tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"Offline-HTML-Games-Pack","url":"https://github.com/CoolDude2349/Offline-HTML-Games-Pack","repo":"CoolDude2349/Offline-HTML-Games-Pack","file":"compressed.html","desc":"Three hundred small games, each shipped as its own single-file HTML — pick one up, play offline, no dependencies.","tags":["games"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"gemini-chat-organizer-hub","url":"https://github.com/MartinSantosT/gemini-chat-organizer-hub","repo":"MartinSantosT/gemini-chat-organizer-hub","file":"index.html","desc":"A local, offline-first hub for organizing AI chats, prompts, and projects — kanban board included, all in one file.","tags":["ai","notes"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"Hyperclay","url":"https://hyperclay.com/","repo":null,"desc":"Frontend and done. Edit a running app by directly manipulating the page; it persists its own state back into the file itself.","tags":["tools","notes"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"skip","detail":"no repo set — nothing to clone"},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"skip","detail":"no repo set — nothing to clone"},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"skip","detail":"no repo set — nothing to clone"},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23","featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=44937991","title":"Web apps in a single, portable, self-updating, vanilla HTML file","points":646}]},{"name":"Decker","url":"https://beyondloom.com/decker/","repo":null,"desc":"A HyperCard-style authoring tool for the web. Draw, script, and stack cards together into one portable file.","tags":["tools","games"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"skip","detail":"no repo set — nothing to clone"},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"skip","detail":"no repo set — nothing to clone"},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"skip","detail":"no repo set — nothing to clone"},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23","featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=40292181","title":"Decker: A reincarnation of HyperCard with 1-bit graphics","points":280}]},{"name":"xlsx2md","url":"https://igapyon.github.io/xlsx2md/","repo":"igapyon/xlsx2md","desc":"xlsx2md is a Single-file Web App that reads Excel (`.xlsx`) files locally and extracts narrative text, tables, and images as Markdown.","tags":["tools"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"vicco","url":"https://github.com/zichy/vicco","repo":"zichy/vicco","kind":"sfa","runtime":"PHP","desc":"Blogging in a single file","tags":["tools","notes"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"orbital-notebook","url":"https://github.com/kalpi-4/orbital-notebook","repo":"kalpi-4/orbital-notebook","file":"orbital-notebook.html","desc":"A single-file, zero-dependency N-body gravitational simulator with a built-in notebook — runs entirely in your browser, no server required.","tags":["games"],"checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"added":"2026-07-23"},{"name":"htpad","url":"https://github.com/akissinger/htpad","repo":"akissinger/htpad","file":"blank.html","desc":"A super-simple HTML notepad for handwritten notes","tags":["notes"],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}]},{"name":"nash","url":"https://keepworking.github.io/nash/","repo":"keepworking/nash","desc":"Note as HTML","tags":["notes"],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=43358914","title":"Show HN: Nash, I made a standalone note with single HTML file","points":536}]},{"name":"minimal-pwa","url":"https://mccormick.cx/minimal-pwa","repo":"chr15m/minimal-pwa","desc":"Minimal files + config for a PWA","tags":["tools"],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}],"featured":[{"platform":"Hacker News","url":"https://news.ycombinator.com/item?id=45437326","title":"Minimal files and config for a PWA","points":143}]},{"name":"FuzzyGraph","url":"https://fuzzygraph.com","repo":"calebmadrigal/fuzzygraph","desc":"Graphs where equations are not only exactly true, but close to true. Instead of black lines on a white background, this creates beautiful gradients.","tags":[],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"fail","detail":"eval() call found — needs manual review"},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}]},{"name":"Hypervault","url":"https://hypervault.github.io/","repo":"hypervault/hypervault.github.io","desc":"Hypervault is client-side file encryption web app that embeds a copy of the decryption logic along with the encrypted data in a Single-File Web App.","tags":[],"added":"2026-07-24","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}]},{"name":"paper-viewer-local-llm","url":"https://github.com/wildriver/paper-viewer-local-llm","repo":"wildriver/paper-viewer-local-llm","file":"paper_viewer.html","desc":"📚 Single-file browser viewer for academic PDFs powered by your local LLM (LM Studio / Ollama).","tags":["tools","ai"],"added":"2026-07-27","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}]},{"name":"Mindmap bij Dumbnote","url":"https://dumbnote.app/mindmap/landing.html","repo":"baibao577/dumbnote-page","desc":"Mindmap in html","tags":[],"added":"2026-07-29","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""}]},{"name":"Bayes' Theorem Demo","url":"https://foldright.io/bayes-theorem-demo/","repo":"foldright/bayes-theorem-demo","desc":"Interactive Bayes theorem demo with a draggable area diagram and a 1000-person natural-frequency dot grid.","tags":["notes"],"added":"2026-07-29","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""},{"id":"sfwa-html-artifact","label":"Ships an HTML file","status":"pass","detail":""},{"id":"sfwa-no-build-step","label":"No build step required","status":"pass","detail":""},{"id":"sfwa-client-side-only","label":"No backend required","status":"pass","detail":""},{"id":"sfwa-url-is-app","label":"Submitted URL looks like the app itself","status":"pass","detail":""}]},{"name":"cute-qr","url":"https://rastian.github.io/cute-qr/","repo":"rastian/cute-qr","desc":"A minimal QR code generator with an iOS liquid-glass visual style.","tags":["tools"],"added":"2026-07-29","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""},{"id":"sfwa-html-artifact","label":"Ships an HTML file","status":"pass","detail":""},{"id":"sfwa-no-build-step","label":"No build step required","status":"pass","detail":""},{"id":"sfwa-client-side-only","label":"No backend required","status":"pass","detail":""},{"id":"sfwa-url-is-app","label":"Submitted URL looks like the app itself","status":"pass","detail":""}]},{"name":"footprint","url":"https://akanshujamwal.github.io/footprint/","repo":"akanshujamwal/footprint","desc":"A single-file browser-based work journal for developers and PMs. Log daily tasks, sync to Google Sheets.","tags":["notes"],"added":"2026-07-29","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""},{"id":"sfwa-html-artifact","label":"Ships an HTML file","status":"pass","detail":""},{"id":"sfwa-no-build-step","label":"No build step required","status":"pass","detail":""},{"id":"sfwa-client-side-only","label":"No backend required","status":"pass","detail":""},{"id":"sfwa-url-is-app","label":"Submitted URL looks like the app itself","status":"pass","detail":""}]},{"name":"Potemkin Pipeline","url":"https://davidveksler.github.io/potemkin-pipeline/","repo":"DavidVeksler/potemkin-pipeline","desc":"Offline single-file screensaver/PWA that simulates an AI coding agent at work: fake terminal, fake dashboards, all client-side.","tags":["ai"],"added":"2026-07-29","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""},{"id":"sfwa-html-artifact","label":"Ships an HTML file","status":"pass","detail":""},{"id":"sfwa-no-build-step","label":"No build step required","status":"pass","detail":""},{"id":"sfwa-client-side-only","label":"No backend required","status":"pass","detail":""},{"id":"sfwa-url-is-app","label":"Submitted URL looks like the app itself","status":"pass","detail":""}]},{"name":"Shade Sail Simulator","url":"https://nomiknomik.github.io/shade-sail-simulator/","repo":"nomiknomik/shade-sail-simulator","desc":"3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.","tags":["tools"],"added":"2026-07-29","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""},{"id":"sfwa-html-artifact","label":"Ships an HTML file","status":"pass","detail":""},{"id":"sfwa-no-build-step","label":"No build step required","status":"pass","detail":""},{"id":"sfwa-client-side-only","label":"No backend required","status":"pass","detail":""},{"id":"sfwa-url-is-app","label":"Submitted URL looks like the app itself","status":"pass","detail":""}]},{"name":"Tier List Maker","url":"https://milk3e.github.io/Tier-List-Maker/","repo":"milk3e/Tier-List-Maker","desc":"The most feature-rich offline web-based tier list maker, for ranking anything you want.","tags":["tools"],"added":"2026-07-29","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""},{"id":"sfwa-html-artifact","label":"Ships an HTML file","status":"pass","detail":""},{"id":"sfwa-no-build-step","label":"No build step required","status":"pass","detail":""},{"id":"sfwa-client-side-only","label":"No backend required","status":"pass","detail":""},{"id":"sfwa-url-is-app","label":"Submitted URL looks like the app itself","status":"pass","detail":""}]},{"name":"tootoo","url":"https://pushme-pullyou.github.io/tootoo/","repo":"pushme-pullyou/tootoo","desc":"Browse any GitHub repo in your browser, zero install, one HTML file.","tags":["tools"],"added":"2026-07-29","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""},{"id":"sfwa-html-artifact","label":"Ships an HTML file","status":"pass","detail":""},{"id":"sfwa-no-build-step","label":"No build step required","status":"pass","detail":""},{"id":"sfwa-client-side-only","label":"No backend required","status":"pass","detail":""},{"id":"sfwa-url-is-app","label":"Submitted URL looks like the app itself","status":"pass","detail":""}]},{"name":"xsukax Photo Editor","url":"https://xsukax.github.io/xsukax-Photo-Editor/","repo":"xsukax/xsukax-Photo-Editor","desc":"A privacy-focused, client-side photo editor. No server, everything runs in the browser.","tags":["tools"],"added":"2026-07-29","checks":[{"id":"secrets","label":"No leaked credentials (detect-secrets)","status":"pass","detail":""},{"id":"semgrep-security","label":"Semgrep security-audit ruleset","status":"pass","detail":""},{"id":"semgrep-js","label":"Semgrep javascript ruleset","status":"pass","detail":""},{"id":"pattern-eval","label":"eval() usage","status":"pass","detail":""},{"id":"pattern-function","label":"Function() construction","status":"pass","detail":""},{"id":"pattern-decode-exec","label":"decode→eval chain","status":"pass","detail":""},{"id":"pattern-dom-write","label":"document.write of decoded content","status":"pass","detail":""},{"id":"pattern-beacon","label":"sendBeacon usage","status":"pass","detail":""},{"id":"pattern-dom-inject","label":"decoded content DOM injection","status":"pass","detail":""},{"id":"sfwa-html-artifact","label":"Ships an HTML file","status":"pass","detail":""},{"id":"sfwa-no-build-step","label":"No build step required","status":"pass","detail":""},{"id":"sfwa-client-side-only","label":"No backend required","status":"pass","detail":""},{"id":"sfwa-url-is-app","label":"Submitted URL looks like the app itself","status":"pass","detail":""}]}],"stars":{"CoolDude2349/Offline-HTML-Games-Pack":{"stars":109,"created":"2025-08-07","forks":120,"contributors":4,"languages":[{"name":"HTML","pct":100},{"name":"JavaScript","pct":0},{"name":"Python","pct":0}]},"MartinSantosT/gemini-chat-organizer-hub":{"stars":26,"created":"2025-11-23","forks":3,"contributors":1,"languages":[{"name":"HTML","pct":100}]},"TheJacksonCode/Agent-Architecture":{"stars":73,"created":"2026-04-07","forks":9,"contributors":1,"languages":[{"name":"HTML","pct":99.8},{"name":"JavaScript","pct":0.2}]},"TiddlyWiki/TiddlyWiki5":{"stars":8617,"created":"2011-11-22","forks":1252,"contributors":320,"languages":[{"name":"JavaScript","pct":97},{"name":"TeX","pct":1.3},{"name":"Shell","pct":0.8},{"name":"CSS","pct":0.6},{"name":"Batchfile","pct":0.1}]},"akissinger/htpad":{"stars":4,"created":"2020-05-07","forks":1,"contributors":1,"languages":[{"name":"HTML","pct":52.3},{"name":"JavaScript","pct":47.7}]},"baibao577/dumbnote-page":{"stars":75,"created":"2025-06-28","forks":4,"contributors":1,"languages":[{"name":"HTML","pct":99.6},{"name":"CSS","pct":0.3},{"name":"JavaScript","pct":0.1}]},"bitrate16/httprd":{"stars":79,"created":"2022-12-02","forks":7,"contributors":1,"languages":[{"name":"HTML","pct":56.7},{"name":"Python","pct":42},{"name":"Batchfile","pct":1.3}]},"braedonsaunders/codeflow":{"stars":4833,"created":"2025-12-16","forks":738,"contributors":13,"languages":[{"name":"HTML","pct":80.4},{"name":"JavaScript","pct":19.6}]},"calebmadrigal/fuzzygraph":{"stars":6,"created":"2025-05-31","forks":1,"contributors":1,"languages":[{"name":"HTML","pct":76.9},{"name":"JavaScript","pct":22.7},{"name":"Shell","pct":0.4},{"name":"CSS","pct":0}]},"chicogong/html-tools":{"stars":125,"created":"2025-12-25","forks":50,"contributors":3,"languages":[{"name":"HTML","pct":99.4},{"name":"JavaScript","pct":0.5},{"name":"CSS","pct":0.1},{"name":"EJS","pct":0}]},"chr15m/minimal-pwa":{"stars":481,"created":"2025-03-08","forks":27,"contributors":1,"languages":[{"name":"HTML","pct":97.7},{"name":"Makefile","pct":1.7},{"name":"JavaScript","pct":0.6}]},"hypervault/hypervault.github.io":{"stars":128,"created":"2015-07-21","forks":14,"contributors":4,"languages":[{"name":"HTML","pct":84.2},{"name":"JavaScript","pct":13},{"name":"CSS","pct":2.8},{"name":"Shell","pct":0}]},"igapyon/xlsx2md":{"stars":29,"created":"2026-03-18","forks":5,"contributors":1,"languages":[{"name":"JavaScript","pct":42.7},{"name":"HTML","pct":35.3},{"name":"TypeScript","pct":20.3},{"name":"CSS","pct":1.7}]},"kalpi-4/orbital-notebook":{"stars":1,"created":"2026-06-11","forks":0,"contributors":1,"languages":[{"name":"HTML","pct":100}]},"keepworking/nash":{"stars":292,"created":"2025-03-05","forks":34,"contributors":5,"languages":[{"name":"HTML","pct":97.6},{"name":"M4","pct":2.3},{"name":"Makefile","pct":0}]},"nyblnet/bento":{"stars":2995,"created":"2026-07-17","forks":187,"contributors":4,"languages":[{"name":"TypeScript","pct":86.5},{"name":"JavaScript","pct":8.1},{"name":"HTML","pct":2.7},{"name":"CSS","pct":1.8},{"name":"Swift","pct":0.9}]},"pyrate-llama/hermes-ui":{"stars":189,"created":"2026-04-03","forks":24,"contributors":2,"languages":[{"name":"HTML","pct":69},{"name":"Python","pct":30.8},{"name":"JavaScript","pct":0.2}]},"wildriver/paper-viewer-local-llm":{"stars":8,"created":"2026-05-17","forks":0,"contributors":1,"languages":[{"name":"HTML","pct":100}]},"zichy/vicco":{"stars":31,"created":"2015-11-01","forks":7,"contributors":5,"languages":[{"name":"PHP","pct":100}]}},"sizes":{"tiddlywiki":6793927,"bento":658733,"codeflow":591305,"html-tools":373192,"agent-architecture":5703482,"httprd":310125,"hyperclay":281870,"decker":7143,"xlsx2md":16564,"vicco":275519,"nash":569266,"minimal-pwa":593,"fuzzygraph":1346172,"hypervault":181956,"hermes-ui":640678,"offline-html-games-pack":98706,"gemini-chat-organizer-hub":59081,"orbital-notebook":64304,"htpad":2625,"paper-viewer-local-llm":72930,"mindmap-bij-dumbnote":161038,"bayes-theorem-demo":41957,"cute-qr":29909,"footprint":105109,"potemkin-pipeline":319643,"shade-sail-simulator":141728,"tier-list-maker":197660,"tootoo":136808,"xsukax-photo-editor":28879},"qrSlugs":["minimal-pwa"],"network":{"tiddlywiki":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"bento":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"codeflow":{"mode":"live","selfContained":false,"fontCount":2,"logicCount":13,"fixes":["Inline `react.production.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `react-dom.production.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `babel.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `d3.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `d3-sankey.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `acorn.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `jsrsasign-all-min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `jszip.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `tree-sitter.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `jspdf.umd.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `mermaid.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `3d-force-graph` into a `<script>`/`<style>` tag instead of fetching it from `unpkg.com`","Inline `3d-force-graph.min.js` into a `<script>`/`<style>` tag instead of fetching it from `unpkg.com`","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.googleapis.com`)","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.gstatic.com`)"],"thirdPartyHosts":["cdn.jsdelivr.net","cdnjs.cloudflare.com","fonts.googleapis.com","fonts.gstatic.com","unpkg.com"],"insecure":[]},"html-tools":{"mode":"live","selfContained":false,"fontCount":4,"logicCount":4,"fixes":["Inline `main.css` — it's already your own file, it just needs to move into the HTML","Inline `tool-chrome.js` — it's already your own file, it just needs to move into the HTML","Inline `index.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `main.js` — it's already your own file, it just needs to move into the HTML","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.googleapis.com`)","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.gstatic.com`)"],"thirdPartyHosts":["cdn.jsdelivr.net","fonts.googleapis.com","fonts.gstatic.com"],"insecure":[]},"hermes-ui":{"mode":"artifact","selfContained":false,"fontCount":3,"logicCount":6,"fixes":["Inline `react.production.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `react-dom.production.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `babel.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `marked.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `highlight.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `github-dark.min.css` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.googleapis.com`)","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.gstatic.com`)"],"thirdPartyHosts":["cdnjs.cloudflare.com","fonts.googleapis.com","fonts.gstatic.com"],"insecure":[]},"agent-architecture":{"mode":"live","selfContained":false,"fontCount":4,"logicCount":0,"fixes":["Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.googleapis.com`)","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.gstatic.com`)"],"thirdPartyHosts":["fonts.googleapis.com","fonts.gstatic.com"],"insecure":[]},"httprd":{"mode":"unmeasurable","reason":"entry URL points at a code-host page, not a running app, and no repo artifact is set","fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"offline-html-games-pack":{"mode":"artifact","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"gemini-chat-organizer-hub":{"mode":"artifact","selfContained":false,"fontCount":2,"logicCount":10,"fixes":["Replace the Tailwind CDN script with a compiled stylesheet inlined in a `<style>` tag","Inline `web` into a `<script>`/`<style>` tag instead of fetching it from `unpkg.com`","Inline `index.js` into a `<script>`/`<style>` tag instead of fetching it from `unpkg.com`","Inline `style.css` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `Phosphor-Bold.woff2` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `Phosphor-Fill.woff2` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`"],"thirdPartyHosts":["cdn.jsdelivr.net","cdn.tailwindcss.com","unpkg.com"],"insecure":[]},"hyperclay":{"mode":"live","selfContained":false,"fontCount":2,"logicCount":22,"fixes":["Inline `hyperclay-app-dist.css` — it's already your own file, it just needs to move into the HTML","Inline `website.js` — it's already your own file, it just needs to move into the HTML","Inline `datastar.js` — it's already your own file, it just needs to move into the HTML","Drop the analytics beacon (`www.googletagmanager.com`) — it reports every visitor to a third party","Inline `maze.js` — it's already your own file, it just needs to move into the HTML","Inline `lottie.min.js` — it's already your own file, it just needs to move into the HTML","Inline `anime.min.js` — it's already your own file, it just needs to move into the HTML","Inline `hyperclay.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `exportToWindow.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `toast.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `cookie.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `theModal.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `prompts.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `onDomReady.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `copy-to-clipboard.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `home.js` — it's already your own file, it just needs to move into the HTML","Drop the analytics beacon (`region1.google-analytics.com`) — it reports every visitor to a third party","Inline `bigpicture-esm.js` — it's already your own file, it just needs to move into the HTML","Inline `toggle-thing%20(2).json` from `websharebox.s3.amazonaws.com` so it ships with the app","Inline `yes-1.json` from `websharebox.s3.amazonaws.com` so it ships with the app","Inline `newsletter-form.js` — it's already your own file, it just needs to move into the HTML","Inline `toast.js` — it's already your own file, it just needs to move into the HTML","Inline `BerkeleyMonoVariable-Regular.woff2` — it's already your own file, it just needs to move into the HTML","Inline `fixedsys-webfont.woff2` — it's already your own file, it just needs to move into the HTML"],"thirdPartyHosts":["cdn.jsdelivr.net","region1.google-analytics.com","websharebox.s3.amazonaws.com","www.googletagmanager.com"],"insecure":[]},"decker":{"mode":"live","selfContained":false,"fontCount":0,"logicCount":1,"fixes":["Inline `style.css` — it's already your own file, it just needs to move into the HTML"],"thirdPartyHosts":[],"insecure":[]},"xlsx2md":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"vicco":{"mode":"unmeasurable","reason":"entry URL points at a code-host page, not a running app, and no repo artifact is set","fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"orbital-notebook":{"mode":"artifact","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"nash":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"minimal-pwa":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"fuzzygraph":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"hypervault":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"paper-viewer-local-llm":{"mode":"artifact","selfContained":false,"fontCount":0,"logicCount":1,"fixes":["Inline `pdf.min.mjs` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`"],"thirdPartyHosts":["cdn.jsdelivr.net"],"insecure":[]},"htpad":{"mode":"artifact","selfContained":false,"fontCount":1,"logicCount":4,"fixes":["Inline `font-awesome.min.css` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `d3-lasso.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `htpad.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Load `d3.v4.min.js` over https — it currently comes in over plain http and can be modified in transit","Inline `fontawesome-webfont.woff2` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`"],"thirdPartyHosts":["cdn.jsdelivr.net","d3js.org"],"insecure":["http://d3js.org/d3.v4.min.js"]},"mindmap-bij-dumbnote":{"mode":"live","selfContained":false,"fontCount":6,"logicCount":4,"fixes":["Drop the analytics beacon (`www.googletagmanager.com`) — it reports every visitor to a third party","Inline `Base.BI53xur5.css` — it's already your own file, it just needs to move into the HTML","Inline `landing.C4Qy9ooj.css` — it's already your own file, it just needs to move into the HTML","Drop the analytics beacon (`www.google-analytics.com`) — it reports every visitor to a third party","Inline `boldonse-latin-400-normal.CEhxY6WL.woff2` — it's already your own file, it just needs to move into the HTML","Inline `inter-latin-400-normal.C38fXH4l.woff2` — it's already your own file, it just needs to move into the HTML","Inline `jetbrains-mono-latin-400-normal.V6pRDFza.woff2` — it's already your own file, it just needs to move into the HTML","Inline `inter-latin-600-normal.LgqL8muc.woff2` — it's already your own file, it just needs to move into the HTML","Inline `jetbrains-mono-latin-600-normal.C8RAYTDA.woff2` — it's already your own file, it just needs to move into the HTML","Inline `inter-latin-500-normal.Cerq10X2.woff2` — it's already your own file, it just needs to move into the HTML"],"thirdPartyHosts":["www.google-analytics.com","www.googletagmanager.com"],"insecure":[]},"bayes-theorem-demo":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"cute-qr":{"mode":"live","selfContained":false,"fontCount":0,"logicCount":1,"fixes":["Inline `qr-code-styling.js` into a `<script>`/`<style>` tag instead of fetching it from `unpkg.com`"],"thirdPartyHosts":["unpkg.com"],"insecure":[]},"footprint":{"mode":"live","selfContained":false,"fontCount":5,"logicCount":1,"fixes":["Inline `html2pdf.bundle.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.googleapis.com`)","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.gstatic.com`)"],"thirdPartyHosts":["cdnjs.cloudflare.com","fonts.googleapis.com","fonts.gstatic.com"],"insecure":[]},"potemkin-pipeline":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"shade-sail-simulator":{"mode":"live","selfContained":false,"fontCount":0,"logicCount":3,"fixes":["Inline `suncalc.js` into a `<script>`/`<style>` tag instead of fetching it from `unpkg.com`","Inline `three.module.js` into a `<script>`/`<style>` tag instead of fetching it from `unpkg.com`","Inline `OrbitControls.js` into a `<script>`/`<style>` tag instead of fetching it from `unpkg.com`"],"thirdPartyHosts":["unpkg.com"],"insecure":[]},"tier-list-maker":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]},"tootoo":{"mode":"live","selfContained":false,"fontCount":2,"logicCount":12,"fixes":["Inline `marked.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `github.min.css` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `highlight.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdnjs.cloudflare.com`","Inline `purify.min.js` into a `<script>`/`<style>` tag instead of fetching it from `cdn.jsdelivr.net`","Inline `tootoo.config.js` — it's already your own file, it just needs to move into the HTML","Inline `tootoo` from `api.github.com` so it ships with the app","Inline `main` from `api.github.com` so it ships with the app","Inline `README.md` from `raw.githubusercontent.com` so it ships with the app","Inline `demo-live-success` from `img.shields.io` so it ships with the app","Inline `license-MIT-blue` from `img.shields.io` so it ships with the app","Inline `single--file-vanilla%20JS-orange` from `img.shields.io` so it ships with the app","Inline `tootoo-screenshot.jpeg` from `raw.githubusercontent.com` so it ships with the app","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.googleapis.com`)","Self-host the webfont as a base64 `@font-face`, or fall back to a system font stack (currently `fonts.gstatic.com`)"],"thirdPartyHosts":["api.github.com","cdn.jsdelivr.net","cdnjs.cloudflare.com","fonts.googleapis.com","fonts.gstatic.com","img.shields.io","raw.githubusercontent.com"],"insecure":[]},"xsukax-photo-editor":{"mode":"live","selfContained":true,"fontCount":0,"logicCount":0,"fixes":[],"thirdPartyHosts":[],"insecure":[]}},"fixes":{},"logoSlugs":["tiddlywiki","bento","codeflow","html-tools","hermes-ui","agent-architecture","httprd","offline-html-games-pack","gemini-chat-organizer-hub","hyperclay","decker","xlsx2md","vicco","orbital-notebook","htpad","nash","minimal-pwa","fuzzygraph","hypervault","paper-viewer-local-llm","mindmap-bij-dumbnote","bayes-theorem-demo","cute-qr","footprint","potemkin-pipeline","shade-sail-simulator","tier-list-maker","tootoo","xsukax-photo-editor"]};/* BUILD:INLINE_DATA:END */
+
+const catalogViewEl = document.getElementById('catalogView');
+const detailViewEl = document.getElementById('detailView');
+const catalogEl = document.getElementById('catalog');
+const emptyEl = document.getElementById('empty');
+const countEl = document.getElementById('count');
+const searchEl = document.getElementById('search');
+const sortEl = document.getElementById('sort');
+const certifiedOnlyEl = document.getElementById('certifiedOnly');
+const categoryEl = document.getElementById('category');
+let certifiedOnly = false;
+
+// Same slug rule as api/submit.js's slugify() — kept in sync by hand since
+// there's no shared module between the client and the serverless function.
+function slugify(s){
+  return (s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 40) || 'entry');
+}
+
+let activeFilter = 'all';
+let query = '';
+const starCache = {}; // repo -> {stars,created}|null (null = fetch failed / no repo)
+const sizeCache = {}; // slug -> byte size of the entry's main document, from data/sizes.json
+let qrSlugSet = new Set(); // slugs small enough to have a scan-and-run QR code
+let logoSlugSet = new Set(); // slugs with a vendored logo in assets/logos/
+const networkCache = {}; // slug -> where its code comes from, from data/network.json
+const fixCache = {};     // slug -> verified fix credit, from data/fixes.json
+
+function pad(n){ return String(n).padStart(2,'0'); }
+const MEDALS = ['🥇','🥈','🥉'];
+function formatStars(n){
+  if(n === null || n === undefined) return null;
+  if(n >= 1000) return (n/1000).toFixed(1).replace(/\.0$/,'') + 'k';
+  return String(n);
+}
+function formatCreated(dateStr){
+  if(!dateStr) return null;
+  return new Date(dateStr + 'T00:00:00Z').toLocaleDateString('en-US', { month:'short', year:'numeric', timeZone:'UTC' });
+}
+// Mirrors formatSize() in scripts/build_pages.mjs and scripts/screenshot.mjs.
+function formatAdded(dateStr){
+  return new Date(dateStr + 'T00:00:00Z').toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric', timeZone:'UTC' });
+}
+function formatSize(bytes){
+  if(bytes < 1024) return `${bytes} B`;
+  const kb = bytes / 1024;
+  if(kb < 1024) return `${kb < 10 ? kb.toFixed(1) : Math.round(kb)} KB`;
+  return `${(kb / 1024).toFixed(1)} MB`;
+}
+function isNew(e){
+  if(!e.added) return false;
+  const addedMs = new Date(e.added + 'T00:00:00Z').getTime();
+  return (Date.now() - addedMs) <= 7 * 24 * 60 * 60 * 1000;
+}
+const GH_ICON_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .319.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>';
+const SF_ICON_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path d="M6 2h9l5 5v15H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M15 2v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><text x="12" y="18" font-size="9" font-family="ui-monospace,monospace" font-weight="bold" text-anchor="middle" fill="currentColor">1</text></svg>';
+
+// Mirrors sfwaStatus()/statusBadgeHtml() in scripts/build_pages.mjs. The
+// font-vs-logic split is precomputed at build time (fontCount/logicCount) so
+// the host-classification rules live in exactly one place.
+function sfwaStatus(e, net){
+  if(e.kind === 'sfa') return 'sfa';
+  if(!net || net.mode === 'unmeasurable') return null;
+  if(net.selfContained) return 'certified';
+  return (net.logicCount || 0) <= 1 ? 'nearly' : 'no';
+}
+
+// Mirrors fixCreditHtml() in scripts/build_pages.mjs.
+function fixCreditHtml(slug, status){
+  const f = fixCache[slug];
+  if(status !== 'certified' || !f || !f.by) return '';
+  const when = f.date ? formatAdded(f.date) : '';
+  const label = `fixed by @${f.by}${when ? ` · ${when}` : ''}`;
+  return f.url
+    ? `<a class="fix-credit" href="${f.url}" target="_blank" rel="noopener" title="View the commit that fixed this">${label}</a>`
+    : `<span class="fix-credit">${label}</span>`;
+}
+function statusBadgeHtml(status, e){
+  switch(status){
+    case 'sfa': return `<span class="sfa-tag" title="A single-file app, but it needs ${e.runtime} to run — not a browser-only single-file web app">sfa · ${e.runtime}</span>`;
+    case 'certified': return `<span class="sf-badge" title="Certified: the entire app sits in one file. No imports, no server calls, no build."><span class="sf-mark">\u{1F3C5}</span>sfwa</span>`;
+    case 'nearly': return `<span class="sf-badge sf-badge-near" title="Nearly: its own code is in one file, but it still pulls something in."><span class="sf-mark">\u{1F90F}</span>sfwa</span>`;
+    case 'no': return `<span class="sf-badge sf-badge-no" title="Not a SFWA: the app fetches code it needs from elsewhere."><span class="sf-mark">\u{1F6AB}</span>sfwa</span>`;
+    default: return '';
+  }
+}
+function fixText(str){
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/`([^`]+)`/g,'<code>$1</code>');
+}
+const QR_ICON_SVG = '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="3" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="3" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="3" y="15" width="6" height="6" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="15" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="18.5" y="15" width="2.5" height="2.5" fill="currentColor"></rect><rect x="15" y="18.5" width="2.5" height="2.5" fill="currentColor"></rect></svg>';
+// 0 -> red (--stamp), 1 -> green, interpolated so a near-miss (e.g. 8/9)
+// reads as "mostly fine" rather than the same red as a near-total failure.
+function scoreColor(ratio){
+  const red = [168, 51, 29], green = [63, 107, 63];
+  const mix = (a, b) => Math.round(a + (b - a) * ratio);
+  return `rgb(${mix(red[0], green[0])}, ${mix(red[1], green[1])}, ${mix(red[2], green[2])})`;
+}
+// GitHub Linguist's canonical per-language colors, so the bar reads as
+// familiar rather than arbitrary. Unlisted languages cycle through a small
+// neutral fallback instead of a random hue.
+const LANG_COLORS = {
+  JavaScript: '#f1e05a', TypeScript: '#3178c6', HTML: '#e34c26', CSS: '#563d7c',
+  Python: '#3572A5', Swift: '#F05138', Go: '#00ADD8', Rust: '#dea584',
+  Java: '#b07219', C: '#555555', 'C++': '#f34b7d', 'C#': '#178600',
+  Ruby: '#701516', PHP: '#4F5D95', Shell: '#89e051', Vue: '#41b883',
+  Svelte: '#ff3e00', Dart: '#00B4AB', Kotlin: '#A97BFF', 'Objective-C': '#438eff',
+  Lua: '#000080', Perl: '#0298c3', Elixir: '#6e4a7e', Clojure: '#db5855',
+  Haskell: '#5e5086', Scala: '#c22d40', R: '#198CE7', 'Jupyter Notebook': '#DA5B0B',
+  Dockerfile: '#384d54', Makefile: '#427819', TeX: '#3D6117',
+};
+const LANG_FALLBACK = ['#8A8578', '#A39C8A', '#C9C3B2', '#57534A', '#201E19'];
+function langColor(name, i){
+  return LANG_COLORS[name] || LANG_FALLBACK[i % LANG_FALLBACK.length];
+}
+
+
+function currentList(){
+  let list = ENTRIES.filter(e => {
+    const matchesFilter = activeFilter === 'all' || e.tags.includes(activeFilter);
+    const matchesQuery = !query ||
+      e.name.toLowerCase().includes(query) ||
+      e.desc.toLowerCase().includes(query) ||
+      e.tags.some(t => t.includes(query));
+    // Unmeasured entries are excluded when the box is ticked: "certified"
+    // means verified, not merely "not known to fail".
+    const matchesCertified = !certifiedOnly || !!networkCache[slugify(e.name)]?.selfContained;
+    return matchesFilter && matchesQuery && matchesCertified;
+  });
+
+  if(sortEl.value === 'stars'){
+    list = list.slice().sort((a,b) => {
+      const sa = a.repo ? (starCache[a.repo]?.stars ?? -1) : -1;
+      const sb = b.repo ? (starCache[b.repo]?.stars ?? -1) : -1;
+      if(sa === sb) return a.name.localeCompare(b.name);
+      return sb - sa;
+    });
+  } else if(sortEl.value === 'size'){
+    list = list.slice().sort((a,b) => {
+      // Entries without a measured size (screenshot capture hasn't run yet
+      // for a brand-new entry) sort last, not first.
+      const za = sizeCache[slugify(a.name)] ?? Infinity;
+      const zb = sizeCache[slugify(b.name)] ?? Infinity;
+      if(za === zb) return a.name.localeCompare(b.name);
+      return za - zb;
+    });
+  } else if(sortEl.value === 'created'){
+    list = list.slice().sort((a,b) => {
+      // ISO dates compare correctly as strings; entries with no repo/no
+      // snapshot data fall back to '', which sorts last (oldest) here.
+      const ca = a.repo ? (starCache[a.repo]?.created ?? '') : '';
+      const cb = b.repo ? (starCache[b.repo]?.created ?? '') : '';
+      if(ca === cb) return a.name.localeCompare(b.name);
+      return cb.localeCompare(ca);
+    });
+  } else if(sortEl.value === 'added'){
+    list = list.slice().sort((a,b) => {
+      // When this catalog was added to iamsingle.app, not the repo's own
+      // creation date. Entries predating this field fall back to '',
+      // sorting last.
+      const ca = a.added ?? '';
+      const cb = b.added ?? '';
+      if(ca === cb) return a.name.localeCompare(b.name);
+      return cb.localeCompare(ca);
+    });
+  } else {
+    list = list.slice().sort((a,b) => a.name.localeCompare(b.name));
+  }
+  return list;
+}
+
+function render(){
+  const filtered = currentList();
+  countEl.textContent = filtered.length + ' / ' + ENTRIES.length + ' filed';
+  catalogEl.innerHTML = '';
+  emptyEl.style.display = filtered.length ? 'none' : 'block';
+
+  filtered.forEach((e, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const entrySlug = slugify(e.name);
+    const starInfo = e.repo ? starCache[e.repo] : null; // undefined = loading, null = confirmed absent
+    const loading = e.repo && starInfo === undefined;
+    const absent = e.repo && starInfo === null;
+    const starsText = !e.repo ? '' : loading ? '···' : absent ? 'n/a' : '★ ' + formatStars(starInfo.stars);
+    const dateText = !e.repo ? '' : loading ? '···' : absent ? 'n/a' : formatCreated(starInfo.created);
+    const sizeText = sizeCache[entrySlug] != null ? formatSize(sizeCache[entrySlug]) : '';
+    const owner = e.repo ? e.repo.split('/')[0] : '';
+    const ghPill = e.repo ? `<span class="gh-pill">
+        <a class="gh-pill-icon" href="https://github.com/${e.repo}" target="_blank" rel="noopener" aria-label="${e.repo} on GitHub">${GH_ICON_SVG}</a>
+        <span class="gh-stars">${starsText}</span>
+        ${sizeText ? `<span class="gh-size">${sizeText}</span>` : ''}
+        <span class="gh-date">${dateText}</span>
+        <a class="gh-pill-by" href="https://github.com/${owner}" target="_blank" rel="noopener" title="${owner}">by ${owner}</a>
+      </span>` : (sizeText ? `<span class="gh-pill"><span class="gh-size">${sizeText}</span></span>` : '');
+
+    const checks = e.checks || [];
+    // A skip counts against the ratio (0, not excluded) so an incomplete
+    // audit can't read as 100%.
+    const passed = checks.filter(c => c.status === 'pass').length;
+    const hasChecks = checks.length > 0;
+    const badgeLabel = checks.length ? `${passed}/${checks.length}` : '';
+    const badgeColor = checks.length ? scoreColor(passed / checks.length) : '#8A8578';
+
+    const showMedal = sortEl.value === 'stars' && i < 3;
+    const rankLabel = showMedal ? MEDALS[i] : pad(i+1);
+    const qrBtn = qrSlugSet.has(entrySlug) ? `<button type="button" class="qr-btn" data-qr-slug="${entrySlug}" data-qr-name="${e.name}" aria-label="Scan to run ${e.name} from a QR code">${QR_ICON_SVG}</button>` : '';
+    const sfBadge = statusBadgeHtml(sfwaStatus(e, networkCache[entrySlug]), e);
+
+    card.innerHTML = `
+      <div class="stub"><span class="n">${rankLabel}</span></div>
+      <img class="logo" alt="" loading="lazy">
+      <div class="meta">
+        <p class="name">
+          <a href="/entry/${entrySlug}" data-nav>${e.name}</a>
+          ${qrBtn}
+        </p>
+        <p class="desc">${e.desc}</p>
+        <div class="tags">${ghPill}${sfBadge}${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+      ${hasChecks ? `<div class="audit"><span class="audit-label">security audit</span><a class="badge" href="/entry/${entrySlug}#audit-results" data-nav style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</a></div>` : ''}
+    `;
+
+    const logoEl = card.querySelector('.logo');
+    // Vendored copy first — see logoSrc() in scripts/build_pages.mjs.
+    if(logoSlugSet.has(entrySlug)){
+      logoEl.src = '/assets/logos/' + entrySlug + '.png';
+      logoEl.addEventListener('error', () => logoEl.remove(), { once: true });
+      catalogEl.appendChild(card);
+      return;
+    }
+    const homepageFavicon = 'https://www.google.com/s2/favicons?sz=64&domain_url=' + encodeURIComponent(e.url);
+    if(e.repo){
+      logoEl.src = 'https://github.com/' + e.repo.split('/')[0] + '.png?size=64';
+      logoEl.addEventListener('error', function onGithubError(){
+        logoEl.removeEventListener('error', onGithubError);
+        logoEl.addEventListener('error', () => logoEl.remove(), { once: true });
+        logoEl.src = homepageFavicon;
+      }, { once: true });
+    } else {
+      logoEl.src = homepageFavicon;
+      logoEl.addEventListener('error', () => logoEl.remove(), { once: true });
+    }
+
+    catalogEl.appendChild(card);
+  });
+}
+
+function renderNotFound(slug){
+  detailViewEl.innerHTML = `
+    <nav class="crumb"><a href="/" data-nav>iamsingle.app</a><span class="sep">›</span><span class="current">not found</span></nav>
+    <p class="sub">No entry matches "${slug}". It may have been renamed or removed.</p>
+    <p><a href="/" data-nav class="back-link">← back to the full catalog</a></p>
+  `;
+  document.title = 'Not found — iamsingle.app';
+}
+
+function renderDetail(e){
+  const starInfo = e.repo ? starCache[e.repo] : null; // undefined = loading, null = confirmed absent
+  const loading = e.repo && starInfo === undefined;
+  const absent = e.repo && starInfo === null;
+  const haveStarInfo = e.repo && !loading && !absent;
+
+  const starsVal = !e.repo ? 'n/a' : loading ? '···' : absent ? 'n/a' : '★ ' + formatStars(starInfo.stars);
+  const createdVal = !e.repo ? 'n/a' : loading ? '···' : absent ? 'n/a' : formatCreated(starInfo.created);
+  const checks = e.checks || [];
+  const passed = checks.filter(c => c.status === 'pass').length;
+  const hasChecks = checks.length > 0;
+  const badgeColor = checks.length ? scoreColor(passed / checks.length) : '#8A8578';
+  const iconFor = s => s === 'pass' ? '✓' : s === 'fail' ? '✗' : '–';
+  const linkify = text => text.replace(/(https?:\/\/\S+)/g, url => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
+  const testsHtml = checks.map(c =>
+    `<div class="t-${c.status}">${iconFor(c.status)} ${c.label}${c.detail ? ' — ' + linkify(c.detail) : ''}</div>`
+  ).join('');
+
+  const owner = e.repo ? e.repo.split('/')[0] : '';
+  const badgeLabel = checks.length ? `${passed}/${checks.length}` : '';
+  const forksVal = haveStarInfo && starInfo.forks != null ? starInfo.forks : null;
+  const contributorsVal = haveStarInfo && starInfo.contributors != null ? starInfo.contributors : null;
+  const languages = haveStarInfo && starInfo.languages && starInfo.languages.length ? starInfo.languages : [];
+
+  const slug = slugify(e.name);
+  const statParts = [];
+  if(e.repo){
+    statParts.push(starsVal === 'n/a' ? '<span class="stat-word">stars </span>n/a' : `${starsVal}<span class="stat-word"> stars</span>`);
+    if(forksVal != null) statParts.push(`<span class="stat-forks-text">${forksVal} fork${forksVal === 1 ? '' : 's'}</span><svg class="stat-forks-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg><span class="stat-forks-num">${forksVal}</span>`);
+    if(contributorsVal != null) statParts.push(`<span class="stat-contrib-text">${contributorsVal} contributor${contributorsVal === 1 ? '' : 's'}</span><svg class="stat-contrib-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path></svg><span class="stat-contrib-num">${contributorsVal}</span>`);
+  } else {
+    statParts.push('no public repo linked');
+  }
+  if(sizeCache[slug] != null){
+    statParts.push(`<svg class="stat-size-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg>${formatSize(sizeCache[slug])}`);
+  }
+  if(e.repo){
+    statParts.push(createdVal === 'n/a' ? '<span class="stat-word">created </span>n/a' : `<svg class="stat-date-icon" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="stat-word">created </span>${createdVal}`);
+    statParts.push(`<a class="stat-repo-link" href="https://github.com/${e.repo}" target="_blank" rel="noopener">${GH_ICON_SVG}${e.repo.split('/')[1] || e.repo} ↗</a>`);
+  }
+  const statStripHtml = `<div class="stat-strip">${statParts.join(' <span class="sep">·</span> ')}</div>`;
+
+  const langHtml = languages.length ? `
+    <div class="lang-bar">${languages.map((l, i) => `<span style="width:${l.pct}%;background:${langColor(l.name, i)};"></span>`).join('')}</div>
+    <div class="lang-legend">${languages.map((l, i) => `<span class="lang-dot" style="background:${langColor(l.name, i)};"></span>${l.name} ${l.pct}%`).join(' <span class="sep">·</span> ')}</div>` : '';
+
+  // Mirrors the networkHtml block in scripts/build_pages.mjs.
+  const net = networkCache[slug];
+  let networkHtml = '';
+  if(net){
+    const status = sfwaStatus(e, net);
+    const rows = [];
+    let extras = '';
+    const headingBadge = status ? ' ' + statusBadgeHtml(status, e) + fixCreditHtml(slug, status) : '';
+
+    if(status === 'sfa'){
+      rows.push(`<div class="t-skip">– No. It's a single-file app, but it needs ${e.runtime} to run, so it can't open straight from disk in a browser.</div>`);
+    } else if(!status){
+      rows.push(`<div class="t-skip">– Not checked — ${net.reason || 'no measurable target'}</div>`);
+    } else if(status === 'certified'){
+      rows.push('<div class="t-pass">✓ Yes, the entire app sits in one file. No imports, no server calls, no build.</div>');
+    } else if(status === 'nearly'){
+      rows.push((net.logicCount || 0) === 0
+        ? `<div class="t-fail">✗ Nearly. Its own code is all in one file, but it loads ${net.fontCount} font file${net.fontCount === 1 ? '' : 's'} from elsewhere.</div>`
+        : '<div class="t-fail">✗ Nearly. Its own code is all in one file, but it still pulls in 1 file from elsewhere.</div>');
+    } else {
+      const total = net.fixes ? net.fixes.length : net.logicCount;
+      rows.push(`<div class="t-fail">✗ No, this is not a single-file web app. It needs ${total} file${total === 1 ? '' : 's'} from elsewhere.</div>`);
+    }
+
+    if(status && status !== 'sfa'){
+      for(const host of net.thirdPartyHosts || []) rows.push(`<div class="t-skip">– Contacts <code>${host}</code></div>`);
+    }
+    for(const u of net.insecure || []) rows.push(`<div class="t-fail">✗ Loaded over plain http, modifiable in transit: ${u}</div>`);
+
+    if((status === 'nearly' || status === 'no') && (net.fixes || []).length){
+      // Mirrors suggestFixHtml() in scripts/build_pages.mjs — an issue, not a
+      // PR, since GitHub can't pre-fill a pull request from a URL.
+      const recheckBtn = `<button type="button" class="btn-outline recheck-btn" data-recheck-slug="${slug}">I fixed it \u21bb</button>`;
+      let btn = `<div class="fix-suggest">${recheckBtn}</div>`;
+      if(e.repo){
+        const body = [
+          `Spotted via [iamsingle.app](${location.origin}), a directory of single-file web apps.`,
+          '', 'This one loads files it needs from elsewhere. Suggested changes:', '',
+          net.fixes.slice(0,8).map(f => `- [ ] ${f}`).join('\n')
+            + (net.fixes.length > 8 ? `\n- [ ] …and ${net.fixes.length - 8} more — full list: ${location.origin}/entry/${slug}#network` : ''), '',
+          'Doing that would make it fully self-contained: no imports, no server calls, no build,',
+          'and it would qualify as a certified SFWA in the directory.',
+          '', `Entry: ${location.origin}/entry/${slug}`,
+        ].join('\n');
+        const issueUrl = `https://github.com/${e.repo}/issues/new?title=${encodeURIComponent('Make this a true single-file web app?')}&body=${encodeURIComponent(body)}`;
+        btn = `<div class="fix-suggest"><a class="btn-outline" href="${issueUrl}" target="_blank" rel="noopener">Open issue ↗</a>`
+          + recheckBtn + `</div>`;
+      }
+      // Mirrors the <details> block in scripts/build_pages.mjs.
+      const head = net.fixes.slice(0, 8), rest = net.fixes.slice(8);
+      const row = f => `<div class="t-skip">→ ${fixText(f)}</div>`;
+      extras = '<div class="detail-checks-label">How to fix it</div><div class="detail-checks">'
+        + head.map(row).join('')
+        + (rest.length ? `<details class="fix-more"><summary>Show full list (${net.fixes.length})</summary>${rest.map(row).join('')}</details>` : '')
+        + `</div>${btn}`;
+    }
+
+    networkHtml = `<div class="detail-checks-label" id="network">Is it a true single-file web app?</div><div class="detail-checks">${rows.join('')}</div>${extras}`;
+  }
+  // Mirrors embedBadgeHtml() in scripts/build_pages.mjs. The certified block
+  // only exists for entries that earn it, so there's nothing to paste unless
+  // the claim is true.
+  const certifiedBlock = networkCache[slug]?.selfContained ? `
+      <div class="detail-checks-label" style="margin-top:22px;">Embed the certified badge</div>
+      <img class="badge-preview" src="${location.origin}/certified/${slug}.svg" alt="iamsingle.app — certified sfwa">
+      <textarea class="badge-snippet" id="certifiedSnippet" readonly rows="2">[![iamsingle.app — certified sfwa](${location.origin}/certified/${slug}.svg)](${location.origin}/entry/${slug})</textarea>
+      <button type="button" class="btn-outline" id="copyCertifiedBtn">Copy markdown</button>` : '';
+  const embedBadgeHtml = hasChecks ? `
+    <div class="embed-badge">
+      <div class="detail-checks-label">Embed this badge</div>
+      <img class="badge-preview" src="${location.origin}/badge/${slug}.svg" alt="iamsingle.app — security audit — ${passed}/${checks.length}">
+      <textarea class="badge-snippet" id="badgeSnippet" readonly rows="2">[![iamsingle.app — security audit — ${passed}/${checks.length}](${location.origin}/badge/${slug}.svg)](${location.origin}/entry/${slug})</textarea>
+      <button type="button" class="btn-outline" id="copyBadgeBtn">Copy markdown</button>${certifiedBlock}
+    </div>` : '';
+
+  detailViewEl.innerHTML = `
+    <nav class="crumb"><a href="/" data-nav>iamsingle.app</a><span class="sep">›</span><span class="current">${e.name}</span></nav>
+    <div class="detail-header">
+      <div class="detail-title">
+        <img class="detail-logo" alt="" id="detailLogoImg">
+        <div class="detail-title-text">
+          <div class="detail-name-row">
+            <h1>${e.name}</h1>${sfwaStatus(e, net) ? statusBadgeHtml(sfwaStatus(e, net), e) : ''}
+            <div class="detail-actions">
+              <button type="button" class="btn-outline" id="shareBtn" aria-label="Share"><svg class="btn-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg><span class="btn-label">Share</span></button>
+              <a class="btn-solid" href="${e.url}" target="_blank" rel="noopener" aria-label="Visit"><span class="btn-label">Visit</span> ↗</a>
+            </div>
+          </div>
+          ${owner ? `<a class="detail-by" href="https://github.com/${owner}" target="_blank" rel="noopener">by ${owner}</a>` : ''}
+          <p class="detail-desc">${e.desc}</p>
+          <div class="tags" style="margin-top:10px;">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+    </div>
+    <a class="screenshot-link" id="screenshotLink" href="${e.url}" target="_blank" rel="noopener">
+      <img class="entry-screenshot" id="entryScreenshot" src="${location.origin}/screenshot/${slug}.png" alt="Screenshot of ${e.name}" loading="lazy">
+    </a>
+    ${statStripHtml}
+    ${langHtml}
+    ${networkHtml}
+    ${hasChecks ? `<div class="detail-checks-label" id="audit-results">Security audit — full results <span class="badge" style="color:${badgeColor};border-color:${badgeColor};">${badgeLabel}</span></div><div class="detail-checks">${testsHtml}</div>` : ''}
+    ${embedBadgeHtml}
+    <a href="/" data-nav class="back-link sub">← back to the full catalog</a>
+  `;
+
+  const logoImgEl = document.getElementById('detailLogoImg');
+  // Vendored copy first (see logoSrc() in scripts/build_pages.mjs). Written as
+  // if/else rather than an early return: everything below this point still has
+  // to run — share button, copy handlers, document.title.
+  if(logoSlugSet.has(slug)){
+    logoImgEl.src = '/assets/logos/' + slug + '.png';
+    logoImgEl.addEventListener('error', () => logoImgEl.remove(), { once: true });
+  } else {
+  const homepageFavicon = 'https://www.google.com/s2/favicons?sz=128&domain_url=' + encodeURIComponent(e.url);
+  if(e.repo){
+    logoImgEl.src = 'https://github.com/' + e.repo.split('/')[0] + '.png?size=128';
+    logoImgEl.addEventListener('error', function onGithubError(){
+      logoImgEl.removeEventListener('error', onGithubError);
+      logoImgEl.addEventListener('error', () => logoImgEl.remove(), { once: true });
+      logoImgEl.src = homepageFavicon;
+    }, { once: true });
+  } else {
+    logoImgEl.src = homepageFavicon;
+    logoImgEl.addEventListener('error', () => logoImgEl.remove(), { once: true });
+  }
+  }
+
+  // No screenshot exists for every entry (only generated at build time for
+  // new ones) — the client can't check that ahead of a request, so it just
+  // hides the whole link+image on a 404 rather than showing a broken image.
+  const screenshotLinkEl = document.getElementById('screenshotLink');
+  document.getElementById('entryScreenshot').addEventListener('error', () => screenshotLinkEl.remove(), { once: true });
+
+  const shareBtn = document.getElementById('shareBtn');
+  const shareLabel = shareBtn.querySelector('.btn-label');
+  shareBtn.addEventListener('click', async () => {
+    if(navigator.share){
+      try{ await navigator.share({ title: document.title, url: location.href }); }catch(err){}
+      return;
+    }
+    try{
+      await navigator.clipboard.writeText(location.href);
+      shareLabel.textContent = 'Copied!';
+    }catch(err){
+      shareLabel.textContent = 'Copy failed';
+    }
+    setTimeout(() => { shareLabel.textContent = 'Share'; }, 1500);
+  });
+
+  const copyBadgeBtn = document.getElementById('copyBadgeBtn');
+  if(copyBadgeBtn){
+    copyBadgeBtn.addEventListener('click', async () => {
+      const snippet = document.getElementById('badgeSnippet').value;
+      try{
+        await navigator.clipboard.writeText(snippet);
+        copyBadgeBtn.textContent = 'Copied!';
+      }catch(err){
+        copyBadgeBtn.textContent = 'Copy failed';
+      }
+      setTimeout(() => { copyBadgeBtn.textContent = 'Copy markdown'; }, 1500);
+    });
+  }
+
+  const copyCertifiedBtn = document.getElementById('copyCertifiedBtn');
+  if(copyCertifiedBtn){
+    copyCertifiedBtn.addEventListener('click', async () => {
+      const snippet = document.getElementById('certifiedSnippet').value;
+      try{
+        await navigator.clipboard.writeText(snippet);
+        copyCertifiedBtn.textContent = 'Copied!';
+      }catch(err){
+        copyCertifiedBtn.textContent = 'Copy failed';
+      }
+      setTimeout(() => { copyCertifiedBtn.textContent = 'Copy markdown'; }, 1500);
+    });
+  }
+
+  document.title = e.name + ' — iamsingle.app';
+}
+
+function parseRoute(){
+  const m = location.pathname.match(/^\/entry\/([^/]+)\/?$/);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+
+let currentRoute = parseRoute();
+
+function update(){
+  const slug = currentRoute;
+  if(slug){
+    catalogViewEl.style.display = 'none';
+    detailViewEl.style.display = 'block';
+    const entry = ENTRIES.find(e => slugify(e.name) === slug);
+    if(entry) renderDetail(entry);
+    else renderNotFound(slug);
+  } else {
+    catalogViewEl.style.display = '';
+    detailViewEl.style.display = 'none';
+    document.title = 'iamsingle.app - single-file web app directory';
+    render();
+  }
+}
+
+function navigateTo(path){
+  // The hash has to come off before matching: [^/]+ would otherwise swallow
+  // it into the slug, so /entry/foo#audit-results looks up the entry
+  // "foo#audit-results" and renders "no entry matches".
+  const hashAt = path.indexOf('#');
+  const pathname = hashAt === -1 ? path : path.slice(0, hashAt);
+  const hash = hashAt === -1 ? '' : path.slice(hashAt + 1);
+
+  const m = pathname.match(/^\/entry\/([^/]+)\/?$/);
+  const nextRoute = m ? decodeURIComponent(m[1]) : null;
+  const routeChanged = currentRoute !== nextRoute;
+
+  if(routeChanged){
+    currentRoute = nextRoute;
+    update();
+  }
+  try{
+    history.pushState({}, '', path);
+  }catch(err){
+    // Opened as a standalone file:// download — pushState can't create a
+    // history entry for an arbitrary absolute path there. The view still
+    // switches via currentRoute above, it just won't show in the address
+    // bar or support browser back/forward in that mode.
+  }
+  // Runs even when the route didn't change, so a hash link pointing inside
+  // the page you're already on still scrolls.
+  const target = hash && document.getElementById(hash);
+  if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  else if(routeChanged) window.scrollTo(0, 0);
+}
+
+document.body.addEventListener('click', (ev) => {
+  const a = ev.target.closest('a[data-nav]');
+  if(!a) return;
+  ev.preventDefault();
+  navigateTo(a.getAttribute('href'));
+});
+window.addEventListener('popstate', () => { currentRoute = parseRoute(); update(); });
+
+async function loadStars(){
+  if(INLINE_DATA){
+    // Already loaded in loadEntries(), before the first render.
+  } else {
+    // One static snapshot fetch, refreshed daily by a scheduled Action —
+    // not a live per-visitor call to the GitHub API (see data/stars.json).
+    try{
+      const res = await fetch('/data/stars.json');
+      if(res.ok) Object.assign(starCache, await res.json());
+    }catch(err){
+      // no snapshot yet — falls through to "n/a" below rather than hanging on "···"
+    }
+    try{
+      const res = await fetch('/data/sizes.json');
+      if(res.ok) Object.assign(sizeCache, await res.json());
+    }catch(err){
+      // no size data yet — sort by size just falls back to name order below
+    }
+  }
+  // Anything with a repo but no snapshot entry is confirmed absent, not still loading.
+  ENTRIES.forEach(e => {
+    if(e.repo && !(e.repo in starCache)) starCache[e.repo] = null;
+  });
+  update();
+}
+
+searchEl.addEventListener('input', () => { query = searchEl.value.trim().toLowerCase(); render(); });
+sortEl.addEventListener('change', render);
+categoryEl.addEventListener('change', () => { activeFilter = categoryEl.value; render(); });
+
+// A pressed pill rather than a checkbox: same visual language as the rest of
+// the toolbar, and aria-pressed carries the state for assistive tech.
+certifiedOnlyEl.addEventListener('click', () => {
+  certifiedOnly = !certifiedOnly;
+  certifiedOnlyEl.setAttribute('aria-pressed', String(certifiedOnly));
+  render();
+});
+
+async function loadEntries(){
+  if(INLINE_DATA){
+    ENTRIES = INLINE_DATA.entries;
+    // Populated before the first update(), not inside loadStars() after it.
+    // Rendering first and filling these afterwards meant the opening paint
+    // fell back to remote logos and fired a request to github.com before the
+    // re-render replaced it with the vendored copy.
+    Object.assign(starCache, INLINE_DATA.stars);
+    Object.assign(sizeCache, INLINE_DATA.sizes);
+    qrSlugSet = new Set(INLINE_DATA.qrSlugs || []);
+    logoSlugSet = new Set(INLINE_DATA.logoSlugs || []);
+    Object.assign(networkCache, INLINE_DATA.network || {});
+    Object.assign(fixCache, INLINE_DATA.fixes || {});
+  } else {
+    try{
+      const res = await fetch('/data/entries.json');
+      ENTRIES = await res.json();
+    }catch(err){
+      countEl.textContent = 'couldn\'t load data/entries.json';
+    }
+  }
+  update();
+  loadStars();
+}
+
+loadEntries();
+
+// submission modal open/close
+const submitOverlay = document.getElementById('submitOverlay');
+function openSubmitModal(){
+  submitOverlay.classList.add('open');
+  document.getElementById('f-repo').focus();
+}
+function closeSubmitModal(){
+  submitOverlay.classList.remove('open');
+}
+document.getElementById('openSubmit').addEventListener('click', openSubmitModal);
+document.getElementById('closeSubmit').addEventListener('click', closeSubmitModal);
+submitOverlay.addEventListener('click', (ev) => { if(ev.target === submitOverlay) closeSubmitModal(); });
+document.addEventListener('keydown', (ev) => {
+  if(ev.key === 'Escape' && submitOverlay.classList.contains('open')) closeSubmitModal();
+});
+
+// QR modal open/close — .qr-btn is inside dynamically re-rendered cards,
+// so this is delegated on the body rather than bound per-button.
+const qrOverlay = document.getElementById('qrOverlay');
+const qrImage = document.getElementById('qrImage');
+const qrEntryName = document.getElementById('qrEntryName');
+const qrCaption = document.getElementById('qrCaption');
+const QR_CAPTION = 'SFWA below 2 KB can be entirely run from a QR code. Try it for yourself.';
+function openQrModal(slug, name){
+  qrImage.src = '/qr/' + slug + '.png';
+  qrEntryName.textContent = name;
+  qrCaption.value = QR_CAPTION;
+  qrOverlay.classList.add('open');
+}
+function closeQrModal(){
+  qrOverlay.classList.remove('open');
+}
+// "I fixed it" — opens the re-check modal, then asks the backend to clear
+// this entry's cached measurement so CI re-measures it. Delegated on the body
+// because the button lives inside dynamically re-rendered detail markup. See
+// api/recheck.js: the request cannot set a verdict, only ask for a fresh one.
+const recheckOverlay = document.getElementById('recheckOverlay');
+const recheckStatusEl = document.getElementById('recheckStatus');
+const recheckSubmitBtn = document.getElementById('recheckSubmit');
+let recheckSlug = null;
+
+function openRecheckModal(slug, name){
+  recheckSlug = slug;
+  document.getElementById('recheckSlugLabel').textContent = name || slug;
+  recheckStatusEl.textContent = '';
+  document.getElementById('r-commit').value = '';
+  recheckSubmitBtn.disabled = false;
+  recheckOverlay.classList.add('open');
+  document.getElementById('r-commit').focus();
+}
+function closeRecheckModal(){ recheckOverlay.classList.remove('open'); }
+
+document.body.addEventListener('click', (ev) => {
+  const btn = ev.target.closest('.recheck-btn');
+  if(!btn) return;
+  const nameEl = document.querySelector('.detail-title h1');
+  openRecheckModal(btn.dataset.recheckSlug, nameEl && nameEl.textContent);
+});
+document.getElementById('closeRecheck').addEventListener('click', closeRecheckModal);
+recheckOverlay.addEventListener('click', (ev) => { if(ev.target === recheckOverlay) closeRecheckModal(); });
+document.addEventListener('keydown', (ev) => {
+  if(ev.key === 'Escape' && recheckOverlay.classList.contains('open')) closeRecheckModal();
+});
+
+recheckSubmitBtn.addEventListener('click', async () => {
+  if(!recheckSlug) return;
+  const say = html => { recheckStatusEl.innerHTML = html; };
+  recheckSubmitBtn.disabled = true;
+  say('<span class="spinner"></span>requesting a re-check…');
+  try{
+    const res = await fetch('/api/recheck', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        slug: recheckSlug,
+        commit: document.getElementById('r-commit').value || '',
+        hp: document.getElementById('r-hp').value || '',
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if(res.ok && data.ok){
+      say(data.alreadyPending
+        ? 'Already queued for re-measurement — the badge updates on the next build.'
+        : `Thanks. <a href="${data.prUrl}" target="_blank" rel="noopener">Your re-check request is here</a>. The check runs on that PR; if it confirms the fix, the badge updates once it merges.`);
+    } else {
+      recheckSubmitBtn.disabled = false;
+      say((data.errors && data.errors[0]) || 'Could not request a re-check right now.');
+    }
+  }catch(err){
+    recheckSubmitBtn.disabled = false;
+    say('Could not reach the re-check service.');
+  }
+});
+
+document.body.addEventListener('click', (ev) => {
+  const btn = ev.target.closest('.qr-btn');
+  if(!btn) return;
+  openQrModal(btn.dataset.qrSlug, btn.dataset.qrName);
+});
+document.getElementById('closeQr').addEventListener('click', closeQrModal);
+qrOverlay.addEventListener('click', (ev) => { if(ev.target === qrOverlay) closeQrModal(); });
+document.addEventListener('keydown', (ev) => {
+  if(ev.key === 'Escape' && qrOverlay.classList.contains('open')) closeQrModal();
+});
+
+// autofill Name/URL/Description from the repo's public GitHub metadata —
+// only fills fields the visitor hasn't already typed into, best-effort
+// (never blocks submission, but does show progress/errors so it doesn't
+// look like nothing happened)
+function parseRepoInput(raw){
+  const val = (raw || '').trim();
+  if(/^[\w.-]+\/[\w.-]+$/.test(val)) return val;
+  const m = val.match(/^(?:https?:\/\/)?(?:www\.)?github\.com\/([\w.-]+)\/([\w.-]+?)(?:\.git)?\/?$/i);
+  return m ? `${m[1]}/${m[2]}` : null;
+}
+
+const repoInputEl = document.getElementById('f-repo');
+const repoStatusEl = document.getElementById('repoStatus');
+
+repoInputEl.addEventListener('input', () => { repoStatusEl.textContent = ''; });
+
+repoInputEl.addEventListener('blur', async () => {
+  const raw = repoInputEl.value.trim();
+  const repo = parseRepoInput(raw);
+  if(!repo){
+    repoStatusEl.textContent = raw ? "Doesn't look like a GitHub repo — use owner/name or a github.com URL." : '';
+    return;
+  }
+  repoInputEl.value = repo; // normalize the visible field to owner/name
+  repoStatusEl.innerHTML = '<span class="spinner"></span>fetching repo info…';
+  try{
+    const res = await fetch('https://api.github.com/repos/' + repo);
+    if(!res.ok){
+      repoStatusEl.textContent = res.status === 404 ? 'Repo not found — fill in the rest manually.' : 'Could not fetch repo info — fill in the rest manually.';
+      return;
+    }
+    const data = await res.json();
+    const nameEl = document.getElementById('f-name');
+    const urlEl = document.getElementById('f-url');
+    const descEl = document.getElementById('f-desc');
+    if(!nameEl.value.trim() && data.name) nameEl.value = data.name;
+    if(!urlEl.value.trim()) urlEl.value = data.homepage || data.html_url || '';
+    if(!descEl.value.trim() && data.description) descEl.value = data.description;
+    repoStatusEl.textContent = 'Filled in from the repo — check it over.';
+  }catch(err){
+    repoStatusEl.textContent = 'Could not fetch repo info — fill in the rest manually.';
+  }
+});
+
+// tag chips (click to toggle, same pattern as the catalog filter chips)
+const selectedTags = new Set();
+document.querySelectorAll('#tagChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('on');
+    if(chip.classList.contains('on')) selectedTags.add(chip.dataset.tag);
+    else selectedTags.delete(chip.dataset.tag);
+  });
+});
+function resetTagChips(){
+  selectedTags.clear();
+  document.querySelectorAll('#tagChips .chip').forEach(c => c.classList.remove('on'));
+}
+
+// submission form -> POST /api/submit, which opens the PR directly
+document.getElementById('submitForm').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const form = ev.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const noteEl = document.getElementById('formNote');
+
+  const payload = {
+    name: document.getElementById('f-name').value.trim(),
+    url: document.getElementById('f-url').value.trim(),
+    repo: document.getElementById('f-repo').value.trim(),
+    desc: document.getElementById('f-desc').value.trim(),
+    github: document.getElementById('f-github').value.trim(),
+    tags: [...selectedTags].join(', '),
+    hp: document.getElementById('f-hp').value,
+  };
+
+  btn.disabled = true;
+  noteEl.textContent = 'Submitting…';
+
+  try{
+    const res = await fetch('/api/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if(res.ok && data.ok){
+      noteEl.innerHTML = 'Submitted — opened <a href="' + data.prUrl + '" target="_blank" rel="noopener">the PR</a>. A maintainer will review it from there.';
+      form.reset();
+      resetTagChips();
+    } else {
+      noteEl.textContent = 'Could not submit: ' + ((data.errors || ['unknown error']).join('; '));
+    }
+  }catch(err){
+    noteEl.textContent = 'Could not reach the submission service — try the manual issue link below instead.';
+  }finally{
+    btn.disabled = false;
+  }
+});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -750,5 +750,193 @@
       "www.googletagmanager.com"
     ],
     "insecure": []
+  },
+  "bayes-theorem-demo": {
+    "mode": "live",
+    "measured": "https://foldright.io/bayes-theorem-demo/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "cute-qr": {
+    "mode": "live",
+    "measured": "https://rastian.github.io/cute-qr/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://unpkg.com/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js",
+        "type": "script"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "unpkg.com"
+    ],
+    "insecure": []
+  },
+  "footprint": {
+    "mode": "live",
+    "measured": "https://akanshujamwal.github.io/footprint/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/dmmono/v16/aFTU7PB1QTsUX8KYthqQBA.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/dmmono/v16/aFTR7PB1QTsUX8KYvumzEYOtbQ.woff2",
+        "type": "font"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "cdnjs.cloudflare.com",
+      "fonts.googleapis.com",
+      "fonts.gstatic.com"
+    ],
+    "insecure": []
+  },
+  "potemkin-pipeline": {
+    "mode": "live",
+    "measured": "https://davidveksler.github.io/potemkin-pipeline/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "shade-sail-simulator": {
+    "mode": "live",
+    "measured": "https://nomiknomik.github.io/shade-sail-simulator/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://unpkg.com/suncalc@1.9.0/suncalc.js",
+        "type": "script"
+      },
+      {
+        "url": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "type": "script"
+      },
+      {
+        "url": "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js",
+        "type": "script"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "unpkg.com"
+    ],
+    "insecure": []
+  },
+  "tier-list-maker": {
+    "mode": "live",
+    "measured": "https://milk3e.github.io/Tier-List-Maker/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
+  },
+  "tootoo": {
+    "mode": "live",
+    "measured": "https://pushme-pullyou.github.io/tootoo/",
+    "selfContained": false,
+    "codeDeps": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/dompurify@3.4.1/dist/purify.min.js",
+        "type": "script"
+      },
+      {
+        "url": "https://pushme-pullyou.github.io/tootoo/tootoo.config.js",
+        "type": "script"
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&display=swap",
+        "type": "stylesheet"
+      },
+      {
+        "url": "https://api.github.com/repos/pushme-pullyou/tootoo",
+        "type": "fetch"
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/fraunces/v38/6NUu8FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0K7iN7iQcIfJD58njt0oc7qv8.woff2",
+        "type": "font"
+      },
+      {
+        "url": "https://api.github.com/repos/pushme-pullyou/tootoo/git/trees/main?recursive=1",
+        "type": "fetch"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/pushme-pullyou/tootoo/main/README.md",
+        "type": "fetch"
+      },
+      {
+        "url": "https://img.shields.io/badge/demo-live-success",
+        "type": "image"
+      },
+      {
+        "url": "https://img.shields.io/badge/license-MIT-blue",
+        "type": "image"
+      },
+      {
+        "url": "https://img.shields.io/badge/single--file-vanilla%20JS-orange",
+        "type": "image"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/pushme-pullyou/tootoo/main/tootoo-screenshot.jpeg",
+        "type": "image"
+      }
+    ],
+    "contentReqs": [],
+    "thirdPartyHosts": [
+      "api.github.com",
+      "cdn.jsdelivr.net",
+      "cdnjs.cloudflare.com",
+      "fonts.googleapis.com",
+      "fonts.gstatic.com",
+      "img.shields.io",
+      "raw.githubusercontent.com"
+    ],
+    "insecure": []
+  },
+  "xsukax-photo-editor": {
+    "mode": "live",
+    "measured": "https://xsukax.github.io/xsukax-Photo-Editor/",
+    "selfContained": true,
+    "codeDeps": [],
+    "contentReqs": [],
+    "thirdPartyHosts": [],
+    "insecure": []
   }
 }

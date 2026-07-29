@@ -6,12 +6,68 @@
   <description>New single-file web apps added to the iamsingle.app catalog.</description>
   <language>en</language>
   <atom:link href="https://iamsingle.app/feed.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Wed, 29 Jul 2026 17:49:32 GMT</lastBuildDate>
+  <lastBuildDate>Wed, 29 Jul 2026 19:02:15 GMT</lastBuildDate>
   <item>
     <title>Mindmap bij Dumbnote</title>
     <link>https://iamsingle.app/entry/mindmap-bij-dumbnote</link>
     <guid isPermaLink="true">https://iamsingle.app/entry/mindmap-bij-dumbnote</guid>
     <description>Mindmap in html</description>
+    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>Bayes&#39; Theorem Demo</title>
+    <link>https://iamsingle.app/entry/bayes-theorem-demo</link>
+    <guid isPermaLink="true">https://iamsingle.app/entry/bayes-theorem-demo</guid>
+    <description>Interactive Bayes theorem demo with a draggable area diagram and a 1000-person natural-frequency dot grid.</description>
+    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>cute-qr</title>
+    <link>https://iamsingle.app/entry/cute-qr</link>
+    <guid isPermaLink="true">https://iamsingle.app/entry/cute-qr</guid>
+    <description>A minimal QR code generator with an iOS liquid-glass visual style.</description>
+    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>footprint</title>
+    <link>https://iamsingle.app/entry/footprint</link>
+    <guid isPermaLink="true">https://iamsingle.app/entry/footprint</guid>
+    <description>A single-file browser-based work journal for developers and PMs. Log daily tasks, sync to Google Sheets.</description>
+    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>Potemkin Pipeline</title>
+    <link>https://iamsingle.app/entry/potemkin-pipeline</link>
+    <guid isPermaLink="true">https://iamsingle.app/entry/potemkin-pipeline</guid>
+    <description>Offline single-file screensaver/PWA that simulates an AI coding agent at work: fake terminal, fake dashboards, all client-side.</description>
+    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>Shade Sail Simulator</title>
+    <link>https://iamsingle.app/entry/shade-sail-simulator</link>
+    <guid isPermaLink="true">https://iamsingle.app/entry/shade-sail-simulator</guid>
+    <description>3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.</description>
+    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>Tier List Maker</title>
+    <link>https://iamsingle.app/entry/tier-list-maker</link>
+    <guid isPermaLink="true">https://iamsingle.app/entry/tier-list-maker</guid>
+    <description>The most feature-rich offline web-based tier list maker, for ranking anything you want.</description>
+    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>tootoo</title>
+    <link>https://iamsingle.app/entry/tootoo</link>
+    <guid isPermaLink="true">https://iamsingle.app/entry/tootoo</guid>
+    <description>Browse any GitHub repo in your browser, zero install, one HTML file.</description>
+    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>xsukax Photo Editor</title>
+    <link>https://iamsingle.app/entry/xsukax-photo-editor</link>
+    <guid isPermaLink="true">https://iamsingle.app/entry/xsukax-photo-editor</guid>
+    <description>A privacy-focused, client-side photo editor. No server, everything runs in the browser.</description>
     <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
   </item>
   <item>

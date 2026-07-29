@@ -4,7 +4,15 @@
 
 ## Catalog
 
+- [Bayes' Theorem Demo](https://iamsingle.app/entry/bayes-theorem-demo): Interactive Bayes theorem demo with a draggable area diagram and a 1000-person natural-frequency dot grid.
+- [cute-qr](https://iamsingle.app/entry/cute-qr): A minimal QR code generator with an iOS liquid-glass visual style.
+- [footprint](https://iamsingle.app/entry/footprint): A single-file browser-based work journal for developers and PMs. Log daily tasks, sync to Google Sheets.
 - [Mindmap bij Dumbnote](https://iamsingle.app/entry/mindmap-bij-dumbnote): Mindmap in html
+- [Potemkin Pipeline](https://iamsingle.app/entry/potemkin-pipeline): Offline single-file screensaver/PWA that simulates an AI coding agent at work: fake terminal, fake dashboards, all client-side.
+- [Shade Sail Simulator](https://iamsingle.app/entry/shade-sail-simulator): 3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.
+- [Tier List Maker](https://iamsingle.app/entry/tier-list-maker): The most feature-rich offline web-based tier list maker, for ranking anything you want.
+- [tootoo](https://iamsingle.app/entry/tootoo): Browse any GitHub repo in your browser, zero install, one HTML file.
+- [xsukax Photo Editor](https://iamsingle.app/entry/xsukax-photo-editor): A privacy-focused, client-side photo editor. No server, everything runs in the browser.
 - [paper-viewer-local-llm](https://iamsingle.app/entry/paper-viewer-local-llm): 📚 Single-file browser viewer for academic PDFs powered by your local LLM (LM Studio / Ollama).
 - [FuzzyGraph](https://iamsingle.app/entry/fuzzygraph): Graphs where equations are not only exactly true, but close to true. Instead of black lines on a white background, this creates beautiful gradients.
 - [htpad](https://iamsingle.app/entry/htpad): A super-simple HTML notepad for handwritten notes
