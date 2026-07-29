@@ -45,6 +45,30 @@ def _headers(token):
     }
 
 
+def already_notified(repo_full_name, pr_number, token):
+    # Belt and suspenders against duplicate comments: build-pages.yml can
+    # run twice in close succession for the same promotion (a direct
+    # dispatch from promote-pending.yml, plus a second one from
+    # snapshot-stars.yml once stars land) and, in practice, the
+    # concurrency group on that workflow does not reliably stop both from
+    # executing notify_live.py before either has committed a drained
+    # queue back to main — confirmed on a real batch of 8 promotions,
+    # every one got double-posted. Checking the PR's actual comments
+    # (not just the queue file) is what makes this correct regardless of
+    # that timing, rather than trying to win the race.
+    req = urllib.request.Request(
+        f"https://api.github.com/repos/{repo_full_name}/issues/{pr_number}/comments?per_page=100",
+        headers=_headers(token),
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            comments = json.loads(resp.read())
+    except Exception as e:
+        print(f"warning: could not check existing comments on PR #{pr_number}: {e}", file=sys.stderr)
+        return False  # can't confirm either way — fall through and let it post
+    return any("your submission is live" in (c.get("body") or "").lower() for c in comments)
+
+
 def post_comment(repo_full_name, pr_number, body, token):
     req = urllib.request.Request(
         f"https://api.github.com/repos/{repo_full_name}/issues/{pr_number}/comments",
@@ -112,6 +136,10 @@ def main():
         entry = entries_by_url.get(item["url"])
         if not entry or "checks" not in entry:
             remaining.append(item)  # not live yet — try again next build
+            continue
+
+        if already_notified(repo_full_name, item["pr_number"], token):
+            notified += 1  # already handled by an overlapping run — just drain it
             continue
 
         slug = slugify(entry["name"])

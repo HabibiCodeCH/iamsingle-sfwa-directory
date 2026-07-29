@@ -33,31 +33,46 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Record who to notify once each entry is actually live
-        # Has to run before promote_pending.py deletes data/pending/*.json —
-        # the PR-lookup this depends on (branch name -> PR number) needs the
-        # pending files' own filenames, which won't exist after this step.
+      - name: Record notifications, fold pending entries, commit, and push
+        id: commit
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python3 scripts/record_pending_notifications.py
-
-      - name: Fold pending entries into data/entries.json
-        run: python3 scripts/promote_pending.py
-
-      - name: Commit and push
-        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A data/entries.json data/pending data/pending_notifications.json
-          if git diff --cached --quiet; then
-            echo "Nothing to promote."
-            echo "promoted=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          git commit -m "chore: promote pending submission(s) into data/entries.json"
-          git push
-          echo "promoted=true" >> "$GITHUB_OUTPUT"
+
+          # Several merges landing within seconds of each other (a batch of
+          # submissions merged together) queue multiple runs of this
+          # workflow via the concurrency group above, and only the first to
+          # push wins — the rest hit a plain "git push" rejection. A retry
+          # here isn't just re-pushing the same commit, though: another run
+          # may have already consumed some of the same pending files, so
+          # both scripts below have to run again against whatever main
+          # actually looks like after the reset, not against this attempt's
+          # now-stale result. record_pending_notifications.py is safe to
+          # re-run — it reads the current data/pending/*.json fresh each
+          # time and only appends entries not already queued.
+          for attempt in 1 2 3 4 5; do
+            python3 scripts/record_pending_notifications.py
+            python3 scripts/promote_pending.py
+            git add -A data/entries.json data/pending data/pending_notifications.json
+            if git diff --cached --quiet; then
+              echo "Nothing to promote."
+              echo "promoted=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git commit -m "chore: promote pending submission(s) into data/entries.json"
+            if git push; then
+              echo "promoted=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "push rejected, retrying ($attempt)..."
+            git fetch origin main
+            git reset --hard origin/main
+            sleep $((attempt * 3))
+          done
+          echo "::error::push still failing after 5 attempts"
+          exit 1
 
       - name: Trigger a star snapshot for the newly promoted repo(s)
         # Same suppression as below — snapshot-stars.yml's own push trigger

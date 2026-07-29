@@ -34,14 +34,44 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Notify submitters of entries that are now live
+      - name: Notify submitters of entries that are now live, commit, and push
         # Doesn't depend on anything below — data/entries.json already has
         # its final content (checks included) at checkout, unaffected by
         # the Node build steps that follow. Run early so a failure here
-        # can't be masked by build_pages.mjs's own exit code.
+        # can't be masked by build_pages.mjs's own exit code, and commits
+        # right away rather than bundling with the page-generation commit
+        # further down: that commit's own retry logic does a hard reset on
+        # conflict, which would silently wipe this step's not-yet-committed
+        # notify_live.py output if the two were combined.
+        #
+        # notify_live.py is safe to just re-run wholesale on a push
+        # conflict — it checks each PR's actual comments before posting
+        # (see its own docstring on why), so a second pass after a reset
+        # skips anything already notified instead of re-sending it.
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python3 scripts/notify_live.py
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          for attempt in 1 2 3 4 5; do
+            python3 scripts/notify_live.py
+            git add data/pending_notifications.json
+            if git diff --cached --quiet; then
+              echo "No notification-queue changes."
+              exit 0
+            fi
+            git commit -m "chore: record notification queue progress"
+            if git push; then
+              exit 0
+            fi
+            echo "push rejected, retrying ($attempt)..."
+            git fetch origin main
+            git reset --hard origin/main
+            sleep $((attempt * 3))
+          done
+          echo "::error::push still failing after 5 attempts"
+          exit 1
 
       - uses: actions/setup-node@v4
         with:
@@ -53,39 +83,47 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Screenshot new entries, measure size, generate OG cards
-        run: node scripts/screenshot.mjs
-
-      - name: Generate static pages
-        run: node scripts/build_pages.mjs
-
-      - name: Commit generated pages if changed
+      - name: Generate pages, commit, and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # data/network.json is committed so a measurement persists instead of
-          # being redone every build. It's also a trigger path above, so this
-          # push starts one more run — that run finds everything cached, writes
-          # an identical file, produces no diff, and stops. No loop.
-          git add index.html entry/ badge/ certified/ screenshot/ og/ qr/ assets/logos/ \
-                  data/sizes.json data/network.json data/pending_notifications.json \
-                  sitemap.xml robots.txt llms.txt feed.xml
-          if git diff --cached --quiet; then
-            echo "No page changes."
-            exit 0
-          fi
-          git commit -m "chore: regenerate static pages"
-          # main can move between checkout and push — another workflow's own
-          # commit (promote-pending, snapshot-stars, a human push) landing in
-          # that window rejects a plain push. Rebase onto whatever's current
-          # and retry rather than failing outright on the race.
+
+          # Regenerates from scratch on every attempt, not just re-pushing a
+          # stale result — this workflow is dispatched twice per promotion
+          # by design (once directly, once again from snapshot-stars.yml
+          # once stars land, see promote-pending.yml), and both runs can be
+          # genuinely in flight at once despite the concurrency group above:
+          # confirmed on a real batch of 8 promotions, where a second run
+          # started while the first was still mid-build. When that happens
+          # the two runs produce *different* content for the *same* files
+          # (one with stars, one without) — a plain rebase can't reconcile
+          # that (confirmed: it failed outright on the very first conflict),
+          # so on a push rejection this discards the attempt entirely and
+          # reruns screenshot.mjs + build_pages.mjs against whatever main
+          # looks like now. screenshot.mjs's own skip-if-exists cache makes
+          # the rerun cheap.
           for attempt in 1 2 3 4 5; do
+            node scripts/screenshot.mjs
+            node scripts/build_pages.mjs
+            # data/network.json is committed so a measurement persists instead
+            # of being redone every build. It's also a trigger path above, so
+            # this push starts one more run — that run finds everything
+            # cached, writes an identical file, produces no diff, and stops.
+            # No loop.
+            git add index.html entry/ badge/ certified/ screenshot/ og/ qr/ assets/logos/ \
+                    data/sizes.json data/network.json \
+                    sitemap.xml robots.txt llms.txt feed.xml
+            if git diff --cached --quiet; then
+              echo "No page changes."
+              exit 0
+            fi
+            git commit -m "chore: regenerate static pages"
             if git push; then
               exit 0
             fi
             echo "push rejected, retrying ($attempt)..."
             git fetch origin main
-            git rebase origin/main
+            git reset --hard origin/main
             sleep $((attempt * 3))
           done
           echo "::error::push still failing after 5 attempts"
