@@ -1,0 +1,10 @@
+{
+  "name": "cute-qr",
+  "url": "https://rastian.github.io/cute-qr/",
+  "repo": "rastian/cute-qr",
+  "desc": "A minimal QR code generator with an iOS liquid-glass visual style.",
+  "tags": [
+    "tools"
+  ],
+  "added": "2026-07-29"
+}
