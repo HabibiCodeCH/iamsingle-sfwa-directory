@@ -50,11 +50,26 @@ jobs:
           git push
           echo "promoted=true" >> "$GITHUB_OUTPUT"
 
+      - name: Trigger a star snapshot for the newly promoted repo(s)
+        # Same suppression as below — snapshot-stars.yml's own push trigger
+        # on data/entries.json never sees a commit made with this workflow's
+        # token, so a promoted entry would sit at "n/a" stars until the next
+        # daily cron otherwise. Dispatched explicitly; it chain-dispatches
+        # build-pages.yml itself once the snapshot lands, so that one isn't
+        # duplicated here — this just makes sure stars are fetched at all.
+        if: steps.commit.outputs.promoted == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run snapshot-stars.yml --repo "${{ github.repository }}"
+
       - name: Trigger the static build
         # A push made with this workflow's own GITHUB_TOKEN never fires
         # another workflow's `on: push` — GitHub suppresses that specifically
         # to stop recursive runs. build-pages.yml's push trigger above never
         # sees this commit, so it has to be dispatched explicitly instead.
+        # Runs regardless of the snapshot above, so the entry's page exists
+        # even if that snapshot is delayed or fails — snapshot-stars.yml will
+        # trigger a second, harmless build once stars actually land.
         if: steps.commit.outputs.promoted == 'true'
         env:
           GH_TOKEN: ${{ github.token }}

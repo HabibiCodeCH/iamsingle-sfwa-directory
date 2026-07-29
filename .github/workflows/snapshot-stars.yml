@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: write
+  actions: write # to dispatch build-pages.yml below — see that step's comment
 
 jobs:
   snapshot:
@@ -33,13 +34,27 @@ jobs:
         run: python3 scripts/snapshot_stars.py > data/stars.json
 
       - name: Commit snapshot if changed
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/stars.json
           if git diff --cached --quiet; then
             echo "No star changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore: refresh star snapshot"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Trigger the static build
+        # This job's push carries its own GITHUB_TOKEN, which never fires
+        # another workflow's `on: push` (GitHub suppresses that to stop
+        # recursive runs) — so build-pages.yml's push trigger on
+        # data/stars.json never actually sees this commit. Dispatched
+        # explicitly instead, same fix as promote-pending.yml.
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run build-pages.yml --repo "${{ github.repository }}"
