@@ -6,5 +6,85 @@
   "tags": [
     "tools"
   ],
-  "added": "2026-07-29"
+  "added": "2026-07-29",
+  "checks": [
+    {
+      "id": "secrets",
+      "label": "No leaked credentials (detect-secrets)",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "semgrep-security",
+      "label": "Semgrep security-audit ruleset",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "semgrep-js",
+      "label": "Semgrep javascript ruleset",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-eval",
+      "label": "eval() usage",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-function",
+      "label": "Function() construction",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-decode-exec",
+      "label": "decode\u2192eval chain",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-dom-write",
+      "label": "document.write of decoded content",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-beacon",
+      "label": "sendBeacon usage",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-dom-inject",
+      "label": "decoded content DOM injection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "sfwa-html-artifact",
+      "label": "Ships an HTML file",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "sfwa-no-build-step",
+      "label": "No build step required",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "sfwa-client-side-only",
+      "label": "No backend required",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "sfwa-url-is-app",
+      "label": "Submitted URL looks like the app itself",
+      "status": "pass",
+      "detail": ""
+    }
+  ]
 }
