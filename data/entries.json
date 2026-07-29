@@ -61,6 +61,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "fail",
+        "detail": "package.json is present and no HTML file over 3 KB is committed \u2014 this looks like it needs `npm run build` before it's usable; consider committing the built output directly"
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
       }
     ],
     "added": "2026-07-23"
@@ -126,6 +150,30 @@
       {
         "id": "pattern-dom-inject",
         "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
         "status": "pass",
         "detail": ""
       }
@@ -202,6 +250,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
       }
     ],
     "added": "2026-07-23"
@@ -266,6 +338,30 @@
       {
         "id": "pattern-dom-inject",
         "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
         "status": "pass",
         "detail": ""
       }
@@ -336,6 +432,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
       }
     ],
     "added": "2026-07-23"
@@ -401,6 +521,30 @@
       {
         "id": "pattern-dom-inject",
         "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
         "status": "pass",
         "detail": ""
       }
@@ -471,6 +615,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
       }
     ],
     "added": "2026-07-23"
@@ -538,6 +706,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "fail",
+        "detail": "the submitted url is 268,372 bytes, but the repo's largest HTML file (offline/granny2.html) is 59,689,855 bytes \u2014 this may be a landing/marketing page rather than the app; double check the url points at the actual tool"
       }
     ],
     "added": "2026-07-23"
@@ -604,6 +796,30 @@
       {
         "id": "pattern-dom-inject",
         "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
         "status": "pass",
         "detail": ""
       }
@@ -673,6 +889,12 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-fetch",
+        "label": "SFWA structure check",
+        "status": "skip",
+        "detail": "no repo set \u2014 nothing to inspect"
       }
     ],
     "added": "2026-07-23",
@@ -748,6 +970,12 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-fetch",
+        "label": "SFWA structure check",
+        "status": "skip",
+        "detail": "no repo set \u2014 nothing to inspect"
       }
     ],
     "added": "2026-07-23",
@@ -822,6 +1050,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "fail",
+        "detail": "the submitted url is 16,564 bytes, but the repo's largest HTML file (xlsx2md.html) is 698,060 bytes \u2014 this may be a landing/marketing page rather than the app; double check the url points at the actual tool"
       }
     ],
     "added": "2026-07-23"
@@ -891,6 +1143,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "fail",
+        "detail": "no .html/.htm file found in the repo \u2014 nothing here is directly usable in a browser"
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "fail",
+        "detail": "primary language is PHP \u2014 this catalog is for apps with no server to keep alive; confirm this genuinely runs client-side only before merging"
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
       }
     ],
     "added": "2026-07-23"
@@ -956,6 +1232,30 @@
       {
         "id": "pattern-dom-inject",
         "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
         "status": "pass",
         "detail": ""
       }
@@ -1026,6 +1326,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
       }
     ]
   },
@@ -1090,6 +1414,30 @@
       {
         "id": "pattern-dom-inject",
         "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
         "status": "pass",
         "detail": ""
       }
@@ -1166,6 +1514,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "fail",
+        "detail": "the submitted url is 593 bytes, but the repo's largest HTML file (single-file-pwa.html) is 4,731 bytes \u2014 this may be a landing/marketing page rather than the app; double check the url points at the actual tool"
       }
     ],
     "featured": [
@@ -1238,6 +1610,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
       }
     ]
   },
@@ -1300,6 +1696,30 @@
       {
         "id": "pattern-dom-inject",
         "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
         "status": "pass",
         "detail": ""
       }
@@ -1370,6 +1790,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
       }
     ]
   },
@@ -1434,6 +1878,30 @@
         "label": "decoded content DOM injection",
         "status": "pass",
         "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "fail",
+        "detail": "the submitted url is 161,038 bytes, but the repo's largest HTML file (mindmap/offline.html) is 8,028,394 bytes \u2014 this may be a landing/marketing page rather than the app; double check the url points at the actual tool"
       }
     ]
   },
