@@ -35,6 +35,12 @@ TOPICS = ["single-file-app", "single-file-web-app", "single-html-file"]
 CANDIDATES_PATH = "data/candidates.json"
 ENTRIES_PATH = "data/entries.json"
 
+# This org's own repos carry the topic tag too (safe-markdown, this
+# directory itself), so an unfiltered search surfaces them as candidates
+# for their own catalog — excluded by owner, not by name, so it holds for
+# any future repo under the same org too.
+EXCLUDE_OWNERS = {"habibicodech"}
+
 
 def _headers(token):
     headers = {"User-Agent": "sfwa-directory-bot", "Accept": "application/vnd.github+json"}
@@ -90,6 +96,9 @@ def main():
         for item in search_topic(topic, token):
             full_name = item.get("full_name")
             if not full_name or full_name in seen_repos:
+                continue
+            owner = (item.get("owner") or {}).get("login", "")
+            if owner.lower() in EXCLUDE_OWNERS:
                 continue
             seen_repos.add(full_name)  # a repo can carry more than one of our topics
             found.append({

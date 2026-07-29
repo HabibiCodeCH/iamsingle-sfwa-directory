@@ -45,15 +45,6 @@
     "discovered": "2026-07-29"
   },
   {
-    "repo": "zzzz1783/VocBuilder",
-    "name": "VocBuilder",
-    "url": "https://github.com/zzzz1783/VocBuilder",
-    "description": "\u6781\u7b80\u3001\u5355\u6587\u4ef6\u7684\u7eaf\u524d\u7aef\u80cc\u5355\u8bcd\u5de5\u5177 | \u652f\u6301 AI \u667a\u80fd\u5bfc\u5165\u3001\u9519\u9898\u672c\u4e0e\u6d4f\u89c8\u5668\u539f\u751f\u53d1\u97f3\u3002",
-    "stars": 6,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
     "repo": "HiLowJack777/llm_growing_agent",
     "name": "llm_growing_agent",
     "url": "https://github.com/HiLowJack777/llm_growing_agent",
@@ -67,6 +58,15 @@
     "name": "html-ollama-simple-gui",
     "url": "https://github.com/Rust-Ninja-Sabi/html-ollama-simple-gui",
     "description": "complete chat GUI for Ollama in one html file",
+    "stars": 6,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "zzzz1783/VocBuilder",
+    "name": "VocBuilder",
+    "url": "https://github.com/zzzz1783/VocBuilder",
+    "description": "\u6781\u7b80\u3001\u5355\u6587\u4ef6\u7684\u7eaf\u524d\u7aef\u80cc\u5355\u8bcd\u5de5\u5177 | \u652f\u6301 AI \u667a\u80fd\u5bfc\u5165\u3001\u9519\u9898\u672c\u4e0e\u6d4f\u89c8\u5668\u539f\u751f\u53d1\u97f3\u3002",
     "stars": 6,
     "topic": "single-file-app",
     "discovered": "2026-07-29"
@@ -90,6 +90,15 @@
     "discovered": "2026-07-29"
   },
   {
+    "repo": "igapyon/mikuscore",
+    "name": "mikuscore",
+    "url": "https://igapyon.github.io/mikuscore/",
+    "description": "mikuscore is a MusicXML-first score converter that helps move score data between formats and bridge workflows across notation tools, converters, and generative-AI pipelines.",
+    "stars": 4,
+    "topic": "single-file-web-app",
+    "discovered": "2026-07-29"
+  },
+  {
     "repo": "owebeeone/jowna",
     "name": "jowna",
     "url": "https://github.com/owebeeone/jowna",
@@ -104,15 +113,6 @@
     "url": "https://github.com/Nanako660/magical-princess-save-editor",
     "description": "Magical Princess \u6e38\u620f\u5b58\u6863\u7f16\u8f91\u5668\uff0c\u57fa\u4e8e Vue 3 + Vite \u6784\u5efa\u7684\u5355\u6587\u4ef6 Web \u5de5\u5177\u3002",
     "stars": 3,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "nardo93/shift-manager-pro",
-    "name": "shift-manager-pro",
-    "url": "https://github.com/nardo93/shift-manager-pro",
-    "description": "Free, open-source shift scheduling app for multi-venue hospitality businesses",
-    "stars": 2,
     "topic": "single-file-app",
     "discovered": "2026-07-29"
   },
@@ -144,39 +144,12 @@
     "discovered": "2026-07-29"
   },
   {
-    "repo": "xsukax/xsukax-Photo-Editor",
-    "name": "xsukax-Photo-Editor",
-    "url": "https://xsukax.github.io/xsukax-Photo-Editor/",
-    "description": "A powerful, privacy-focused browser-based photo editor that runs entirely client-side with zero server communication. Edit images, add text, apply pixelation for privacy, and more - all without uploading your photos anywhere.",
+    "repo": "foldright/bayes-theorem-demo",
+    "name": "bayes-theorem-demo",
+    "url": "https://foldright.io/bayes-theorem-demo/",
+    "description": "\ud83c\udfb2 \u4ea4\u4e92\u5f0f\u8d1d\u53f6\u65af\u516c\u5f0f\u6f14\u793a\uff1a\u53ef\u62d6\u62fd\u9762\u79ef\u56fe + 1000 \u4eba\u81ea\u7136\u9891\u6570\u70b9\u9635\uff0c\u5355\u6587\u4ef6\u96f6\u4f9d\u8d56 | Interactive Bayes' theorem demo with draggable eikosogram & natural frequencies",
     "stars": 2,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "milk3e/Tier-List-Maker",
-    "name": "Tier-List-Maker",
-    "url": "https://milk3e.github.io/Tier-List-Maker/",
-    "description": "The most feature-rich offline web-based Tier List maker for ranking anything you want.",
-    "stars": 2,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "umomany/claudi",
-    "name": "claudi",
-    "url": "https://github.com/umomany/claudi",
-    "description": "Claudi \u2014 a Claude IDE built entirely by Claude Fable 5. A single-file, dependency-free AI IDE for the browser: file tree, live preview, agent mode, and Claude-powered code editing.",
-    "stars": 2,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "pushme-pullyou/tootoo",
-    "name": "tootoo",
-    "url": "https://pushme-pullyou.github.io/tootoo/",
-    "description": "Browse any GitHub repo in your browser. Zero install. One HTML file.",
-    "stars": 2,
-    "topic": "single-file-app",
+    "topic": "single-html-file",
     "discovered": "2026-07-29"
   },
   {
@@ -186,771 +159,6 @@
     "description": "local-html-tools \u306f\u3001\u30ed\u30fc\u30ab\u30eb\u3067\u5b8c\u7d50\u3059\u308b Single-file Web App \u96c6\u3067\u3059\u3002Git/FFmpeg/\u30c6\u30ad\u30b9\u30c8/\u30ea\u30f3\u30af/\u753b\u50cf\u306a\u3069\u306e\u5b9f\u52d9\u4f5c\u696d\u3092\u3001\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u6700\u5c0f\u30fb\u30d6\u30e9\u30a6\u30b6\u306e\u307f\u3067\u5b89\u5168\u304b\u3064\u9ad8\u901f\u306b\u652f\u63f4\u3057\u307e\u3059\u3002",
     "stars": 2,
     "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "jftuga/withpy",
-    "name": "withpy",
-    "url": "https://github.com/jftuga/withpy",
-    "description": "Batteries-included Swiss-army CLI using only the Python standard library and no other dependencies",
-    "stars": 2,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "vtexan/getnerdyin30-workout-tracker",
-    "name": "getnerdyin30-workout-tracker",
-    "url": "https://getnerdyin30.com/workout-tracker/",
-    "description": "A personal workout tracker built to digitize my trainer's PDF programming. React 18 + Firebase. No build step \u2014 single file, deployed in 15 seconds. Live at getnerdyin30.com",
-    "stars": 2,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "nomiknomik/shade-sail-simulator",
-    "name": "shade-sail-simulator",
-    "url": "https://nomiknomik.github.io/shade-sail-simulator/",
-    "description": "\ud83c\udf1e 3D shade sail planner \u2014 simulate sun & shadow in your garden, optimize sail positions, analyze daily shade coverage (m\u00b2\u00b7h), furniture shading. DE / EN / RU \u00b7 Three.js + SunCalc \u00b7 No install",
-    "stars": 2,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "DanielEnki420/faktenchecker",
-    "name": "faktenchecker",
-    "url": "https://github.com/DanielEnki420/faktenchecker",
-    "description": "KI-gest\u00fctzter Faktenchecker | AI-powered fact-checker \u2014 Single-file, no backend, powered by Claude (Anthropic)",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "mmazz3117-del/Triads",
-    "name": "Triads",
-    "url": "https://mmazz3117-del.github.io/Triads/",
-    "description": "Mobile-first guitar practice tool \u2014 pentatonic scales, triads, chord progressions, real guitar audio. Works in any browser, no install.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Romelium/PageCast",
-    "name": "PageCast",
-    "url": "https://pagecast.romelium.cc/",
-    "description": "A single HTML file for when you need to host some code without the drama. Paste your stuff, see it live, and get a permanent link from a Gist. No setup, no servers. Just a useful thing to have around.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "cliquesoft/pax",
-    "name": "pax",
-    "url": "https://www.cliquesoft.org",
-    "description": "A lightweight single-file package manager for Linux",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "AswinMathew2004/ForensX-Lab",
-    "name": "ForensX-Lab",
-    "url": "https://forens-x-lab.vercel.app",
-    "description": "\ud83d\udd2c ForensX Lab \u2014 All-in-one browser-based digital forensics toolkit. Hash calculator, hex viewer, metadata extractor, steganography detector, chain of custody, and court-admissible report generator. ACPO compliant. Zero dependencies. 100% client-side.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "xsukax/XMail",
-    "name": "XMail",
-    "url": "https://xsukax.com",
-    "description": "A self-hosted, federated, zero-knowledge encrypted mail system in a single PHP file. AES-256-GCM encryption, PBKDF2 key derivation, and encrypted attachments ensure the server never sees your message password. No SMTP. No external dependencies. Just drop xmail.php and go.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "vishalkumar-netizen/minimatool2025",
-    "name": "minimatool2025",
-    "url": "https://vishalkumar-netizen.github.io/minimatool2025/",
-    "description": "A professional, high-performance web tool for calculating and verifying regulatory minima across all aircraft categories (CAT A/B/C/D). This application provides instant compliance checking for Precision, Non-Precision, and Circling procedures.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "drakeaxelrod/financial-atlas",
-    "name": "financial-atlas",
-    "url": "https://github.com/drakeaxelrod/financial-atlas",
-    "description": "A comprehensive single-page HTML application for retirement planning, FIRE calculations, portfolio management, and live market data analysis. Built with modern financial APIs to help you navigate your path to financial freedom.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "dobguski/worldcup-2026-dashboard",
-    "name": "worldcup-2026-dashboard",
-    "url": "https://github.com/dobguski/worldcup-2026-dashboard",
-    "description": "2026 FIFA World Cup Live Dashboard - 48 teams, 105 matches, live scores, standings, Polymarket predictions. Pure HTML/CSS/JS, zero framework. 2026\u4e16\u754c\u676f\u5b9e\u65f6\u6570\u636e\u770b\u677f",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "xsukax/xsukax-Python-Web-Runner",
-    "name": "xsukax-Python-Web-Runner",
-    "url": "https://xsukax.github.io/xsukax-Python-Web-Runner/",
-    "description": "A sophisticated, single-file web application that enables users to write, execute, and manage Python code directly within their web browser. Built on top of Pyodide - a WebAssembly-compiled Python interpreter - this tool eliminates the need for server-side infrastructure, Python installations, or complex development environments.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "alekseiavgustin/ChronOs",
-    "name": "ChronOs",
-    "url": "https://chronos_v1.oneapp.dev/",
-    "description": "Chronos is a beautiful weekly scheduler built around drag-and-drop functionality. With recurring events, and calendar export. Developed by Aleksei Avgustin. ",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "mehrdadirani/copilot-studio-discovery-dashboard",
-    "name": "copilot-studio-discovery-dashboard",
-    "url": "https://github.com/mehrdadirani/copilot-studio-discovery-dashboard",
-    "description": "Structured discovery dashboard for Copilot Studio projects \u2014 capture sessions, export to Word, and generate RTM, Design Document, and Build Book with any AI tool.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "xsukax/xsukax-Directory-Tree-Comparison-Tool",
-    "name": "xsukax-Directory-Tree-Comparison-Tool",
-    "url": "https://xsukax.com",
-    "description": "A powerful, privacy-focused single-file web application for comparing two directory trees with detailed file analysis, content verification, and an elegant GitHub-inspired interface.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "shuddha2021/personal-reading-tracker",
-    "name": "personal-reading-tracker",
-    "url": "https://personal-reading-tracker.vercel.app/",
-    "description": "A beautiful, feature-rich personal reading progress tracker built with vanilla HTML, CSS, and JavaScript. Features book management, progress tracking, reading sessions, statistics, tags, search, dark mode, and import/export - all client-side with complete privacy.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "solsentry/thegarage",
-    "name": "thegarage",
-    "url": "https://solsentryai.github.io/thegarage/",
-    "description": "\ud83d\udfe1\ud83d\udfe3 Gerador de pfp e banners em duotone halftone pra galera do THE/GARAGE \u2014 imers\u00e3o de 3 semanas do Superteam Brasil rumo ao Colosseum, o hackathon global da Solana. Sem login, sem backend, processamento no browser. Troca sua pfp, sobe a onda e bora amassar juntos.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Sebastianlr11/mt5-ea-analyzer",
-    "name": "mt5-ea-analyzer",
-    "url": "https://sebastianlr11.github.io/mt5-ea-analyzer/",
-    "description": "Herramienta web para analizar y visualizar el rendimiento historico de Expert Advisors \u2014 metricas, drawdown, profit factor y curvas de equity",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "decyphered/decyphered.github.io",
-    "name": "decyphered.github.io",
-    "url": "https://www.decyphered.tech/",
-    "description": "A zero-dependency personal site built as an interactive terminal. Vanilla HTML, CSS, and JS in a single file -- type commands to explore projects, values, film photography, and hidden easter eggs. Designed to be forked, read, and learned from.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "georgebuilds/degu",
-    "name": "degu",
-    "url": "https://georgebuilds.github.io/degu",
-    "description": "offline single-file media file browser with tagging and basic video cropping features. saves metadata to a sidecar json file created at runtime. opt-in local face grouping. app lives with your files wherever they are",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "xsukax/XFedi",
-    "name": "XFedi",
-    "url": "https://bashub.sbs/xfedi/xfedi.php",
-    "description": "A self-hosted, single-file federated social media platform built in PHP.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "xixiasaname/PiggyQuest",
-    "name": "PiggyQuest",
-    "url": "https://xixiasaname.github.io/PiggyQuest/",
-    "description": "A simple family chore tracker. Kids log completed chores, parents approve them. Kids set mid-term saving goals or decide direct withdrawl. Earnings and withdrawl are tracked. Kids can also log extracruricular activities to earn time vouchers. Backed by Google Sheets \u2014 no server needed. ",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "xsukax/xsukax-RSS-Viewer",
-    "name": "xsukax-RSS-Viewer",
-    "url": "https://xsukax.github.io/xsukax-RSS-Viewer/",
-    "description": "A professional, privacy-focused RSS feed reader that runs entirely in your browser. View and share RSS/Atom feeds without compromising your privacy or requiring server-side infrastructure.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "bugfishtm/js-markdown-editor",
-    "name": "js-markdown-editor",
-    "url": "https://bugfishtm.github.io/js-markdown-editor/",
-    "description": "\u2615 Javascript \ud83d\ude80 A private single-file Markdown editor. Write and preview Markdown live, navigate headings via sidebar, open/save files. No backend, no login.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Noah-Consultant/euvrard-fabre-v0",
-    "name": "euvrard-fabre-v0",
-    "url": "https://github.com/Noah-Consultant/euvrard-fabre-v0",
-    "description": "Landing page interactive avec simulateur ROI pour une offre de consulting commissaires-priseurs \u2014 rapprochement bancaire post-vente. HTML/CSS/JS, fichier unique, z\u00e9ro d\u00e9pendance.",
-    "stars": 1,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Mangom72/Direct-mogo",
-    "name": "Direct-mogo",
-    "url": "https://mangom72.github.io/Direct-mogo/",
-    "description": "\uc218\ub2a5\u00b7\ubaa8\ud3c9\u00b7\ud559\ud3c9 \uae30\ucd9c \ubb38\uc81c\uc9c0 \uc6d0\ubcf8 PDF \ubc14\ub85c\uac00\uae30. 2006\ub144 \uc2dc\ud589\ubd84\ubd80\ud130 3,844\ud68c\ucc28 \u00b7 49\uacfc\ubaa9. \uc124\uce58\ud615 \uc571\uc73c\ub85c \uc624\ud504\ub77c\uc778 \uc870\ud68c, \ub178\ud2b8\uc571 \uc804\uc1a1 \uc9c0\uc6d0.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "melody-ling-L/judgebuddy",
-    "name": "judgebuddy",
-    "url": "https://melody-ling-l.github.io/judgebuddy/",
-    "description": "Single-file labeling tool for LLM-as-judge calibration. Three-pane comparison + multi-dim scoring. Zero deployment.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "xsukax/xsukax-One-Time-E2EE-File-Transfer",
-    "name": "xsukax-One-Time-E2EE-File-Transfer",
-    "url": "https://xsukax.com",
-    "description": "Self-hosted, single-file PHP app for one-time E2EE file sharing. Files are encrypted client-side with AES-256-GCM (PBKDF2 \u00d7 200k rounds) before upload - the server never sees plaintext. Auto-deletes on first download or after 30 minutes. Zero dependencies, zero database.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Mostafa-Maklad/FlowSpace",
-    "name": "FlowSpace",
-    "url": "https://github.com/Mostafa-Maklad/FlowSpace",
-    "description": "FlowSpace \u2014 Sustainable Productivity System. A local-first, visual task manager with Flow Mode, energy tracking, and weekly reviews. Built for deep work and long-term consistency.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "davay42/single-file-pwa-template",
-    "name": "single-file-pwa-template",
-    "url": "https://davay42.github.io/single-file-pwa-template/",
-    "description": "Single File Progressive Web-App build setup",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "sayanrup/KPI_Analyzer_Dashboard",
-    "name": "KPI_Analyzer_Dashboard",
-    "url": "https://github.com/sayanrup/KPI_Analyzer_Dashboard",
-    "description": "Single-file browser-based KPI dashboard - SEO, GA traffic, and business metrics with anomaly detection",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Xplore-LAB/DataLens",
-    "name": "DataLens",
-    "url": "https://github.com/Xplore-LAB/DataLens",
-    "description": "\u5de5\u4e1a\u63a7\u5236\u6027\u80fd\u5206\u6790\u5de5\u5177 \u00b7 \u5355\u6587\u4ef6\u79bb\u7ebf\u8fd0\u884c \u00b7 CSV\u5bfc\u5165\u5373\u5206\u6790 \u00b7 \u8131\u785d\u4f18\u5316 \u00b7 \u7a7a\u5206\u8282\u80fd \u00b7 \u96f6\u4f9d\u8d56",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "jaydenbarnescs-tech/clone-any-site",
-    "name": "clone-any-site",
-    "url": "https://github.com/jaydenbarnescs-tech/clone-any-site",
-    "description": "A practical playbook for recreating any live website as a self-contained single-file HTML deliverable \u2014 with an AI-assisted primary path, a manual fallback, and a reusable image-embedding helper.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "AvinashWalton/PromptVaultPro",
-    "name": "PromptVaultPro",
-    "url": "https://avinashwalton.github.io/PromptVaultPro/",
-    "description": "PromptVaultPro - Privacy-first AI prompt manager with dynamic variable inputs. 100% local, zero API keys, works offline forever. Live demo + lead magnet for the $25 lifetime deal.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "dwnmf/LATEX_render",
-    "name": "LATEX_render",
-    "url": "https://github.com/dwnmf/LATEX_render",
-    "description": "Browser Markdown + LaTeX + Flowchart renderer with instant preview, light/dark themes, and PDF export.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "xsukax/xsukax-GitHub-CS-App-Manager",
-    "name": "xsukax-GitHub-CS-App-Manager",
-    "url": "https://xsukax.com",
-    "description": "A secure, self-hosted platform for importing, organizing, and hosting client-side applications directly from GitHub repositories. This lightweight PHP application provides an encrypted, password-protected environment for managing multiple static web applications with an intuitive categorization system.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "BEPframework/lumina-oracle-finance",
-    "name": "lumina-oracle-finance",
-    "url": "https://nicolasquirozmd.com",
-    "description": "Browser-based market fractal dynamics engine. M-FDE equation: D^H P(t) = \u03b1(H\u00b1)\u00b7Caputo[P] + \u03b2\u00b7\u03a3 D_f(\u03c9_k)\u00b7cos(\u03c9_k\u00b7t) + \u03c3\u00b7dL_\u03b1^H(t)",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "limafresh/swan",
-    "name": "swan",
-    "url": "https://limafresh.github.io/swan/swan.html",
-    "description": "Minimalistic anti-stress clicker game about the Swan",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "rastian/pattern-lab",
-    "name": "pattern-lab",
-    "url": "https://65ping.github.io/pattern-lab/",
-    "description": "A minimal abstract background pattern generator with iOS liquid glass design",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Talnerith/receipt-reader",
-    "name": "receipt-reader",
-    "url": "https://github.com/Talnerith/receipt-reader",
-    "description": "Single-file browser tool that turns a pharmacy receipt photo into copyable insurance-claim fields using the Gemini vision model \u2014 no backend, no typing.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "GeoxT/kdp-publishing-tracker",
-    "name": "kdp-publishing-tracker",
-    "url": "https://geox.blog",
-    "description": "A complete publishing control center for Amazon KDP authors. Tracks every phase from manuscript to launch day with board, calendar, and timeline views. Drag-and-drop task management, milestone tracking, risk register, and portable JSON backup. Runs as a single HTML file with no server, no build step, and no account required.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "keith-garces/personal-budget-tracker",
-    "name": "personal-budget-tracker",
-    "url": "https://github.com/keith-garces/personal-budget-tracker",
-    "description": "A client-side personal finance tracker for managing monthly income, expenses, and investments \u2014 with YTD analytics and category breakdowns.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "eltonylfgi-blip/claude-usage-pacer",
-    "name": "claude-usage-pacer",
-    "url": "https://github.com/eltonylfgi-blip/claude-usage-pacer",
-    "description": "Pace your weekly Claude usage so you don't run out before the reset \u2014 a tiny single-file web app (local-first, optional sync).",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "ohsusannamarie/night-sky-companion",
-    "name": "night-sky-companion",
-    "url": "https://ohsusannamarie.github.io/night-sky-companion/",
-    "description": "A beginner-friendly astronomy companion for Northern Hemisphere observers. Find visible planets, constellations, meteor showers, and celestial events with weather-aware recommendations, interactive lessons, observation tracking, and an outdoor-friendly mode.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "dotslashgabut/autopasfoto",
-    "name": "autopasfoto",
-    "url": "https://dotslashgabut.github.io/autopasfoto/",
-    "description": "PasFoto Layout + Auto Crop AI (Combined). Web app single-file untuk layout & cetak pas foto \u2014 auto-crop wajah AI, hapus background (opsional), export PDF/ZIP DPI tinggi. Ada versi online & offline.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "rastian/cute-qr",
-    "name": "cute-qr",
-    "url": "https://github.com/rastian/cute-qr",
-    "description": "A minimal QR code generator with iOS liquid glass design",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "tomasbatovsky-png/atlas-of-a-life",
-    "name": "atlas-of-a-life",
-    "url": "https://github.com/tomasbatovsky-png/atlas-of-a-life",
-    "description": "Interactive visual atlas of history's most influential people \u2014 canvas-based constellation, biographical journeys, bilingual EN/SK",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "POLPROG-TECH/FlowBoard",
-    "name": "FlowBoard",
-    "url": "https://polprog.pl/apps/FlowBoard",
-    "description": "FlowBoard generates self-contained HTML delivery dashboards from Jira data, with sprint health, capacity, epic progress, risk detection, blockers, dependencies, and what-if simulations.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "shayan-ys/ontario-g1-study-guide",
-    "name": "ontario-g1-study-guide",
-    "url": "https://shayanys.com/g1-fun",
-    "description": "G1 in a Day \u2014 a condensed, slightly unhinged single-page study guide for Ontario's G1 driver knowledge test. Live: https://shayanys.com/g1-fun",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "OmerShubi/priority-matrix",
-    "name": "priority-matrix",
-    "url": "https://omershubi.github.io/priority-matrix/",
-    "description": "Minimalist Eisenhower-matrix to-do list \u2014 sort tasks by importance & urgency. Single-file, no build, saved locally in your browser.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Real-Fruit-Snacks/Crownfall",
-    "name": "Crownfall",
-    "url": "https://real-fruit-snacks.github.io/Crownfall/",
-    "description": "A pixel-art medieval wave-defense incremental game",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Talnerith/sts2-run-advisor",
-    "name": "sts2-run-advisor",
-    "url": "https://github.com/Talnerith/sts2-run-advisor",
-    "description": "Browser strategy dashboard for Slay the Spire 2 \u2014 live card-reward ratings, archetype detection, and build advice over the mod's local HTTP API.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "djsaintg/RS3-Companion-App",
-    "name": "RS3-Companion-App",
-    "url": "https://github.com/djsaintg/RS3-Companion-App",
-    "description": "An offline-first, single-window RuneScape 3 companion app. Features training guides for all 29 skills with locations & inline maps, live GE money-making methods filtered by your character's stats (up to 20 saved profiles), and a complete 332-entry quest & miniquest catalogue with walkthroughs\u2014all wrapped in a sleek dark aurora theme.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "cliquesoft/builder",
-    "name": "builder",
-    "url": "https://www.cliquesoft.org",
-    "description": "A compiling framework to build and package software",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "haiderf/retirement-operating-system",
-    "name": "retirement-operating-system",
-    "url": "https://github.com/haiderf/retirement-operating-system",
-    "description": "Privacy-first, browser-based retirement tax planning engine. No server. No account. No data leaves your computer.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "willowding/picreview-demo",
-    "name": "picreview-demo",
-    "url": "https://willowding.github.io/picreview-demo/",
-    "description": "Interactive, no-backend live demo of PicReview \u2014 a lightweight team image-review tool I designed and built solo :)",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "piekarek/locus-arca",
-    "name": "locus-arca",
-    "url": "https://github.com/piekarek/locus-arca",
-    "description": "Free offline lab sample management \u2014 single HTML file, no installation required",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "BIGSTODG120/NYTHIS-CORE-FORGE",
-    "name": "NYTHIS-CORE-FORGE",
-    "url": "https://github.com/BIGSTODG120/NYTHIS-CORE-FORGE",
-    "description": "Free single-file AI command center for Claude API users. NYTHIS Core Forge gives builders five focused agents for architecture, coding, auditing, project management, and deployment planning.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "pethrus07/estudio-briefing-desbravando-utv",
-    "name": "estudio-briefing-desbravando-utv",
-    "url": "https://pethrus07.github.io/estudio-briefing-desbravando-utv/",
-    "description": "Est\u00fadio de Briefing: HTML \u00fanico offline que gera, no navegador, um pacote .zip estruturado (JSON + imagens + kit de marca) para virar um deck.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "tomasbatovsky-png/know-thyself-pro",
-    "name": "know-thyself-pro",
-    "url": "https://github.com/tomasbatovsky-png/know-thyself-pro",
-    "description": "Human Design calculator and analysis tool \u2014 full chart generation, bilingual EN/SK, zero dependencies",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "mytech-today-now/restaurants",
-    "name": "restaurants",
-    "url": "https://github.com/mytech-today-now/restaurants",
-    "description": "Zero-install, single-file HTML directory of 400+ independent Chicago-area restaurants with IndexedDB-backed outreach tracking, tri-state status, CSV export, Google Maps integration, and light/dark/large themes \u2014 no server required.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "neocrev/jsonfmt",
-    "name": "jsonfmt",
-    "url": "https://github.com/neocrev/jsonfmt",
-    "description": "JSON Formatter & Validator \u2014 format, minify, validate, and explore JSON in your browser",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "unixabg/FYEOXSkits",
-    "name": "FYEOXSkits",
-    "url": "https://github.com/unixabg/FYEOXSkits",
-    "description": "A single-file animated skit creator for the open web. No install, no server, no account \u2014 just open and create.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "shanputaoye/audit-compliance-system",
-    "name": "audit-compliance-system",
-    "url": "https://github.com/shanputaoye/audit-compliance-system",
-    "description": "\u9879\u76ee\u9a8c\u6536\u5ba1\u8ba1\u667a\u80fd\u5408\u89c4\u7ba1\u7406\u7cfb\u7edf - \u9762\u5411\u56fd\u6709\u4f01\u4e1a\u6280\u6539/\u79d1\u7814/\u4fe1\u606f\u5316\u9879\u76ee\u7684\u9a8c\u6536\u5ba1\u8ba1\u5408\u89c4\u7ba1\u7406\u5de5\u5177",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "HabibiCodeCH/iamsingle-sfwa-directory",
-    "name": "iamsingle-sfwa-directory",
-    "url": "https://iamsingle.app",
-    "description": "",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "beautifulgownss/white-rabbit",
-    "name": "white-rabbit",
-    "url": "https://github.com/beautifulgownss/white-rabbit",
-    "description": "A bounded conversational AI tool that interviews you about a hard decision, then surfaces the gap between the reasons you give and what actually carries weight. Single-file HTML app (no build step) with a cyberpunk-terminal UI. Runs on the Claude.ai artifact runtime; standalone backend port planned.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "asah-1/dottostop",
-    "name": "dottostop",
-    "url": "https://asah-1.github.io/dottostop/",
-    "description": "\u70b9\u5230\u4e3a\u6b62 DotToStop \u00b7 \u5fcd\u4f4f\u4e0d\u7ed9\u7b54\u6848\u3001\u53ea\u7ed9\u4e09\u5c42\u70b9\u62e8\u7684 AI \u5b66\u4e60\u4f19\u4f34\uff5c\u62cd\u7167/\u8f93\u5165\u9898\u76ee\uff0c\u5927\u6a21\u578b\u5b9e\u65f6\u751f\u6210\u7531\u6d45\u5165\u6df1\u7684\u5f15\u5bfc\uff0c\u903c\u4f60\u81ea\u5df1\u60f3\u51fa\u7b54\u6848",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "RealMattMurdoch/mortgage-dashboard-GER",
-    "name": "mortgage-dashboard-GER",
-    "url": "https://github.com/RealMattMurdoch/mortgage-dashboard-GER",
-    "description": "Offline German Morgage / Baufinanzierung dashboard: amortisation, Sondertilgung, Anschlussfinanzierung, buy-to-let tax (AfA, Werbungskosten), and 10-year sale scenarios. Single HTML file, no server, no dependencies.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "AvinashWalton/ToolVerse",
-    "name": "ToolVerse",
-    "url": "https://avinashwalton.github.io/ToolVerse/",
-    "description": "\ud83d\udee0\ufe0f ToolVerse \u2014 20+ free online tools (Password Generator, QR Code, JSON Formatter, BMI Calculator & more). No login, no API, works offline. Single HTML file. Made with \u2764\ufe0f in India.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "SvobodaJakub/svobodajakub.github.io",
-    "name": "svobodajakub.github.io",
-    "url": "https://github.com/SvobodaJakub/pdf-to-g4-compressor",
-    "description": "In-browser PDF Monochrome CCITT G4 Compressor!",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "Cito/Pinboard-Archive",
-    "name": "Pinboard-Archive",
-    "url": "https://github.com/Cito/Pinboard-Archive",
-    "description": "Single-file HTML app for browsing Pinboard.in bookmark exports \u2014 searchable, filterable, no server needed",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "aravindksk7/NovaPlan",
-    "name": "NovaPlan",
-    "url": "https://aravindksk7.github.io/NovaPlan/",
-    "description": "",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "MonseourM/NaviWriter-Pro-Max",
-    "name": "NaviWriter-Pro-Max",
-    "url": "https://github.com/MonseourM/NaviWriter-Pro-Max",
-    "description": "A local, single-file writing suite for novels & worldbuilding. Heavy on features, light on architecture, but needs a cleanup. Looking for developers to adopt and maintain! \ud83e\udd2d",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "SvobodaJakub/pdf-to-g4-compressor",
-    "name": "pdf-to-g4-compressor",
-    "url": "https://svobodajakub.github.io/",
-    "description": "PDF Monochrome CCITT G4 Compressor",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "shubhsaxena2020/satya-nath-reply-generator",
-    "name": "satya-nath-reply-generator",
-    "url": "https://github.com/shubhsaxena2020/satya-nath-reply-generator",
-    "description": "AI-powered Facebook reply generator for Vedic astrology \u2014 reads Rashi and Navamsha charts, generates personalized replies in the voice of Satya Nath Guru Kirpa",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "HabibiCodeCH/safe-markdown",
-    "name": "safe-markdown",
-    "url": "https://github.com/HabibiCodeCH/safe-markdown",
-    "description": "Minimal markdown renderer that emits DOM nodes, never an HTML string \u2014 no innerHTML in the call path, so there is no injection sink to sanitise.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "lynchypin/sre-agent-memory-manager",
-    "name": "sre-agent-memory-manager",
-    "url": "https://github.com/lynchypin/sre-agent-memory-manager",
-    "description": "A free, standalone browser tool for browsing, editing, and redacting PagerDuty SRE Agent memories \u2014 no install, no backend, no AI dependency.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "shravansuthar4/Personal-Finance-Tracker",
-    "name": "Personal-Finance-Tracker",
-    "url": "https://github.com/shravansuthar4/Personal-Finance-Tracker",
-    "description": "A privacy-first personal finance tracker \u2014 track salary, savings, investments, EMIs & expenses monthly. Smart recurring config, net worth dashboard, export/import backup. Single HTML file, no login, no server, all data stays in your browser.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "dakariuishmg/AUVA_Creator_Portable_Aura_Store",
-    "name": "AUVA_Creator_Portable_Aura_Store",
-    "url": "https://github.com/dakariuishmg/AUVA_Creator_Portable_Aura_Store",
-    "description": "AUVA is a single HTML file that is a complete digital product store \u2014 admin panel, buyer storefront, encryption, payment flow, and analytics \u2014 all self-contained, with no server, no database, no dependencies, and no subscription. You build your store in the admin and hand the product to anyone in the world. Buyer Picks, Pays,Products are delivered.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "alexkorol/WIZARD",
-    "name": "WIZARD",
-    "url": "https://alexkorol.github.io/WIZARD/",
-    "description": "AI-built toolbox of interactive game-UI experiments - WebGL2 ARPG orbs, PoE-style geometric skill tree, modular itemization engine (Vesselforge), permadeath RP meta-progression, falling-sand sandbox, and more. Single-file HTML tools, live on GitHub Pages.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "dakariuishmg/Unnamed_Inviolable_Secure_Handshake",
-    "name": "Unnamed_Inviolable_Secure_Handshake",
-    "url": "https://github.com/dakariuishmg/Unnamed_Inviolable_Secure_Handshake",
-    "description": "A self-contained HTML app enabling secure peer-to-peer file transfer between browser tabs via WebRTC DataChannels. It uses AES-GCM-256 with per-chunk encryption, HKDF-derived keys from a passphrase, a symmetric ratchet for forward secrecy, and 4-channel SCTP striping. Encrypted signaling; no persistent storage.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "naes993/theme-creator",
-    "name": "theme-creator",
-    "url": "https://themecreator.netlify.app",
-    "description": "A self-contained visual theme builder that exports app themes, VS Code themes, CSS variables, and design tokens.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "gyasis/chiron",
-    "name": "chiron",
-    "url": "https://github.com/gyasis/chiron",
-    "description": "Universal LLM-powered lesson generator for solo learners across code, medicine, and language. Self-contained interactive lesson HTML. Q8 architecture: parent Claude Code agent runs all text-LLM steps; built as a Claude Code skill.",
-    "stars": 0,
-    "topic": "single-file-app",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "igapyon/mikuscore",
-    "name": "mikuscore",
-    "url": "https://igapyon.github.io/mikuscore/",
-    "description": "mikuscore is a MusicXML-first score converter that helps move score data between formats and bridge workflows across notation tools, converters, and generative-AI pipelines.",
-    "stars": 4,
-    "topic": "single-file-web-app",
     "discovered": "2026-07-29"
   },
   {
@@ -972,10 +180,649 @@
     "discovered": "2026-07-29"
   },
   {
+    "repo": "jftuga/withpy",
+    "name": "withpy",
+    "url": "https://github.com/jftuga/withpy",
+    "description": "Batteries-included Swiss-army CLI using only the Python standard library and no other dependencies",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "milk3e/Tier-List-Maker",
+    "name": "Tier-List-Maker",
+    "url": "https://milk3e.github.io/Tier-List-Maker/",
+    "description": "The most feature-rich offline web-based Tier List maker for ranking anything you want.",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "nardo93/shift-manager-pro",
+    "name": "shift-manager-pro",
+    "url": "https://github.com/nardo93/shift-manager-pro",
+    "description": "Free, open-source shift scheduling app for multi-venue hospitality businesses",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "nomiknomik/shade-sail-simulator",
+    "name": "shade-sail-simulator",
+    "url": "https://nomiknomik.github.io/shade-sail-simulator/",
+    "description": "\ud83c\udf1e 3D shade sail planner \u2014 simulate sun & shadow in your garden, optimize sail positions, analyze daily shade coverage (m\u00b2\u00b7h), furniture shading. DE / EN / RU \u00b7 Three.js + SunCalc \u00b7 No install",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "pushme-pullyou/tootoo",
+    "name": "tootoo",
+    "url": "https://pushme-pullyou.github.io/tootoo/",
+    "description": "Browse any GitHub repo in your browser. Zero install. One HTML file.",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "umomany/claudi",
+    "name": "claudi",
+    "url": "https://github.com/umomany/claudi",
+    "description": "Claudi \u2014 a Claude IDE built entirely by Claude Fable 5. A single-file, dependency-free AI IDE for the browser: file tree, live preview, agent mode, and Claude-powered code editing.",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "vtexan/getnerdyin30-workout-tracker",
+    "name": "getnerdyin30-workout-tracker",
+    "url": "https://getnerdyin30.com/workout-tracker/",
+    "description": "A personal workout tracker built to digitize my trainer's PDF programming. React 18 + Firebase. No build step \u2014 single file, deployed in 15 seconds. Live at getnerdyin30.com",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xsukax/xsukax-Photo-Editor",
+    "name": "xsukax-Photo-Editor",
+    "url": "https://xsukax.github.io/xsukax-Photo-Editor/",
+    "description": "A powerful, privacy-focused browser-based photo editor that runs entirely client-side with zero server communication. Edit images, add text, apply pixelation for privacy, and more - all without uploading your photos anywhere.",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "AswinMathew2004/ForensX-Lab",
+    "name": "ForensX-Lab",
+    "url": "https://forens-x-lab.vercel.app",
+    "description": "\ud83d\udd2c ForensX Lab \u2014 All-in-one browser-based digital forensics toolkit. Hash calculator, hex viewer, metadata extractor, steganography detector, chain of custody, and court-admissible report generator. ACPO compliant. Zero dependencies. 100% client-side.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "DanielEnki420/faktenchecker",
+    "name": "faktenchecker",
+    "url": "https://github.com/DanielEnki420/faktenchecker",
+    "description": "KI-gest\u00fctzter Faktenchecker | AI-powered fact-checker \u2014 Single-file, no backend, powered by Claude (Anthropic)",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Noah-Consultant/euvrard-fabre-v0",
+    "name": "euvrard-fabre-v0",
+    "url": "https://github.com/Noah-Consultant/euvrard-fabre-v0",
+    "description": "Landing page interactive avec simulateur ROI pour une offre de consulting commissaires-priseurs \u2014 rapprochement bancaire post-vente. HTML/CSS/JS, fichier unique, z\u00e9ro d\u00e9pendance.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Romelium/JS-Playground",
+    "name": "JS-Playground",
+    "url": "https://romelium.github.io/JS-Playground/",
+    "description": "A single HTML file to run JavaScript code. Download index.html and run it offline anytime, anywhere with a browser. Best for running code snippets created by humans or AI.",
+    "stars": 1,
+    "topic": "single-html-file",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Romelium/PageCast",
+    "name": "PageCast",
+    "url": "https://pagecast.romelium.cc/",
+    "description": "A single HTML file for when you need to host some code without the drama. Paste your stuff, see it live, and get a permanent link from a Gist. No setup, no servers. Just a useful thing to have around.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Sebastianlr11/mt5-ea-analyzer",
+    "name": "mt5-ea-analyzer",
+    "url": "https://sebastianlr11.github.io/mt5-ea-analyzer/",
+    "description": "Herramienta web para analizar y visualizar el rendimiento historico de Expert Advisors \u2014 metricas, drawdown, profit factor y curvas de equity",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "alekseiavgustin/ChronOs",
+    "name": "ChronOs",
+    "url": "https://chronos_v1.oneapp.dev/",
+    "description": "Chronos is a beautiful weekly scheduler built around drag-and-drop functionality. With recurring events, and calendar export. Developed by Aleksei Avgustin. ",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "bugfishtm/js-markdown-editor",
+    "name": "js-markdown-editor",
+    "url": "https://bugfishtm.github.io/js-markdown-editor/",
+    "description": "\u2615 Javascript \ud83d\ude80 A private single-file Markdown editor. Write and preview Markdown live, navigate headings via sidebar, open/save files. No backend, no login.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "cliquesoft/pax",
+    "name": "pax",
+    "url": "https://www.cliquesoft.org",
+    "description": "A lightweight single-file package manager for Linux",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "decyphered/decyphered.github.io",
+    "name": "decyphered.github.io",
+    "url": "https://www.decyphered.tech/",
+    "description": "A zero-dependency personal site built as an interactive terminal. Vanilla HTML, CSS, and JS in a single file -- type commands to explore projects, values, film photography, and hidden easter eggs. Designed to be forked, read, and learned from.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "dobguski/worldcup-2026-dashboard",
+    "name": "worldcup-2026-dashboard",
+    "url": "https://github.com/dobguski/worldcup-2026-dashboard",
+    "description": "2026 FIFA World Cup Live Dashboard - 48 teams, 105 matches, live scores, standings, Polymarket predictions. Pure HTML/CSS/JS, zero framework. 2026\u4e16\u754c\u676f\u5b9e\u65f6\u6570\u636e\u770b\u677f",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "dotslashgabut/idcardgenerator",
+    "name": "idcardgenerator",
+    "url": "https://dotslashgabut.github.io/idcardgenerator/",
+    "description": "A single-file, client-side web app for designing and mass-producing ID cards (or any card-style layout) from a CSV/Excel data source. Everything runs in the browser \u2014 no backend, no upload of your data anywhere \u2014 and the whole tool lives in one HTML file.",
+    "stars": 1,
+    "topic": "single-html-file",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "drakeaxelrod/financial-atlas",
+    "name": "financial-atlas",
+    "url": "https://github.com/drakeaxelrod/financial-atlas",
+    "description": "A comprehensive single-page HTML application for retirement planning, FIRE calculations, portfolio management, and live market data analysis. Built with modern financial APIs to help you navigate your path to financial freedom.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "georgebuilds/degu",
+    "name": "degu",
+    "url": "https://georgebuilds.github.io/degu",
+    "description": "offline single-file media file browser with tagging and basic video cropping features. saves metadata to a sidecar json file created at runtime. opt-in local face grouping. app lives with your files wherever they are",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "joordy/svelte-single-file",
+    "name": "svelte-single-file",
+    "url": "https://github.com/joordy/svelte-single-file",
+    "description": "Svelte single file compiler which provides your svelte application to one single HTML file",
+    "stars": 1,
+    "topic": "single-html-file",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "mehrdadirani/copilot-studio-discovery-dashboard",
+    "name": "copilot-studio-discovery-dashboard",
+    "url": "https://github.com/mehrdadirani/copilot-studio-discovery-dashboard",
+    "description": "Structured discovery dashboard for Copilot Studio projects \u2014 capture sessions, export to Word, and generate RTM, Design Document, and Build Book with any AI tool.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "mmazz3117-del/Triads",
+    "name": "Triads",
+    "url": "https://mmazz3117-del.github.io/Triads/",
+    "description": "Mobile-first guitar practice tool \u2014 pentatonic scales, triads, chord progressions, real guitar audio. Works in any browser, no install.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "neoxelox/svelte-standalone-starter",
+    "name": "svelte-standalone-starter",
+    "url": "https://github.com/neoxelox/svelte-standalone-starter",
+    "description": "Full Svelte 3 TypeScript starter with automatic bundling into a minified and compressed single HTML file.",
+    "stars": 1,
+    "topic": "single-html-file",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "shuddha2021/personal-reading-tracker",
+    "name": "personal-reading-tracker",
+    "url": "https://personal-reading-tracker.vercel.app/",
+    "description": "A beautiful, feature-rich personal reading progress tracker built with vanilla HTML, CSS, and JavaScript. Features book management, progress tracking, reading sessions, statistics, tags, search, dark mode, and import/export - all client-side with complete privacy.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "solsentry/thegarage",
+    "name": "thegarage",
+    "url": "https://solsentryai.github.io/thegarage/",
+    "description": "\ud83d\udfe1\ud83d\udfe3 Gerador de pfp e banners em duotone halftone pra galera do THE/GARAGE \u2014 imers\u00e3o de 3 semanas do Superteam Brasil rumo ao Colosseum, o hackathon global da Solana. Sem login, sem backend, processamento no browser. Troca sua pfp, sobe a onda e bora amassar juntos.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "vishalkumar-netizen/minimatool2025",
+    "name": "minimatool2025",
+    "url": "https://vishalkumar-netizen.github.io/minimatool2025/",
+    "description": "A professional, high-performance web tool for calculating and verifying regulatory minima across all aircraft categories (CAT A/B/C/D). This application provides instant compliance checking for Precision, Non-Precision, and Circling procedures.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xixiasaname/PiggyQuest",
+    "name": "PiggyQuest",
+    "url": "https://xixiasaname.github.io/PiggyQuest/",
+    "description": "A simple family chore tracker. Kids log completed chores, parents approve them. Kids set mid-term saving goals or decide direct withdrawl. Earnings and withdrawl are tracked. Kids can also log extracruricular activities to earn time vouchers. Backed by Google Sheets \u2014 no server needed. ",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xsukax/XFedi",
+    "name": "XFedi",
+    "url": "https://bashub.sbs/xfedi/xfedi.php",
+    "description": "A self-hosted, single-file federated social media platform built in PHP.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xsukax/XMail",
+    "name": "XMail",
+    "url": "https://xsukax.com",
+    "description": "A self-hosted, federated, zero-knowledge encrypted mail system in a single PHP file. AES-256-GCM encryption, PBKDF2 key derivation, and encrypted attachments ensure the server never sees your message password. No SMTP. No external dependencies. Just drop xmail.php and go.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xsukax/xsukax-Directory-Tree-Comparison-Tool",
+    "name": "xsukax-Directory-Tree-Comparison-Tool",
+    "url": "https://xsukax.com",
+    "description": "A powerful, privacy-focused single-file web application for comparing two directory trees with detailed file analysis, content verification, and an elegant GitHub-inspired interface.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xsukax/xsukax-Python-Web-Runner",
+    "name": "xsukax-Python-Web-Runner",
+    "url": "https://xsukax.github.io/xsukax-Python-Web-Runner/",
+    "description": "A sophisticated, single-file web application that enables users to write, execute, and manage Python code directly within their web browser. Built on top of Pyodide - a WebAssembly-compiled Python interpreter - this tool eliminates the need for server-side infrastructure, Python installations, or complex development environments.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xsukax/xsukax-RSS-Viewer",
+    "name": "xsukax-RSS-Viewer",
+    "url": "https://xsukax.github.io/xsukax-RSS-Viewer/",
+    "description": "A professional, privacy-focused RSS feed reader that runs entirely in your browser. View and share RSS/Atom feeds without compromising your privacy or requiring server-side infrastructure.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "AvinashWalton/PromptVaultPro",
+    "name": "PromptVaultPro",
+    "url": "https://avinashwalton.github.io/PromptVaultPro/",
+    "description": "PromptVaultPro - Privacy-first AI prompt manager with dynamic variable inputs. 100% local, zero API keys, works offline forever. Live demo + lead magnet for the $25 lifetime deal.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "AvinashWalton/ToolVerse",
+    "name": "ToolVerse",
+    "url": "https://avinashwalton.github.io/ToolVerse/",
+    "description": "\ud83d\udee0\ufe0f ToolVerse \u2014 20+ free online tools (Password Generator, QR Code, JSON Formatter, BMI Calculator & more). No login, no API, works offline. Single HTML file. Made with \u2764\ufe0f in India.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "BEPframework/lumina-oracle-finance",
+    "name": "lumina-oracle-finance",
+    "url": "https://nicolasquirozmd.com",
+    "description": "Browser-based market fractal dynamics engine. M-FDE equation: D^H P(t) = \u03b1(H\u00b1)\u00b7Caputo[P] + \u03b2\u00b7\u03a3 D_f(\u03c9_k)\u00b7cos(\u03c9_k\u00b7t) + \u03c3\u00b7dL_\u03b1^H(t)",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "BIGSTODG120/NYTHIS-CORE-FORGE",
+    "name": "NYTHIS-CORE-FORGE",
+    "url": "https://github.com/BIGSTODG120/NYTHIS-CORE-FORGE",
+    "description": "Free single-file AI command center for Claude API users. NYTHIS Core Forge gives builders five focused agents for architecture, coding, auditing, project management, and deployment planning.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Cito/Pinboard-Archive",
+    "name": "Pinboard-Archive",
+    "url": "https://github.com/Cito/Pinboard-Archive",
+    "description": "Single-file HTML app for browsing Pinboard.in bookmark exports \u2014 searchable, filterable, no server needed",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
     "repo": "FrantisekSilhan/IDK",
     "name": "IDK",
     "url": "https://github.com/FrantisekSilhan/IDK",
     "description": "A minimal Bun-powered static file bundler and canvas game engine.",
+    "stars": 0,
+    "topic": "single-file-web-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "GeoxT/kdp-publishing-tracker",
+    "name": "kdp-publishing-tracker",
+    "url": "https://geox.blog",
+    "description": "A complete publishing control center for Amazon KDP authors. Tracks every phase from manuscript to launch day with board, calendar, and timeline views. Drag-and-drop task management, milestone tracking, risk register, and portable JSON backup. Runs as a single HTML file with no server, no build step, and no account required.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Gleek/mapper",
+    "name": "mapper",
+    "url": "https://github.com/Gleek/mapper",
+    "description": "Single html file KML file viewer",
+    "stars": 0,
+    "topic": "single-html-file",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Mangom72/Direct-mogo",
+    "name": "Direct-mogo",
+    "url": "https://mangom72.github.io/Direct-mogo/",
+    "description": "\uc218\ub2a5\u00b7\ubaa8\ud3c9\u00b7\ud559\ud3c9 \uae30\ucd9c \ubb38\uc81c\uc9c0 \uc6d0\ubcf8 PDF \ubc14\ub85c\uac00\uae30. 2006\ub144 \uc2dc\ud589\ubd84\ubd80\ud130 3,844\ud68c\ucc28 \u00b7 49\uacfc\ubaa9. \uc124\uce58\ud615 \uc571\uc73c\ub85c \uc624\ud504\ub77c\uc778 \uc870\ud68c, \ub178\ud2b8\uc571 \uc804\uc1a1 \uc9c0\uc6d0.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "MonseourM/NaviWriter-Pro-Max",
+    "name": "NaviWriter-Pro-Max",
+    "url": "https://github.com/MonseourM/NaviWriter-Pro-Max",
+    "description": "A local, single-file writing suite for novels & worldbuilding. Heavy on features, light on architecture, but needs a cleanup. Looking for developers to adopt and maintain! \ud83e\udd2d",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Mostafa-Maklad/FlowSpace",
+    "name": "FlowSpace",
+    "url": "https://github.com/Mostafa-Maklad/FlowSpace",
+    "description": "FlowSpace \u2014 Sustainable Productivity System. A local-first, visual task manager with Flow Mode, energy tracking, and weekly reviews. Built for deep work and long-term consistency.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "OmerShubi/priority-matrix",
+    "name": "priority-matrix",
+    "url": "https://omershubi.github.io/priority-matrix/",
+    "description": "Minimalist Eisenhower-matrix to-do list \u2014 sort tasks by importance & urgency. Single-file, no build, saved locally in your browser.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "POLPROG-TECH/FlowBoard",
+    "name": "FlowBoard",
+    "url": "https://polprog.pl/apps/FlowBoard",
+    "description": "FlowBoard generates self-contained HTML delivery dashboards from Jira data, with sprint health, capacity, epic progress, risk detection, blockers, dependencies, and what-if simulations.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Real-Fruit-Snacks/Crownfall",
+    "name": "Crownfall",
+    "url": "https://real-fruit-snacks.github.io/Crownfall/",
+    "description": "A pixel-art medieval wave-defense incremental game",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "RealMattMurdoch/mortgage-dashboard-GER",
+    "name": "mortgage-dashboard-GER",
+    "url": "https://github.com/RealMattMurdoch/mortgage-dashboard-GER",
+    "description": "Offline German Morgage / Baufinanzierung dashboard: amortisation, Sondertilgung, Anschlussfinanzierung, buy-to-let tax (AfA, Werbungskosten), and 10-year sale scenarios. Single HTML file, no server, no dependencies.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "SvobodaJakub/pdf-to-g4-compressor",
+    "name": "pdf-to-g4-compressor",
+    "url": "https://svobodajakub.github.io/",
+    "description": "PDF Monochrome CCITT G4 Compressor",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "SvobodaJakub/svobodajakub.github.io",
+    "name": "svobodajakub.github.io",
+    "url": "https://github.com/SvobodaJakub/pdf-to-g4-compressor",
+    "description": "In-browser PDF Monochrome CCITT G4 Compressor!",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Talnerith/receipt-reader",
+    "name": "receipt-reader",
+    "url": "https://github.com/Talnerith/receipt-reader",
+    "description": "Single-file browser tool that turns a pharmacy receipt photo into copyable insurance-claim fields using the Gemini vision model \u2014 no backend, no typing.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Talnerith/sts2-run-advisor",
+    "name": "sts2-run-advisor",
+    "url": "https://github.com/Talnerith/sts2-run-advisor",
+    "description": "Browser strategy dashboard for Slay the Spire 2 \u2014 live card-reward ratings, archetype detection, and build advice over the mod's local HTTP API.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "TomaszP24/matcha-ratio-calculator",
+    "name": "matcha-ratio-calculator",
+    "url": "https://matchoya.co/matcha-calculator",
+    "description": "\ud83c\udf75 Free matcha ratio calculator \u2014 perfect your matcha with traditional Japanese ratios. Usucha, koicha, lattes, iced matcha. Single HTML file, zero dependencies. By Matchoya.",
+    "stars": 0,
+    "topic": "single-html-file",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Xplore-LAB/DataLens",
+    "name": "DataLens",
+    "url": "https://github.com/Xplore-LAB/DataLens",
+    "description": "\u5de5\u4e1a\u63a7\u5236\u6027\u80fd\u5206\u6790\u5de5\u5177 \u00b7 \u5355\u6587\u4ef6\u79bb\u7ebf\u8fd0\u884c \u00b7 CSV\u5bfc\u5165\u5373\u5206\u6790 \u00b7 \u8131\u785d\u4f18\u5316 \u00b7 \u7a7a\u5206\u8282\u80fd \u00b7 \u96f6\u4f9d\u8d56",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "Yorwba/dic.html",
+    "name": "dic.html",
+    "url": "https://yorwba.github.io/dic.html/",
+    "description": "Putting simple dictionary search into one self-contained HTML file.",
+    "stars": 0,
+    "topic": "single-html-file",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "alexkorol/WIZARD",
+    "name": "WIZARD",
+    "url": "https://alexkorol.github.io/WIZARD/",
+    "description": "AI-built toolbox of interactive game-UI experiments - WebGL2 ARPG orbs, PoE-style geometric skill tree, modular itemization engine (Vesselforge), permadeath RP meta-progression, falling-sand sandbox, and more. Single-file HTML tools, live on GitHub Pages.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "aravindksk7/NovaPlan",
+    "name": "NovaPlan",
+    "url": "https://aravindksk7.github.io/NovaPlan/",
+    "description": "",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "asah-1/dottostop",
+    "name": "dottostop",
+    "url": "https://asah-1.github.io/dottostop/",
+    "description": "\u70b9\u5230\u4e3a\u6b62 DotToStop \u00b7 \u5fcd\u4f4f\u4e0d\u7ed9\u7b54\u6848\u3001\u53ea\u7ed9\u4e09\u5c42\u70b9\u62e8\u7684 AI \u5b66\u4e60\u4f19\u4f34\uff5c\u62cd\u7167/\u8f93\u5165\u9898\u76ee\uff0c\u5927\u6a21\u578b\u5b9e\u65f6\u751f\u6210\u7531\u6d45\u5165\u6df1\u7684\u5f15\u5bfc\uff0c\u903c\u4f60\u81ea\u5df1\u60f3\u51fa\u7b54\u6848",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "beautifulgownss/white-rabbit",
+    "name": "white-rabbit",
+    "url": "https://github.com/beautifulgownss/white-rabbit",
+    "description": "A bounded conversational AI tool that interviews you about a hard decision, then surfaces the gap between the reasons you give and what actually carries weight. Single-file HTML app (no build step) with a cyberpunk-terminal UI. Runs on the Claude.ai artifact runtime; standalone backend port planned.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "cliquesoft/builder",
+    "name": "builder",
+    "url": "https://www.cliquesoft.org",
+    "description": "A compiling framework to build and package software",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "dakariuishmg/AUVA_Creator_Portable_Aura_Store",
+    "name": "AUVA_Creator_Portable_Aura_Store",
+    "url": "https://github.com/dakariuishmg/AUVA_Creator_Portable_Aura_Store",
+    "description": "AUVA is a single HTML file that is a complete digital product store \u2014 admin panel, buyer storefront, encryption, payment flow, and analytics \u2014 all self-contained, with no server, no database, no dependencies, and no subscription. You build your store in the admin and hand the product to anyone in the world. Buyer Picks, Pays,Products are delivered.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "dakariuishmg/Unnamed_Inviolable_Secure_Handshake",
+    "name": "Unnamed_Inviolable_Secure_Handshake",
+    "url": "https://github.com/dakariuishmg/Unnamed_Inviolable_Secure_Handshake",
+    "description": "A self-contained HTML app enabling secure peer-to-peer file transfer between browser tabs via WebRTC DataChannels. It uses AES-GCM-256 with per-chunk encryption, HKDF-derived keys from a passphrase, a symmetric ratchet for forward secrecy, and 4-channel SCTP striping. Encrypted signaling; no persistent storage.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "davay42/single-file-pwa-template",
+    "name": "single-file-pwa-template",
+    "url": "https://davay42.github.io/single-file-pwa-template/",
+    "description": "Single File Progressive Web-App build setup",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "djsaintg/RS3-Companion-App",
+    "name": "RS3-Companion-App",
+    "url": "https://github.com/djsaintg/RS3-Companion-App",
+    "description": "An offline-first, single-window RuneScape 3 companion app. Features training guides for all 29 skills with locations & inline maps, live GE money-making methods filtered by your character's stats (up to 20 saved profiles), and a complete 332-entry quest & miniquest catalogue with walkthroughs\u2014all wrapped in a sleek dark aurora theme.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "dotslashgabut/autopasfoto",
+    "name": "autopasfoto",
+    "url": "https://dotslashgabut.github.io/autopasfoto/",
+    "description": "PasFoto Layout + Auto Crop AI (Combined). Web app single-file untuk layout & cetak pas foto \u2014 auto-crop wajah AI, hapus background (opsional), export PDF/ZIP DPI tinggi. Ada versi online & offline.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "dwnmf/LATEX_render",
+    "name": "LATEX_render",
+    "url": "https://github.com/dwnmf/LATEX_render",
+    "description": "Browser Markdown + LaTeX + Flowchart renderer with instant preview, light/dark themes, and PDF export.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "eltonylfgi-blip/claude-usage-pacer",
+    "name": "claude-usage-pacer",
+    "url": "https://github.com/eltonylfgi-blip/claude-usage-pacer",
+    "description": "Pace your weekly Claude usage so you don't run out before the reset \u2014 a tiny single-file web app (local-first, optional sync).",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "gyasis/chiron",
+    "name": "chiron",
+    "url": "https://github.com/gyasis/chiron",
+    "description": "Universal LLM-powered lesson generator for solo learners across code, medicine, and language. Self-contained interactive lesson HTML. Q8 architecture: parent Claude Code agent runs all text-LLM steps; built as a Claude Code skill.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "haiderf/retirement-operating-system",
+    "name": "retirement-operating-system",
+    "url": "https://github.com/haiderf/retirement-operating-system",
+    "description": "Privacy-first, browser-based retirement tax planning engine. No server. No account. No data leaves your computer.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "igapyon/miku-docx2md-web",
+    "name": "miku-docx2md-web",
+    "url": "https://igapyon.github.io/miku-docx2md-web/",
+    "description": "Web App surface for miku-docx2md, including the browser UI, single-file Web App build, local browser adapters, shared UI components, and browser smoke tests.",
     "stars": 0,
     "topic": "single-file-web-app",
     "discovered": "2026-07-29"
@@ -990,15 +837,6 @@
     "discovered": "2026-07-29"
   },
   {
-    "repo": "igapyon/miku-docx2md-web",
-    "name": "miku-docx2md-web",
-    "url": "https://igapyon.github.io/miku-docx2md-web/",
-    "description": "Web App surface for miku-docx2md, including the browser UI, single-file Web App build, local browser adapters, shared UI components, and browser smoke tests.",
-    "stars": 0,
-    "topic": "single-file-web-app",
-    "discovered": "2026-07-29"
-  },
-  {
     "repo": "igapyon/starship-sim",
     "name": "starship-sim",
     "url": "https://igapyon.github.io/starship-sim/",
@@ -1008,64 +846,181 @@
     "discovered": "2026-07-29"
   },
   {
-    "repo": "foldright/bayes-theorem-demo",
-    "name": "bayes-theorem-demo",
-    "url": "https://foldright.io/bayes-theorem-demo/",
-    "description": "\ud83c\udfb2 \u4ea4\u4e92\u5f0f\u8d1d\u53f6\u65af\u516c\u5f0f\u6f14\u793a\uff1a\u53ef\u62d6\u62fd\u9762\u79ef\u56fe + 1000 \u4eba\u81ea\u7136\u9891\u6570\u70b9\u9635\uff0c\u5355\u6587\u4ef6\u96f6\u4f9d\u8d56 | Interactive Bayes' theorem demo with draggable eikosogram & natural frequencies",
-    "stars": 2,
-    "topic": "single-html-file",
+    "repo": "jaydenbarnescs-tech/clone-any-site",
+    "name": "clone-any-site",
+    "url": "https://github.com/jaydenbarnescs-tech/clone-any-site",
+    "description": "A practical playbook for recreating any live website as a self-contained single-file HTML deliverable \u2014 with an AI-assisted primary path, a manual fallback, and a reusable image-embedding helper.",
+    "stars": 0,
+    "topic": "single-file-app",
     "discovered": "2026-07-29"
   },
   {
-    "repo": "joordy/svelte-single-file",
-    "name": "svelte-single-file",
-    "url": "https://github.com/joordy/svelte-single-file",
-    "description": "Svelte single file compiler which provides your svelte application to one single HTML file",
-    "stars": 1,
-    "topic": "single-html-file",
+    "repo": "keith-garces/personal-budget-tracker",
+    "name": "personal-budget-tracker",
+    "url": "https://github.com/keith-garces/personal-budget-tracker",
+    "description": "A client-side personal finance tracker for managing monthly income, expenses, and investments \u2014 with YTD analytics and category breakdowns.",
+    "stars": 0,
+    "topic": "single-file-app",
     "discovered": "2026-07-29"
   },
   {
-    "repo": "neoxelox/svelte-standalone-starter",
-    "name": "svelte-standalone-starter",
-    "url": "https://github.com/neoxelox/svelte-standalone-starter",
-    "description": "Full Svelte 3 TypeScript starter with automatic bundling into a minified and compressed single HTML file.",
-    "stars": 1,
-    "topic": "single-html-file",
+    "repo": "limafresh/swan",
+    "name": "swan",
+    "url": "https://limafresh.github.io/swan/swan.html",
+    "description": "Minimalistic anti-stress clicker game about the Swan",
+    "stars": 0,
+    "topic": "single-file-app",
     "discovered": "2026-07-29"
   },
   {
-    "repo": "Romelium/JS-Playground",
-    "name": "JS-Playground",
-    "url": "https://romelium.github.io/JS-Playground/",
-    "description": "A single HTML file to run JavaScript code. Download index.html and run it offline anytime, anywhere with a browser. Best for running code snippets created by humans or AI.",
-    "stars": 1,
-    "topic": "single-html-file",
+    "repo": "lynchypin/sre-agent-memory-manager",
+    "name": "sre-agent-memory-manager",
+    "url": "https://github.com/lynchypin/sre-agent-memory-manager",
+    "description": "A free, standalone browser tool for browsing, editing, and redacting PagerDuty SRE Agent memories \u2014 no install, no backend, no AI dependency.",
+    "stars": 0,
+    "topic": "single-file-app",
     "discovered": "2026-07-29"
   },
   {
-    "repo": "dotslashgabut/idcardgenerator",
-    "name": "idcardgenerator",
-    "url": "https://dotslashgabut.github.io/idcardgenerator/",
-    "description": "A single-file, client-side web app for designing and mass-producing ID cards (or any card-style layout) from a CSV/Excel data source. Everything runs in the browser \u2014 no backend, no upload of your data anywhere \u2014 and the whole tool lives in one HTML file.",
-    "stars": 1,
-    "topic": "single-html-file",
+    "repo": "melody-ling-L/judgebuddy",
+    "name": "judgebuddy",
+    "url": "https://melody-ling-l.github.io/judgebuddy/",
+    "description": "Single-file labeling tool for LLM-as-judge calibration. Three-pane comparison + multi-dim scoring. Zero deployment.",
+    "stars": 0,
+    "topic": "single-file-app",
     "discovered": "2026-07-29"
   },
   {
-    "repo": "Gleek/mapper",
-    "name": "mapper",
-    "url": "https://github.com/Gleek/mapper",
-    "description": "Single html file KML file viewer",
+    "repo": "mytech-today-now/restaurants",
+    "name": "restaurants",
+    "url": "https://github.com/mytech-today-now/restaurants",
+    "description": "Zero-install, single-file HTML directory of 400+ independent Chicago-area restaurants with IndexedDB-backed outreach tracking, tri-state status, CSV export, Google Maps integration, and light/dark/large themes \u2014 no server required.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "naes993/theme-creator",
+    "name": "theme-creator",
+    "url": "https://themecreator.netlify.app",
+    "description": "A self-contained visual theme builder that exports app themes, VS Code themes, CSS variables, and design tokens.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "neocrev/jsonfmt",
+    "name": "jsonfmt",
+    "url": "https://github.com/neocrev/jsonfmt",
+    "description": "JSON Formatter & Validator \u2014 format, minify, validate, and explore JSON in your browser",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "ohsusannamarie/night-sky-companion",
+    "name": "night-sky-companion",
+    "url": "https://ohsusannamarie.github.io/night-sky-companion/",
+    "description": "A beginner-friendly astronomy companion for Northern Hemisphere observers. Find visible planets, constellations, meteor showers, and celestial events with weather-aware recommendations, interactive lessons, observation tracking, and an outdoor-friendly mode.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "pethrus07/estudio-briefing-desbravando-utv",
+    "name": "estudio-briefing-desbravando-utv",
+    "url": "https://pethrus07.github.io/estudio-briefing-desbravando-utv/",
+    "description": "Est\u00fadio de Briefing: HTML \u00fanico offline que gera, no navegador, um pacote .zip estruturado (JSON + imagens + kit de marca) para virar um deck.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "piekarek/locus-arca",
+    "name": "locus-arca",
+    "url": "https://github.com/piekarek/locus-arca",
+    "description": "Free offline lab sample management \u2014 single HTML file, no installation required",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "rastian/cute-qr",
+    "name": "cute-qr",
+    "url": "https://github.com/rastian/cute-qr",
+    "description": "A minimal QR code generator with iOS liquid glass design",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "rastian/pattern-lab",
+    "name": "pattern-lab",
+    "url": "https://65ping.github.io/pattern-lab/",
+    "description": "A minimal abstract background pattern generator with iOS liquid glass design",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "sah-rohit/Stellar",
+    "name": "Stellar",
+    "url": "https://sah-rohit.github.io/Stellar/",
+    "description": "This is a single page HTML web design to showcase one of my designs. Using GSAP animations on space elements",
     "stars": 0,
     "topic": "single-html-file",
     "discovered": "2026-07-29"
   },
   {
-    "repo": "xsukax/xsukax-Pie-Chart-Maker",
-    "name": "xsukax-Pie-Chart-Maker",
-    "url": "https://xsukax.github.io/xsukax-Pie-Chart-Maker/",
-    "description": "A professional, user-friendly web application for creating beautiful pie charts without writing any code. Built with modern web technologies and designed with privacy and security as core principles.",
+    "repo": "sayanrup/KPI_Analyzer_Dashboard",
+    "name": "KPI_Analyzer_Dashboard",
+    "url": "https://github.com/sayanrup/KPI_Analyzer_Dashboard",
+    "description": "Single-file browser-based KPI dashboard - SEO, GA traffic, and business metrics with anomaly detection",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "shanputaoye/audit-compliance-system",
+    "name": "audit-compliance-system",
+    "url": "https://github.com/shanputaoye/audit-compliance-system",
+    "description": "\u9879\u76ee\u9a8c\u6536\u5ba1\u8ba1\u667a\u80fd\u5408\u89c4\u7ba1\u7406\u7cfb\u7edf - \u9762\u5411\u56fd\u6709\u4f01\u4e1a\u6280\u6539/\u79d1\u7814/\u4fe1\u606f\u5316\u9879\u76ee\u7684\u9a8c\u6536\u5ba1\u8ba1\u5408\u89c4\u7ba1\u7406\u5de5\u5177",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "shayan-ys/ontario-g1-study-guide",
+    "name": "ontario-g1-study-guide",
+    "url": "https://shayanys.com/g1-fun",
+    "description": "G1 in a Day \u2014 a condensed, slightly unhinged single-page study guide for Ontario's G1 driver knowledge test. Live: https://shayanys.com/g1-fun",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "shravansuthar4/Personal-Finance-Tracker",
+    "name": "Personal-Finance-Tracker",
+    "url": "https://github.com/shravansuthar4/Personal-Finance-Tracker",
+    "description": "A privacy-first personal finance tracker \u2014 track salary, savings, investments, EMIs & expenses monthly. Smart recurring config, net worth dashboard, export/import backup. Single HTML file, no login, no server, all data stays in your browser.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "shubhsaxena2020/satya-nath-reply-generator",
+    "name": "satya-nath-reply-generator",
+    "url": "https://github.com/shubhsaxena2020/satya-nath-reply-generator",
+    "description": "AI-powered Facebook reply generator for Vedic astrology \u2014 reads Rashi and Navamsha charts, generates personalized replies in the voice of Satya Nath Guru Kirpa",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "tomas-trantina/minigolf",
+    "name": "minigolf",
+    "url": "https://github.com/tomas-trantina/minigolf",
+    "description": "Modern\u00ed 3D minigolf v jedin\u00e9m HTML souboru optimalizovan\u00fd pro mobiln\u00ed telefony. Nab\u00edz\u00ed procedur\u00e1ln\u011b generovan\u00e9 levely, bosse, r\u016fzn\u00e9 povrchy, vylep\u0161en\u00ed a denn\u00ed v\u00fdzvy p\u0159\u00edmo v prohl\u00ed\u017ee\u010di.",
     "stars": 0,
     "topic": "single-html-file",
     "discovered": "2026-07-29"
@@ -1080,24 +1035,6 @@
     "discovered": "2026-07-29"
   },
   {
-    "repo": "TomaszP24/matcha-ratio-calculator",
-    "name": "matcha-ratio-calculator",
-    "url": "https://matchoya.co/matcha-calculator",
-    "description": "\ud83c\udf75 Free matcha ratio calculator \u2014 perfect your matcha with traditional Japanese ratios. Usucha, koicha, lattes, iced matcha. Single HTML file, zero dependencies. By Matchoya.",
-    "stars": 0,
-    "topic": "single-html-file",
-    "discovered": "2026-07-29"
-  },
-  {
-    "repo": "sah-rohit/Stellar",
-    "name": "Stellar",
-    "url": "https://sah-rohit.github.io/Stellar/",
-    "description": "This is a single page HTML web design to showcase one of my designs. Using GSAP animations on space elements",
-    "stars": 0,
-    "topic": "single-html-file",
-    "discovered": "2026-07-29"
-  },
-  {
     "repo": "tomas-trantina/slate",
     "name": "slate",
     "url": "https://github.com/tomas-trantina/slate",
@@ -1107,21 +1044,75 @@
     "discovered": "2026-07-29"
   },
   {
-    "repo": "tomas-trantina/minigolf",
-    "name": "minigolf",
-    "url": "https://github.com/tomas-trantina/minigolf",
-    "description": "Modern\u00ed 3D minigolf v jedin\u00e9m HTML souboru optimalizovan\u00fd pro mobiln\u00ed telefony. Nab\u00edz\u00ed procedur\u00e1ln\u011b generovan\u00e9 levely, bosse, r\u016fzn\u00e9 povrchy, vylep\u0161en\u00ed a denn\u00ed v\u00fdzvy p\u0159\u00edmo v prohl\u00ed\u017ee\u010di.",
+    "repo": "tomasbatovsky-png/atlas-of-a-life",
+    "name": "atlas-of-a-life",
+    "url": "https://github.com/tomasbatovsky-png/atlas-of-a-life",
+    "description": "Interactive visual atlas of history's most influential people \u2014 canvas-based constellation, biographical journeys, bilingual EN/SK",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "tomasbatovsky-png/know-thyself-pro",
+    "name": "know-thyself-pro",
+    "url": "https://github.com/tomasbatovsky-png/know-thyself-pro",
+    "description": "Human Design calculator and analysis tool \u2014 full chart generation, bilingual EN/SK, zero dependencies",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "unixabg/FYEOXSkits",
+    "name": "FYEOXSkits",
+    "url": "https://github.com/unixabg/FYEOXSkits",
+    "description": "A single-file animated skit creator for the open web. No install, no server, no account \u2014 just open and create.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "willowding/picreview-demo",
+    "name": "picreview-demo",
+    "url": "https://willowding.github.io/picreview-demo/",
+    "description": "Interactive, no-backend live demo of PicReview \u2014 a lightweight team image-review tool I designed and built solo :)",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xsukax/xsukax-GitHub-CS-App-Manager",
+    "name": "xsukax-GitHub-CS-App-Manager",
+    "url": "https://xsukax.com",
+    "description": "A secure, self-hosted platform for importing, organizing, and hosting client-side applications directly from GitHub repositories. This lightweight PHP application provides an encrypted, password-protected environment for managing multiple static web applications with an intuitive categorization system.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xsukax/xsukax-One-Time-E2EE-File-Transfer",
+    "name": "xsukax-One-Time-E2EE-File-Transfer",
+    "url": "https://xsukax.com",
+    "description": "Self-hosted, single-file PHP app for one-time E2EE file sharing. Files are encrypted client-side with AES-256-GCM (PBKDF2 \u00d7 200k rounds) before upload - the server never sees plaintext. Auto-deletes on first download or after 30 minutes. Zero dependencies, zero database.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-07-29"
+  },
+  {
+    "repo": "xsukax/xsukax-Pie-Chart-Maker",
+    "name": "xsukax-Pie-Chart-Maker",
+    "url": "https://xsukax.github.io/xsukax-Pie-Chart-Maker/",
+    "description": "A professional, user-friendly web application for creating beautiful pie charts without writing any code. Built with modern web technologies and designed with privacy and security as core principles.",
     "stars": 0,
     "topic": "single-html-file",
     "discovered": "2026-07-29"
   },
   {
-    "repo": "Yorwba/dic.html",
-    "name": "dic.html",
-    "url": "https://yorwba.github.io/dic.html/",
-    "description": "Putting simple dictionary search into one self-contained HTML file.",
+    "repo": "AkaiChan/standalone-backward-gantt",
+    "name": "standalone-backward-gantt",
+    "url": "https://github.com/AkaiChan/standalone-backward-gantt",
+    "description": "A standalone, offline-first project management board featuring backward working-days scheduling, dynamic Gantt charts, and a Kanban flow. Designed with a strict MUJI-inspired Zen minimalist UI, featuring zero external dependencies.",
     "stars": 0,
-    "topic": "single-html-file",
+    "topic": "single-file-app",
     "discovered": "2026-07-29"
   }
 ]
