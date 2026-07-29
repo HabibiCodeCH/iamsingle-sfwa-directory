@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "url": "https://foldright.io/bayes-theorem-demo/",
+    "name": "Bayes' Theorem Demo",
+    "pr_number": 18,
+    "handle": null
+  },
+  {
+    "url": "https://rastian.github.io/cute-qr/",
+    "name": "cute-qr",
+    "pr_number": 17,
+    "handle": null
+  },
+  {
+    "url": "https://akanshujamwal.github.io/footprint/",
+    "name": "footprint",
+    "pr_number": 16,
+    "handle": null
+  },
+  {
+    "url": "https://davidveksler.github.io/potemkin-pipeline/",
+    "name": "Potemkin Pipeline",
+    "pr_number": 11,
+    "handle": null
+  },
+  {
+    "url": "https://nomiknomik.github.io/shade-sail-simulator/",
+    "name": "Shade Sail Simulator",
+    "pr_number": 15,
+    "handle": null
+  },
+  {
+    "url": "https://milk3e.github.io/Tier-List-Maker/",
+    "name": "Tier List Maker",
+    "pr_number": 14,
+    "handle": null
+  },
+  {
+    "url": "https://pushme-pullyou.github.io/tootoo/",
+    "name": "tootoo",
+    "pr_number": 12,
+    "handle": null
+  },
+  {
+    "url": "https://xsukax.github.io/xsukax-Photo-Editor/",
+    "name": "xsukax Photo Editor",
+    "pr_number": 13,
+    "handle": null
+  }
+]

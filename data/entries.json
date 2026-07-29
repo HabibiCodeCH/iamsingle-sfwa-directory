@@ -1436,5 +1436,725 @@
         "detail": ""
       }
     ]
+  },
+  {
+    "name": "Bayes' Theorem Demo",
+    "url": "https://foldright.io/bayes-theorem-demo/",
+    "repo": "foldright/bayes-theorem-demo",
+    "desc": "Interactive Bayes theorem demo with a draggable area diagram and a 1000-person natural-frequency dot grid.",
+    "tags": [
+      "notes"
+    ],
+    "added": "2026-07-29",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "name": "cute-qr",
+    "url": "https://rastian.github.io/cute-qr/",
+    "repo": "rastian/cute-qr",
+    "desc": "A minimal QR code generator with an iOS liquid-glass visual style.",
+    "tags": [
+      "tools"
+    ],
+    "added": "2026-07-29",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "name": "footprint",
+    "url": "https://akanshujamwal.github.io/footprint/",
+    "repo": "akanshujamwal/footprint",
+    "desc": "A single-file browser-based work journal for developers and PMs. Log daily tasks, sync to Google Sheets.",
+    "tags": [
+      "notes"
+    ],
+    "added": "2026-07-29",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "name": "Potemkin Pipeline",
+    "url": "https://davidveksler.github.io/potemkin-pipeline/",
+    "repo": "DavidVeksler/potemkin-pipeline",
+    "desc": "Offline single-file screensaver/PWA that simulates an AI coding agent at work: fake terminal, fake dashboards, all client-side.",
+    "tags": [
+      "ai"
+    ],
+    "added": "2026-07-29",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "name": "Shade Sail Simulator",
+    "url": "https://nomiknomik.github.io/shade-sail-simulator/",
+    "repo": "nomiknomik/shade-sail-simulator",
+    "desc": "3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.",
+    "tags": [
+      "tools"
+    ],
+    "added": "2026-07-29",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "name": "Tier List Maker",
+    "url": "https://milk3e.github.io/Tier-List-Maker/",
+    "repo": "milk3e/Tier-List-Maker",
+    "desc": "The most feature-rich offline web-based tier list maker, for ranking anything you want.",
+    "tags": [
+      "tools"
+    ],
+    "added": "2026-07-29",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "name": "tootoo",
+    "url": "https://pushme-pullyou.github.io/tootoo/",
+    "repo": "pushme-pullyou/tootoo",
+    "desc": "Browse any GitHub repo in your browser, zero install, one HTML file.",
+    "tags": [
+      "tools"
+    ],
+    "added": "2026-07-29",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "name": "xsukax Photo Editor",
+    "url": "https://xsukax.github.io/xsukax-Photo-Editor/",
+    "repo": "xsukax/xsukax-Photo-Editor",
+    "desc": "A privacy-focused, client-side photo editor. No server, everything runs in the browser.",
+    "tags": [
+      "tools"
+    ],
+    "added": "2026-07-29",
+    "checks": [
+      {
+        "id": "secrets",
+        "label": "No leaked credentials (detect-secrets)",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-security",
+        "label": "Semgrep security-audit ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "semgrep-js",
+        "label": "Semgrep javascript ruleset",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-eval",
+        "label": "eval() usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-function",
+        "label": "Function() construction",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-decode-exec",
+        "label": "decode\u2192eval chain",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-write",
+        "label": "document.write of decoded content",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-beacon",
+        "label": "sendBeacon usage",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "pattern-dom-inject",
+        "label": "decoded content DOM injection",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-html-artifact",
+        "label": "Ships an HTML file",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-no-build-step",
+        "label": "No build step required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-client-side-only",
+        "label": "No backend required",
+        "status": "pass",
+        "detail": ""
+      },
+      {
+        "id": "sfwa-url-is-app",
+        "label": "Submitted URL looks like the app itself",
+        "status": "pass",
+        "detail": ""
+      }
+    ]
   }
 ]
