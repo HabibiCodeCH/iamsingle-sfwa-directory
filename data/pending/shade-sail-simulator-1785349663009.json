@@ -1,0 +1,10 @@
+{
+  "name": "Shade Sail Simulator",
+  "url": "https://nomiknomik.github.io/shade-sail-simulator/",
+  "repo": "nomiknomik/shade-sail-simulator",
+  "desc": "3D shade sail planner: simulate sun and shadow in your garden, optimize sail positions, analyze daily coverage.",
+  "tags": [
+    "tools"
+  ],
+  "added": "2026-07-29"
+}
