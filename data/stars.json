@@ -19,6 +19,34 @@
       }
     ]
   },
+  "DavidVeksler/potemkin-pipeline": {
+    "stars": 7,
+    "created": "2026-06-13",
+    "forks": 0,
+    "contributors": 1,
+    "languages": [
+      {
+        "name": "JavaScript",
+        "pct": 55.1
+      },
+      {
+        "name": "HTML",
+        "pct": 37.0
+      },
+      {
+        "name": "CSS",
+        "pct": 6.3
+      },
+      {
+        "name": "Swift",
+        "pct": 0.6
+      },
+      {
+        "name": "Shell",
+        "pct": 0.5
+      }
+    ]
+  },
   "MartinSantosT/gemini-chat-organizer-hub": {
     "stars": 26,
     "created": "2025-11-23",
@@ -72,6 +100,18 @@
       {
         "name": "Batchfile",
         "pct": 0.1
+      }
+    ]
+  },
+  "akanshujamwal/footprint": {
+    "stars": 2,
+    "created": "2026-02-24",
+    "forks": 0,
+    "contributors": 1,
+    "languages": [
+      {
+        "name": "HTML",
+        "pct": 100.0
       }
     ]
   },
@@ -215,6 +255,18 @@
       }
     ]
   },
+  "foldright/bayes-theorem-demo": {
+    "stars": 2,
+    "created": "2026-07-22",
+    "forks": 0,
+    "contributors": 1,
+    "languages": [
+      {
+        "name": "HTML",
+        "pct": 100.0
+      }
+    ]
+  },
   "hypervault/hypervault.github.io": {
     "stars": 128,
     "created": "2015-07-21",
@@ -295,8 +347,32 @@
       }
     ]
   },
+  "milk3e/Tier-List-Maker": {
+    "stars": 2,
+    "created": "2026-05-23",
+    "forks": 0,
+    "contributors": 1,
+    "languages": [
+      {
+        "name": "HTML",
+        "pct": 100.0
+      }
+    ]
+  },
+  "nomiknomik/shade-sail-simulator": {
+    "stars": 2,
+    "created": "2026-06-25",
+    "forks": 0,
+    "contributors": 3,
+    "languages": [
+      {
+        "name": "HTML",
+        "pct": 100.0
+      }
+    ]
+  },
   "nyblnet/bento": {
-    "stars": 2995,
+    "stars": 3002,
     "created": "2026-07-17",
     "forks": 187,
     "contributors": 4,
@@ -323,6 +399,30 @@
       }
     ]
   },
+  "pushme-pullyou/tootoo": {
+    "stars": 2,
+    "created": "2026-04-09",
+    "forks": 0,
+    "contributors": 1,
+    "languages": [
+      {
+        "name": "HTML",
+        "pct": 98.0
+      },
+      {
+        "name": "JavaScript",
+        "pct": 1.6
+      },
+      {
+        "name": "CSS",
+        "pct": 0.3
+      },
+      {
+        "name": "PowerShell",
+        "pct": 0.1
+      }
+    ]
+  },
   "pyrate-llama/hermes-ui": {
     "stars": 189,
     "created": "2026-04-03",
@@ -343,9 +443,33 @@
       }
     ]
   },
+  "rastian/cute-qr": {
+    "stars": 0,
+    "created": "2026-03-17",
+    "forks": 0,
+    "contributors": 1,
+    "languages": [
+      {
+        "name": "HTML",
+        "pct": 100.0
+      }
+    ]
+  },
   "wildriver/paper-viewer-local-llm": {
     "stars": 8,
     "created": "2026-05-17",
+    "forks": 0,
+    "contributors": 1,
+    "languages": [
+      {
+        "name": "HTML",
+        "pct": 100.0
+      }
+    ]
+  },
+  "xsukax/xsukax-Photo-Editor": {
+    "stars": 2,
+    "created": "2025-11-01",
     "forks": 0,
     "contributors": 1,
     "languages": [
