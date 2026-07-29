@@ -1,0 +1,10 @@
+{
+  "name": "Potemkin Pipeline",
+  "url": "https://davidveksler.github.io/potemkin-pipeline/",
+  "repo": "DavidVeksler/potemkin-pipeline",
+  "desc": "Offline single-file screensaver/PWA that simulates an AI coding agent at work: fake terminal, fake dashboards, all client-side.",
+  "tags": [
+    "ai"
+  ],
+  "added": "2026-07-29"
+}
