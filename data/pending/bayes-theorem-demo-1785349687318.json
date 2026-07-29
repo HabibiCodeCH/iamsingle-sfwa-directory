@@ -1,0 +1,10 @@
+{
+  "name": "Bayes' Theorem Demo",
+  "url": "https://foldright.io/bayes-theorem-demo/",
+  "repo": "foldright/bayes-theorem-demo",
+  "desc": "Interactive Bayes theorem demo with a draggable area diagram and a 1000-person natural-frequency dot grid.",
+  "tags": [
+    "notes"
+  ],
+  "added": "2026-07-29"
+}
