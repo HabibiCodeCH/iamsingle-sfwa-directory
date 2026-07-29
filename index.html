@@ -946,6 +946,10 @@
           <textarea id="f-desc" required></textarea>
         </div>
         <div>
+          <label for="f-github">Your GitHub handle (optional)</label>
+          <input type="text" id="f-github" placeholder="e.g. octocat — we'll credit you and mention you when it's live">
+        </div>
+        <div>
           <label>Tags</label>
           <div class="tag-chips" id="tagChips">
             <div class="chip" data-tag="notes">Notes</div>
@@ -1798,6 +1802,7 @@ document.getElementById('submitForm').addEventListener('submit', async (ev) => {
     url: document.getElementById('f-url').value.trim(),
     repo: document.getElementById('f-repo').value.trim(),
     desc: document.getElementById('f-desc').value.trim(),
+    github: document.getElementById('f-github').value.trim(),
     tags: [...selectedTags].join(', '),
     hp: document.getElementById('f-hp').value,
   };

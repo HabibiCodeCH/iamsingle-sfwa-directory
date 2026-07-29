@@ -21,6 +21,7 @@ concurrency:
 permissions:
   contents: write
   actions: write # to dispatch build-pages.yml below — see that step's comment
+  pull-requests: read # to look up each entry's originating PR, below
 
 jobs:
   promote:
@@ -32,6 +33,14 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Record who to notify once each entry is actually live
+        # Has to run before promote_pending.py deletes data/pending/*.json —
+        # the PR-lookup this depends on (branch name -> PR number) needs the
+        # pending files' own filenames, which won't exist after this step.
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/record_pending_notifications.py
+
       - name: Fold pending entries into data/entries.json
         run: python3 scripts/promote_pending.py
 
@@ -40,7 +49,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A data/entries.json data/pending
+          git add -A data/entries.json data/pending data/pending_notifications.json
           if git diff --cached --quiet; then
             echo "Nothing to promote."
             echo "promoted=false" >> "$GITHUB_OUTPUT"

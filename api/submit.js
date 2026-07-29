@@ -43,6 +43,10 @@ function slugify(s) {
   );
 }
 
+// GitHub's own username rules: alphanumeric and single hyphens, never
+// leading/trailing/doubled, max 39 chars.
+const GITHUB_HANDLE_RE = /^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/;
+
 function validate(body) {
   const errors = [];
   const name = String(body.name || "").trim().slice(0, 100);
@@ -50,11 +54,13 @@ function validate(body) {
   const repo = String(body.repo || "").trim();
   const desc = String(body.desc || "").trim().slice(0, 500);
   const tagsRaw = String(body.tags || "").trim();
+  const githubRaw = String(body.github || "").trim().replace(/^@/, "");
 
   if (!name) errors.push("name is required");
   if (!/^https?:\/\/.+/i.test(url)) errors.push("url must be http(s)");
   if (repo && !/^[\w.-]+\/[\w.-]+$/.test(repo)) errors.push("repo must look like owner/name");
   if (!desc) errors.push("desc is required");
+  if (githubRaw && !GITHUB_HANDLE_RE.test(githubRaw)) errors.push("github handle doesn't look valid");
 
   const tags = tagsRaw
     ? tagsRaw.split(",").map((t) => t.trim().toLowerCase()).filter((t) => VALID_TAGS.includes(t))
@@ -62,7 +68,11 @@ function validate(body) {
 
   if (errors.length) return { errors };
   const added = new Date().toISOString().slice(0, 10);
-  return { entry: { name, url, repo: repo || null, desc, tags, added } };
+  // submitterHandle stays out of `entry` on purpose — it's never written into
+  // the public catalog data (data/pending, then data/entries.json). It only
+  // ever appears in the PR itself: a commit co-author trailer and an
+  // @mention in the PR body, both scoped to this one submission.
+  return { entry: { name, url, repo: repo || null, desc, tags, added }, submitterHandle: githubRaw || null };
 }
 
 async function ghJson(url, token, init) {
@@ -101,7 +111,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { entry, errors } = validate(body);
+  const { entry, submitterHandle, errors } = validate(body);
   if (errors) {
     res.status(400).json({ ok: false, errors });
     return;
@@ -144,11 +154,23 @@ export default async function handler(req, res) {
       body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: baseRef.object.sha }),
     });
 
+    // Co-authored-by needs a real commit message (a PR description doesn't
+    // do this) and GitHub matches it by email, not handle — the
+    // users.noreply.github.com form is the standard way to attribute by
+    // username alone, without ever asking for or storing a real address.
+    // Best-effort: GitHub also accepts an ID-prefixed noreply form for
+    // accounts that opted into hiding it, which this can't produce without
+    // an extra lookup, so it silently doesn't attribute for those — the
+    // PR mention below still notifies them either way.
+    const commitMessage = submitterHandle
+      ? `Add entry: ${entry.name}\n\nCo-authored-by: ${submitterHandle} <${submitterHandle}@users.noreply.github.com>`
+      : `Add entry: ${entry.name}`;
+
     await ghJson(`${GITHUB_API}/repos/${OWNER}/${REPO}/contents/${pendingPath}`, token, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        message: `Add entry: ${entry.name}`,
+        message: commitMessage,
         content: Buffer.from(JSON.stringify(entry, null, 2) + "\n").toString("base64"),
         branch,
       }),
@@ -167,6 +189,9 @@ export default async function handler(req, res) {
           (entry.repo ? `**GitHub repo**: ${entry.repo}\n` : "") +
           `**Description**: ${entry.desc}\n` +
           (entry.tags.length ? `**Tags**: ${entry.tags.join(", ")}\n` : "") +
+          // Exact label kept stable on purpose — scripts/notify_live.py
+          // greps for it to find who to notify once this goes live.
+          (submitterHandle ? `**Submitted by**: @${submitterHandle}\n` : "") +
           `\nA maintainer still needs to manually run "Review submission" (Actions tab) for the full security scan before merging.`,
       }),
     });

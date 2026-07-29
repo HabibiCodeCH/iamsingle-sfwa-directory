@@ -75,6 +75,14 @@ jobs:
       - name: Security scan
         run: python3 scripts/security_scan.py new_entries.json > scan_results.json
 
+      - name: SFWA-ness check
+        # Catches what security_scan.py never asked: is this actually a
+        # single-file, no-build, no-backend web app to begin with. See the
+        # script's own docstring — this is what would have flagged the
+        # Dumbnote submission (a landing page URL, not the actual app)
+        # before it merged, not after.
+        run: python3 scripts/check_sfwa.py new_entries.json > sfwa_results.json
+
       - name: Check Hacker News for existing coverage
         # Heuristic leads only, not merged into data/entries.json — see
         # the script's own docstring. Never fails the job; an empty/failed
@@ -82,7 +90,7 @@ jobs:
         run: python3 scripts/check_hn_featured.py new_entries.json > hn_candidates.json || echo "[]" > hn_candidates.json
 
       - name: Merge results into data/pending/*.json
-        run: python3 scripts/merge_checks.py scan_results.json
+        run: python3 scripts/merge_checks.py scan_results.json sfwa_results.json
 
       - name: Push results to the PR branch
         env:
