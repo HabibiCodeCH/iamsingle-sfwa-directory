@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<title>SFWA Resources — iamsingle.app</title>
+<meta name="description" content="Tools and building blocks for single-file web apps — starting with a markdown renderer built with zero dependencies and no innerHTML.">
+<link rel="canonical" href="https://iamsingle.app/resources">
+<link rel="alternate" type="application/rss+xml" title="iamsingle.app — new entries" href="/feed.xml">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="iamsingle.app">
+<meta property="og:title" content="SFWA Resources — iamsingle.app">
+<meta property="og:description" content="Tools and building blocks for single-file web apps — starting with a markdown renderer built with zero dependencies and no innerHTML.">
+<meta property="og:url" content="https://iamsingle.app/resources">
+<meta property="og:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SFWA Resources — iamsingle.app">
+<meta name="twitter:description" content="Tools and building blocks for single-file web apps — starting with a markdown renderer built with zero dependencies and no innerHTML.">
+<meta name="twitter:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+<style>
+  :root{
+    --paper:#EEEBE2;
+    --paper-2:#E4E0D3;
+    --ink:#201E19;
+    --ink-soft:#57534A;
+    --stamp:#A8331D;
+    --line:#C9C3B2;
+    --mono: ui-monospace, "SF Mono", "Courier New", monospace;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);}
+  .wrap{max-width:820px;margin:0 auto;padding:28px 20px 120px;}
+
+  .crumb{font-family:var(--mono);font-size:12px;color:var(--ink-soft);margin-bottom:24px;}
+  .crumb a{color:var(--ink-soft);text-decoration:none;}
+  .crumb a:hover{color:var(--stamp);}
+  .crumb .sep{margin:0 6px;opacity:.5;}
+  .crumb .current{color:var(--ink);}
+
+  header{margin-bottom:44px;}
+  .kicker{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--stamp);border:1px solid var(--stamp);display:inline-block;padding:3px 8px;
+    transform:rotate(-1.2deg);
+  }
+  h1{font-size:44px;line-height:1.05;margin:18px 0 10px;font-weight:400;letter-spacing:-0.01em;}
+  .sub{font-family:var(--mono);font-size:13.5px;color:var(--ink-soft);line-height:1.6;max-width:56ch;}
+
+  .resource{border:1px solid var(--line);background:var(--paper-2);padding:22px 24px;margin-bottom:20px;}
+  .resource-name{font-size:22px;font-weight:400;margin:0 0 10px;}
+  .resource-desc{font-family:var(--mono);font-size:13px;color:var(--ink-soft);line-height:1.7;margin:0 0 18px;max-width:64ch;}
+  .resource-desc code{
+    font-family:var(--mono);background:var(--paper);border:1px solid var(--line);
+    padding:1px 5px;color:var(--ink);
+  }
+  .resource-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .btn-outline, .btn-solid{
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+    padding:8px 13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;
+  }
+  .btn-outline{background:var(--paper);border:1px solid var(--line);color:var(--ink);}
+  .btn-outline:hover{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+  .btn-solid{background:var(--ink);color:var(--paper);border:none;}
+  .btn-solid:hover{background:var(--stamp);}
+
+  .back-link{display:inline-block;margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--ink-soft);text-decoration:none;}
+  .back-link:hover{color:var(--stamp);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="/">iamsingle.app</a><span class="sep">›</span><span class="current">SFWA Resources</span></nav>
+
+  <header>
+    <span class="kicker">iamsingle.app · resources</span>
+    <h1>SFWA Resources</h1>
+    <p class="sub">Tools and building blocks for single-file web apps — things this directory relies on, or that make building one easier.</p>
+  </header>
+
+  <div class="resource">
+    <h2 class="resource-name">safe-markdown</h2>
+    <p class="resource-desc">
+      A minimal markdown renderer that outputs real DOM nodes, never an HTML string —
+      no <code>innerHTML</code> anywhere in the call path, so there's no injection
+      sink to sanitise. Built for rendering markdown you don't fully trust — comments,
+      bios, LLM output — inside a single-file app, where pulling in a full parser plus
+      a separate sanitiser is a lot of weight for one HTML file. Zero dependencies,
+      about 4.8&nbsp;KB gzipped.
+    </p>
+    <div class="resource-actions">
+      <a class="btn-solid" href="https://habibicodech.github.io/safe-markdown/" target="_blank" rel="noopener">Live demo →</a>
+      <a class="btn-outline" href="https://github.com/HabibiCodeCH/safe-markdown" target="_blank" rel="noopener">Source on GitHub</a>
+    </div>
+  </div>
+
+  <a href="/" class="back-link">← back to the full catalog</a>
+
+</div>
+</body>
+</html>

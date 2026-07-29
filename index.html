@@ -42,6 +42,12 @@
   .wrap{max-width:820px;margin:0 auto;padding:28px 20px 120px;}
 
   header{margin-bottom:44px;}
+  .header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .site-nav a{
+    font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+    color:var(--ink-soft);text-decoration:none;border-bottom:1px dashed var(--ink-soft);
+  }
+  .site-nav a:hover{color:var(--stamp);border-bottom-color:var(--stamp);}
   .kicker{
     font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
     color:var(--stamp);border:1px solid var(--stamp);display:inline-block;padding:3px 8px;
@@ -435,7 +441,10 @@
 
   <div id="catalogView">
     <header>
-      <span class="kicker">iamsingle.app · est. 2026</span>
+      <div class="header-top">
+        <span class="kicker">iamsingle.app · est. 2026</span>
+        <nav class="site-nav"><a href="/resources">SFWA Resources</a></nav>
+      </div>
       <h1>One app in one single file.<br>No strings attached.</h1>
       <p class="sub">A working directory of SFWAs (single-file web apps), apps that ship as a single HTML file. No install, no build, no server required to run.</p>
     </header>
