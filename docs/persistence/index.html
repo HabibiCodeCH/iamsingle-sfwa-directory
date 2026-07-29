@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<title>Persistence and State — SFWA Docs — iamsingle.app</title>
+<meta name="description" content="Where does data live when there is no server? Includes the self-saving document pattern.">
+<link rel="canonical" href="https://iamsingle.app/docs/persistence/">
+<link rel="alternate" type="application/rss+xml" title="iamsingle.app — new entries" href="/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="iamsingle.app">
+<meta property="og:title" content="Persistence and State — SFWA Docs — iamsingle.app">
+<meta property="og:description" content="Where does data live when there is no server? Includes the self-saving document pattern.">
+<meta property="og:url" content="https://iamsingle.app/docs/persistence/">
+<meta property="og:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Persistence and State — SFWA Docs — iamsingle.app">
+<meta name="twitter:description" content="Where does data live when there is no server? Includes the self-saving document pattern.">
+<meta name="twitter:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="/">iamsingle.app</a><span class="sep">›</span><a href="/docs/">SFWA Docs</a><span class="sep">›</span><span class="current">Persistence and State</span></nav>
+
+  <div class="docs-shell">
+    <nav class="docs-sidebar">
+    <div class="docs-sidebar-label">SFWA docs</div>
+    <ol>
+      <li><a href="/docs/">00. The SFWA Specification</a></li>
+      <li><a href="/docs/architecture/">01. Architecture</a></li>
+      <li><a href="/docs/persistence/" aria-current="page">02. Persistence and State</a></li>
+      <li><a href="/docs/build-tooling/">03. Build and Tooling</a></li>
+      <li><a href="/docs/security/">04. Security and Privacy</a></li>
+      <li><a href="/docs/distribution/">05. Distribution</a></li>
+      <li><a href="/docs/cookbook/">06. Cookbook</a></li>
+      <li><a href="/docs/checklist/">07. Review Checklist</a></li>
+    </ol>
+  </nav>
+    <main class="docs-content">
+<h1 id="02-persistence-and-state">02. Persistence and State</h1><p>Where data lives when there is no server.</p><hr><h2 id="1-the-storage-ladder">1. The storage ladder</h2><p>Climb only as far as you need. Every rung costs you complexity and buys either
+capacity or durability.</p><table><thead><tr><th>Rung</th><th>Mechanism</th><th>Capacity</th><th>Sync?</th><th>Survives clearing site data?</th><th>Works on <code>file://</code></th></tr></thead><tbody><tr><td>0</td><td>In-memory only</td><td>RAM</td><td>n/a</td><td>No</td><td>Yes</td></tr><tr><td>1</td><td>URL hash</td><td>~2–8 KB practical</td><td>Sync</td><td>Yes (it is in the link)</td><td>Yes</td></tr><tr><td>2</td><td><code>localStorage</code></td><td>~5 MB, strings only</td><td>Sync (blocking)</td><td>No</td><td>⚠️ unreliable</td></tr><tr><td>3</td><td><code>IndexedDB</code></td><td>Quota-based, often hundreds of MB</td><td>Async</td><td>No</td><td>⚠️ varies</td></tr><tr><td>4</td><td>OPFS</td><td>Quota-based</td><td>Async</td><td>No</td><td>⚠️ varies</td></tr><tr><td>5</td><td>Download / upload files</td><td>Unbounded</td><td>Async, manual</td><td>Yes</td><td>Yes</td></tr><tr><td>6</td><td>File System Access API</td><td>Unbounded</td><td>Async</td><td>Yes</td><td>Chromium only</td></tr><tr><td>7</td><td>Self-modifying document</td><td>Unbounded</td><td>Async, manual</td><td>Yes</td><td>Yes</td></tr></tbody></table><p>For most apps: rung 2 or 3 for working state, plus rung 5 as the durable export.
+Browser storage is a cache wearing a filing cabinet's clothes. Assume it gets
+wiped without warning, because sooner or later it will be.</p><p>⚠️ <strong><code>file://</code> and browser storage.</strong> Behaviour varies by browser and has
+changed over the years. Some treat every <code>file://</code> document as one shared
+origin, so two unrelated apps end up fighting over the same <code>localStorage</code>.
+Others hand out an opaque origin, so nothing persists at all. Never let a Level
+1 app <em>depend</em> on browser storage over <code>file://</code>. Use it when it happens to
+work, detect when it does not, and fall back to an explicit file export.</p><pre><code class="language-js">const storageAvailable = (() =&gt; {
+  try {
+    const k = '__probe__';
+    localStorage.setItem(k, k);
+    localStorage.removeItem(k);
+    return true;
+  } catch { return false; }
+})();
+</code></pre><hr><h2 id="2-localstorage-done-properly">2. localStorage, done properly</h2><p>The obvious version loses data. This one does not.</p><pre><code class="language-js">const KEY = 'myapp/v1';
+
+function saveState() {
+  if (!storageAvailable) return { ok: false, error: 'storage unavailable' };
+  try {
+    localStorage.setItem(KEY, JSON.stringify(persistable(store)));
+    return { ok: true };
+  } catch (err) {
+    // QuotaExceededError, or Safari private mode historically
+    return { ok: false, error: err.name };
+  }
+}
+
+function loadState() {
+  if (!storageAvailable) return { ok: false, error: 'storage unavailable' };
+  const raw = localStorage.getItem(KEY);
+  if (!raw) return { ok: false, error: 'no saved data' };
+  try {
+    return { ok: true, value: migrate(JSON.parse(raw)) };
+  } catch {
+    // Never throw away the bad data: somebody may want it recovered.
+    // Quarantining can itself fail on a full quota, so it must not throw.
+    try { localStorage.setItem(`${KEY}/corrupt/${Date.now()}`, raw); } catch {}
+    return { ok: false, error: 'saved data was unreadable; a copy was kept' };
+  }
+}
+
+// Strip transient UI state before persisting.
+const persistable = ({ schema, items, filter }) =&gt; ({ schema, items, filter });
+</code></pre><p>A few details there tend to be missing from the version people write first. The
+key is namespaced and versioned (<code>myapp/v1</code>, not <code>data</code>). Quota errors are
+caught, because an uncaught throw inside a save handler silently kills every
+save that would have followed. Corrupt data gets quarantined instead of
+discarded. And only domain state gets written, per
+<a href="/docs/architecture/#31-one-store-plain-object">01-architecture §3.1</a>.</p><h3 id="debounce-writes">Debounce writes</h3><p><code>localStorage</code> is synchronous and blocks the main thread, so do not write on
+every keystroke.</p><pre><code class="language-js">const debounce = (fn, ms = 400) =&gt; {
+  let t;
+  return (...a) =&gt; { clearTimeout(t); t = setTimeout(() =&gt; fn(...a), ms); };
+};
+const scheduleSave = debounce(saveState, 400);
+
+// And always flush on the way out:
+addEventListener('visibilitychange', () =&gt; {
+  if (document.visibilityState === 'hidden') saveState();
+});
+addEventListener('pagehide', saveState);
+</code></pre><p>⚠️ Use <code>visibilitychange</code> and <code>pagehide</code> rather than <code>beforeunload</code>. Mobile
+browsers discard tabs without ever firing <code>beforeunload</code>, and the data is gone
+before you knew there was a problem.</p><hr><h2 id="3-indexeddb-without-a-library">3. IndexedDB without a library</h2><p>You need it above about 5 MB, or for binary blobs, or when synchronous writes
+start hurting. The raw API is genuinely unpleasant to use directly, and forty
+lines of promise wrapper fixes that for good.</p><pre><code class="language-js">function openDB(name = 'myapp', version = 1) {
+  return new Promise((resolve, reject) =&gt; {
+    const req = indexedDB.open(name, version);
+    req.onupgradeneeded = () =&gt; {
+      const db = req.result;
+      if (!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
+      if (!db.objectStoreNames.contains('docs')) {
+        const s = db.createObjectStore('docs', { keyPath: 'id' });
+        s.createIndex('updated', 'updated');
+      }
+    };
+    req.onsuccess = () =&gt; resolve(req.result);
+    req.onerror = () =&gt; reject(req.error);
+    req.onblocked = () =&gt; reject(new Error('database blocked by another tab'));
+  });
+}
+
+function tx(db, storeName, mode, fn) {
+  return new Promise((resolve, reject) =&gt; {
+    const t = db.transaction(storeName, mode);
+    const result = fn(t.objectStore(storeName));
+    t.oncomplete = () =&gt; resolve(result?.result ?? result);
+    t.onerror = () =&gt; reject(t.error);
+    t.onabort = () =&gt; reject(t.error ?? new Error('transaction aborted'));
+  });
+}
+
+const idbGet = (db, k)    =&gt; tx(db, 'kv', 'readonly',  s =&gt; s.get(k));
+const idbSet = (db, k, v) =&gt; tx(db, 'kv', 'readwrite', s =&gt; s.put(v, k));
+const idbDel = (db, k)    =&gt; tx(db, 'kv', 'readwrite', s =&gt; s.delete(k));
+</code></pre><p>The reason to reach for IndexedDB is usually not capacity. It stores
+structured-cloneable values directly, so <code>Blob</code>, <code>File</code>, <code>ArrayBuffer</code>, <code>Map</code>
+and <code>Date</code> all survive a round trip with no serialisation code of your own.</p><h3 id="ask-for-persistence">Ask for persistence</h3><p>Browser storage is evictable by default when the device gets tight. Ask for
+better:</p><pre><code class="language-js">if (navigator.storage?.persist) {
+  const persisted = await navigator.storage.persisted();
+  if (!persisted) {
+    await navigator.storage.persist();
+    // Grant heuristics vary: engagement, installation, notification permission.
+    // Never assume it worked, and never tell the user their data is "safe"
+    // on the strength of it.
+  }
+}
+</code></pre><p>And show people where they stand:</p><pre><code class="language-js">const { usage, quota } = await navigator.storage.estimate();
+</code></pre><hr><h2 id="4-export-and-import-the-level-2-requirement">4. Export and import: the Level 2 requirement</h2><p>The highest-value feature in any offline app. Build it early, while the state
+shape is still small enough to think about.</p><h3 id="export">Export</h3><pre><code class="language-js">function exportState() {
+  const payload = {
+    format: 'myapp.export',
+    schema: store.schema,
+    exportedAt: new Date().toISOString(),
+    appVersion: document.querySelector('meta[name="sfwa:version"]')?.content ?? 'dev',
+    data: persistable(store),
+  };
+  download(
+    JSON.stringify(payload, null, 2),
+    `myapp-${new Date().toISOString().slice(0, 10)}.json`,
+    'application/json'
+  );
+}
+
+function download(text, filename, type = 'text/plain') {
+  const url = URL.createObjectURL(new Blob([text], { type: `${type};charset=utf-8` }));
+  const a = Object.assign(document.createElement('a'), { href: url, download: filename });
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() =&gt; URL.revokeObjectURL(url), 0);   // revoking synchronously can cancel the download
+}
+</code></pre><p>Those envelope fields are not ceremony. <code>format</code> lets you reject somebody else's
+JSON with a message that helps them. <code>schema</code> drives migration. <code>appVersion</code> and
+<code>exportedAt</code> turn a ten-minute support conversation into a ten-second one.</p><h3 id="import">Import</h3><pre><code class="language-js">async function importFromFile(file) {
+  const text = await file.text();
+  let payload;
+  try { payload = JSON.parse(text); }
+  catch { throw new Error('That file is not valid JSON.'); }
+
+  if (payload?.format !== 'myapp.export') {
+    throw new Error('That file was not exported from this app.');
+  }
+  if (payload.schema &gt; CURRENT_SCHEMA) {
+    throw new Error(`That file was made with a newer version (schema ${payload.schema}). Update the app first.`);
+  }
+  const data = migrate({ schema: payload.schema, ...payload.data });
+  if (!validate(data)) throw new Error('The file is readable but its contents are malformed.');
+  return data;
+}
+</code></pre><p>⚠️ <strong>Confirm before replacing.</strong> Import destroys whatever was there. Ask first,
+or better, export the current state automatically and tell the user where that
+copy went.</p><h3 id="accept-files-three-ways">Accept files three ways</h3><p>People will try all three, and supporting them costs about fifteen lines.
+<a href="https://iamsingle.app/entry/xlsx2md" class="entry-pill"><img src="/assets/logos/xlsx2md.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">xlsx2md</span></a> is a good model for how far this
+can be pushed: the whole app is a file-in, Markdown-out pipeline in 16 KB, and
+the import path is most of what it does.</p><pre><code class="language-js">// 1. Picker
+fileInput.addEventListener('change', e =&gt; e.target.files[0] &amp;&amp; handleFile(e.target.files[0]));
+
+// 2. Drag and drop
+document.addEventListener('dragover', e =&gt; { e.preventDefault(); document.body.classList.add('dragging'); });
+document.addEventListener('dragleave', () =&gt; document.body.classList.remove('dragging'));
+document.addEventListener('drop', e =&gt; {
+  e.preventDefault();
+  document.body.classList.remove('dragging');
+  const file = e.dataTransfer.files[0];
+  if (file) handleFile(file);
+});
+
+// 3. Paste
+document.addEventListener('paste', e =&gt; {
+  const file = [...e.clipboardData.files][0];
+  if (file) return handleFile(file);
+  const text = e.clipboardData.getData('text/plain');
+  if (text.trimStart().startsWith('{')) handleText(text);
+});
+</code></pre><hr><h2 id="5-versioning-and-migration">5. Versioning and migration</h2><p>Every persisted shape carries an integer <code>schema</code>, and migrations form a chain
+of pure functions that each move it forward exactly one step.</p><pre><code class="language-js">const CURRENT_SCHEMA = 4;
+
+const migrations = {
+  1: (s) =&gt; ({ ...s, filter: 'all', schema: 2 }),
+  2: (s) =&gt; ({ ...s, items: s.items.map(i =&gt; ({ ...i, createdAt: i.createdAt ?? null })), schema: 3 }),
+  3: (s) =&gt; ({ ...s, items: s.items.map(({ text, ...rest }) =&gt; ({ ...rest, label: text })), schema: 4 }),
+};
+
+function migrate(state) {
+  let s = { schema: 1, ...state };
+  while (s.schema &lt; CURRENT_SCHEMA) {
+    const step = migrations[s.schema];
+    if (!step) throw new Error(`No migration from schema ${s.schema}`);
+    s = step(s);
+  }
+  return s;
+}
+</code></pre><p>Migrations are append-only, so never edit one that has shipped, add another
+instead. Never migrate downward either: refuse a newer file with a clear message
+(see §4). Keep every migration forever, because somebody will open a two-year-old
+export, and three lines of code is a cheap insurance premium. And test the whole
+chain, because one test that runs a schema-1 fixture all the way to current
+catches the entire class of bug.</p><h3 id="validation">Validation</h3><p>Migration gets the shape right and validation confirms it. Hand-write the
+validator. It will be smaller than a schema library, it adds no dependency, and
+the messages it produces will be better than anything generic.</p><pre><code class="language-js">function validate(s) {
+  if (typeof s !== 'object' || s === null) return false;
+  if (!Array.isArray(s.items)) return false;
+  return s.items.every(i =&gt;
+    typeof i?.id === 'string' &amp;&amp;
+    typeof i?.label === 'string' &amp;&amp;
+    typeof i?.done === 'boolean'
+  );
+}
+</code></pre><hr><h2 id="6-the-self-saving-document">6. The self-saving document</h2><p>The Level 3 pattern, where the running app emits a new copy of its own HTML
+with the current state baked in. <a href="https://iamsingle.app/entry/tiddlywiki" class="entry-pill"><img src="/assets/logos/tiddlywiki.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">TiddlyWiki</span></a>
+has done this since 2004 and <a href="https://iamsingle.app/entry/nash" class="entry-pill"><img src="/assets/logos/nash.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">nash</span></a> is a
+recent, much smaller take on it.</p><h3 id="storage-slot">Storage slot</h3><pre><code class="language-html">&lt;script type="application/json" id="app-state"&gt;{"schema":4,"items":[]}&lt;/script&gt;
+</code></pre><p><code>type="application/json"</code> earns its keep here. The browser will not execute it,
+so even a hostile payload sits there inert until you parse it. <strong>Never</strong>
+serialise state into an executable <code>&lt;script&gt;</code>. That is an injection vector by
+construction, not by accident.</p><p>Both production examples do exactly this.
+<a href="https://iamsingle.app/entry/tiddlywiki" class="entry-pill"><img src="/assets/logos/tiddlywiki.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">TiddlyWiki</span></a> stores its tiddlers in
+<code>&lt;script class="tiddlywiki-tiddler-store" type="application/json"&gt;</code>, and
+<a href="https://iamsingle.app/entry/bento" class="entry-pill"><img src="/assets/logos/bento.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Bento</span></a> uses
+<code>&lt;script type="application/bento+json" id="bento-doc"&gt;</code> for the document with a
+deflate-compressed runtime in sibling blocks below it.</p><p>Keeping the block legible is worth more than it looks. Bento's readable JSON
+sits at the top of the file, above the compressed shell, so you can open a deck
+in a text editor and read the content even if the app itself has bit-rotted.
+That is a real recovery path, and it costs nothing to design in.</p><h3 id="reading-on-boot">Reading on boot</h3><pre><code class="language-js">function readEmbeddedState() {
+  const node = document.getElementById('app-state');
+  if (!node) return null;
+  try {
+    const parsed = JSON.parse(node.textContent || '{}');
+    const migrated = migrate(parsed);
+    return validate(migrated) ? migrated : null;
+  } catch { return null; }
+}
+</code></pre><h3 id="writing-a-new-copy">Writing a new copy</h3><pre><code class="language-js">function serializeSelf() {
+  const doc = document.documentElement.cloneNode(true);
+
+  // 1. Write current state into the slot.
+  const slot = doc.querySelector('#app-state');
+  slot.textContent = JSON.stringify(persistable(store))
+    .replaceAll('&lt;', '\\u003c');            // cannot terminate the script element
+
+  // 2. Reset the DOM to its pristine, pre-render form. The app rebuilds
+  //    everything from state on boot, so shipping rendered DOM is wrong.
+  doc.querySelector('#app').replaceChildren();
+  doc.querySelectorAll('[data-transient]').forEach(n =&gt; n.remove());
+  doc.querySelector('body')?.removeAttribute('data-ready');
+
+  return '&lt;!doctype html&gt;\n' + doc.outerHTML;
+}
+
+function saveSelf() {
+  const name = (store.title || 'document').replace(/[^\w-]+/g, '-').toLowerCase();
+  download(serializeSelf(), `${name}-${new Date().toISOString().slice(0,10)}.html`, 'text/html');
+}
+</code></pre><h3 id="where-this-goes-wrong">Where this goes wrong</h3><ol><li><p><strong>Rendered DOM leaking into the saved copy.</strong> Clone the live document without
+resetting it and every save doubles the rendered markup, quietly, until
+somebody notices the file is 40 MB. Step 2 above is not optional. It also
+implies an architectural precondition: the app must render <em>entirely</em> from
+state, with no DOM authored by hand at runtime and left lying around.</p></li><li><p><strong><code>&lt;/script&gt;</code> inside serialised data.</strong> Somebody types <code>&lt;/script&gt;</code> into a
+text field, the state block terminates early, and the file is corrupt.
+Escaping <code>&lt;</code> as <code>\u003c</code> fixes it, and the result is still valid JSON that
+parses to exactly the same string.</p></li><li><p><strong>The browser cannot overwrite the original.</strong> <code>download()</code> writes a <em>new</em>
+file, usually landing as <code>app (3).html</code>. People then edit the wrong copy and
+lose an afternoon's work. Either be loud about this in the UI or use the File
+System Access API (§7) to write back in place where it exists.</p></li><li><p><strong>Growth.</strong> Every save embeds the full state, and base64 images inside a
+self-saving document will push it into the megabytes faster than you expect.
+Cap embedded binary size, and move large assets to IndexedDB with a clear
+warning that they will not travel with the file.</p></li></ol><hr><h2 id="7-file-system-access-api">7. File System Access API</h2><p>Where it exists, this gives you a real open-edit-save loop with no downloads
+folder sitting in the middle of it.</p><pre><code class="language-js">const canUseFS = 'showSaveFilePicker' in window;   // Chromium desktop today
+
+let handle = null;
+
+async function openFile() {
+  [handle] = await showOpenFilePicker({
+    types: [{ description: 'MyApp document', accept: { 'application/json': ['.json'] } }],
+    multiple: false,
+  });
+  const file = await handle.getFile();
+  return JSON.parse(await file.text());
+}
+
+async function saveFile(text) {
+  if (!handle) {
+    handle = await showSaveFilePicker({
+      suggestedName: 'document.json',
+      types: [{ description: 'MyApp document', accept: { 'application/json': ['.json'] } }],
+    });
+  }
+  const writable = await handle.createWritable();
+  await writable.write(text);
+  await writable.close();
+}
+</code></pre><p>Pickers need a user gesture, so calling one outside a click handler throws. Handles can be stashed in IndexedDB and reused across
+sessions, but permission has to be re-requested through
+<code>handle.queryPermission()</code> and <code>requestPermission()</code>. And feature-detect, always,
+falling back to the download and upload pair from §4. An API with partial
+support should never be your only save path.</p><h3 id="opfs">OPFS</h3><p>The Origin Private File System is a sandboxed, fast filesystem the user cannot
+browse. It suits large working data, a scratch database or a video buffer, and
+it is emphatically not a durable user-visible store.</p><pre><code class="language-js">const root = await navigator.storage.getDirectory();
+const fh = await root.getFileHandle('scratch.bin', { create: true });
+const w = await fh.createWritable();
+await w.write(bytes);
+await w.close();
+</code></pre><p>⚠️ <code>createWritable</code> and <code>createSyncAccessHandle</code> (worker-only) have different
+availability across engines. Detect both and pick per environment.</p><hr><h2 id="8-state-in-the-url">8. State in the URL</h2><p>For small state the URL beats everything else. It is shareable, bookmarkable,
+survives a wiped browser profile, and asks nobody for permission.</p><pre><code class="language-js">async function encodeState(obj) {
+  const bytes = new TextEncoder().encode(JSON.stringify(obj));
+  const cs = new CompressionStream('gzip');
+  const writer = cs.writable.getWriter();
+  writer.write(bytes); writer.close();
+  const buf = new Uint8Array(await new Response(cs.readable).arrayBuffer());
+  let bin = '';
+  for (const b of buf) bin += String.fromCharCode(b);
+  return btoa(bin).replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/, '');
+}
+
+async function decodeState(str) {
+  const b64 = str.replaceAll('-', '+').replaceAll('_', '/');
+  const bin = atob(b64);
+  const bytes = Uint8Array.from(bin, c =&gt; c.charCodeAt(0));
+  const ds = new DecompressionStream('gzip');
+  const writer = ds.writable.getWriter();
+  writer.write(bytes); writer.close();
+  const out = await new Response(ds.readable).text();
+  return JSON.parse(out);
+}
+</code></pre><p>Use the hash, never the query string. Fragments never reach a server, so the
+state stays on the user's machine even when the app is hosted. That is a privacy
+guarantee you get for free.</p><p>Budget about 2,000 characters. Longer URLs work fine in browsers and then break
+in chat clients, email and the occasional proxy.</p><p>Use <code>history.replaceState</code> for continuous updates, unless you want every
+keystroke in the back button.</p><p>Compression usually takes 60 to 80% off JSON, which is the only reason any of
+this is viable for structured state.</p><hr><h2 id="9-cross-tab-coordination">9. Cross-tab coordination</h2><p>Two tabs of the same app will happily overwrite each other. Two lines stop
+them.</p><pre><code class="language-js">const bus = new BroadcastChannel('myapp');
+bus.onmessage = (e) =&gt; {
+  if (e.data.type === 'state') { Object.assign(store, e.data.value); render(); }
+};
+// after a local save:
+bus.postMessage({ type: 'state', value: persistable(store) });
+</code></pre><p>For something stricter, elect a single writer with the Web Locks API:</p><pre><code class="language-js">let isPrimary = false;
+
+navigator.locks.request('myapp-writer', { mode: 'exclusive' }, async () =&gt; {
+  isPrimary = true;
+  await new Promise(() =&gt; {});   // hold for the tab's lifetime
+});
+</code></pre><p>⚠️ <code>BroadcastChannel</code> does not work between <code>file://</code> documents in every
+browser. Treat it as a nicety on hosted deployments and never depend on it at
+Level 1.</p><hr><h2 id="10-encryption-at-rest">10. Encryption at rest</h2><p>If the app holds anything sensitive and the file might be shared, encrypt the
+payload. The filesystem it happens to be sitting on deserves no trust at all.
+<a href="https://iamsingle.app/entry/hypervault" class="entry-pill"><img src="/assets/logos/hypervault.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Hypervault</span></a> is the reference example in
+the directory: it embeds a copy of the decryption logic alongside the encrypted
+data, so the artifact stays openable without the original app.</p><pre><code class="language-js">async function deriveKey(passphrase, salt) {
+  const material = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(passphrase), 'PBKDF2', false, ['deriveKey']
+  );
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: 600_000, hash: 'SHA-256' },
+    material,
+    { name: 'AES-GCM', length: 256 },
+    false, ['encrypt', 'decrypt']
+  );
+}
+
+async function encrypt(plaintext, passphrase) {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv   = crypto.getRandomValues(new Uint8Array(12));
+  const key  = await deriveKey(passphrase, salt);
+  const ct   = new Uint8Array(await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv }, key, new TextEncoder().encode(plaintext)
+  ));
+  return { v: 1, salt: [...salt], iv: [...iv], ct: [...ct] };
+}
+
+async function decrypt({ salt, iv, ct }, passphrase) {
+  const key = await deriveKey(passphrase, new Uint8Array(salt));
+  const pt  = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: new Uint8Array(iv) }, key, new Uint8Array(ct)
+  );
+  return new TextDecoder().decode(pt);
+}
+</code></pre><p>A fresh IV for every encryption, without exception. Reusing one with AES-GCM is
+not a weakening, it is a break.</p><p>Store the salt and IV next to the ciphertext. Neither is secret.</p><p>Version the envelope (<code>v: 1</code>) so you can raise the iteration count later. The
+600,000 above is the current OWASP floor for PBKDF2-SHA-256, and floors rise.</p><p><code>crypto.subtle</code> needs a secure context. <code>https://</code>, <code>localhost</code> and, in current
+Chrome and Firefox, <code>file://</code> all qualify. Verify in the browsers you actually
+target.</p><p>And say plainly, in the UI, before anything is encrypted, that a forgotten
+passphrase means the data is gone. There is no recovery path and people will
+assume there is one.</p>
+      <div class="docs-pager"><a href="/docs/architecture/"><span class="dir">&larr; previous</span>Architecture</a><a class="next" href="/docs/build-tooling/"><span class="dir">next &rarr;</span>Build and Tooling</a></div>
+    </main>
+  </div>
+
+</div>
+</body>
+</html>

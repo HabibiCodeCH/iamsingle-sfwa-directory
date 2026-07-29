@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<title>Cookbook — SFWA Docs — iamsingle.app</title>
+<meta name="description" content="Sixteen copy-paste recipes: reactive state, inline workers, inline WASM, URL state, undo stacks.">
+<link rel="canonical" href="https://iamsingle.app/docs/cookbook/">
+<link rel="alternate" type="application/rss+xml" title="iamsingle.app — new entries" href="/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="iamsingle.app">
+<meta property="og:title" content="Cookbook — SFWA Docs — iamsingle.app">
+<meta property="og:description" content="Sixteen copy-paste recipes: reactive state, inline workers, inline WASM, URL state, undo stacks.">
+<meta property="og:url" content="https://iamsingle.app/docs/cookbook/">
+<meta property="og:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cookbook — SFWA Docs — iamsingle.app">
+<meta name="twitter:description" content="Sixteen copy-paste recipes: reactive state, inline workers, inline WASM, URL state, undo stacks.">
+<meta name="twitter:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="/">iamsingle.app</a><span class="sep">›</span><a href="/docs/">SFWA Docs</a><span class="sep">›</span><span class="current">Cookbook</span></nav>
+
+  <div class="docs-shell">
+    <nav class="docs-sidebar">
+    <div class="docs-sidebar-label">SFWA docs</div>
+    <ol>
+      <li><a href="/docs/">00. The SFWA Specification</a></li>
+      <li><a href="/docs/architecture/">01. Architecture</a></li>
+      <li><a href="/docs/persistence/">02. Persistence and State</a></li>
+      <li><a href="/docs/build-tooling/">03. Build and Tooling</a></li>
+      <li><a href="/docs/security/">04. Security and Privacy</a></li>
+      <li><a href="/docs/distribution/">05. Distribution</a></li>
+      <li><a href="/docs/cookbook/" aria-current="page">06. Cookbook</a></li>
+      <li><a href="/docs/checklist/">07. Review Checklist</a></li>
+    </ol>
+  </nav>
+    <main class="docs-content">
+<h1 id="06-cookbook">06. Cookbook</h1><p>Sixteen recipes. All dependency-free unless stated. All Level 1 compatible
+unless flagged.</p><p><strong>Contents</strong></p><ol><li><a href="#1-minimal-skeleton">Minimal skeleton</a></li><li><a href="#2-reactive-state-in-20-lines">Reactive state in 20 lines</a></li><li><a href="#3-preact--htm-without-a-build">Preact + htm without a build</a> <em>(Level 0)</em></li><li><a href="#4-inline-web-worker">Inline web worker</a></li><li><a href="#5-inline-webassembly">Inline WebAssembly</a></li><li><a href="#6-open-and-save-files">Open and save files</a></li><li><a href="#7-self-saving-document">Self-saving document</a></li><li><a href="#8-state-in-the-url">State in the URL</a></li><li><a href="#9-dialogs-and-toasts">Dialogs and toasts</a></li><li><a href="#10-theme-switching">Theme switching</a></li><li><a href="#11-virtualised-list">Virtualised list</a></li><li><a href="#12-keyboard-shortcut-map">Keyboard shortcut map</a></li><li><a href="#13-undo-and-redo">Undo and redo</a></li><li><a href="#14-csv-import-and-export">CSV import and export</a></li><li><a href="#15-inline-svg-sprite">Inline SVG sprite</a></li><li><a href="#16-print-stylesheet">Print stylesheet</a></li></ol><hr><h2 id="1-minimal-skeleton">1. Minimal skeleton</h2><pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'"&gt;
+&lt;title&gt;App&lt;/title&gt;
+&lt;meta name="sfwa:level" content="1"&gt;
+&lt;meta name="sfwa:version" content="0.1.0"&gt;
+&lt;meta name="sfwa:network" content="none"&gt;
+&lt;style&gt;
+@layer reset, base, components;
+@layer reset { *,*::before,*::after { box-sizing: border-box; } body { margin: 0; } }
+@layer base {
+  :root {
+    color-scheme: light dark;
+    --bg: light-dark(#fdfdfc, #16161a);
+    --text: light-dark(#1a1a1a, #e8e8e6);
+    --accent: light-dark(#2f5fd0, #7aa2f7);
+    --border: light-dark(#e2e2df, #2e2e36);
+  }
+  body {
+    font: 16px/1.5 system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    max-width: 46rem; margin-inline: auto; padding: 2rem 1rem;
+    opacity: 0; transition: opacity .15s;
+  }
+  body[data-ready] { opacity: 1; }
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;main id="app"&gt;&lt;/main&gt;
+&lt;noscript&gt;&lt;p&gt;This app needs JavaScript. It runs entirely on your device.&lt;/p&gt;&lt;/noscript&gt;
+&lt;script&gt;
+'use strict';
+(() =&gt; {
+  const app = document.getElementById('app');
+  function init() {
+    app.textContent = 'Hello.';
+    document.body.dataset.ready = '';
+  }
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><hr><h2 id="2-reactive-state-in-20-lines">2. Reactive state in 20 lines</h2><pre><code class="language-js">function createStore(initial, onChange) {
+  let scheduled = false;
+  const schedule = () =&gt; {
+    if (scheduled) return;
+    scheduled = true;
+    queueMicrotask(() =&gt; { scheduled = false; onChange(state); });
+  };
+  const state = new Proxy({ ...initial }, {
+    set(t, k, v) {
+      if (Object.is(t[k], v)) return true;
+      t[k] = v; schedule(); return true;
+    },
+    deleteProperty(t, k) { delete t[k]; schedule(); return true; },
+  });
+  return state;
+}
+
+const store = createStore({ count: 0, items: [] }, render);
+
+// Shallow by design. Replace arrays and objects, never mutate them:
+store.items = [...store.items, newItem];   // triggers
+store.items.push(newItem);                 // does NOT trigger
+</code></pre><p><code>queueMicrotask</code> collapses every synchronous mutation in a turn into one render.
+Swap in <code>requestAnimationFrame</code> if renders are expensive and you want to
+coalesce across event handlers too.</p><hr><h2 id="3-preact--htm-without-a-build">3. Preact + htm without a build</h2><p>⚠️ <strong>Level 0.</strong> Fetches from a CDN and uses a module script, so it will not work
+over <code>file://</code>.</p><pre><code class="language-html">&lt;script type="importmap"&gt;
+{"imports":{
+  "preact":"https://esm.sh/preact@10.24.3",
+  "preact/hooks":"https://esm.sh/preact@10.24.3/hooks",
+  "htm/preact":"https://esm.sh/htm@3.1.1/preact"
+}}
+&lt;/script&gt;
+&lt;script type="module"&gt;
+import { render } from 'preact';
+import { useState } from 'preact/hooks';
+import { html } from 'htm/preact';
+
+function Counter() {
+  const [n, setN] = useState(0);
+  return html`
+    &lt;button onClick=${() =&gt; setN(n - 1)}&gt;−&lt;/button&gt;
+    &lt;output&gt;${n}&lt;/output&gt;
+    &lt;button onClick=${() =&gt; setN(n + 1)}&gt;+&lt;/button&gt;
+  `;
+}
+render(html`&lt;${Counter} /&gt;`, document.getElementById('app'));
+&lt;/script&gt;
+</code></pre><p>For Level 1, bundle it with the toolchain in
+<a href="/docs/build-tooling/#3-bundling-to-a-single-file">03-build-tooling §3</a>.</p><hr><h2 id="4-inline-web-worker">4. Inline web worker</h2><p>Keep the worker source in a non-executing block and instantiate it from a blob.</p><pre><code class="language-html">&lt;script type="text/worker" id="worker-src"&gt;
+self.onmessage = (e) =&gt; {
+  const { numbers } = e.data;
+  let sum = 0;
+  for (const n of numbers) sum += Math.sqrt(n);
+  self.postMessage({ sum });
+};
+&lt;/script&gt;
+</code></pre><pre><code class="language-js">const src = document.getElementById('worker-src').textContent;
+const url = URL.createObjectURL(new Blob([src], { type: 'text/javascript' }));
+const worker = new Worker(url);
+URL.revokeObjectURL(url);          // safe: the worker already holds the resource
+
+function compute(numbers) {
+  return new Promise((resolve, reject) =&gt; {
+    worker.onmessage = (e) =&gt; resolve(e.data);
+    worker.onerror = reject;
+    worker.postMessage({ numbers });
+  });
+}
+</code></pre><p>⚠️ Three ways this goes wrong:</p><ul><li>CSP has to allow <code>worker-src blob:</code>.</li><li>The literal string <code>&lt;/script&gt;</code> inside the worker source terminates the block.
+Write <code>&lt;\/script&gt;</code> where you need it.</li><li>Blob workers have no base URL, so <code>importScripts</code> with a relative path fails.
+Inline everything the worker needs.</li></ul><p>For heavy work, transfer buffers instead of copying them:</p><pre><code class="language-js">worker.postMessage({ buf }, [buf]);   // buf is neutered in the sender
+</code></pre><hr><h2 id="5-inline-webassembly">5. Inline WebAssembly</h2><pre><code class="language-html">&lt;script type="text/plain" id="wasm-b64"&gt;AGFzbQEAAAABBgFgAX8BfwMCAQAHBwEDYWRkAAAKCQEHACAAQQFqCw==&lt;/script&gt;
+</code></pre><pre><code class="language-js">const b64 = document.getElementById('wasm-b64').textContent.trim();
+const bytes = Uint8Array.from(atob(b64), c =&gt; c.charCodeAt(0));
+const { instance } = await WebAssembly.instantiate(bytes, {});
+console.log(instance.exports.add(41));   // 42
+</code></pre><p>Base64 costs about 33% overhead, so past a few hundred KB, reconsider whether
+Level 1 earns its weight. <code>WebAssembly.instantiate</code> on raw bytes works over
+<code>file://</code>, while <code>instantiateStreaming</code> does not, since it wants a <code>Response</code>.
+Bundlers can also emit the module as a compact typed-array literal instead of
+base64, via the <code>binary</code> loader in
+<a href="/docs/build-tooling/#33-inlining-assets-in-source">03-build-tooling §3.3</a>.</p><hr><h2 id="6-open-and-save-files">6. Open and save files</h2><p>Progressive enhancement: the modern API where it exists, the classic pair
+everywhere else.</p><p>⚠️ Note the name <code>openFile</code>. A top-level <code>function open()</code> in a classic script
+shadows <code>window.open</code> for the whole app, and you will not enjoy finding that out
+three features later.</p><pre><code class="language-js">const hasFS = 'showSaveFilePicker' in window;
+let fileHandle = null;
+
+async function openFile() {
+  if (hasFS) {
+    [fileHandle] = await showOpenFilePicker({
+      types: [{ description: 'Document', accept: { 'application/json': ['.json'] } }],
+    });
+    return (await fileHandle.getFile()).text();
+  }
+  return new Promise((resolve) =&gt; {
+    const input = Object.assign(document.createElement('input'),
+      { type: 'file', accept: '.json,application/json' });
+    input.onchange = () =&gt; input.files[0]?.text().then(resolve);
+    input.click();
+  });
+}
+
+async function save(text, suggestedName = 'document.json') {
+  if (hasFS) {
+    fileHandle ??= await showSaveFilePicker({
+      suggestedName,
+      types: [{ description: 'Document', accept: { 'application/json': ['.json'] } }],
+    });
+    const w = await fileHandle.createWritable();
+    await w.write(text);
+    await w.close();
+    return;
+  }
+  const url = URL.createObjectURL(new Blob([text], { type: 'application/json;charset=utf-8' }));
+  const a = Object.assign(document.createElement('a'), { href: url, download: suggestedName });
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() =&gt; URL.revokeObjectURL(url), 0);
+}
+</code></pre><p>⚠️ Both pickers need a user gesture. Call them straight from a click handler,
+never after an <code>await</code> that has already yielded to the event loop.</p><hr><h2 id="7-self-saving-document">7. Self-saving document</h2><p>The pattern behind <a href="https://iamsingle.app/entry/tiddlywiki" class="entry-pill"><img src="/assets/logos/tiddlywiki.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">TiddlyWiki</span></a> and
+<a href="https://iamsingle.app/entry/nash" class="entry-pill"><img src="/assets/logos/nash.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">nash</span></a>.</p><pre><code class="language-html">&lt;script type="application/json" id="app-state"&gt;{"schema":1,"items":[]}&lt;/script&gt;
+</code></pre><pre><code class="language-js">function loadEmbedded() {
+  try {
+    const parsed = JSON.parse(document.getElementById('app-state').textContent || '{}');
+    return validate(parsed) ? parsed : null;
+  } catch { return null; }
+}
+
+function serializeSelf() {
+  const doc = document.documentElement.cloneNode(true);
+
+  doc.querySelector('#app-state').textContent =
+    JSON.stringify(persistable(store)).replaceAll('&lt;', '\\u003c');
+
+  // Reset to pristine DOM. The app rebuilds from state on boot.
+  doc.querySelector('#app').replaceChildren();
+  doc.querySelectorAll('[data-transient]').forEach(n =&gt; n.remove());
+  doc.querySelector('body').removeAttribute('data-ready');
+
+  return '&lt;!doctype html&gt;\n' + doc.outerHTML;
+}
+
+async function saveSelf() {
+  const name = (store.title || 'document').replace(/[^\w-]+/g, '-').toLowerCase();
+  await save(serializeSelf(), `${name}.html`);
+}
+</code></pre><p>Escaping <code>&lt;</code> is what stops somebody typing <code>&lt;/script&gt;</code> from destroying the file,
+and the result is still valid JSON.</p><p>See <a href="/docs/persistence/#6-the-self-saving-document">02-persistence §6</a> for
+everything else that can go wrong here.</p><hr><h2 id="8-state-in-the-url">8. State in the URL</h2><pre><code class="language-js">const enc = async (obj) =&gt; {
+  const cs = new CompressionStream('gzip');
+  const w = cs.writable.getWriter();
+  w.write(new TextEncoder().encode(JSON.stringify(obj))); w.close();
+  const bytes = new Uint8Array(await new Response(cs.readable).arrayBuffer());
+  return btoa(String.fromCharCode(...bytes))
+    .replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/, '');
+};
+
+const dec = async (s) =&gt; {
+  const bytes = Uint8Array.from(
+    atob(s.replaceAll('-', '+').replaceAll('_', '/')), c =&gt; c.charCodeAt(0));
+  const ds = new DecompressionStream('gzip');
+  const w = ds.writable.getWriter();
+  w.write(bytes); w.close();
+  return JSON.parse(await new Response(ds.readable).text());
+};
+
+// write (does not pollute history)
+history.replaceState(null, '', '#' + await enc(persistable(store)));
+
+// read on boot
+if (location.hash.length &gt; 1) {
+  try { Object.assign(store, await dec(location.hash.slice(1))); }
+  catch { notice('That link contained unreadable data.'); }
+}
+</code></pre><p>⚠️ <code>String.fromCharCode(...bytes)</code> blows the argument limit somewhere past
+100 KB of compressed data. Chunk it if you must, though URLs that size are
+unusable anyway. Keep the encoded string under about 2,000 characters.</p><hr><h2 id="9-dialogs-and-toasts">9. Dialogs and toasts</h2><p><code>&lt;dialog&gt;</code> hands you a modal with focus trapping, <code>Escape</code> handling and a
+backdrop, at no cost.</p><pre><code class="language-html">&lt;dialog id="confirm"&gt;
+  &lt;form method="dialog"&gt;
+    &lt;h2&gt;Replace all data?&lt;/h2&gt;
+    &lt;p&gt;Importing will discard the current document.&lt;/p&gt;
+    &lt;menu&gt;
+      &lt;button value="cancel"&gt;Cancel&lt;/button&gt;
+      &lt;button value="ok" autofocus&gt;Replace&lt;/button&gt;
+    &lt;/menu&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;
+</code></pre><pre><code class="language-js">function confirmDialog() {
+  const dlg = document.getElementById('confirm');
+  dlg.showModal();
+  return new Promise(resolve =&gt;
+    dlg.addEventListener('close', () =&gt; resolve(dlg.returnValue === 'ok'), { once: true }));
+}
+</code></pre><pre><code class="language-css">dialog::backdrop { background: rgb(0 0 0 / .4); backdrop-filter: blur(2px); }
+dialog { border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+</code></pre><p>Toasts via the top layer, no library:</p><pre><code class="language-js">function toast(message, ms = 3000) {
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.setAttribute('role', 'status');
+  el.textContent = message;
+  el.dataset.transient = '';           // excluded from self-save
+  document.body.append(el);
+  setTimeout(() =&gt; el.remove(), ms);
+}
+</code></pre><p><code>role="status"</code> gets it announced by screen readers without stealing focus.</p><hr><h2 id="10-theme-switching">10. Theme switching</h2><p>Respect the OS by default, allow an override, remember the choice.</p><pre><code class="language-css">:root { color-scheme: light dark; }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
+</code></pre><pre><code class="language-js">const THEME_KEY = 'myapp/theme';
+const applyTheme = (t) =&gt; {
+  if (t === 'system') delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = t;
+};
+applyTheme(localStorage.getItem(THEME_KEY) ?? 'system');
+
+select.addEventListener('change', (e) =&gt; {
+  localStorage.setItem(THEME_KEY, e.target.value);
+  applyTheme(e.target.value);
+});
+</code></pre><p>With <code>light-dark()</code> in your token definitions (see
+<a href="/docs/architecture/#51-tokens-first">01-architecture §5.1</a>), setting
+<code>color-scheme</code> is the whole implementation. No duplicated palette, no
+<code>prefers-color-scheme</code> media query, no flash of the wrong theme.</p><hr><h2 id="11-virtualised-list">11. Virtualised list</h2><p>Past a few thousand rows, render only what is on screen.</p><pre><code class="language-js">function virtualList({ container, items, rowHeight, renderRow, overscan = 5 }) {
+  const spacer = document.createElement('div');
+  const viewport = document.createElement('div');
+  viewport.style.position = 'relative';
+  spacer.style.height = `${items.length * rowHeight}px`;
+  spacer.append(viewport);
+  container.replaceChildren(spacer);
+
+  function paint() {
+    const start = Math.max(0, Math.floor(container.scrollTop / rowHeight) - overscan);
+    const count = Math.ceil(container.clientHeight / rowHeight) + overscan * 2;
+    const slice = items.slice(start, start + count);
+    viewport.style.transform = `translateY(${start * rowHeight}px)`;
+    viewport.replaceChildren(...slice.map((item, i) =&gt; {
+      const node = renderRow(item, start + i);
+      node.style.height = `${rowHeight}px`;
+      return node;
+    }));
+  }
+
+  container.addEventListener('scroll', () =&gt; requestAnimationFrame(paint), { passive: true });
+  paint();
+  return { refresh: paint };
+}
+</code></pre><p>Row height has to be fixed. Variable heights need measurement and a position
+cache, and at that point ask whether the app should be paging instead.</p><hr><h2 id="12-keyboard-shortcut-map">12. Keyboard shortcut map</h2><p>One declarative table beats a cascade of conditionals.</p><pre><code class="language-js">const shortcuts = {
+  'mod+s':     () =&gt; { saveSelf(); },
+  'mod+z':     () =&gt; undo(),
+  'mod+shift+z': () =&gt; redo(),
+  'mod+k':     () =&gt; openCommandPalette(),
+  '/':         () =&gt; searchInput.focus(),
+  'Escape':    () =&gt; closeOverlays(),
+};
+
+const isMac = navigator.platform?.startsWith('Mac')
+  || /Mac/.test(navigator.userAgentData?.platform ?? '');
+
+document.addEventListener('keydown', (e) =&gt; {
+  const inField = e.target.matches('input, textarea, select, [contenteditable]');
+  const parts = [];
+  if (isMac ? e.metaKey : e.ctrlKey) parts.push('mod');
+  if (e.shiftKey) parts.push('shift');
+  if (e.altKey) parts.push('alt');
+  parts.push(e.key.length === 1 ? e.key.toLowerCase() : e.key);
+  const combo = parts.join('+');
+
+  if (inField &amp;&amp; !combo.startsWith('mod') &amp;&amp; combo !== 'Escape') return;
+  const handler = shortcuts[combo];
+  if (handler) { e.preventDefault(); handler(); }
+});
+</code></pre><p>Render the same object as your help screen and the documentation can never drift
+from the implementation, since they are the same data.</p><hr><h2 id="13-undo-and-redo">13. Undo and redo</h2><p>Snapshot-based. Simple, correct, and fine up to state sizes in the low
+megabytes.</p><pre><code class="language-js">// Not named `history`: that would shadow window.history, which recipe 8 uses.
+const undoStack = { past: [], future: [], limit: 100 };
+
+function commit(mutate) {
+  const before = structuredClone(persistable(store));
+  mutate();
+  undoStack.past.push(before);
+  if (undoStack.past.length &gt; undoStack.limit) undoStack.past.shift();
+  undoStack.future.length = 0;
+}
+
+function undo() {
+  if (!undoStack.past.length) return;
+  undoStack.future.push(structuredClone(persistable(store)));
+  Object.assign(store, undoStack.past.pop());
+  render();
+}
+
+function redo() {
+  if (!undoStack.future.length) return;
+  undoStack.past.push(structuredClone(persistable(store)));
+  Object.assign(store, undoStack.future.pop());
+  render();
+}
+
+// usage
+commit(() =&gt; { store.items = [...store.items, item]; });
+</code></pre><p>For text input, coalesce rapid edits into one entry so you are not snapshotting
+per keystroke:</p><pre><code class="language-js">let coalesceTimer = null;
+function commitCoalesced(mutate, ms = 600) {
+  if (coalesceTimer) { clearTimeout(coalesceTimer); mutate(); }
+  else commit(mutate);
+  coalesceTimer = setTimeout(() =&gt; { coalesceTimer = null; }, ms);
+}
+</code></pre><p>Once state passes a few megabytes, switch to storing inverse operations.</p><hr><h2 id="14-csv-import-and-export">14. CSV import and export</h2><p>A correct-enough parser that handles quotes, escaped quotes and embedded
+newlines.</p><pre><code class="language-js">function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  text = text.replace(/\r\n?/g, '\n');
+
+  for (let i = 0; i &lt; text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else field += c;
+    } else if (c === '"') inQuotes = true;
+    else if (c === ',') { row.push(field); field = ''; }
+    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+    else field += c;
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  return rows;
+}
+
+function toCSV(rows) {
+  const esc = (v) =&gt; {
+    const s = String(v ?? '');
+    return /[",\n]/.test(s) ? `"${s.replaceAll('"', '""')}"` : s;
+  };
+  return rows.map(r =&gt; r.map(esc).join(',')).join('\r\n');
+}
+</code></pre><p>⚠️ Prefix the export with a BOM if Excel is a target, or it mangles non-ASCII
+characters:</p><pre><code class="language-js">download('\uFEFF' + toCSV(rows), 'export.csv', 'text/csv');
+</code></pre><p>⚠️ <strong>CSV injection.</strong> Spreadsheet software treats a cell beginning with <code>=</code>,
+<code>+</code>, <code>-</code> or <code>@</code> as a formula. If the exported data came from untrusted input,
+prefix those cells with an apostrophe.</p><hr><h2 id="15-inline-svg-sprite">15. Inline SVG sprite</h2><p>One hidden sprite, referenced by <code>&lt;use&gt;</code>. Cacheable, styleable, no icon font.</p><pre><code class="language-html">&lt;svg width="0" height="0" style="position:absolute" aria-hidden="true"&gt;
+  &lt;defs&gt;
+    &lt;symbol id="i-save" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;
+      &lt;path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/&gt;
+      &lt;polyline points="17 21 17 13 7 13 7 21"/&gt;
+      &lt;polyline points="7 3 7 8 15 8"/&gt;
+    &lt;/symbol&gt;
+    &lt;symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;
+      &lt;polyline points="3 6 5 6 21 6"/&gt;
+      &lt;path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/&gt;
+    &lt;/symbol&gt;
+  &lt;/defs&gt;
+&lt;/svg&gt;
+</code></pre><pre><code class="language-html">&lt;button aria-label="Save"&gt;&lt;svg class="icon"&gt;&lt;use href="#i-save"/&gt;&lt;/svg&gt;&lt;/button&gt;
+</code></pre><pre><code class="language-css">.icon { width: 1.25em; height: 1.25em; }
+</code></pre><p><code>stroke="currentColor"</code> lets icons inherit text colour, so they follow theme
+changes with no extra work.</p><hr><h2 id="16-print-stylesheet">16. Print stylesheet</h2><p>Offline apps get printed. Fifteen lines keeps that from being embarrassing.</p><pre><code class="language-css">@media print {
+  @page { margin: 18mm; }
+
+  :root { color-scheme: light; }
+  body { max-width: none; padding: 0; font-size: 11pt; }
+
+  nav, .toolbar, button, dialog, .toast, [data-transient] { display: none !important; }
+
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
+
+  table { border-collapse: collapse; width: 100%; }
+  thead { display: table-header-group; }     /* repeat headers across pages */
+  tr, img, figure { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+}
+</code></pre><pre><code class="language-js">document.getElementById('print').addEventListener('click', () =&gt; window.print());
+</code></pre><p>Printing to PDF is also the cheapest export format you will ever implement, so
+mention it in the UI next to your JSON export.</p>
+      <div class="docs-pager"><a href="/docs/distribution/"><span class="dir">&larr; previous</span>Distribution</a><a class="next" href="/docs/checklist/"><span class="dir">next &rarr;</span>Review Checklist</a></div>
+    </main>
+  </div>
+
+</div>
+</body>
+</html>

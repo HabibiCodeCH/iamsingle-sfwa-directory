@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<title>Security and Privacy — SFWA Docs — iamsingle.app</title>
+<meta name="description" content="Threat model, CSP in a meta tag, SRI, BYOK keys, local encryption.">
+<link rel="canonical" href="https://iamsingle.app/docs/security/">
+<link rel="alternate" type="application/rss+xml" title="iamsingle.app — new entries" href="/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="iamsingle.app">
+<meta property="og:title" content="Security and Privacy — SFWA Docs — iamsingle.app">
+<meta property="og:description" content="Threat model, CSP in a meta tag, SRI, BYOK keys, local encryption.">
+<meta property="og:url" content="https://iamsingle.app/docs/security/">
+<meta property="og:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Security and Privacy — SFWA Docs — iamsingle.app">
+<meta name="twitter:description" content="Threat model, CSP in a meta tag, SRI, BYOK keys, local encryption.">
+<meta name="twitter:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="/">iamsingle.app</a><span class="sep">›</span><a href="/docs/">SFWA Docs</a><span class="sep">›</span><span class="current">Security and Privacy</span></nav>
+
+  <div class="docs-shell">
+    <nav class="docs-sidebar">
+    <div class="docs-sidebar-label">SFWA docs</div>
+    <ol>
+      <li><a href="/docs/">00. The SFWA Specification</a></li>
+      <li><a href="/docs/architecture/">01. Architecture</a></li>
+      <li><a href="/docs/persistence/">02. Persistence and State</a></li>
+      <li><a href="/docs/build-tooling/">03. Build and Tooling</a></li>
+      <li><a href="/docs/security/" aria-current="page">04. Security and Privacy</a></li>
+      <li><a href="/docs/distribution/">05. Distribution</a></li>
+      <li><a href="/docs/cookbook/">06. Cookbook</a></li>
+      <li><a href="/docs/checklist/">07. Review Checklist</a></li>
+    </ol>
+  </nav>
+    <main class="docs-content">
+<h1 id="04-security-and-privacy">04. Security and Privacy</h1><p>An app with no server has a smaller attack surface and a stranger one.</p><hr><h2 id="1-threat-model">1. Threat model</h2><p>Be clear from the start about who you are defending against, and about what you
+cannot defend against at all.</p><h3 id="in-scope">In scope</h3><table><thead><tr><th>Threat</th><th>Vector</th></tr></thead><tbody><tr><td>Malicious input data</td><td>An imported file or pasted content executes code or corrupts state.</td></tr><tr><td>Supply chain compromise</td><td>A CDN or npm dependency ships hostile code.</td></tr><tr><td>Exfiltration</td><td>The app quietly sends user data somewhere.</td></tr><tr><td>Tampering in transit</td><td>The file is modified between author and user.</td></tr><tr><td>Cross-app storage collision</td><td>Another <code>file://</code> document reads your <code>localStorage</code>.</td></tr><tr><td>Credential leakage</td><td>A user-supplied API key ends up somewhere it should not.</td></tr></tbody></table><h3 id="out-of-scope-structurally">Out of scope, structurally</h3><p><strong>You cannot hide anything from the user.</strong> Every byte is readable. No secrets,
+no hidden logic, no licence check that cannot be measured and removed. Design on that basis.</p><p><strong>You cannot prevent modification.</strong> Anyone can edit the file and pass it on.</p><p><strong>You cannot enforce anything server-side</strong>, because there is no server. Rate
+limits, quotas, entitlements and validation are all advisory once they run on
+somebody else's machine.</p><p>Need any of those? Then you need a server, and that is an architecture decision
+rather than a bug waiting to be patched.</p><h3 id="what-you-can-actually-promise">What you can actually promise</h3><p>An SFWA cannot keep secrets <em>from</em> its user, and it is unusually good at keeping
+its user's secrets from everybody else, you included. A Level 1 app with
+<code>connect-src 'none'</code> is incapable of exfiltration, and you can demonstrate that
+instead of asserting it. A competent reviewer confirms it in about two minutes. Very little hosted software can make that claim. Lean on it, because it
+is the strongest privacy argument the form has.</p><hr><h2 id="2-content-security-policy-in-a-meta-tag">2. Content Security Policy in a <code>&lt;meta&gt;</code> tag</h2><p>HTTP headers are usually off the table, since the file may well be opened from
+disk. CSP through <code>&lt;meta http-equiv&gt;</code> still works and is worth the six lines.</p><h3 id="recommended-baseline-for-a-level-1-app">Recommended baseline for a Level 1 app</h3><pre><code class="language-html">&lt;meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'unsafe-inline';
+  style-src 'unsafe-inline';
+  img-src data: blob:;
+  font-src data:;
+  media-src data: blob:;
+  connect-src 'none';
+  worker-src blob:;
+  base-uri 'none';
+  form-action 'none';
+"&gt;
+</code></pre><p><code>'unsafe-inline'</code> looks alarming and is unavoidable when your script is inline.
+Read past it, because the other directives are the ones doing the work.</p><p><code>default-src 'none'</code> means no external resource of any kind loads.</p><p><code>connect-src 'none'</code> blocks <code>fetch</code>, <code>XMLHttpRequest</code>, WebSocket and
+<code>sendBeacon</code> outright, so injected code has nowhere to send anything. This is
+the line that turns your privacy claim from a promise into something
+enforceable.</p><p><code>base-uri 'none'</code> stops an injected <code>&lt;base&gt;</code> tag redirecting every relative URL
+in the document.</p><p><code>form-action 'none'</code> stops an injected form posting anywhere.</p><h3 id="if-the-app-must-call-an-api">If the app must call an API</h3><pre><code>connect-src https://api.anthropic.com;
+</code></pre><p>Name every host. Never <code>connect-src *</code>. Your CSP allowlist is a
+machine-readable version of your privacy policy, and reviewers will read it that
+way whether or not you intended it.</p><h3 id="limitations-of-meta-tag-csp">Limitations of meta-tag CSP</h3><p>⚠️ These are <strong>ignored</strong> in a <code>&lt;meta&gt;</code> tag and need real headers:</p><ul><li><code>frame-ancestors</code></li><li><code>report-uri</code> and <code>report-to</code></li><li><code>sandbox</code></li></ul><p>⚠️ The meta tag <strong>must come before anything it governs</strong>, so put it immediately
+after <code>&lt;meta charset&gt;</code>. A CSP declared below your <code>&lt;style&gt;</code> block does nothing
+for that block.</p><h3 id="hash-based-csp-for-bundled-builds">Hash-based CSP for bundled builds</h3><p>If you bundle, you can drop <code>'unsafe-inline'</code> entirely by hashing the script at
+build time:</p><pre><code class="language-js">import { createHash } from 'node:crypto';
+const hash = createHash('sha256').update(scriptText).digest('base64');
+// script-src 'sha256-&lt;hash&gt;'
+</code></pre><p>Now only your exact script runs. Anything injected, including something written
+into the file by a compromised toolchain, is refused. That is the strongest
+posture available to a single-file app and it costs about six lines of build
+script.</p><hr><h2 id="3-subresource-integrity">3. Subresource Integrity</h2><p>For Level 0 apps pulling from a CDN, SRI is not optional.</p><pre><code class="language-html">&lt;script src="https://cdn.example.com/lib@1.2.3/dist/lib.min.js"
+        integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
+        crossorigin="anonymous"&gt;&lt;/script&gt;
+</code></pre><p>Generate:</p><pre><code class="language-bash">curl -sL https://cdn.example.com/lib@1.2.3/dist/lib.min.js \
+  | openssl dgst -sha384 -binary | openssl base64 -A
+</code></pre><p>⚠️ SRI does not cover ES modules loaded through an import map in every engine
+today, and it never covers <em>transitive</em> imports. A CDN module that imports a
+second module can have that second module swapped underneath it, hash intact.
+This is exactly why CDN dependencies cap you at Level 0: the artifact is no
+longer the whole story.</p><p>⚠️ While you are auditing subresource URLs, check the scheme.
+<a href="https://iamsingle.app/entry/htpad" class="entry-pill"><img src="/assets/logos/htpad.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">htpad</span></a> is a 3 KB handwritten-notes app that
+loads d3 from <code>http://d3js.org</code>, over plain HTTP. Browsers block that as mixed
+content on any https page, so the dependency never arrives and whatever needed
+it does not work. Insecure subresources stay quiet in local testing and then fail
+in production, which is the ordering that costs you the most time.</p><hr><h2 id="4-xss-in-an-app-with-no-server">4. XSS in an app with no server</h2><p>Losing the server changes who pays for an XSS bug. Injected code runs with full
+access to local data, and in an offline app the local data is all the data there
+is.</p><h3 id="the-rule">The rule</h3><p><strong><code>innerHTML</code> is for build-time constants only.</strong> Anything derived from user
+input, imported files, URLs or the clipboard goes through <code>textContent</code>,
+<code>setAttribute</code> or node construction.</p><pre><code class="language-js">// Safe: escaped by the platform
+node.textContent = item.label;
+node.setAttribute('title', item.label);
+node.append(document.createTextNode(item.label));
+
+// Unsafe with any runtime-derived value
+node.innerHTML = `&lt;b&gt;${item.label}&lt;/b&gt;`;
+node.insertAdjacentHTML('beforeend', userText);
+element.setAttribute('onclick', handler);
+</code></pre><h3 id="sinks-people-forget">Sinks people forget</h3><table><thead><tr><th>Sink</th><th>Why it is dangerous</th></tr></thead><tbody><tr><td><code>element.setAttribute('href', url)</code></td><td><code>javascript:</code> URLs execute.</td></tr><tr><td><code>element.setAttribute('src', url)</code></td><td>Same, plus <code>data:text/html</code>.</td></tr><tr><td><code>new Function(str)</code>, <code>eval(str)</code></td><td>Obvious in isolation, and they hide inside "formula" and "template" features.</td></tr><tr><td><code>&lt;svg&gt;</code> from user input</td><td>SVG carries <code>&lt;script&gt;</code> and event handlers.</td></tr><tr><td><code>JSON.parse</code> reviver</td><td>Runs user-influenced code paths.</td></tr><tr><td><code>URL.createObjectURL(blob)</code> with user MIME</td><td>A <code>text/html</code> blob URL runs as your origin.</td></tr></tbody></table><p>The directory is full of that third row.
+<a href="https://iamsingle.app/entry/fuzzygraph" class="entry-pill"><img src="/assets/logos/fuzzygraph.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">FuzzyGraph</span></a> is a graphing app, so
+evaluating user-entered equations is the entire product, and the automated audit
+duly flags an <code>eval()</code> call in it.
+<a href="https://iamsingle.app/entry/tiddlywiki" class="entry-pill"><img src="/assets/logos/tiddlywiki.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">TiddlyWiki</span></a> trips both <code>eval()</code> and
+<code>new Function()</code> for a related reason: a plugin system has to run code it was
+not shipped with. Both are places a reviewer has to stop and think, which is why the audit reports
+them instead of failing them.</p><p>If you find yourself writing a formula evaluator, the safe version is a parser
+you control, never the JavaScript engine. More work, and it cannot be
+talked into reading <code>localStorage</code>.</p><p>URL validation:</p><pre><code class="language-js">function safeUrl(raw) {
+  try {
+    const u = new URL(raw, location.href);
+    return ['http:', 'https:', 'mailto:'].includes(u.protocol) ? u.href : null;
+  } catch { return null; }
+}
+</code></pre><h3 id="if-you-must-render-rich-text">If you must render rich text</h3><p>Some apps genuinely need to display Markdown or HTML. Three options, in order of
+preference:</p><ol><li>Render into a sandboxed iframe with <code>sandbox</code> and neither <code>allow-scripts</code> nor
+<code>allow-same-origin</code>. Strongest, and it needs no dependency.</li><li>Sanitise with a maintained library (DOMPurify) inlined into the build.</li><li>Do not write your own sanitiser. It will be wrong, and your own testing will
+not be what tells you.</li></ol><pre><code class="language-html">&lt;iframe sandbox srcdoc="" id="preview" referrerpolicy="no-referrer"&gt;&lt;/iframe&gt;
+</code></pre><pre><code class="language-js">preview.srcdoc = renderedHtml;   // scripts cannot run; no access to parent
+</code></pre><hr><h2 id="5-supply-chain">5. Supply chain</h2><p>The single-file form hands you an unusually strong position here, so use it.</p><p><strong>Reduce.</strong> Every dependency is code a reviewer has to read inside your
+artifact. A 50-line hand-rolled date formatter genuinely beats a 12 KB library
+in this context, because the reviewability of the whole file is the product you
+are selling.</p><p><strong>Pin.</strong> Exact versions, committed lockfile, <code>npm ci</code>.</p><p><strong>Vendor deliberately.</strong> For one small critical dependency, copying the source
+in with a version comment and a licence header is defensible. You review it once
+instead of trusting every release that follows.</p><p><strong>Audit the output, not just the input.</strong> Your artifact is one file, so you can
+grep it before release:</p><pre><code class="language-bash">grep -nE "fetch\(|XMLHttpRequest|sendBeacon|WebSocket|new Function|eval\(|atob\(" dist/index.html
+</code></pre><p>Every hit should be something you can explain in a sentence. This check takes
+seconds on a single-file app and is close to impossible on a chunked SPA, which
+is one of the quieter advantages of the form. Put it in CI. It is roughly what
+the directory runs against every submission.</p><p><strong>Preserve licences.</strong> <code>legalComments: 'inline'</code> in esbuild. Stripping licence
+headers out of MIT-licensed dependencies is a licence violation, and most
+minifier configurations do it by default.</p><hr><h2 id="6-handling-user-supplied-api-keys-byok">6. Handling user-supplied API keys (BYOK)</h2><p>The right pattern for an SFWA that talks to a paid API: the user brings their
+own credential and you never see it.</p><h3 id="storage-tiers-worst-to-best">Storage tiers, worst to best</h3><table><thead><tr><th>Approach</th><th>Risk</th><th>Use when</th></tr></thead><tbody><tr><td>Hardcoded in the file</td><td>Catastrophic. The key is public.</td><td>Never.</td></tr><tr><td>In the URL hash</td><td>Leaks via screenshots, shared links, history.</td><td>Never.</td></tr><tr><td><code>localStorage</code>, plaintext</td><td>Readable by any script that achieves injection, and it persists indefinitely.</td><td>Convenience mode, disclosed.</td></tr><tr><td><code>sessionStorage</code></td><td>Cleared when the tab closes. Smaller window.</td><td>Reasonable default.</td></tr><tr><td>In memory only</td><td>Retyped every session.</td><td>Sensitive keys, short sessions.</td></tr><tr><td>Encrypted with a passphrase</td><td>Best available. See <a href="/docs/persistence/#10-encryption-at-rest">02-persistence §10</a>.</td><td>Long-lived, high-value keys.</td></tr></tbody></table><h3 id="non-negotiables">Non-negotiables</h3><ol><li><strong>Say exactly where the key goes</strong>, in one sentence next to the input:
+<em>"Your key is stored in this browser only and is sent only to
+api.example.com."</em></li><li><strong>Constrain it in CSP.</strong> <code>connect-src https://api.example.com</code> makes the key
+structurally incapable of going anywhere else. Say so in the UI, because it
+is a checkable claim and worth far more than a privacy policy.</li><li><strong>Never log it.</strong> Not to <code>console</code>, not in an error message, not in an export
+file. Strip it explicitly on the export path.</li><li><strong>Give people a clear-key button</strong> that is visible, never buried in
+settings.</li><li><strong><code>type="password"</code> and <code>autocomplete="off"</code></strong> on the input.</li><li><strong>Mask it after entry.</strong> Show <code>sk-…4f2a</code> and never the whole thing.</li></ol><pre><code class="language-js">const redact = (k) =&gt; k ? `${k.slice(0, 3)}…${k.slice(-4)}` : '';
+const persistable = ({ apiKey, ...rest }) =&gt; rest;   // key never enters exports
+</code></pre><p>⚠️ <strong>CORS is the constraint that will actually stop you.</strong> Plenty of APIs refuse
+browser-origin requests outright, and some accept them only from an allowlisted
+origin, which a file on somebody's desktop does not have. Check before you
+design around it.</p><p>There is a way around this worth knowing:
+<a href="https://iamsingle.app/entry/paper-viewer-local-llm" class="entry-pill"><img src="/assets/logos/paper-viewer-local-llm.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">paper-viewer-local-llm</span></a>
+talks to LM Studio or Ollama running on the user's own machine. The API is
+local, the key problem disappears, and nothing leaves the device. Declare it
+honestly, with <code>sfwa:network</code> set to <code>declared</code> and the localhost endpoint
+listed in <code>sfwa:hosts</code>.</p><hr><h2 id="7-privacy-defaults">7. Privacy defaults</h2><p>The form invites a strong privacy position. Take the whole thing.</p><p><strong>No telemetry.</strong> None at all. Not anonymous analytics, not error reporting, not
+a version-check ping. People choose these apps for the silence.</p><p><strong><code>connect-src 'none'</code></strong> wherever you can manage it, and say so in the README.</p><p><strong>No third-party fonts, scripts or images.</strong> A Google Font is a request to
+Google carrying the user's IP address and referrer, every time the app opens.</p><p><strong><code>referrerpolicy="no-referrer"</code></strong> on outbound links, or the destination learns
+the URL, which in a hash-state app can mean it learns the user's data.</p><p><strong>Hash, not query string,</strong> for URL state, because fragments are never
+transmitted.</p><p><strong>Say all this inside the document</strong>, not only in a repository README that
+somebody with a downloaded copy will never see:</p><pre><code class="language-html">&lt;footer&gt;
+  &lt;p&gt;This app runs entirely in your browser. It makes no network requests
+     and stores nothing outside this device. &lt;a href="#/privacy"&gt;Details&lt;/a&gt;.&lt;/p&gt;
+&lt;/footer&gt;
+</code></pre><hr><h2 id="8-distribution-integrity">8. Distribution integrity</h2><p>A file that travels by email and USB stick needs some way to prove it is the
+file you shipped.</p><ul><li><strong>Publish <code>sha256sum</code> with every release</strong>, per
+<a href="/docs/build-tooling/#5-continuous-integration">03-build-tooling §5</a>.</li><li><strong>Consider signing.</strong> A <code>minisign</code> or GPG signature over the artifact can be
+verified without trusting GitHub.</li><li><strong>Embed version and commit</strong> in metadata so somebody can identify the copy in
+front of them.</li><li><strong>Document the verification command</strong> somewhere users will actually see it.</li></ul><pre><code class="language-md">    sha256sum index.html
+    # 4f3a9c…  compare with SHA256SUMS in the v2.3.0 release
+</code></pre><p>None of this stops a determined attacker from circulating a modified copy under
+your name. It does make the honest path checkable, which is as far as anyone can get.</p><hr><h2 id="9-file-specific-hazards">9. <code>file://</code> specific hazards</h2><p>⚠️ <strong>Storage may be shared.</strong> Some browsers have historically treated every
+<code>file://</code> document as one origin, so another downloaded HTML file could read
+your app's <code>localStorage</code>. Namespace your keys, and never put credentials in
+<code>file://</code> browser storage.</p><p>⚠️ <strong>Modules and <code>fetch</code> are blocked</strong>, by design. See
+<a href="/docs/build-tooling/#21-the-skeleton">03-build-tooling §2.1</a>.</p><p>⚠️ <strong>No service workers.</strong> Offline caching is both unavailable and unnecessary.</p><p>⚠️ <strong>Secure-context APIs vary.</strong> <code>crypto.subtle</code> and <code>crypto.randomUUID</code> work on
+<code>file://</code> in current Chrome and Firefox, which treat it as potentially
+trustworthy. That is not universal and it has changed before, so feature-detect:</p><pre><code class="language-js">const uuid = () =&gt; crypto.randomUUID?.() ?? `id-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+</code></pre><hr><h2 id="10-security-review-checklist">10. Security review checklist</h2><p>Run before every release.</p><ul><li>[ ] CSP present, placed before all other content, with <code>connect-src</code> set to
+<code>'none'</code> or an explicit allowlist</li><li>[ ] <code>base-uri 'none'</code> and <code>form-action 'none'</code> set</li><li>[ ] No <code>innerHTML</code>, <code>insertAdjacentHTML</code> or <code>outerHTML</code> with runtime-derived
+values</li><li>[ ] No <code>eval</code>, <code>new Function</code> or <code>setTimeout(string)</code>, or a written
+justification wherever they are unavoidable</li><li>[ ] All URLs from user data validated against a protocol allowlist</li><li>[ ] Every subresource on <code>https://</code>, never <code>http://</code></li><li>[ ] Imported files validated <em>and</em> schema-checked before use</li><li>[ ] Embedded state stored as <code>application/json</code>, never as executable JS</li><li>[ ] <code>&lt;</code> escaped as <code>\u003c</code> in any serialised state</li><li>[ ] No credentials in source, exports, logs or URLs</li><li>[ ] Dependencies pinned, lockfile committed, licences preserved</li><li>[ ] <code>grep</code> audit of network and dynamic-eval sinks passing in CI</li><li>[ ] Checksum published, version embedded in metadata</li><li>[ ] Privacy behaviour stated inside the app, not only in the repository</li></ul>
+      <div class="docs-pager"><a href="/docs/build-tooling/"><span class="dir">&larr; previous</span>Build and Tooling</a><a class="next" href="/docs/distribution/"><span class="dir">next &rarr;</span>Distribution</a></div>
+    </main>
+  </div>
+
+</div>
+</body>
+</html>

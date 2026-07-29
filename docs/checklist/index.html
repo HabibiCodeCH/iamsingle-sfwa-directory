@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<title>Review Checklist — SFWA Docs — iamsingle.app</title>
+<meta name="description" content="The quality bar. Use it before shipping, or when reviewing someone else’s submission.">
+<link rel="canonical" href="https://iamsingle.app/docs/checklist/">
+<link rel="alternate" type="application/rss+xml" title="iamsingle.app — new entries" href="/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="iamsingle.app">
+<meta property="og:title" content="Review Checklist — SFWA Docs — iamsingle.app">
+<meta property="og:description" content="The quality bar. Use it before shipping, or when reviewing someone else’s submission.">
+<meta property="og:url" content="https://iamsingle.app/docs/checklist/">
+<meta property="og:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Review Checklist — SFWA Docs — iamsingle.app">
+<meta name="twitter:description" content="The quality bar. Use it before shipping, or when reviewing someone else’s submission.">
+<meta name="twitter:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="/">iamsingle.app</a><span class="sep">›</span><a href="/docs/">SFWA Docs</a><span class="sep">›</span><span class="current">Review Checklist</span></nav>
+
+  <div class="docs-shell">
+    <nav class="docs-sidebar">
+    <div class="docs-sidebar-label">SFWA docs</div>
+    <ol>
+      <li><a href="/docs/">00. The SFWA Specification</a></li>
+      <li><a href="/docs/architecture/">01. Architecture</a></li>
+      <li><a href="/docs/persistence/">02. Persistence and State</a></li>
+      <li><a href="/docs/build-tooling/">03. Build and Tooling</a></li>
+      <li><a href="/docs/security/">04. Security and Privacy</a></li>
+      <li><a href="/docs/distribution/">05. Distribution</a></li>
+      <li><a href="/docs/cookbook/">06. Cookbook</a></li>
+      <li><a href="/docs/checklist/" aria-current="page">07. Review Checklist</a></li>
+    </ol>
+  </nav>
+    <main class="docs-content">
+<h1 id="07-review-checklist">07. Review Checklist</h1><p>Use it before shipping. Use it again when reviewing somebody else's submission.</p><hr><h2 id="1-conformance">1. Conformance</h2><ul><li>[ ] Exactly one file, no sibling assets required</li><li>[ ] Opens and works when double-clicked from a folder containing only it</li><li>[ ] Zero network requests during load (DevTools, cache disabled, offline)</li><li>[ ] <code>sfwa:level</code> declared and <strong>accurate</strong></li><li>[ ] <code>sfwa:network</code> declared, and any hosts listed match observed behaviour</li><li>[ ] Verification procedure from <a href="/docs/#4-verification-procedure">00-spec §4</a> run against this exact build</li><li>[ ] Level claim re-verified since the last dependency change</li></ul><blockquote><p>The defect we see most often is a Level 1 claim on an artifact that loads a
+font, an analytics script or a CDN module. Check it with DevTools. Reading the
+code will not tell you.</p></blockquote><hr><h2 id="2-data-safety">2. Data safety</h2><ul><li>[ ] Export produces a complete, documented, versioned file</li><li>[ ] Importing that file restores state exactly</li><li>[ ] Export from the previous release imports cleanly into this one</li><li>[ ] <code>schema</code> integer present in every persisted shape</li><li>[ ] Migration chain covers every shipped schema, tested end to end</li><li>[ ] Corrupt or unparseable saved data quarantined, never deleted</li><li>[ ] Destructive actions confirm, or auto-export first</li><li>[ ] Save flushed on <code>visibilitychange</code> and <code>pagehide</code></li><li>[ ] Quota errors caught and surfaced to the user</li><li>[ ] Storage failure degrades to a working in-memory app, with no crash</li></ul><hr><h2 id="3-security">3. Security</h2><ul><li>[ ] CSP present, placed before all governed content</li><li>[ ] <code>connect-src</code> set to <code>'none'</code> or an explicit host allowlist</li><li>[ ] <code>base-uri 'none'</code> and <code>form-action 'none'</code> set</li><li>[ ] No <code>innerHTML</code> or <code>insertAdjacentHTML</code> with runtime-derived values</li><li>[ ] No <code>eval</code>, <code>new Function</code> or string-argument <code>setTimeout</code>, or a written
+justification where they are unavoidable</li><li>[ ] User-supplied URLs validated against a protocol allowlist</li><li>[ ] Every subresource on <code>https://</code></li><li>[ ] Embedded state is <code>type="application/json"</code>, with <code>&lt;</code> escaped</li><li>[ ] No credentials in source, exports, logs or URLs</li><li>[ ] Dependencies pinned, SRI on any remote subresource</li><li>[ ] Sink audit (<code>grep</code> for network and eval primitives) clean and explained</li><li>[ ] Dependency licences preserved in the artifact</li></ul><hr><h2 id="4-quality">4. Quality</h2><ul><li>[ ] Renders something meaningful within a second on a mid-range phone</li><li>[ ] Never white-screens; a global error handler shows a recoverable message</li><li>[ ] Works at 360 px wide and at 2,000 px</li><li>[ ] Fully keyboard operable, with visible focus rings throughout</li><li>[ ] Labels on every control, <code>aria-label</code> where text is absent</li><li>[ ] Contrast meets WCAG AA in both light and dark</li><li>[ ] <code>prefers-reduced-motion</code> respected</li><li>[ ] <code>&lt;noscript&gt;</code> explains what is required</li><li>[ ] <code>lang</code> set on <code>&lt;html&gt;</code></li><li>[ ] Empty state tells a first-time user what to do</li><li>[ ] In-app help exists, so the file is usable away from its repository</li><li>[ ] Version and build date visible in the UI</li></ul><hr><h2 id="5-craft">5. Craft</h2><ul><li>[ ] Under the size budget for its band (<a href="/docs/build-tooling/#6-size-budgets">03 §6</a>)</li><li>[ ] Source readable via <code>view-source:</code>, or readable source published</li><li>[ ] Script sections banner-commented and ordered</li><li>[ ] No function much over 50 lines</li><li>[ ] Dependencies point one direction, with no circular references between
+sections</li><li>[ ] One rendering strategy throughout</li><li>[ ] Licence header at the top of the file</li><li>[ ] Reproducible build documented and verified</li></ul><hr><h2 id="6-scoring-rubric">6. Scoring rubric</h2><p>For directories, competitions and internal review. Twenty points.</p><table><thead><tr><th>Dimension</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><td><strong>Conformance</strong></td><td>Multi-file</td><td>Level 0, undeclared</td><td>Level 0, declared with SRI</td><td>Level 1 verified</td><td>Level 2+ verified</td></tr><tr><td><strong>Data safety</strong></td><td>No persistence</td><td>Storage only, no export</td><td>Export exists</td><td>Export + import + versioned schema</td><td>Migrations tested, corruption recovery</td></tr><tr><td><strong>Security</strong></td><td>No CSP, unsafe sinks</td><td>CSP present but permissive</td><td>CSP restrictive, no unsafe sinks</td><td>Plus pinned deps and a clean sink audit</td><td>Plus hash-based CSP and signed releases</td></tr><tr><td><strong>Usability</strong></td><td>Unusable without instructions</td><td>Works, rough edges</td><td>Good empty state and error handling</td><td>Plus full keyboard and a11y</td><td>Plus in-app help and polish</td></tr><tr><td><strong>Craft</strong></td><td>Unreadable</td><td>Works but disorganised</td><td>Clear structure</td><td>Structured, documented, tested</td><td>Reproducible, exemplary source</td></tr></tbody></table><p><strong>Bands.</strong> 16–20: reference quality. 11–15: solid, publish it. 6–10: usable,
+needs work. 0–5: not yet.</p><hr><h2 id="7-automated-pre-submission-script">7. Automated pre-submission script</h2><pre><code class="language-bash">#!/usr/bin/env bash
+set -uo pipefail
+FILE="${1:-dist/index.html}"
+fail=0
+note()  { printf '  %s\n' "$*"; }
+pass()  { printf '✓ %s\n' "$1"; }
+bad()   { printf '✗ %s\n' "$1"; fail=1; }
+
+# Run a check without letting a non-zero exit status abort the script.
+check() {
+  local label="$1"; shift
+  if "$@" &gt;/dev/null 2&gt;&amp;1; then pass "$label"; else bad "$label"; fi
+}
+
+# Size
+BYTES=$(wc -c &lt; "$FILE")
+printf 'Size: %s KB raw, %s KB gzip\n' "$((BYTES/1024))" "$(($(gzip -c "$FILE" | wc -c)/1024))"
+check "under 1 MB" test "$BYTES" -lt 1048576
+
+# Required metadata
+check "declares sfwa:level"        grep -q 'sfwa:level' "$FILE"
+check "declares sfwa:version"      grep -q 'sfwa:version' "$FILE"
+check "has a CSP"                  grep -q 'Content-Security-Policy' "$FILE"
+check "declares document language" grep -q '&lt;html lang=' "$FILE"
+
+# Level 1 heuristic: no fetched subresources
+if grep -qE '&lt;(script|link|img)[^&gt;]+(src|href)=["'"'"']https?://' "$FILE"; then
+  bad "no remote subresources (Level 1)"
+  note "remote subresources found:"
+  grep -oE '&lt;(script|link|img)[^&gt;]+(src|href)=["'"'"']https?://[^"'"'"']+' "$FILE" | sed 's/^/    /'
+else
+  pass "no remote subresources (Level 1)"
+fi
+
+# Mixed content gets blocked in the browser
+if grep -qE '(src|href)=["'"'"']http://' "$FILE"; then
+  bad "no insecure http:// subresources"
+else
+  pass "no insecure http:// subresources"
+fi
+
+# Credentials
+if grep -qEi 'sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY' "$FILE"; then
+  bad "no embedded credentials"
+else
+  pass "no embedded credentials"
+fi
+
+# Dangerous sinks: advisory, review each hit by hand
+printf '\nSinks to review:\n'
+grep -oE 'fetch\(|XMLHttpRequest|sendBeacon|new WebSocket|EventSource|new Function|eval\(|innerHTML' "$FILE" \
+  | sort | uniq -c | sed 's/^/  /' || note "none"
+
+printf '\n'
+if [ "$fail" = 0 ]; then printf 'PASS\n'; else printf 'FAIL\n'; exit 1; fi
+</code></pre><p>Save it as <code>scripts/check.sh</code> and run it in CI. Note the deliberate absence of
+<code>-e</code> in that <code>set</code> line: every check here is expected to be able to fail, and
+the script has to survive one failure long enough to report the rest.</p><p>The sink report stays advisory. <code>innerHTML</code> on a build-time constant is fine,
+and <a href="https://iamsingle.app/entry/fuzzygraph" class="entry-pill"><img src="/assets/logos/fuzzygraph.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">FuzzyGraph</span></a> has to call <code>eval()</code>
+because plotting user-entered equations is the entire app. Only a human can tell
+those apart from the real thing.</p><hr><h2 id="8-reviewers-fast-path">8. Reviewer's fast path</h2><p>Ten minutes, in this order. Stop at the first hard failure.</p><ol><li><strong><code>view-source:</code>.</strong> Readable? Licence header? Does the metadata match the
+claim?</li><li><strong>Ctrl+F for <code>https://</code>.</strong> Every hit should be a hyperlink somebody clicks.</li><li><strong>Open it offline</strong>, with the network genuinely off. Does it work?</li><li><strong>DevTools Network, cache disabled, reload.</strong> Requests for anything but the
+document should be zero.</li><li><strong>Enter data, export, clear storage, import.</strong> Does the round trip hold?</li><li><strong>Tab through the whole interface.</strong> Can you reach and operate everything?</li><li><strong>Resize to 360 px.</strong> Still usable?</li><li><strong>Break it.</strong> Paste <code>&lt;/script&gt;</code>, <code>&lt;img src=x onerror=alert(1)&gt;</code> and a 10 MB
+string into the largest text field. Import malformed JSON. Corrupt the
+embedded state block. Nothing should execute and nothing should white-screen.</li><li><strong>Read the boot function.</strong> Does it match the documented structure?</li><li><strong>Check the claim against reality one more time.</strong> The declared level is the
+most consequential piece of metadata on the page and the one most often
+wrong.</li></ol>
+      <div class="docs-pager"><a href="/docs/cookbook/"><span class="dir">&larr; previous</span>Cookbook</a><span></span></div>
+    </main>
+  </div>
+
+</div>
+</body>
+</html>

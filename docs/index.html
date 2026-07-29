@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<title>SFWA Docs — iamsingle.app</title>
+<meta name="description" content="What actually counts as a single-file app? Four conformance levels with a test procedure.">
+<link rel="canonical" href="https://iamsingle.app/docs/">
+<link rel="alternate" type="application/rss+xml" title="iamsingle.app — new entries" href="/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="iamsingle.app">
+<meta property="og:title" content="SFWA Docs — iamsingle.app">
+<meta property="og:description" content="What actually counts as a single-file app? Four conformance levels with a test procedure.">
+<meta property="og:url" content="https://iamsingle.app/docs/">
+<meta property="og:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SFWA Docs — iamsingle.app">
+<meta name="twitter:description" content="What actually counts as a single-file app? Four conformance levels with a test procedure.">
+<meta name="twitter:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="/">iamsingle.app</a><span class="sep">›</span><span class="current">SFWA Docs</span></nav>
+
+  <div class="docs-shell">
+    <nav class="docs-sidebar">
+    <div class="docs-sidebar-label">SFWA docs</div>
+    <ol>
+      <li><a href="/docs/" aria-current="page">00. The SFWA Specification</a></li>
+      <li><a href="/docs/architecture/">01. Architecture</a></li>
+      <li><a href="/docs/persistence/">02. Persistence and State</a></li>
+      <li><a href="/docs/build-tooling/">03. Build and Tooling</a></li>
+      <li><a href="/docs/security/">04. Security and Privacy</a></li>
+      <li><a href="/docs/distribution/">05. Distribution</a></li>
+      <li><a href="/docs/cookbook/">06. Cookbook</a></li>
+      <li><a href="/docs/checklist/">07. Review Checklist</a></li>
+    </ol>
+  </nav>
+    <main class="docs-content">
+<h1 id="00-the-sfwa-specification">00. The SFWA Specification</h1><blockquote><p>Status: working draft. Keywords MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY
+are to be interpreted as in RFC 2119.</p></blockquote><hr><h2 id="1-definition">1. Definition</h2><p>A <strong>single-file web app (SFWA)</strong> is a web application whose complete
+distributable form is exactly one HTML document.</p><p>To qualify at any level, an artifact:</p><ul><li><strong>MUST</strong> be a single file with an <code>.html</code> or <code>.htm</code> extension.</li><li><strong>MUST</strong> be a valid HTML document that renders a usable interface when opened
+in a browser.</li><li><strong>MUST NOT</strong> require a build step, install step, or package manager on the
+part of the person running it.</li><li><strong>MUST NOT</strong> require a companion file of any kind for its core function
+(no sibling <code>app.js</code>, no <code>styles.css</code>, no <code>config.json</code>).</li><li><strong>SHOULD</strong> be human-readable via <code>view-source:</code>. Minification is permitted,
+but a readable source <strong>SHOULD</strong> be published alongside it.</li></ul><p>Read "core function" carefully. An app that can optionally import a CSV the
+user picked still qualifies. An app that cannot start until it has fetched a
+sibling <code>data.json</code> fails the test.</p><p>Two boundaries come up constantly.</p><p>The first is runtime. <a href="https://iamsingle.app/entry/vicco" class="entry-pill"><img src="/assets/logos/vicco.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">vicco</span></a> is a blog in
+one file, no database and no build, which is the same instinct exactly, but the
+file is PHP and needs a server that speaks it.
+<a href="https://iamsingle.app/entry/httprd" class="entry-pill"><img src="/assets/logos/httprd.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">httprd</span></a> does remote desktop from a single
+Python script and runs into the same wall. Both are single-file <em>apps</em>, and good
+ones, but not single-file <em>web</em> apps under §1, because a browser cannot open
+them on its own. The directory tags them <code>sfa</code> to keep the distinction visible.</p><p>The second is companion files.
+<a href="https://iamsingle.app/entry/minimal-pwa" class="entry-pill"><img src="/assets/logos/minimal-pwa.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">minimal-pwa</span></a> is about as small as a
+web app gets and it still ships a manifest and a service worker beside the HTML,
+because installability requires them. That manifest is exactly the companion
+file the rule prohibits. <a href="/docs/distribution/#3-offline">05-distribution §3</a> has
+the compromise if you want both.</p><hr><h2 id="2-conformance-levels">2. Conformance levels</h2><p>The distinctions worth drawing are about <em>what the file depends on at runtime</em>.
+Four levels, each strictly stronger than the last.</p><h3 id="level-0-single-artifact">Level 0: Single artifact</h3><p>One file, but it may fetch code, styles, fonts or data over the network while it
+loads: a CDN, an import map pointing at <code>esm.sh</code>, an API.</p><ul><li><strong>MUST</strong> satisfy §1.</li><li><strong>MAY</strong> load remote subresources.</li><li>Remote subresources <strong>MUST</strong> be version-pinned (no <code>@latest</code>, no floating
+major-version ranges).</li><li>Remote script and style subresources <strong>SHOULD</strong> carry Subresource Integrity
+hashes.</li></ul><p><em>Use when:</em> you want no-build authoring and your users always have
+connectivity.</p><p><em>Do not claim more than this if you use a CDN.</em> Level 0 is the most commonly
+overstated level by a wide margin, and it is usually overstated by accident.
+Six apps in the directory sit here.
+<a href="https://iamsingle.app/entry/codeflow" class="entry-pill"><img src="/assets/logos/codeflow.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">codeflow</span></a> pulls fifteen scripts including
+React and a full Babel compiler.
+<a href="https://iamsingle.app/entry/agent-architecture" class="entry-pill"><img src="/assets/logos/agent-architecture.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Agent-Architecture</span></a> is
+self-contained in every other respect and loses Level 1 to a single Google Font.</p><h3 id="level-1-self-contained">Level 1: Self-contained</h3><p>Everything needed to run is already in the file. Open it with the network
+switched off and you get a working app.</p><ul><li><strong>MUST</strong> satisfy Level 0.</li><li><strong>MUST NOT</strong> issue any network request during load or first render.</li><li><strong>MUST</strong> function fully when opened over <code>file://</code>.</li><li><strong>MAY</strong> make network requests afterwards, but only when the user asks for one
+(they paste an API key and press <em>Fetch</em>, say).</li><li>Fonts, icons and images <strong>MUST</strong> be inlined as data URLs or inline SVG, or
+degrade to system equivalents.</li></ul><p><em>This is the level most people mean when they say "single-file app,"</em> and it is
+the sensible default. <a href="https://iamsingle.app/entry/xlsx2md" class="entry-pill"><img src="/assets/logos/xlsx2md.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">xlsx2md</span></a> is a good
+small example at 16 KB;
+<a href="https://iamsingle.app/entry/orbital-notebook" class="entry-pill"><img src="/assets/logos/orbital-notebook.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">orbital-notebook</span></a> a good larger
+one at 63 KB.</p><p>⚠️ Level 1 is where ES modules will bite you. <code>&lt;script type="module"&gt;</code> is
+subject to CORS, and a <code>file://</code> document has no origin that can satisfy it, so
+the app silently fails to start when somebody double-clicks it. A Level 1 app
+<strong>MUST</strong> therefore use a classic inline <code>&lt;script&gt;</code> as its entry point, or be
+bundled into one. See
+<a href="/docs/build-tooling/#2-the-no-build-path">03-build-tooling §2</a>.</p><h3 id="level-2-portable">Level 2: Portable</h3><p>Self-contained, and the user's data can travel without a server.</p><ul><li><strong>MUST</strong> satisfy Level 1.</li><li><strong>MUST</strong> provide an explicit export producing a file or URL that holds the
+complete user state.</li><li><strong>MUST</strong> provide the matching import.</li><li>The export format <strong>MUST</strong> be documented and versioned.</li><li>The export format <strong>SHOULD</strong> be something plain and non-proprietary (JSON,
+CSV, Markdown) rather than an opaque blob.</li></ul><p><em>Use when:</em> the app holds data somebody would be annoyed to lose, which is
+nearly every app that holds data at all.
+<a href="https://iamsingle.app/entry/hypervault" class="entry-pill"><img src="/assets/logos/hypervault.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Hypervault</span></a> pushes the idea further
+than most and ships its decryption logic alongside the encrypted payload, so the
+exported artifact still opens years later without the original app.</p><h3 id="level-3-self-modifying">Level 3: Self-modifying</h3><p>The file persists state by rewriting itself. You save the document, and the
+document contains your work.</p><ul><li><strong>MUST</strong> satisfy Level 2.</li><li><strong>MUST</strong> be able to emit a new copy of itself with current state embedded.</li><li><strong>MUST</strong> embed state in a form that does not execute (<code>&lt;script type="application/json"&gt;</code>, never a JS literal).</li><li><strong>MUST</strong> validate and version-check embedded state on load, and <strong>MUST</strong>
+fall back to empty state rather than crash on a mismatch.</li><li><strong>SHOULD</strong> warn before overwriting, and <strong>SHOULD</strong> nudge people towards
+versioned filenames.</li></ul><p>This is the <a href="https://iamsingle.app/entry/tiddlywiki" class="entry-pill"><img src="/assets/logos/tiddlywiki.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">TiddlyWiki</span></a> lineage, going
+back to 2004 and still the reference implementation. Three apps in the directory
+have been checked against this level and pass.</p><p>TiddlyWiki emits a byte-for-byte-sized copy of itself when you save, and keeps
+its state in a <code>&lt;script type="application/json"&gt;</code> block, exactly as described
+below. <a href="https://iamsingle.app/entry/nash" class="entry-pill"><img src="/assets/logos/nash.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">nash</span></a> does the full round trip in
+27 KB: type a note, save, and the file you get back is a working copy of the app
+carrying your text, which reopens offline with the note intact.
+<a href="https://iamsingle.app/entry/bento" class="entry-pill"><img src="/assets/logos/bento.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Bento</span></a> is the most elaborate of the three,
+with a readable JSON document at the top of the file and a deflate-compressed
+runtime beneath it. Its save button rewrites the file in place through the File
+System Access API, falling back to a download where that is unavailable.</p><p>It is the purest expression of the form and the easiest to get subtly wrong, so
+read <a href="/docs/persistence/#6-the-self-saving-document">02-persistence §6</a> before you
+attempt it.</p><hr><h2 id="3-declaring-conformance">3. Declaring conformance</h2><p>Put the level in your document metadata so directories, crawlers and reviewers
+do not have to work it out for themselves.</p><pre><code class="language-html">&lt;meta name="sfwa:level"    content="1"&gt;
+&lt;meta name="sfwa:version"  content="2.3.0"&gt;
+&lt;meta name="sfwa:license"  content="MIT"&gt;
+&lt;meta name="sfwa:source"   content="https://github.com/you/app"&gt;
+&lt;meta name="sfwa:network"  content="none"&gt;
+</code></pre><p><code>sfwa:network</code> takes one of:</p><table><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody><tr><td><code>none</code></td><td>Never makes a network request.</td></tr><tr><td><code>user</code></td><td>Only on explicit user action, to a host the user names.</td></tr><tr><td><code>declared</code></td><td>Only to the hosts listed in <code>sfwa:hosts</code>.</td></tr><tr><td><code>cdn</code></td><td>Fetches subresources at load (Level 0 only).</td></tr></tbody></table><p>If <code>declared</code>, add <code>&lt;meta name="sfwa:hosts" content="api.example.com,cdn.example.net"&gt;</code>.</p><hr><h2 id="4-verification-procedure">4. Verification procedure</h2><p>A conformance claim only means something if it can be falsified, so run this.</p><p><strong>Level 0</strong></p><ol><li>Serve the file from a static host. Open it. It works.</li><li><code>grep</code> the subresource URLs for <code>@latest</code>, <code>@^</code> and <code>@~</code>. Nothing found.</li></ol><p><strong>Level 1</strong></p><ol><li>Copy the file on its own into an empty directory, on a machine that holds no
+other copy of it.</li><li>Disconnect the network. Actually disconnect it. DevTools throttling has lied
+to people before.</li><li>Double-click the file. It opens over <code>file://</code> and does everything it should.</li><li>Reconnect, then reload with the Network panel open and the cache disabled.
+Requests for anything other than the document itself: zero.</li></ol><p><strong>Level 2</strong></p><ol><li>Enter some representative data. Export.</li><li>Clear all site data, IndexedDB and Local Storage included.</li><li>Import. What comes back means the same thing, even if the bytes differ.</li><li>Open the export in a text editor. You can tell what it says.</li></ol><p><strong>Level 3</strong></p><ol><li>Enter data. Save a new copy of the file.</li><li>Open that copy in a <em>different</em> browser profile. The data is there.</li><li>Corrupt the embedded state block by hand and reopen. The app starts empty and
+explains itself. It does not show a white screen.</li></ol><p>Record what happened in the repository as <code>CONFORMANCE.md</code>, and re-run it before
+every release. Level 1 regressions slip in easily and stay invisible on a
+developer machine with a warm cache, which is the whole problem with them.</p><hr><h2 id="5-non-goals">5. Non-goals</h2><p>Things this specification deliberately does not ask of you:</p><ul><li><strong>Small file size.</strong> A 900 KB self-contained app is more conformant than a
+40 KB app pulling three CDN scripts, and the directory bears that out.
+<a href="https://iamsingle.app/entry/tiddlywiki" class="entry-pill"><img src="/assets/logos/tiddlywiki.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">TiddlyWiki</span></a> at 6.6 MB and
+<a href="https://iamsingle.app/entry/fuzzygraph" class="entry-pill"><img src="/assets/logos/fuzzygraph.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">FuzzyGraph</span></a> at 1.3 MB both reach
+Level 1, while several apps a fraction of their size do not. Size is a quality
+attribute, covered in
+<a href="/docs/build-tooling/#6-size-budgets">03-build-tooling §6</a>. It is not a
+conformance criterion.</li><li><strong>No build step for the author.</strong> The prohibition covers the <em>user</em>. Compiling
+a multi-file source tree down to one shipped file is entirely conformant, and
+past roughly 1,500 lines it is usually the right call.</li><li><strong>Framework abstinence.</strong> Preact, Alpine, Van, Mithril and Svelte's compiled
+output all fit comfortably. Portability is the goal, not purity.</li><li><strong>Single-page-ness.</strong> An SFWA can have as many views as it likes.
+<a href="https://iamsingle.app/entry/bento" class="entry-pill"><img src="/assets/logos/bento.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Bento</span></a> carries an editor, a viewer and the
+slide data in one file. "Single file" and "single page" are unrelated
+properties that happen to share an initial.</li><li><strong>Offline-first UX.</strong> Level 1 hands you offline capability. Designing a good
+offline experience is a separate craft.</li></ul><hr><h2 id="6-exit-criteria">6. Exit criteria</h2><p>Move away from the single-file form when one of these becomes true. They are
+signals, not failures.</p><table><thead><tr><th>Signal</th><th>Why the form breaks</th></tr></thead><tbody><tr><td>Shared mutable state between users</td><td>Somebody has to be the server of record; conflict resolution cannot live purely in the artifact.</td></tr><tr><td>Secrets that must be withheld from the operator</td><td>Everything in the file is readable. There is no such thing as a hidden key.</td></tr><tr><td>Regulatory audit trails</td><td>Append-only logs need a party the user cannot edit.</td></tr><tr><td>Sustained bundle over ~1 MB uncompressed</td><td>Parse and memory cost stop being free; code-splitting starts earning its complexity.</td></tr><tr><td>More than ~3 concurrent editors</td><td>Single-file merge conflicts scale badly.</td></tr><tr><td>Test suite bigger than the app</td><td>Keep the source multi-file and ship the build as one file. Still conformant.</td></tr></tbody></table><p>The first row needs a caveat, because <a href="https://iamsingle.app/entry/bento" class="entry-pill"><img src="/assets/logos/bento.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Bento</span></a>
+does live collaboration and is still one self-contained file, because the
+collaboration transport sits outside the artifact while the app itself stays
+whole. Shared state pushes you out of the form only when the <em>app</em> has to become
+a client of a server it cannot function without.</p><p>The last row is where most people go wrong. Source layout and distribution
+artifact are two separate decisions, and conflating them is the most common
+mistake in this entire document. Author however you like. Ship one file.</p><hr><h2 id="7-glossary">7. Glossary</h2><ul><li><strong>SFWA.</strong> Single-file web app, per §1.</li><li><strong>Inlining.</strong> Replacing a reference to a subresource with the thing itself.</li><li><strong>Import map.</strong> A <code>&lt;script type="importmap"&gt;</code> block mapping bare specifiers to
+URLs. Level 0 only, unless the URLs it maps to are data URLs.</li><li><strong>Self-saving.</strong> Level 3 behaviour, where the document writes out an updated
+copy of itself.</li><li><strong>BYOK.</strong> Bring your own key. The user supplies their own API credential,
+which never leaves their machine except to reach the API it belongs to.</li><li><strong>Level regression.</strong> A change that quietly drops the artifact to a lower
+level. Adding a Google Font is the classic cause, and
+<a href="https://iamsingle.app/entry/agent-architecture" class="entry-pill"><img src="/assets/logos/agent-architecture.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Agent-Architecture</span></a> is a live
+example: self-contained apart from one font request.</li></ul>
+      <div class="docs-pager"><span></span><a class="next" href="/docs/architecture/"><span class="dir">next &rarr;</span>Architecture</a></div>
+    </main>
+  </div>
+
+</div>
+</body>
+</html>

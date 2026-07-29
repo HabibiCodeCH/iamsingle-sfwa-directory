@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<title>Distribution — SFWA Docs — iamsingle.app</title>
+<meta name="description" content="Hosting, offline use, file:// gotchas, metadata conventions, getting listed.">
+<link rel="canonical" href="https://iamsingle.app/docs/distribution/">
+<link rel="alternate" type="application/rss+xml" title="iamsingle.app — new entries" href="/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="iamsingle.app">
+<meta property="og:title" content="Distribution — SFWA Docs — iamsingle.app">
+<meta property="og:description" content="Hosting, offline use, file:// gotchas, metadata conventions, getting listed.">
+<meta property="og:url" content="https://iamsingle.app/docs/distribution/">
+<meta property="og:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Distribution — SFWA Docs — iamsingle.app">
+<meta name="twitter:description" content="Hosting, offline use, file:// gotchas, metadata conventions, getting listed.">
+<meta name="twitter:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="/">iamsingle.app</a><span class="sep">›</span><a href="/docs/">SFWA Docs</a><span class="sep">›</span><span class="current">Distribution</span></nav>
+
+  <div class="docs-shell">
+    <nav class="docs-sidebar">
+    <div class="docs-sidebar-label">SFWA docs</div>
+    <ol>
+      <li><a href="/docs/">00. The SFWA Specification</a></li>
+      <li><a href="/docs/architecture/">01. Architecture</a></li>
+      <li><a href="/docs/persistence/">02. Persistence and State</a></li>
+      <li><a href="/docs/build-tooling/">03. Build and Tooling</a></li>
+      <li><a href="/docs/security/">04. Security and Privacy</a></li>
+      <li><a href="/docs/distribution/" aria-current="page">05. Distribution</a></li>
+      <li><a href="/docs/cookbook/">06. Cookbook</a></li>
+      <li><a href="/docs/checklist/">07. Review Checklist</a></li>
+    </ol>
+  </nav>
+    <main class="docs-content">
+<h1 id="05-distribution">05. Distribution</h1><p>The unit of distribution is a file. Behave accordingly.</p><hr><h2 id="1-channels">1. Channels</h2><p>An SFWA travels by routes closed to ordinary web apps. Design for several of
+them.</p><table><thead><tr><th>Channel</th><th>Notes</th></tr></thead><tbody><tr><td>Static hosting</td><td>GitHub Pages, Netlify, Cloudflare Pages, S3. Free, instant.</td></tr><tr><td>GitHub release asset</td><td>Versioned, checksummed, permanent URL. The canonical download.</td></tr><tr><td>Gist</td><td>Renders as source; pair it with a raw-HTML preview service.</td></tr><tr><td>Email attachment</td><td>⚠️ Many corporate filters strip or quarantine <code>.html</code>. Zip it.</td></tr><tr><td>Chat, Slack, Signal</td><td>Works. Recipients open by downloading.</td></tr><tr><td>USB stick, network share</td><td>The original use case, and it still needs no setup.</td></tr><tr><td>Git repository</td><td>The file effectively is the repository.</td></tr><tr><td>Printed QR to a hosted copy</td><td>For workshops and conferences.</td></tr><tr><td>Pasted into a model context</td><td>The whole app fits. Underrated.</td></tr></tbody></table><p><a href="https://iamsingle.app/entry/offline-html-games-pack" class="entry-pill"><img src="/assets/logos/offline-html-games-pack.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Offline-HTML-Games-Pack</span></a>
+shows what the last few rows are worth: three hundred small games, each its own
+HTML file, playable from a folder on a school laptop with the wifi off. No
+installer, no store, no account. Try shipping that any other way.</p><p>⚠️ The email filter problem is real and it will catch you out. Corporate
+gateways block HTML attachments because phishing arrives that way. Ship a <code>.zip</code>
+or a hosted link as your primary path and treat the attachment as a bonus.</p><hr><h2 id="2-static-hosting">2. Static hosting</h2><h3 id="github-pages">GitHub Pages</h3><p>Free, and it is where much of the directory lives.
+<a href="https://iamsingle.app/entry/xlsx2md" class="entry-pill"><img src="/assets/logos/xlsx2md.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">xlsx2md</span></a>,
+<a href="https://iamsingle.app/entry/nash" class="entry-pill"><img src="/assets/logos/nash.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">nash</span></a> and
+<a href="https://iamsingle.app/entry/hypervault" class="entry-pill"><img src="/assets/logos/hypervault.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">Hypervault</span></a> all publish from
+<code>github.io</code>, which keeps the source and the running app one click apart.</p><pre><code class="language-yaml"># .github/workflows/pages.yml
+name: pages
+on:
+  push: { branches: [main] }
+permissions: { contents: read, pages: write, id-token: write }
+jobs:
+  deploy:
+    environment: github-pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: 'npm' }
+      - run: npm ci &amp;&amp; npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: dist }
+      - uses: actions/deploy-pages@v4
+</code></pre><h3 id="headers-worth-setting">Headers worth setting</h3><p>Where your host supports custom headers (<code>_headers</code> on Netlify and Cloudflare
+Pages, <code>netlify.toml</code>, or S3 metadata):</p><pre><code>/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()
+</code></pre><p><code>must-revalidate</code> matters more here than it would elsewhere. The single file is
+the whole app, so a stale cache serves a stale application, and there is no
+hashed asset filename to break the tie for you.</p><h3 id="compression">Compression</h3><p>Single-file apps compress beautifully, since all that inlined text is highly
+redundant. Confirm your host is serving Brotli or gzip:</p><pre><code class="language-bash">curl -sI -H 'Accept-Encoding: br, gzip' https://example.com/ | grep -i content-encoding
+</code></pre><p>A 700 KB artifact routinely crosses the wire in well under 150 KB, which is why
+raw size matters most for <code>file://</code> distribution, where nothing gets compressed
+at all.</p><hr><h2 id="3-offline">3. Offline</h2><p>A Level 1 app is already offline. There is nothing to build, and the only thing
+to get right is telling people they can keep the file.</p><pre><code class="language-html">&lt;p class="hint"&gt;
+  Everything here runs locally.
+  &lt;button id="save-copy"&gt;Save a copy&lt;/button&gt; and it will keep working offline.
+&lt;/p&gt;
+</code></pre><pre><code class="language-js">document.getElementById('save-copy').addEventListener('click', async () =&gt; {
+  const res = await fetch(location.href);       // hosted context only
+  download(await res.text(), 'app.html', 'text/html');
+});
+</code></pre><p>⚠️ That works when hosted. Over <code>file://</code>, <code>fetch</code> on the document is blocked,
+so detect the situation and hide the button, or fall back to a link with the
+<code>download</code> attribute pointed at the current URL.</p><h3 id="installability-level-0-only">Installability (Level 0 only)</h3><p>Want the app to appear as an installed application? You need a web app manifest
+and a minimal service worker, and both are separate files, which costs you
+single-file conformance for the <em>installed</em> experience.
+<a href="https://iamsingle.app/entry/minimal-pwa" class="entry-pill"><img src="/assets/logos/minimal-pwa.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">minimal-pwa</span></a> is worth reading here,
+because it strips that setup down to the fewest files anyone has managed and
+makes the trade explicit.</p><p>An honest compromise: ship the pure single file as the canonical artifact and
+offer an installable hosted variant as a separate deliverable, with its
+conformance level stated plainly on both.</p><p>You can inline the manifest as a data URL, which does keep it to one file:</p><pre><code class="language-html">&lt;link rel="manifest" href='data:application/manifest+json,{"name":"App","start_url":"./","display":"standalone"}'&gt;
+</code></pre><p>Browser support for data-URL manifests is inconsistent. Test it before you build
+anything on top of it.</p><hr><h2 id="4-embedding">4. Embedding</h2><p>To let other people embed your app, make the sandbox contract explicit:</p><pre><code class="language-html">&lt;iframe src="https://example.com/app.html"
+        sandbox="allow-scripts allow-downloads"
+        referrerpolicy="no-referrer"
+        title="Calculator"
+        loading="lazy"&gt;&lt;/iframe&gt;
+</code></pre><p>Note the deliberate omission of <code>allow-same-origin</code>. Without it the iframe gets
+an opaque origin, which means <strong>no <code>localStorage</code> and no IndexedDB</strong>. An app
+meant for embedding therefore has to work from in-memory or URL state alone.
+Design for that, or document that embedding turns persistence off.</p><p>To prevent embedding you need <code>X-Frame-Options</code> or <code>frame-ancestors</code>, and
+neither is available from a <code>&lt;meta&gt;</code> tag. A hosted deployment can set them. A
+file travelling on its own cannot.</p><hr><h2 id="5-metadata-conventions">5. Metadata conventions</h2><p>Machine-readable metadata is what makes an app discoverable, catalogable and
+reviewable. Put this in every artifact.</p><pre><code class="language-html">&lt;title&gt;Ledger: offline double-entry bookkeeping&lt;/title&gt;
+&lt;meta name="description" content="Double-entry bookkeeping in a single HTML file. No account, no network, no tracking."&gt;
+&lt;meta name="author" content="Your Name"&gt;
+
+&lt;meta name="sfwa:level"    content="2"&gt;
+&lt;meta name="sfwa:version"  content="2.3.0"&gt;
+&lt;meta name="sfwa:license"  content="MIT"&gt;
+&lt;meta name="sfwa:source"   content="https://github.com/you/ledger"&gt;
+&lt;meta name="sfwa:network"  content="none"&gt;
+&lt;meta name="sfwa:updated"  content="2026-07-28"&gt;
+&lt;meta name="sfwa:tags"     content="finance,accounting,offline"&gt;
+
+&lt;link rel="license" href="https://spdx.org/licenses/MIT.html"&gt;
+&lt;link rel="canonical" href="https://you.github.io/ledger/"&gt;
+</code></pre><h3 id="structured-data">Structured data</h3><p>For crawlers and directories:</p><pre><code class="language-html">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Ledger",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any browser",
+  "softwareVersion": "2.3.0",
+  "license": "https://spdx.org/licenses/MIT.html",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+&lt;/script&gt;
+</code></pre><h3 id="licence-header">Licence header</h3><p>Keep it in the source, at the top, in a comment. It survives copying in a way
+that a <code>LICENSE</code> file sitting in a repository never will.</p><pre><code class="language-html">&lt;!--
+  Ledger 2.3.0 · https://github.com/you/ledger
+  Copyright (c) 2026 Your Name · MIT License
+  Bundled dependencies and their licences are listed at the end of this file.
+--&gt;
+</code></pre><hr><h2 id="6-machine-readable-app-description">6. Machine-readable app description</h2><p>The whole app fits in a model's context window, so make it easy to reason about.
+Add a short structured summary as a non-executing block:</p><pre><code class="language-html">&lt;script type="text/markdown" id="about"&gt;
+# Ledger
+
+Double-entry bookkeeping in one HTML file.
+
+- **Level:** 2 (self-contained, portable)
+- **Storage:** IndexedDB, plus JSON export
+- **Network:** none
+- **Entry point:** `init()`, search for `§G BOOT`
+- **State shape:** see `initial` in `§C STATE`
+- **Export format:** `ledger.export` v4, documented in `§D PERSIST`
+&lt;/script&gt;
+</code></pre><p>Somebody opening <code>view-source:</code> gets oriented in ten seconds, and anybody
+pointing a model at the file gets a map instead of two thousand lines of
+undifferentiated text. If you publish an <code>llms.txt</code> at your hosted origin too,
+keep the two consistent.</p><hr><h2 id="7-versioning">7. Versioning</h2><p>Semantic versioning, with one addition specific to this form: <strong>the export
+schema version is a separate, independently incrementing integer.</strong></p><ul><li>App version changes on every release.</li><li>Schema version changes only when the persisted shape changes.</li><li>A major app version bump does not license a breaking schema change without a
+migration.</li></ul><p>Surface the version in the UI as well as the metadata. Somebody holding a
+downloaded copy has no other way to know what they have.</p><pre><code class="language-js">document.getElementById('version').textContent =
+  document.querySelector('meta[name="sfwa:version"]').content;
+</code></pre><h3 id="update-notification-without-a-network">Update notification without a network</h3><p>A Level 1 app cannot check for updates, so do not pretend otherwise. What you
+can do:</p><ul><li>Put a permanent link to the canonical source in the footer.</li><li>Show the build date next to the version.</li><li>If the app is hosted, an optional, clearly labelled, off-by-default version
+check is acceptable. It moves <code>sfwa:network</code> to <code>declared</code> and has to be
+disclosed.</li></ul><hr><h2 id="8-documentation-to-ship-alongside">8. Documentation to ship alongside</h2><p>The file is self-contained. Its documentation should be too.</p><table><thead><tr><th>Artifact</th><th>Contents</th></tr></thead><tbody><tr><td><code>README.md</code></td><td>What it does, screenshot, download link, conformance level, reproduction instructions.</td></tr><tr><td><code>CONFORMANCE.md</code></td><td>Level claimed, date verified, browsers tested, verification output.</td></tr><tr><td><code>CHANGELOG.md</code></td><td>Per release. Call out schema changes prominently.</td></tr><tr><td><code>SHA256SUMS</code></td><td>One line per released artifact.</td></tr><tr><td>In-app help</td><td>A <code>#/help</code> route. Somebody with a downloaded copy cannot reach your README.</td></tr></tbody></table><p>That last row gets skipped more than any other and is needed more than any
+other. A file that travels away from its repository has to carry its own
+instructions.</p><hr><h2 id="9-getting-listed-in-the-directory">9. Getting listed in the directory</h2><p><a href="https://iamsingle.app">iamsingle.app</a> catalogues single-file web apps, and
+submissions arrive as a pull request against the repository. An automated check
+runs on every one of them, so it saves everybody time to run the same checks
+yourself first.</p><p>What the review looks for:</p><ol><li><strong>A public source repository</strong>, with the shipped artifact reproducible from
+it.</li><li><strong>A live URL</strong> where the app can be tried without downloading anything. Point
+this at the app itself, never at a landing page describing the app. Getting
+this wrong is common, and it makes every automated measurement about your
+entry meaningless, usually in your disfavour.</li><li><strong>A conformance level that matches what the artifact does.</strong> An inaccurate
+Level 1 claim is the most common reason a submission bounces.</li><li><strong>A licence</strong>, SPDX-identified.</li><li><strong>A one-line description</strong> saying what the app does, with no mention of what
+it is built with.</li><li><strong>A screenshot</strong> of the app in use.</li><li><strong>Clean automated review:</strong> no secrets in the file, no obfuscated code, no
+undeclared network calls, no bundled analytics.</li></ol><p>Passing entries get a security-audit badge they can embed, scored on those
+checks. Anything flagged comes back with the specific finding attached, so you
+can fix it and ask for a recheck.</p><p>Run this before submitting:</p><pre><code class="language-bash"># undeclared network sinks
+grep -nE "fetch\(|XMLHttpRequest|sendBeacon|WebSocket|EventSource" dist/index.html
+
+# accidental credentials
+grep -nEi "api[_-]?key|secret|password|bearer |sk-[a-z0-9]{20,}" dist/index.html
+
+# level check
+grep -c "https://" dist/index.html    # every hit should be a link a human clicks
+</code></pre><p>The third command is the one that catches people. Every absolute URL in a Level
+1 artifact should be a hyperlink somebody clicks, never something the browser
+goes and fetches on its own.</p><hr><h2 id="10-release-checklist">10. Release checklist</h2><ul><li>[ ] Version bumped in <code>package.json</code> and injected into metadata</li><li>[ ] <code>CHANGELOG.md</code> updated, schema changes called out</li><li>[ ] Level 1 verification re-run on a genuinely offline machine</li><li>[ ] Tested in Chrome, Firefox and Safari, over <code>https://</code> and <code>file://</code></li><li>[ ] Tested on a phone, since a downloaded HTML file on mobile is a rough
+experience and worth confirming</li><li>[ ] Export from the previous version imports cleanly into this one</li><li>[ ] Size within budget, CI gate passing</li><li>[ ] <code>SHA256SUMS</code> generated and attached</li><li>[ ] Artifact attached to a tagged GitHub release</li><li>[ ] Hosted copy updated and cache-busted</li><li>[ ] In-app help reflects any new features</li></ul>
+      <div class="docs-pager"><a href="/docs/security/"><span class="dir">&larr; previous</span>Security and Privacy</a><a class="next" href="/docs/cookbook/"><span class="dir">next &rarr;</span>Cookbook</a></div>
+    </main>
+  </div>
+
+</div>
+</body>
+</html>

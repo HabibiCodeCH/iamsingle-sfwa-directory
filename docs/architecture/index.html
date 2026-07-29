@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
+<title>Architecture — SFWA Docs — iamsingle.app</title>
+<meta name="description" content="How do you structure 2,000 lines of app in one file without it rotting?">
+<link rel="canonical" href="https://iamsingle.app/docs/architecture/">
+<link rel="alternate" type="application/rss+xml" title="iamsingle.app — new entries" href="/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="iamsingle.app">
+<meta property="og:title" content="Architecture — SFWA Docs — iamsingle.app">
+<meta property="og:description" content="How do you structure 2,000 lines of app in one file without it rotting?">
+<meta property="og:url" content="https://iamsingle.app/docs/architecture/">
+<meta property="og:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Architecture — SFWA Docs — iamsingle.app">
+<meta name="twitter:description" content="How do you structure 2,000 lines of app in one file without it rotting?">
+<meta name="twitter:image" content="https://iamsingle.app/assets/iamsingle.app.png">
+
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="crumb"><a href="/">iamsingle.app</a><span class="sep">›</span><a href="/docs/">SFWA Docs</a><span class="sep">›</span><span class="current">Architecture</span></nav>
+
+  <div class="docs-shell">
+    <nav class="docs-sidebar">
+    <div class="docs-sidebar-label">SFWA docs</div>
+    <ol>
+      <li><a href="/docs/">00. The SFWA Specification</a></li>
+      <li><a href="/docs/architecture/" aria-current="page">01. Architecture</a></li>
+      <li><a href="/docs/persistence/">02. Persistence and State</a></li>
+      <li><a href="/docs/build-tooling/">03. Build and Tooling</a></li>
+      <li><a href="/docs/security/">04. Security and Privacy</a></li>
+      <li><a href="/docs/distribution/">05. Distribution</a></li>
+      <li><a href="/docs/cookbook/">06. Cookbook</a></li>
+      <li><a href="/docs/checklist/">07. Review Checklist</a></li>
+    </ol>
+  </nav>
+    <main class="docs-content">
+<h1 id="01-architecture">01. Architecture</h1><p>How to keep two thousand lines in one file legible.</p><hr><h2 id="1-the-canonical-document-order">1. The canonical document order</h2><p>Use the same physical layout every time. Somebody who has read one SFWA should
+be able to find their way around any other, and the order below maps to load
+order as well as to the order questions occur to a reader.</p><pre><code>1.  &lt;!doctype html&gt; + &lt;html lang&gt;
+2.  &lt;meta charset&gt;, &lt;meta viewport&gt;            must be the first bytes in &lt;head&gt;
+3.  &lt;meta http-equiv="Content-Security-Policy"&gt;
+4.  &lt;title&gt;, description, SFWA metadata
+5.  &lt;style&gt;                                    design tokens, then layout, then components
+6.  Inline data blocks (JSON, base64 assets, worker source)
+7.  &lt;body&gt;: semantic shell, empty mount point
+8.  &lt;template&gt; elements
+9.  &lt;script&gt;  §A Config    constants, feature flags, version
+              §B Utils     pure helpers, no DOM
+              §C State     the store and its mutations
+              §D Persist   load/save/export/import
+              §E Render    state to DOM
+              §F Events    DOM to state
+              §G Boot      one init() call, one entry point
+</code></pre><p>Give each script section a banner comment. Editors fold on them, <code>Ctrl+F</code> finds
+them, and diffs stay local instead of sprawling.</p><pre><code class="language-js">// ═══════════════════════════════════════════════════════════
+// §C  STATE
+// ═══════════════════════════════════════════════════════════
+</code></pre><p><strong>One rule holds all of this together:</strong> dependencies point <em>up</em> the list and
+never back down. <code>Render</code> can call <code>Utils</code>. <code>Utils</code> must never call <code>Render</code>.
+Break that and the file stops being readable, and the length will get blamed for
+it.</p><hr><h2 id="2-choosing-a-rendering-strategy">2. Choosing a rendering strategy</h2><p>Pick one and stay with it. Two rendering strategies in one file is the second
+fastest way to rot an SFWA.</p><h3 id="21-direct-dom-no-library">2.1 Direct DOM (no library)</h3><p>Good for anything with fewer than about ten distinct interactive regions.</p><pre><code class="language-js">const el = (sel, root = document) =&gt; root.querySelector(sel);
+const els = (sel, root = document) =&gt; [...root.querySelectorAll(sel)];
+
+function h(tag, props = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'class') node.className = v;
+    else if (k === 'style' &amp;&amp; typeof v === 'object') Object.assign(node.style, v);
+    else if (k.startsWith('on')) node.addEventListener(k.slice(2).toLowerCase(), v);
+    else if (v !== false &amp;&amp; v != null) node.setAttribute(k, v === true ? '' : v);
+  }
+  node.append(...children.flat().filter(c =&gt; c != null &amp;&amp; c !== false));
+  return node;
+}
+</code></pre><p>A dozen lines, no dependency, and it covers most of what JSX would give you.
+Text goes in via <code>append</code>, which escapes for you, so <code>innerHTML</code> never enters
+the picture.</p><p><strong>What it costs:</strong> you do reconciliation by hand. That is fine when you
+re-render small regions wholesale, and unpleasant for lists that need to keep
+focus and scroll position.</p><h3 id="22-template-plus-full-re-render">2.2 Template plus full re-render</h3><p>Good for dashboards and anything read-mostly.</p><pre><code class="language-js">function render() {
+  root.replaceChildren(...view(state));
+}
+</code></pre><p>Re-rendering the entire tree naively is fast enough below roughly a thousand
+nodes, so measure before you optimise. What will actually hurt is losing focus,
+selection and scroll position. Re-render regions instead of the root, and
+restore focus deliberately:</p><pre><code class="language-js">function renderPreservingFocus(container, nodes) {
+  const active = document.activeElement;
+  const id = active?.id, start = active?.selectionStart, end = active?.selectionEnd;
+  container.replaceChildren(...nodes);
+  if (id) {
+    const next = document.getElementById(id);
+    next?.focus();
+    if (next &amp;&amp; start != null &amp;&amp; 'setSelectionRange' in next) {
+      next.setSelectionRange(start, end);
+    }
+  }
+}
+</code></pre><h3 id="23-a-tiny-vdom-library">2.3 A tiny VDOM library</h3><p>Preact with <code>htm</code> buys you real components and reconciliation for about 5 KB
+gzipped, no JSX transform, no build step.</p><pre><code class="language-html">&lt;script type="module"&gt;
+  import { h, render } from 'https://esm.sh/preact@10.24.3';
+  import htm from 'https://esm.sh/htm@3.1.1';
+  const html = htm.bind(h);
+
+  const App = ({ items }) =&gt; html`
+    &lt;ul&gt;${items.map(i =&gt; html`&lt;li key=${i.id}&gt;${i.label}&lt;/li&gt;`)}&lt;/ul&gt;
+  `;
+  render(html`&lt;${App} items=${data} /&gt;`, document.getElementById('app'));
+&lt;/script&gt;
+</code></pre><p>⚠️ As written that is <strong>Level 0</strong>. It fetches from a CDN and uses a module
+script, so it will not run over <code>file://</code>. For Level 1, either vendor the
+library into the file at build time (see
+<a href="/docs/build-tooling/">03-build-tooling</a>) or map the specifier to a data URL.</p><h3 id="24-attribute-driven-alpine-petite-vue">2.4 Attribute-driven (Alpine, petite-vue)</h3><p>Worth it when the app is mostly a form over a small state object and you want
+the markup to keep reading as markup.</p><pre><code class="language-html">&lt;div x-data="{ open: false }"&gt;
+  &lt;button @click="open = !open"&gt;Toggle&lt;/button&gt;
+  &lt;p x-show="open"&gt;Content&lt;/p&gt;
+&lt;/div&gt;
+</code></pre><p><strong>What it costs:</strong> logic scatters into attributes where you cannot grep it,
+test it or refactor it. Pleasant up to about 300 lines of app. It gets bad
+quickly after that.</p><h3 id="25-selection-guide">2.5 Selection guide</h3><table><thead><tr><th>Situation</th><th>Use</th></tr></thead><tbody><tr><td>Utility, one screen, &lt; 500 lines</td><td>Direct DOM (§2.1)</td></tr><tr><td>Dashboard, read-mostly, few inputs</td><td>Full re-render (§2.2)</td></tr><tr><td>Editor, many inputs, list-heavy</td><td>Preact + htm (§2.3)</td></tr><tr><td>Form-shaped app, markup-first</td><td>Alpine (§2.4)</td></tr><tr><td>Canvas or WebGL at the centre</td><td>Direct DOM for the chrome, an imperative loop for the canvas</td></tr></tbody></table><p>That last row covers more of the directory than you might expect.
+<a href="https://iamsingle.app/entry/fuzzygraph" class="entry-pill"><img src="/assets/logos/fuzzygraph.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">FuzzyGraph</span></a> and
+<a href="https://iamsingle.app/entry/orbital-notebook" class="entry-pill"><img src="/assets/logos/orbital-notebook.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">orbital-notebook</span></a> both put a
+canvas at the centre and keep the surrounding controls deliberately plain, which
+is the right instinct. There is nothing to gain from a reactive framework
+wrapped around a render loop that owns its own pixels.</p><hr><h2 id="3-state">3. State</h2><h3 id="31-one-store-plain-object">3.1 One store, plain object</h3><pre><code class="language-js">const initial = Object.freeze({
+  schema: 3,
+  items: [],
+  filter: 'all',
+  ui: { selectedId: null, dialog: null },
+});
+</code></pre><p>Keep <code>schema</code> as a required top-level integer. It costs nothing now and saves
+you the day you change the shape, which you will. See
+<a href="/docs/persistence/#5-versioning-and-migration">02-persistence §5</a>.</p><p>Keep <code>ui</code> separate from domain data. Only domain data gets exported and
+persisted. Skip this and every export you produce will carry a record of which
+dialog happened to be open, and every import will helpfully reopen it.</p><h3 id="32-reactivity-with-a-proxy">3.2 Reactivity with a Proxy</h3><pre><code class="language-js">let state = structuredClone(initial);
+let dirty = false;
+
+const store = new Proxy(state, {
+  set(target, key, value) {
+    if (Object.is(target[key], value)) return true;
+    target[key] = value;
+    schedule();
+    return true;
+  },
+  deleteProperty(target, key) { delete target[key]; schedule(); return true; },
+});
+
+function schedule() {
+  if (dirty) return;
+  dirty = true;
+  queueMicrotask(() =&gt; { dirty = false; render(); });
+}
+</code></pre><p>⚠️ <strong>This proxy is shallow.</strong> <code>store.items.push(x)</code> will not trigger a render,
+because the mutation lands on the inner array and the proxy never sees it. Two
+honest ways out:</p><ul><li><strong>Immutable updates.</strong> <code>store.items = [...store.items, x]</code>. Predictable, a
+little wasteful, correct. Use this one.</li><li><strong>A deep proxy.</strong> Wrap nested objects on <code>get</code>. That is twenty more lines,
+some genuinely confusing identity bugs, and <code>structuredClone</code> of a proxied
+object throws when it meets a function. Avoid it until you have measured a
+reason.</li></ul><h3 id="33-actions-not-scattered-mutation">3.3 Actions, not scattered mutation</h3><p>Route every state change through a named function. This is what makes undo,
+logging and persistence possible later without a rewrite.</p><pre><code class="language-js">const actions = {
+  addItem(label) {
+    store.items = [...store.items, { id: crypto.randomUUID(), label, done: false }];
+  },
+  toggleItem(id) {
+    store.items = store.items.map(i =&gt; i.id === id ? { ...i, done: !i.done } : i);
+  },
+  setFilter(filter) { store.filter = filter; },
+};
+</code></pre><p><code>crypto.randomUUID()</code> needs a secure context, and current Chrome and Firefox
+treat <code>file://</code> as one. Feature-detect anyway and fall back to a counter if you
+still support older Safari.</p><h3 id="34-derived-state">3.4 Derived state</h3><p>Compute it, do not store it. Stored derived values are how you end up with two
+sources of truth that disagree at the worst possible moment.</p><pre><code class="language-js">const visibleItems = () =&gt; {
+  const { items, filter } = store;
+  if (filter === 'active') return items.filter(i =&gt; !i.done);
+  if (filter === 'done')   return items.filter(i =&gt; i.done);
+  return items;
+};
+</code></pre><p>Memoise once profiling shows the derivation is hot, and not before. A one-key
+cache on the input reference usually does it.</p><hr><h2 id="4-routing">4. Routing</h2><p>Use the hash. It behaves identically over <code>http://</code>, <code>https://</code> and <code>file://</code>,
+and it needs no server configuration, which no other option can claim.</p><pre><code class="language-js">const routes = {
+  '': renderList,
+  '#/settings': renderSettings,
+  '#/about': renderAbout,
+};
+
+function router() {
+  const view = routes[location.hash] ?? routes[''];
+  view();
+}
+addEventListener('hashchange', router);
+</code></pre><p>For routes with parameters, parse them yourself:</p><pre><code class="language-js">function parseRoute(hash = location.hash) {
+  const [path, query = ''] = hash.replace(/^#\/?/, '').split('?');
+  return { segments: path.split('/').filter(Boolean), params: new URLSearchParams(query) };
+}
+</code></pre><p>⚠️ <code>history.pushState</code> runs happily over <code>file://</code> and produces a URL nobody can
+reload. Keep the History API out of a Level 1 app.</p><hr><h2 id="5-styling">5. Styling</h2><h3 id="51-tokens-first">5.1 Tokens first</h3><pre><code class="language-css">:root {
+  color-scheme: light dark;
+
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 1rem;
+  --space-4: 1.5rem;  --space-5: 2.5rem;
+
+  --radius: 8px;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+
+  --bg:      light-dark(#fdfdfc, #16161a);
+  --surface: light-dark(#ffffff, #1e1e24);
+  --text:    light-dark(#1a1a1a, #e8e8e6);
+  --muted:   light-dark(#6b6b70, #9a9aa2);
+  --accent:  light-dark(#2f5fd0, #7aa2f7);
+  --border:  light-dark(#e2e2df, #2e2e36);
+}
+</code></pre><p><code>color-scheme</code> plus <code>light-dark()</code> gets you dark mode in one declaration each,
+following the OS preference for free. For a manual override, set <code>color-scheme</code>
+on a wrapper element and leave the palette alone.</p><h3 id="52-cascade-layers">5.2 Cascade layers</h3><p>Six hundred lines of CSS in one <code>&lt;style&gt;</code> block needs as much internal structure
+as the JavaScript does.</p><pre><code class="language-css">@layer reset, base, layout, components, utilities, overrides;
+
+@layer reset   { *, *::before, *::after { box-sizing: border-box; } }
+@layer base    { body { font: 16px/1.5 var(--font-ui); background: var(--bg); color: var(--text); } }
+@layer layout  { .stack &gt; * + * { margin-block-start: var(--space-3); } }
+@layer components { /* ... */ }
+</code></pre><p>Layers make specificity stop mattering. Anything in <code>overrides</code> beats anything
+in <code>components</code> no matter how the selectors weigh up, which heads off the
+<code>!important</code> spiral that single-file CSS drifts into.</p><h3 id="53-native-nesting">5.3 Native nesting</h3><p>Supported everywhere current, and it removes most of the reason people used to
+reach for a preprocessor.</p><pre><code class="language-css">@layer components {
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-3);
+
+    &amp; &gt; h3 { margin: 0 0 var(--space-2); font-size: 1rem; }
+    &amp;:has(:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    @media (width &lt; 40rem) { padding: var(--space-2); }
+  }
+}
+</code></pre><h3 id="54-what-to-avoid">5.4 What to avoid</h3><p><strong>Tailwind Play CDN.</strong> It is a development convenience that ships an entire
+compiler to the browser. It drops you to Level 0, costs hundreds of kilobytes,
+and flashes unstyled content on the way in.
+<a href="https://iamsingle.app/entry/gemini-chat-organizer-hub" class="entry-pill"><img src="/assets/logos/gemini-chat-organizer-hub.png" alt="" loading="lazy" width="18" height="18" class="entry-pill-logo"><span class="entry-pill-name">gemini-chat-organizer-hub</span></a>
+is otherwise a tidy 58 KB offline-first app, and <code>cdn.tailwindcss.com</code> is one of
+the twelve things it fetches before it can render. If you want Tailwind, compile
+it and inline the output.</p><p><strong>Web fonts.</strong> One WOFF2 weight runs 20 to 60 KB once base64-inlined, which is
+rarely worth it. <code>system-ui</code> looks native everywhere, and native usually looks
+better than the font you picked.</p><p><strong>Icon fonts.</strong> Use an inline SVG <code>&lt;symbol&gt;</code> sprite instead. See
+<a href="/docs/cookbook/#15-inline-svg-sprite">06-cookbook §15</a>.</p><hr><h2 id="6-components-inside-one-file">6. Components inside one file</h2><p>One file per component is off the table. Components are not.</p><pre><code class="language-js">// ── Component: ItemRow ───────────────────────────────────────
+// props: { item, onToggle, onDelete }
+function ItemRow({ item, onToggle, onDelete }) {
+  return h('li', { class: 'row', 'data-id': item.id },
+    h('input', { type: 'checkbox', checked: item.done, onChange: () =&gt; onToggle(item.id) }),
+    h('span', { class: item.done ? 'done' : '' }, item.label),
+    h('button', { onClick: () =&gt; onDelete(item.id), 'aria-label': `Delete ${item.label}` }, '×'),
+  );
+}
+</code></pre><p>Take one props object and destructure it in the signature, so the interface
+documents itself. Put a one-line comment above each component stating the props
+contract. Have components take callbacks instead of calling <code>actions</code> directly,
+which keeps them testable and puts the data flow where you can see it at the
+call site. And have them return nodes, leaving the appending to whoever called
+them.</p><p>When a component is mostly markup, <code>&lt;template&gt;</code> beats string concatenation:</p><pre><code class="language-html">&lt;template id="tpl-row"&gt;
+  &lt;li class="row"&gt;
+    &lt;input type="checkbox"&gt;
+    &lt;span class="label"&gt;&lt;/span&gt;
+    &lt;button class="del" aria-label="Delete"&gt;×&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/template&gt;
+</code></pre><pre><code class="language-js">const tplRow = document.getElementById('tpl-row');
+function ItemRow(item) {
+  const node = tplRow.content.firstElementChild.cloneNode(true);
+  node.dataset.id = item.id;
+  node.querySelector('.label').textContent = item.label;   // escaped, safe
+  node.querySelector('input').checked = item.done;
+  return node;
+}
+</code></pre><hr><h2 id="7-event-handling">7. Event handling</h2><p>One delegated listener per container, not one per row. It survives re-renders,
+costs nothing to attach, and keeps all the wiring in a block you can read at
+once.</p><pre><code class="language-js">root.addEventListener('click', (e) =&gt; {
+  const row = e.target.closest('[data-id]');
+  if (!row) return;
+  const id = row.dataset.id;
+  if (e.target.matches('.del'))       actions.deleteItem(id);
+  else if (e.target.matches('input')) actions.toggleItem(id);
+});
+</code></pre><p>Keyboard shortcuts belong in a single declarative map, never a chain of
+conditionals. See <a href="/docs/cookbook/#12-keyboard-shortcut-map">06-cookbook §12</a>.</p><hr><h2 id="8-errors">8. Errors</h2><p>There is no error-reporting backend here and nobody watching logs. The user is
+the only observer you have, so failures need to be visible and recoverable.</p><pre><code class="language-js">addEventListener('error', (e) =&gt; reportFailure(e.error ?? e.message));
+addEventListener('unhandledrejection', (e) =&gt; reportFailure(e.reason));
+
+function reportFailure(err) {
+  console.error(err);
+  const bar = document.getElementById('errorbar');
+  bar.textContent = `Something went wrong: ${err?.message ?? err}. Your data is still saved.`;
+  bar.hidden = false;
+}
+</code></pre><p>Never white-screen. A blank page in a file somebody double-clicked is
+indistinguishable from a download that failed halfway.</p><p>Say whether the data survived, because that is the only thing they want to know.</p><p>Keep the export path alive when rendering dies. Wrap the render call and leave the
+persistence layer alone, so a broken view still allows a rescue. A keyboard
+shortcut that dumps state to the console or downloads a JSON file, registered
+first thing in boot, has saved people's work more than once.</p><hr><h2 id="9-boot-sequence">9. Boot sequence</h2><p>One entry point, one order, and no top-level side effects anywhere else.</p><pre><code class="language-js">function init() {
+  installErrorHandlers();   // first: everything after this can fail safely
+  installRescueShortcut();
+  const loaded = loadState();
+  if (loaded.ok) Object.assign(store, loaded.value);
+  else notice(`Starting fresh: ${loaded.error}`);
+  bindEvents();
+  router();
+  render();
+  document.body.dataset.ready = 'true';
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+} else {
+  init();
+}
+</code></pre><p><code>document.body.dataset.ready</code> gives CSS something to fade in on and gives
+end-to-end tests something to wait for. One line, two uses.</p><hr><h2 id="10-keeping-the-file-navigable">10. Keeping the file navigable</h2><p><strong>Put a table of contents at the top of the script</strong>, one line per section with
+a short summary. Twelve lines will make a 2,000-line file browsable.</p><p><strong>Cap the file around 3,000 lines.</strong> Hand-editing gets uncomfortable well
+before that, somewhere near 1,500, which is where you should switch to authoring
+in several files and bundling. Neither move changes your conformance level, per
+<a href="/docs/#5-non-goals">00-spec §5</a>.</p><p><strong>Keep functions under 50 lines.</strong> With no module boundaries to lean on, long
+functions get disproportionately harder to follow than they would elsewhere.</p><p><strong>Name consistently by section.</strong> <code>renderX</code> in §E, <code>onX</code> in §F, <code>loadX</code> and
+<code>saveX</code> in §D. Do that and you can find any function by guessing what it is
+called.</p><p><strong>Keep the CSS component order matching the JS component order.</strong> Somebody
+reading <code>ItemRow</code> should be able to find <code>.row</code> by position, without searching
+for it.</p>
+      <div class="docs-pager"><a href="/docs/"><span class="dir">&larr; previous</span>The SFWA Specification</a><a class="next" href="/docs/persistence/"><span class="dir">next &rarr;</span>Persistence and State</a></div>
+    </main>
+  </div>
+
+</div>
+</body>
+</html>
