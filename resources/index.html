@@ -69,8 +69,9 @@
     border:1px solid var(--line);background:var(--paper-2);padding:16px 18px;
     display:flex;flex-direction:column;gap:8px;
   }
-  .resource-card-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;}
-  .resource-card-name{font-size:16px;font-weight:400;margin:0;}
+  .resource-card-top{display:flex;align-items:center;gap:8px;}
+  .resource-card-icon{width:22px;height:22px;border:1px solid var(--line);object-fit:cover;flex-shrink:0;background:var(--paper);}
+  .resource-card-name{font-size:16px;font-weight:400;margin:0;flex:1;min-width:0;}
   .resource-card-cat{
     font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;
     color:var(--stamp);white-space:nowrap;flex-shrink:0;
@@ -107,7 +108,7 @@
   <div class="resources-grid">
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">Alpine.js</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/alpinejs.png?size=48"><h3 class="resource-card-name">Alpine.js</h3>
         <span class="resource-card-cat">Reactivity</span>
       </div>
       <p class="resource-card-desc">Declarative reactivity as plain HTML attributes — the closest thing to Vue as a single script tag.</p>
@@ -118,7 +119,7 @@
     </div>
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">petite-vue</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/vuejs.png?size=48"><h3 class="resource-card-name">petite-vue</h3>
         <span class="resource-card-cat">Reactivity</span>
       </div>
       <p class="resource-card-desc">Vue's official subset for progressive enhancement, no build step required.</p>
@@ -129,7 +130,7 @@
     </div>
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">Preact</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/preactjs.png?size=48"><h3 class="resource-card-name">Preact</h3>
         <span class="resource-card-cat">UI</span>
       </div>
       <p class="resource-card-desc">A drop-in alternative to React — same component model, a fraction of the weight.</p>
@@ -140,7 +141,7 @@
     </div>
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">htm</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/developit.png?size=48"><h3 class="resource-card-name">htm</h3>
         <span class="resource-card-cat">Templating</span>
       </div>
       <p class="resource-card-desc">JSX-like templates via tagged template literals — no build step, no compiler, pairs well with Preact.</p>
@@ -155,7 +156,7 @@
   <div class="resources-grid">
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">idb-keyval</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/jakearchibald.png?size=48"><h3 class="resource-card-name">idb-keyval</h3>
         <span class="resource-card-cat">Storage</span>
       </div>
       <p class="resource-card-desc">A promise-based <code>get</code>/<code>set</code> wrapper over IndexedDB, as one drop-in script.</p>
@@ -166,7 +167,7 @@
     </div>
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">PapaParse</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/mholt.png?size=48"><h3 class="resource-card-name">PapaParse</h3>
         <span class="resource-card-cat">Data parsing</span>
       </div>
       <p class="resource-card-desc">Parses real-world, messy CSV files in the browser, no build step required.</p>
@@ -177,7 +178,7 @@
     </div>
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">pako</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/nodeca.png?size=48"><h3 class="resource-card-name">pako</h3>
         <span class="resource-card-cat">Compression</span>
       </div>
       <p class="resource-card-desc">zlib-compatible gzip/deflate in the browser — useful for save-file or export features.</p>
@@ -192,7 +193,7 @@
   <div class="resources-grid">
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">safe-markdown</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/HabibiCodeCH.png?size=48"><h3 class="resource-card-name">safe-markdown</h3>
         <span class="resource-card-cat">Markdown</span>
       </div>
       <p class="resource-card-desc">Renders markdown to real DOM nodes, never an HTML string — no <code>innerHTML</code> anywhere, so there's no injection sink to sanitise.</p>
@@ -203,7 +204,7 @@
     </div>
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">day.js</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/iamkun.png?size=48"><h3 class="resource-card-name">day.js</h3>
         <span class="resource-card-cat">Dates</span>
       </div>
       <p class="resource-card-desc">A date library with a moment.js-compatible API, without moment's weight.</p>
@@ -214,7 +215,7 @@
     </div>
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">Prism.js</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/PrismJS.png?size=48"><h3 class="resource-card-name">Prism.js</h3>
         <span class="resource-card-cat">Syntax highlighting</span>
       </div>
       <p class="resource-card-desc">A small core; load only the language grammars you actually need.</p>
@@ -225,7 +226,7 @@
     </div>
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">SortableJS</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/SortableJS.png?size=48"><h3 class="resource-card-name">SortableJS</h3>
         <span class="resource-card-cat">Drag &amp; drop</span>
       </div>
       <p class="resource-card-desc">Drag-and-drop reorderable lists, no dependencies, handles the fiddly pointer events for you.</p>
@@ -236,7 +237,7 @@
     </div>
     <div class="resource-card">
       <div class="resource-card-top">
-        <h3 class="resource-card-name">qrcode</h3>
+        <img class="resource-card-icon" alt="" loading="lazy" src="https://github.com/soldair.png?size=48"><h3 class="resource-card-name">qrcode</h3>
         <span class="resource-card-cat">QR codes</span>
       </div>
       <p class="resource-card-desc">Client-side QR code generation to canvas, SVG, or a terminal string.</p>
