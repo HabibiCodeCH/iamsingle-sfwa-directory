@@ -1,0 +1,10 @@
+{
+  "name": "xsukax Photo Editor",
+  "url": "https://xsukax.github.io/xsukax-Photo-Editor/",
+  "repo": "xsukax/xsukax-Photo-Editor",
+  "desc": "A privacy-focused, client-side photo editor. No server, everything runs in the browser.",
+  "tags": [
+    "tools"
+  ],
+  "added": "2026-07-29"
+}
