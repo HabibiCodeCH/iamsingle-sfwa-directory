@@ -19,6 +19,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: build-pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,7 +58,21 @@ jobs:
                   sitemap.xml robots.txt llms.txt feed.xml
           if git diff --cached --quiet; then
             echo "No page changes."
-          else
-            git commit -m "chore: regenerate static pages"
-            git push
+            exit 0
           fi
+          git commit -m "chore: regenerate static pages"
+          # main can move between checkout and push — another workflow's own
+          # commit (promote-pending, snapshot-stars, a human push) landing in
+          # that window rejects a plain push. Rebase onto whatever's current
+          # and retry rather than failing outright on the race.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            echo "push rejected, retrying ($attempt)..."
+            git fetch origin main
+            git rebase origin/main
+            sleep $((attempt * 3))
+          done
+          echo "::error::push still failing after 5 attempts"
+          exit 1
