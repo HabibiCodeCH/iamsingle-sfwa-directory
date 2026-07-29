@@ -1,0 +1,10 @@
+{
+  "name": "footprint",
+  "url": "https://akanshujamwal.github.io/footprint/",
+  "repo": "akanshujamwal/footprint",
+  "desc": "A single-file browser-based work journal for developers and PMs. Log daily tasks, sync to Google Sheets.",
+  "tags": [
+    "notes"
+  ],
+  "added": "2026-07-29"
+}
