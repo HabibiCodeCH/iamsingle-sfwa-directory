@@ -1114,5 +1114,41 @@
     "stars": 0,
     "topic": "single-file-app",
     "discovered": "2026-07-29"
+  },
+  {
+    "repo": "smadgulkar/carrel",
+    "name": "carrel",
+    "url": "https://github.com/smadgulkar/carrel",
+    "description": "A complete EPUB library and reader in one HTML file. No dependencies, no build step, no server.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-03"
+  },
+  {
+    "repo": "Eigrutel/eigrutel-farde",
+    "name": "eigrutel-farde",
+    "url": "https://eigrutel.github.io/eigrutel-farde/",
+    "description": "Application web libre et autonome pour cr\u00e9er et organiser une bible graphique. /  Free, standalone web application for creating and organizing a visual bible.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-03"
+  },
+  {
+    "repo": "qamotech/codeforge",
+    "name": "codeforge",
+    "url": "https://qamotech.github.io/codeforge/",
+    "description": "\u26a1 CodeForge v18.0 \u2014 Quantum Omnipresent AI Engine & Multi-Model Suite for App & Game Prototyping",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-03"
+  },
+  {
+    "repo": "dotslashgabut/dotslashgabut.github.io",
+    "name": "dotslashgabut.github.io",
+    "url": "https://dotslashgabut.github.io/",
+    "description": "DotSlashGabut ~ AI-Generated Web Tools (Test Code). Single HTML file web-based app.",
+    "stars": 1,
+    "topic": "single-html-file",
+    "discovered": "2026-08-03"
   }
 ]
