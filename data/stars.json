@@ -1,6 +1,6 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 110,
+    "stars": 112,
     "created": "2025-08-07",
     "forks": 121,
     "contributors": 4,
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4857,
+    "stars": 4858,
     "created": "2025-12-16",
     "forks": 741,
     "contributors": 13,
@@ -372,22 +372,22 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 3455,
+    "stars": 3535,
     "created": "2026-07-17",
-    "forks": 230,
+    "forks": 233,
     "contributors": 8,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 86.6
+        "pct": 83.9
       },
       {
         "name": "JavaScript",
-        "pct": 8.1
+        "pct": 10.2
       },
       {
         "name": "HTML",
-        "pct": 2.6
+        "pct": 3.3
       },
       {
         "name": "CSS",
@@ -424,7 +424,7 @@
     ]
   },
   "pyrate-llama/hermes-ui": {
-    "stars": 190,
+    "stars": 191,
     "created": "2026-04-03",
     "forks": 24,
     "contributors": 2,
