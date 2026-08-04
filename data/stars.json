@@ -1,8 +1,8 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 112,
+    "stars": 113,
     "created": "2025-08-07",
-    "forks": 121,
+    "forks": 123,
     "contributors": 4,
     "languages": [
       {
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4858,
+    "stars": 4862,
     "created": "2025-12-16",
     "forks": 741,
     "contributors": 13,
@@ -372,30 +372,30 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 3535,
+    "stars": 3595,
     "created": "2026-07-17",
-    "forks": 233,
+    "forks": 241,
     "contributors": 8,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 83.9
+        "pct": 83.5
       },
       {
         "name": "JavaScript",
-        "pct": 10.2
+        "pct": 10.6
       },
       {
         "name": "HTML",
-        "pct": 3.3
+        "pct": 3.0
       },
       {
         "name": "CSS",
-        "pct": 1.8
+        "pct": 2.1
       },
       {
         "name": "Swift",
-        "pct": 0.8
+        "pct": 0.7
       }
     ]
   },
@@ -424,7 +424,7 @@
     ]
   },
   "pyrate-llama/hermes-ui": {
-    "stars": 191,
+    "stars": 192,
     "created": "2026-04-03",
     "forks": 24,
     "contributors": 2,
@@ -480,7 +480,7 @@
     ]
   },
   "zichy/vicco": {
-    "stars": 31,
+    "stars": 32,
     "created": "2015-11-01",
     "forks": 7,
     "contributors": 5,
