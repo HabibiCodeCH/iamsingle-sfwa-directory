@@ -1,0 +1,11 @@
+{
+  "name": "Word Forest (????)",
+  "url": "https://word-forest-test.netlify.app/",
+  "repo": "Zay1337-max/word-forest",
+  "desc": "Single-file vocabulary learning app for Chinese high-school English (Waiyanshe textbooks + Gaokao 3500 words): flashcards with spaced repetition, spelling/dictation drills, level quests and 8 mini-games. One HTML file, zero dependencies, works offline.",
+  "tags": [
+    "tools",
+    "games"
+  ],
+  "added": "2026-08-05"
+}
