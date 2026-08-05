@@ -1,6 +1,6 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 113,
+    "stars": 115,
     "created": "2025-08-07",
     "forks": 123,
     "contributors": 4,
@@ -78,7 +78,7 @@
   "TiddlyWiki/TiddlyWiki5": {
     "stars": 8621,
     "created": "2011-11-22",
-    "forks": 1253,
+    "forks": 1252,
     "contributors": 320,
     "languages": [
       {
@@ -172,18 +172,18 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4862,
+    "stars": 4866,
     "created": "2025-12-16",
     "forks": 741,
     "contributors": 13,
     "languages": [
       {
         "name": "HTML",
-        "pct": 77.8
+        "pct": 77.4
       },
       {
         "name": "JavaScript",
-        "pct": 22.2
+        "pct": 22.6
       }
     ]
   },
@@ -372,26 +372,26 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 3595,
+    "stars": 3657,
     "created": "2026-07-17",
-    "forks": 241,
+    "forks": 246,
     "contributors": 8,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 83.5
+        "pct": 82.8
       },
       {
         "name": "JavaScript",
-        "pct": 10.6
+        "pct": 11.5
       },
       {
         "name": "HTML",
-        "pct": 3.0
+        "pct": 2.8
       },
       {
         "name": "CSS",
-        "pct": 2.1
+        "pct": 2.3
       },
       {
         "name": "Swift",
@@ -424,7 +424,7 @@
     ]
   },
   "pyrate-llama/hermes-ui": {
-    "stars": 192,
+    "stars": 191,
     "created": "2026-04-03",
     "forks": 24,
     "contributors": 2,
