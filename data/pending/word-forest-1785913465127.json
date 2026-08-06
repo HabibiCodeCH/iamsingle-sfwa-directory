@@ -1,0 +1,91 @@
+{
+  "name": "Word Forest (????)",
+  "url": "https://word-forest-test.netlify.app/",
+  "repo": "Zay1337-max/word-forest",
+  "desc": "Single-file vocabulary learning app for Chinese high-school English (Waiyanshe textbooks + Gaokao 3500 words): flashcards with spaced repetition, spelling/dictation drills, level quests and 8 mini-games. One HTML file, zero dependencies, works offline.",
+  "tags": [
+    "tools",
+    "games"
+  ],
+  "added": "2026-08-05",
+  "checks": [
+    {
+      "id": "secrets",
+      "label": "No leaked credentials (detect-secrets)",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "semgrep-security",
+      "label": "Semgrep security-audit ruleset",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "semgrep-js",
+      "label": "Semgrep javascript ruleset",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-eval",
+      "label": "eval() usage",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-function",
+      "label": "Function() construction",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-decode-exec",
+      "label": "decode\u2192eval chain",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-dom-write",
+      "label": "document.write of decoded content",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-beacon",
+      "label": "sendBeacon usage",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "pattern-dom-inject",
+      "label": "decoded content DOM injection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "sfwa-html-artifact",
+      "label": "Ships an HTML file",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "sfwa-no-build-step",
+      "label": "No build step required",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "sfwa-client-side-only",
+      "label": "No backend required",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "id": "sfwa-url-is-app",
+      "label": "Submitted URL looks like the app itself",
+      "status": "pass",
+      "detail": ""
+    }
+  ]
+}
