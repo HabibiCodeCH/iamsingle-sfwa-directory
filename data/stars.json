@@ -1,6 +1,6 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 117,
+    "stars": 118,
     "created": "2025-08-07",
     "forks": 123,
     "contributors": 4,
@@ -48,7 +48,7 @@
     ]
   },
   "MartinSantosT/gemini-chat-organizer-hub": {
-    "stars": 26,
+    "stars": 27,
     "created": "2025-11-23",
     "forks": 3,
     "contributors": 1,
@@ -76,7 +76,7 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8621,
+    "stars": 8622,
     "created": "2011-11-22",
     "forks": 1252,
     "contributors": 320,
@@ -172,18 +172,18 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4872,
+    "stars": 4875,
     "created": "2025-12-16",
-    "forks": 741,
+    "forks": 742,
     "contributors": 13,
     "languages": [
       {
         "name": "HTML",
-        "pct": 77.4
+        "pct": 77.6
       },
       {
         "name": "JavaScript",
-        "pct": 22.6
+        "pct": 22.4
       }
     ]
   },
@@ -372,30 +372,30 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 3737,
+    "stars": 3773,
     "created": "2026-07-17",
-    "forks": 250,
+    "forks": 252,
     "contributors": 8,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 81.7
+        "pct": 77.8
       },
       {
         "name": "JavaScript",
-        "pct": 12.7
-      },
-      {
-        "name": "HTML",
-        "pct": 2.7
+        "pct": 16.5
       },
       {
         "name": "CSS",
-        "pct": 2.3
+        "pct": 3.0
+      },
+      {
+        "name": "HTML",
+        "pct": 2.2
       },
       {
         "name": "Swift",
-        "pct": 0.6
+        "pct": 0.5
       }
     ]
   },
