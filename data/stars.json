@@ -1,6 +1,6 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 119,
+    "stars": 118,
     "created": "2025-08-07",
     "forks": 124,
     "contributors": 4,
@@ -76,9 +76,9 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8622,
+    "stars": 8623,
     "created": "2011-11-22",
-    "forks": 1252,
+    "forks": 1251,
     "contributors": 320,
     "languages": [
       {
@@ -172,9 +172,9 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4894,
+    "stars": 4907,
     "created": "2025-12-16",
-    "forks": 745,
+    "forks": 744,
     "contributors": 13,
     "languages": [
       {
@@ -212,7 +212,7 @@
     ]
   },
   "chicogong/html-tools": {
-    "stars": 128,
+    "stars": 129,
     "created": "2025-12-25",
     "forks": 51,
     "contributors": 3,
@@ -372,30 +372,30 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 3836,
+    "stars": 3861,
     "created": "2026-07-17",
-    "forks": 257,
+    "forks": 259,
     "contributors": 8,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 77.5
+        "pct": 76.8
       },
       {
         "name": "JavaScript",
-        "pct": 16.8
+        "pct": 17.5
       },
       {
         "name": "CSS",
-        "pct": 3.0
+        "pct": 2.9
       },
       {
         "name": "HTML",
-        "pct": 2.2
+        "pct": 2.1
       },
       {
         "name": "Swift",
-        "pct": 0.5
+        "pct": 0.6
       }
     ]
   },
@@ -426,7 +426,7 @@
   "pyrate-llama/hermes-ui": {
     "stars": 193,
     "created": "2026-04-03",
-    "forks": 24,
+    "forks": 25,
     "contributors": 2,
     "languages": [
       {
