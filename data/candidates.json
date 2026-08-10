@@ -1150,5 +1150,104 @@
     "stars": 1,
     "topic": "single-html-file",
     "discovered": "2026-08-03"
+  },
+  {
+    "repo": "7752777/counselor-desk",
+    "name": "counselor-desk",
+    "url": "https://7752777.github.io/counselor-desk/",
+    "description": "\u9ad8\u6821\u8f85\u5bfc\u5458\u672c\u5730\u5de5\u4f5c\u53f0\uff1aWindows \u684c\u9762\u7248 + \u5355 HTML \u7f51\u9875\u7248\uff0c\u7ba1\u7406\u5b66\u751f\u53f0\u8d26\u3001\u8868\u5355\u8d44\u6599\u3001\u653f\u7b56\u6587\u4ef6\u4e0e\u672c\u5730\u5907\u4efd\u3002",
+    "stars": 8,
+    "topic": "single-file-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "LiangHuang38085/math-visual-lab",
+    "name": "math-visual-lab",
+    "url": "https://LiangHuang38085.github.io/math-visual-lab/",
+    "description": "\u6570\u5f62\u5b9e\u9a8c\u5ba4 \u00b7 \u521d\u4e2d\u6570\u5b66\u516c\u5f0f\u53ef\u89c6\u5316\u4e92\u52a8\u5b66\u4e60\uff1a24 \u4e2a\u53ef\u4ea4\u4e92\u77e5\u8bc6\u6a21\u5757\uff0c\u6ed1\u5757\u6539\u53c2\u6570\u3001\u62d6\u70b9\u53d8\u56fe\u5f62\u3001\u52a8\u753b\u6f14\u8bc1\u660e\uff0c\u5355\u6587\u4ef6\u79bb\u7ebf\u53ef\u7528\u3002",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "adiapandi/runbook-it",
+    "name": "runbook-it",
+    "url": "https://github.com/adiapandi/runbook-it",
+    "description": "Lightweight single-file web app for logging, searching, and managing IT incident history \u2014 with categories, severity levels, file attachments, and quick search.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "ZanettiCWB/money-reset-case-study",
+    "name": "money-reset-case-study",
+    "url": "https://the-moneyreset.netlify.app/",
+    "description": "Case study: a paid personal finance app shipped as a single self-contained HTML file. No backend, no build step, no dependencies. Covers the encrypted access gate, two Safari-only bugs, and what I got wrong.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "aspctt/pet2print",
+    "name": "pet2print",
+    "url": "https://aspctt.github.io/pet2print/",
+    "description": "Real-time MQTT telemetry dashboard for a PET-bottle-to-filament recycling machine. Single self-contained HTML file with inlined MQTT.js and Chart.js: live charts, persistent message log, and closed-loop auger RPM control.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "adiapandi/brankas",
+    "name": "brankas",
+    "url": "https://github.com/adiapandi/brankas",
+    "description": "A single-file password & link manager with client-side AES-GCM encryption \u2014 no backend, no server, your data never leaves the browser.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "edumentorclases/Expense-Ledger",
+    "name": "Expense-Ledger",
+    "url": "https://edumentorclases.github.io/Expense-Ledger/",
+    "description": "A single-file, browser-based personal finance tool that reads your bank statements, classifies every movement, and builds a monthly summary with charts. Everything runs locally in your browser \u2014 no server, no accounts, no data ever leaves your device.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "ZeusCupidCloris/Income-per-sed",
+    "name": "Income-per-sed",
+    "url": "https://zeuscupidcloris.github.io/Income-per-sed/",
+    "description": "Single-file income dashboard with historical playback and a Scriptable iPhone widget.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "XiaoniNaoh/qso-quick-log",
+    "name": "qso-quick-log",
+    "url": "https://xiaoninaoh.github.io/qso-quick-log/",
+    "description": "\u901a\u8054\u901f\u8bb0 \u00b7 QSO Quick Log \u2014\u2014 \u4e1a\u4f59\u65e0\u7ebf\u7535\u901a\u8054\u5feb\u901f\u8bb0\u5f55\u5c0f\u5de5\u5177\uff0c\u7f51\u9875\u5f00\u7bb1\u5373\u7528",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "igapyon/miku-score",
+    "name": "miku-score",
+    "url": "https://igapyon.github.io/mikuscore/",
+    "description": "miku-score is a MusicXML-first score converter that helps move score data between formats and bridge workflows across notation tools, converters, and generative-AI pipelines.",
+    "stars": 4,
+    "topic": "single-file-web-app",
+    "discovered": "2026-08-10"
+  },
+  {
+    "repo": "igapyon/miku-project",
+    "name": "miku-project",
+    "url": "https://igapyon.github.io/miku-project/",
+    "description": "Single-file web app for converting and visualizing MS Project XML, exporting WBS reports as XLSX, Markdown, SVG, and Mermaid, and exchanging AI-facing JSON views.",
+    "stars": 2,
+    "topic": "single-file-web-app",
+    "discovered": "2026-08-10"
   }
 ]
