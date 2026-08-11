@@ -1,6 +1,6 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 118,
+    "stars": 119,
     "created": "2025-08-07",
     "forks": 124,
     "contributors": 4,
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4907,
+    "stars": 4910,
     "created": "2025-12-16",
     "forks": 744,
     "contributors": 13,
@@ -212,9 +212,9 @@
     ]
   },
   "chicogong/html-tools": {
-    "stars": 129,
+    "stars": 130,
     "created": "2025-12-25",
-    "forks": 51,
+    "forks": 52,
     "contributors": 3,
     "languages": [
       {
@@ -236,7 +236,7 @@
     ]
   },
   "chr15m/minimal-pwa": {
-    "stars": 481,
+    "stars": 482,
     "created": "2025-03-08",
     "forks": 27,
     "contributors": 1,
@@ -268,7 +268,7 @@
     ]
   },
   "hypervault/hypervault.github.io": {
-    "stars": 128,
+    "stars": 129,
     "created": "2015-07-21",
     "forks": 14,
     "contributors": 4,
@@ -372,22 +372,22 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 3861,
+    "stars": 3898,
     "created": "2026-07-17",
-    "forks": 259,
-    "contributors": 8,
+    "forks": 261,
+    "contributors": 9,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 76.8
+        "pct": 76.6
       },
       {
         "name": "JavaScript",
-        "pct": 17.5
+        "pct": 17.7
       },
       {
         "name": "CSS",
-        "pct": 2.9
+        "pct": 3.0
       },
       {
         "name": "HTML",
@@ -424,7 +424,7 @@
     ]
   },
   "pyrate-llama/hermes-ui": {
-    "stars": 193,
+    "stars": 195,
     "created": "2026-04-03",
     "forks": 25,
     "contributors": 2,
