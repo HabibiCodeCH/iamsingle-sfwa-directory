@@ -152,7 +152,7 @@
     ]
   },
   "bitrate16/httprd": {
-    "stars": 79,
+    "stars": 80,
     "created": "2022-12-02",
     "forks": 7,
     "contributors": 1,
@@ -172,9 +172,9 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4912,
+    "stars": 4914,
     "created": "2025-12-16",
-    "forks": 744,
+    "forks": 742,
     "contributors": 13,
     "languages": [
       {
@@ -212,9 +212,9 @@
     ]
   },
   "chicogong/html-tools": {
-    "stars": 131,
+    "stars": 133,
     "created": "2025-12-25",
-    "forks": 52,
+    "forks": 53,
     "contributors": 3,
     "languages": [
       {
@@ -372,9 +372,9 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 3926,
+    "stars": 3956,
     "created": "2026-07-17",
-    "forks": 262,
+    "forks": 265,
     "contributors": 9,
     "languages": [
       {
