@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4918,
+    "stars": 4921,
     "created": "2025-12-16",
     "forks": 744,
     "contributors": 13,
@@ -376,18 +376,18 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 4033,
+    "stars": 4106,
     "created": "2026-07-17",
-    "forks": 271,
+    "forks": 280,
     "contributors": 9,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 76.7
+        "pct": 74.4
       },
       {
         "name": "JavaScript",
-        "pct": 17.7
+        "pct": 19.8
       },
       {
         "name": "CSS",
@@ -395,7 +395,7 @@
       },
       {
         "name": "HTML",
-        "pct": 2.1
+        "pct": 2.2
       },
       {
         "name": "Swift",
