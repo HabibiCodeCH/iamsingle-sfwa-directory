@@ -1,6 +1,6 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 122,
+    "stars": 123,
     "created": "2025-08-07",
     "forks": 127,
     "contributors": 4,
@@ -76,7 +76,7 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8626,
+    "stars": 8625,
     "created": "2011-11-22",
     "forks": 1251,
     "contributors": 320,
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4921,
+    "stars": 4923,
     "created": "2025-12-16",
     "forks": 744,
     "contributors": 13,
@@ -376,14 +376,14 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 4106,
+    "stars": 4161,
     "created": "2026-07-17",
-    "forks": 280,
-    "contributors": 9,
+    "forks": 284,
+    "contributors": 10,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 74.4
+        "pct": 73.7
       },
       {
         "name": "JavaScript",
@@ -398,8 +398,8 @@
         "pct": 2.2
       },
       {
-        "name": "Swift",
-        "pct": 0.6
+        "name": "Kotlin",
+        "pct": 0.7
       }
     ]
   },
@@ -428,7 +428,7 @@
     ]
   },
   "pyrate-llama/hermes-ui": {
-    "stars": 196,
+    "stars": 197,
     "created": "2026-04-03",
     "forks": 25,
     "contributors": 2,
