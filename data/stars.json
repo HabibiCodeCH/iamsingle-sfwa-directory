@@ -2,7 +2,7 @@
   "CoolDude2349/Offline-HTML-Games-Pack": {
     "stars": 123,
     "created": "2025-08-07",
-    "forks": 129,
+    "forks": 130,
     "contributors": 4,
     "languages": [
       {
@@ -76,9 +76,9 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8625,
+    "stars": 8624,
     "created": "2011-11-22",
-    "forks": 1251,
+    "forks": 1250,
     "contributors": 320,
     "languages": [
       {
@@ -152,7 +152,7 @@
     ]
   },
   "bitrate16/httprd": {
-    "stars": 80,
+    "stars": 81,
     "created": "2022-12-02",
     "forks": 7,
     "contributors": 1,
@@ -172,18 +172,18 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 4924,
+    "stars": 4925,
     "created": "2025-12-16",
     "forks": 745,
     "contributors": 13,
     "languages": [
       {
         "name": "HTML",
-        "pct": 75.2
+        "pct": 74.9
       },
       {
         "name": "JavaScript",
-        "pct": 24.8
+        "pct": 25.1
       }
     ]
   },
@@ -240,9 +240,9 @@
     ]
   },
   "chr15m/minimal-pwa": {
-    "stars": 482,
+    "stars": 483,
     "created": "2025-03-08",
-    "forks": 27,
+    "forks": 28,
     "contributors": 1,
     "languages": [
       {
@@ -376,26 +376,26 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 4203,
+    "stars": 4238,
     "created": "2026-07-17",
-    "forks": 287,
+    "forks": 294,
     "contributors": 10,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 73.7
+        "pct": 73.2
       },
       {
         "name": "JavaScript",
-        "pct": 19.8
+        "pct": 20.4
       },
       {
         "name": "CSS",
-        "pct": 3.0
+        "pct": 3.1
       },
       {
         "name": "HTML",
-        "pct": 2.2
+        "pct": 2.1
       },
       {
         "name": "Kotlin",
@@ -428,7 +428,7 @@
     ]
   },
   "pyrate-llama/hermes-ui": {
-    "stars": 197,
+    "stars": 196,
     "created": "2026-04-03",
     "forks": 25,
     "contributors": 2,
