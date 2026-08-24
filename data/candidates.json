@@ -1294,5 +1294,86 @@
     "stars": 0,
     "topic": "single-file-app",
     "discovered": "2026-08-17"
+  },
+  {
+    "repo": "AithaEzio/NuzDex",
+    "name": "NuzDex",
+    "url": "https://github.com/AithaEzio/NuzDex",
+    "description": "Pok\u00e9mon UNITE Nuzlocke tracker and bingo board. Single HTML file, no build, no server \u2014 your run stays in your browser.",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-08-24"
+  },
+  {
+    "repo": "Nav33dCodes/Units-Tracker",
+    "name": "Units-Tracker",
+    "url": "https://nav33dcodes.github.io/Units-Tracker/",
+    "description": "A serverless, single-file enterprise web dashboard for tracking electricity consumption, forecasting month-end burn rates, and enforcing multi-meter usage limits.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-24"
+  },
+  {
+    "repo": "QaximGhumman/Schematic-A-technical-drawing-inspired-GitHub-profile-repository-viewer",
+    "name": "Schematic-A-technical-drawing-inspired-GitHub-profile-repository-viewer",
+    "url": "https://github.com/QaximGhumman/Schematic-A-technical-drawing-inspired-GitHub-profile-repository-viewer",
+    "description": "A GitHub profile viewer that renders any public account as a technical drawing \u2014 no build step, zero dependencies.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-24"
+  },
+  {
+    "repo": "maxxborer/change-info-streamer-bot",
+    "name": "change-info-streamer-bot",
+    "url": "https://github.com/maxxborer/change-info-streamer-bot",
+    "description": "Standalone OBS dock for Streamer.bot to update Twitch and YouTube stream titles, categories, tags, templates, and presets \u2014 no server required.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-24"
+  },
+  {
+    "repo": "mohamadabbasico-AI/Safarino",
+    "name": "Safarino",
+    "url": "https://mohamadabbasico-ai.github.io/Safarino/",
+    "description": "\u0633\u0641\u0631\u06cc\u0646\u0648 \u2014 \u0645\u062f\u06cc\u0631\u06cc\u062a \u0648 \u062a\u0642\u0633\u06cc\u0645 \u0647\u0632\u06cc\u0646\u0647\u200c\u0647\u0627\u06cc \u0633\u0641\u0631 \u06af\u0631\u0648\u0647\u06cc. \u0641\u0627\u0631\u0633\u06cc\u060c \u0622\u0641\u0644\u0627\u06cc\u0646\u060c \u0628\u062f\u0648\u0646 \u062d\u0633\u0627\u0628 \u06a9\u0627\u0631\u0628\u0631\u06cc. Persian-first PWA for splitting group trip expenses.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-24"
+  },
+  {
+    "repo": "yuchengchai404-sketch/fitpadc",
+    "name": "fitpadc",
+    "url": "https://github.com/yuchengchai404-sketch/fitpadc",
+    "description": "Local-first fitness analysis hub for cross-data insights, phase management and AI grounded in complete personal context.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-24"
+  },
+  {
+    "repo": "xsukax/xsukax-Bowling-Manual-Scoring",
+    "name": "xsukax-Bowling-Manual-Scoring",
+    "url": "https://xsukax.github.io/xsukax-Bowling-Manual-Scoring/",
+    "description": "A lightweight, offline-first, dependency-free ten-pin bowling scorer that runs entirely in the browser.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-24"
+  },
+  {
+    "repo": "HalloJohannes/ZEIG-HER-Slides",
+    "name": "ZEIG-HER-Slides",
+    "url": "https://hallojohannes.github.io/ZEIG-HER-Slides/",
+    "description": "Pr\u00e4sentationswerkzeug, das auf freier Fl\u00e4che statt in Folien arbeitet: Stationen aufziehen, mit Inhalten f\u00fcllen, und die Kamera f\u00e4hrt beim Vortrag von einer zur n\u00e4chsten",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-08-24"
+  },
+  {
+    "repo": "leonampa/LiveRundown",
+    "name": "LiveRundown",
+    "url": "https://leonampa.github.io/liverundown/demo",
+    "description": "A lightweight, real-time theatrical rundown engine designed to keep cast and production locked to the exact same cue line globally.",
+    "stars": 0,
+    "topic": "single-html-file",
+    "discovered": "2026-08-24"
   }
 ]
