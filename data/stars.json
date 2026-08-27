@@ -2,7 +2,7 @@
   "CoolDude2349/Offline-HTML-Games-Pack": {
     "stars": 133,
     "created": "2025-08-07",
-    "forks": 134,
+    "forks": 136,
     "contributors": 4,
     "languages": [
       {
@@ -172,9 +172,9 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5074,
+    "stars": 5080,
     "created": "2025-12-16",
-    "forks": 757,
+    "forks": 758,
     "contributors": 15,
     "languages": [
       {
@@ -214,20 +214,20 @@
   "chicogong/html-tools": {
     "stars": 137,
     "created": "2025-12-25",
-    "forks": 58,
+    "forks": 59,
     "contributors": 3,
     "languages": [
       {
         "name": "HTML",
-        "pct": 99.3
+        "pct": 99.1
       },
       {
         "name": "JavaScript",
-        "pct": 0.5
+        "pct": 0.6
       },
       {
         "name": "CSS",
-        "pct": 0.1
+        "pct": 0.2
       },
       {
         "name": "EJS",
@@ -376,30 +376,30 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 4507,
+    "stars": 4543,
     "created": "2026-07-17",
-    "forks": 306,
+    "forks": 312,
     "contributors": 10,
     "languages": [
       {
+        "name": "HTML",
+        "pct": 60.6
+      },
+      {
         "name": "TypeScript",
-        "pct": 70.3
+        "pct": 28.5
       },
       {
         "name": "JavaScript",
-        "pct": 20.5
+        "pct": 8.3
       },
       {
         "name": "CSS",
-        "pct": 3.3
-      },
-      {
-        "name": "HTML",
-        "pct": 2.9
+        "pct": 1.3
       },
       {
         "name": "Kotlin",
-        "pct": 1.6
+        "pct": 0.6
       }
     ]
   },
