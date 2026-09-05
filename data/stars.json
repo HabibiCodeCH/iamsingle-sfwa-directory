@@ -1,6 +1,6 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 142,
+    "stars": 144,
     "created": "2025-08-07",
     "forks": 153,
     "contributors": 4,
@@ -76,7 +76,7 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8639,
+    "stars": 8640,
     "created": "2011-11-22",
     "forks": 1249,
     "contributors": 320,
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5118,
+    "stars": 5147,
     "created": "2025-12-16",
     "forks": 761,
     "contributors": 15,
@@ -376,10 +376,10 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 4687,
+    "stars": 4713,
     "created": "2026-07-17",
     "forks": 322,
-    "contributors": 11,
+    "contributors": 12,
     "languages": [
       {
         "name": "TypeScript",
@@ -391,7 +391,7 @@
       },
       {
         "name": "CSS",
-        "pct": 3.4
+        "pct": 3.5
       },
       {
         "name": "HTML",
