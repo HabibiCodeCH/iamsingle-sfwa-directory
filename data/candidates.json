@@ -1465,5 +1465,122 @@
     "stars": 0,
     "topic": "single-file-app",
     "discovered": "2026-08-31"
+  },
+  {
+    "repo": "nikvoronin/Sokoban",
+    "name": "Sokoban",
+    "url": "https://github.com/nikvoronin/Sokoban",
+    "description": "A complete Sokoban game featuring procedural vector graphics. The engine and all levels are packed into a single executable (~256KB).",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "travmies2000/master-marketing-ai-dashboard",
+    "name": "master-marketing-ai-dashboard",
+    "url": "https://travmies2000.github.io/master-marketing-ai-dashboard/",
+    "description": "A professional, single-file client-side utility suite for digital entrepreneurs to build funnel roadmaps, troubleshoot conversion diagnostics, and generate AI prompts.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "Hopcos/offline-novel-reader",
+    "name": "offline-novel-reader",
+    "url": "https://github.com/Hopcos/offline-novel-reader",
+    "description": "Fully offline single-file HTML novel reader. \u5b8c\u5168\u79bb\u7ebf\u7684\u5355\u6587\u4ef6 HTML \u5c0f\u8bf4\u9605\u8bfb\u5668\uff1a\u4e66\u7c4d\u4e0e\u8fdb\u5ea6\u5b58\u4e8e\u6d4f\u89c8\u5668 IndexedDB\uff0c\u5206\u9875\u9605\u8bfb\u3001\u5185\u7f6e\u4e2d\u82f1\u79bb\u7ebf\u8bcd\u5178\u4e0e\u6c49\u5b57\u8be6\u89e3\u3001\u539f\u751f TTS \u6717\u8bfb\u5e76\u81ea\u52a8\u7ffb\u9875\uff0c\u4e00\u952e JSON \u5907\u4efd\u8fc1\u79fb\u3002\u65e0\u9700\u670d\u52a1\u5668\u4e0e\u6784\u5efa\uff0c\u53cc\u51fb\u5373\u7528\u3002",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "fangxiaofen/student-growth-platform",
+    "name": "student-growth-platform",
+    "url": "https://fangxiaofen.github.io/student-growth-platform/student-hub.html",
+    "description": "\u5b66\u751f\u6210\u957f\u7ba1\u7406\u5e73\u53f0 - \u5355\u6587\u4ef6 HTML \u5e94\u7528\uff1a\u5b66\u751f\u57fa\u672c\u4fe1\u606f\u3001\u5e08\u751f\u4e92\u52a8\u8bb0\u5f55\u3001\u5b66\u4e60\u8def\u5f84\u4e0e\u6210\u679c\u535a\u5ba2",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "xsukax/xsukax-NTFY-Encrypted-Chat",
+    "name": "xsukax-NTFY-Encrypted-Chat",
+    "url": "https://xsukax.github.io/xsukax-NTFY-Encrypted-Chat/",
+    "description": "Encrypted browser chat powered by ntfy. No accounts, API keys, database, backend, or dependencies. Uses AES-256-GCM and PBKDF2 for client-side encryption, supports secure room invites, safety codes, custom ntfy servers, real-time SSE messaging, and responsive desktop/mobile use.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "chloe4ai/llm-eval-scorecard",
+    "name": "llm-eval-scorecard",
+    "url": "https://chloe4ai.github.io/llm-eval-scorecard/",
+    "description": "Blind side-by-side human eval of two model responses on a weighted rubric \u2014 randomized panes to kill position bias, bootstrap CIs on the margin, inter-rater reliability. An eval you can't audit is a vote, not a measurement.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "NickkkLian/Job-Tracker",
+    "name": "Job-Tracker",
+    "url": "https://nickkklian.github.io/Job-Tracker/?demo=1&tab=tracker",
+    "description": "Multi-region job-search tracker in one HTML file: prompt generators for Claude.ai, batch resume tailoring, a CEC hours ledger with IRCC's 30 h/week cap, a private GitHub repo as the backend.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "zlZayn/AI-batch-raw-to-offline-guide",
+    "name": "AI-batch-raw-to-offline-guide",
+    "url": "https://github.com/zlZayn/AI-batch-raw-to-offline-guide",
+    "description": "\u521b\u9020\u4e00\u4e2a\u624b\u673a\u7aef\u79bb\u7ebf\u7f51\u9875\u5e94\u7528\uff0c\u6253\u5f00\u5373\u53ef\u67e5\u9605\u5168\u90e8\u653b\u7565\uff0c\u65e0\u9700\u7f51\u7edc\u3002\u4e13\u4e3a\u56ed\u533a\u5185\u624b\u673a\u4fe1\u53f7\u5dee\u6216\u65e0\u7f51\u7edc\u7684\u573a\u666f\u8bbe\u8ba1\u3002",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "mcs-eng/tube-prompt",
+    "name": "tube-prompt",
+    "url": "https://github.com/mcs-eng/tube-prompt",
+    "description": "A reusable, local-first retro teleprompter in one self-contained HTML file.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "fmpallini/team-tracker",
+    "name": "team-tracker",
+    "url": "https://fmpallini.github.io/team-tracker/",
+    "description": "Zero-dependency single-file web app for tracking multiple project teams \u2014 org charts, daily & 1:1 notes, action-item kanban, milestones, risks. All state in one AES-256 .tmv file you own. No server, no account, offline-first. Keyboard-driven, desktop PWA.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "jwsky/navidrome-music-tesla",
+    "name": "navidrome-music-tesla",
+    "url": "https://github.com/jwsky/navidrome-music-tesla",
+    "description": "Single-file Navidrome web client for in-car browsers (Tesla and others). No build, no backend \u2014 one HTML file.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "akamaxe/snake-hexagonal",
+    "name": "snake-hexagonal",
+    "url": "https://akamaxe.github.io/snake-hexagonal/",
+    "description": "Snake with continuous physics inside a rotating hexagon, plus a tabular Q-learning agent that learns to play it. One dependency-free HTML file.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
+  },
+  {
+    "repo": "DkshByte/attendance-tracker",
+    "name": "attendance-tracker",
+    "url": "https://bunkr.website",
+    "description": "\u26a1 Bunkr \u2014 Universal attendance tracker, 75% bunk budget calculator & real-time timetable for college and university students. Web + Capacitor Android.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-07"
   }
 ]
