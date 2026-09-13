@@ -152,7 +152,7 @@
     ]
   },
   "bitrate16/httprd": {
-    "stars": 81,
+    "stars": 82,
     "created": "2022-12-02",
     "forks": 7,
     "contributors": 1,
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5190,
+    "stars": 5196,
     "created": "2025-12-16",
     "forks": 769,
     "contributors": 15,
@@ -212,7 +212,7 @@
     ]
   },
   "chicogong/html-tools": {
-    "stars": 140,
+    "stars": 141,
     "created": "2025-12-25",
     "forks": 58,
     "contributors": 3,
@@ -240,7 +240,7 @@
     ]
   },
   "chr15m/minimal-pwa": {
-    "stars": 486,
+    "stars": 487,
     "created": "2025-03-08",
     "forks": 28,
     "contributors": 1,
@@ -376,22 +376,22 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 4987,
+    "stars": 4996,
     "created": "2026-07-17",
-    "forks": 349,
-    "contributors": 12,
+    "forks": 348,
+    "contributors": 13,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 88.1
+        "pct": 88.0
       },
       {
         "name": "JavaScript",
-        "pct": 4.6
+        "pct": 4.7
       },
       {
         "name": "CSS",
-        "pct": 3.5
+        "pct": 3.4
       },
       {
         "name": "HTML",
