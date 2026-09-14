@@ -1582,5 +1582,23 @@
     "stars": 0,
     "topic": "single-file-app",
     "discovered": "2026-09-07"
+  },
+  {
+    "repo": "neuronids/ReeeWriter",
+    "name": "ReeeWriter",
+    "url": "https://neuronids.github.io/ReeeWriter/reeewriter.html",
+    "description": "A rewriting assistant for Catalan in a single HTML file: offline thesaurus, verb conjugation, word-level history, and a copy-paste loop with Claude.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-14"
+  },
+  {
+    "repo": "TheBlackTemple/benner-cycle-viewer",
+    "name": "benner-cycle-viewer",
+    "url": "https://theblacktemple.org/arsenal/benner/",
+    "description": "Interactive chart reconstructing Samuel Benner's 1875 economic cycle forecasts through 2059, with Kondratiev/Kitchin/Juglar wave overlays for comparison.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-14"
   }
 ]
