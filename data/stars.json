@@ -1,8 +1,8 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 155,
+    "stars": 158,
     "created": "2025-08-07",
-    "forks": 163,
+    "forks": 165,
     "contributors": 4,
     "languages": [
       {
@@ -60,9 +60,9 @@
     ]
   },
   "TheJacksonCode/Agent-Architecture": {
-    "stars": 74,
+    "stars": 91,
     "created": "2026-04-07",
-    "forks": 10,
+    "forks": 12,
     "contributors": 1,
     "languages": [
       {
@@ -76,9 +76,9 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8652,
+    "stars": 8653,
     "created": "2011-11-22",
-    "forks": 1252,
+    "forks": 1251,
     "contributors": 320,
     "languages": [
       {
@@ -172,9 +172,9 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5205,
+    "stars": 5206,
     "created": "2025-12-16",
-    "forks": 771,
+    "forks": 770,
     "contributors": 15,
     "languages": [
       {
@@ -366,7 +366,7 @@
   "nomiknomik/shade-sail-simulator": {
     "stars": 2,
     "created": "2026-06-25",
-    "forks": 0,
+    "forks": 1,
     "contributors": 3,
     "languages": [
       {
@@ -376,9 +376,9 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5036,
+    "stars": 5076,
     "created": "2026-07-17",
-    "forks": 351,
+    "forks": 355,
     "contributors": 16,
     "languages": [
       {
@@ -387,11 +387,11 @@
       },
       {
         "name": "JavaScript",
-        "pct": 4.5
+        "pct": 4.6
       },
       {
         "name": "CSS",
-        "pct": 3.4
+        "pct": 3.3
       },
       {
         "name": "HTML",
