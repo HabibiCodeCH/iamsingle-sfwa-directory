@@ -1,6 +1,6 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 162,
+    "stars": 163,
     "created": "2025-08-07",
     "forks": 170,
     "contributors": 4,
@@ -60,7 +60,7 @@
     ]
   },
   "TheJacksonCode/Agent-Architecture": {
-    "stars": 98,
+    "stars": 99,
     "created": "2026-04-07",
     "forks": 13,
     "contributors": 1,
@@ -76,7 +76,7 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8655,
+    "stars": 8657,
     "created": "2011-11-22",
     "forks": 1251,
     "contributors": 320,
@@ -154,7 +154,7 @@
   "bitrate16/httprd": {
     "stars": 82,
     "created": "2022-12-02",
-    "forks": 7,
+    "forks": 8,
     "contributors": 1,
     "languages": [
       {
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5212,
+    "stars": 5217,
     "created": "2025-12-16",
     "forks": 771,
     "contributors": 15,
@@ -212,7 +212,7 @@
     ]
   },
   "chicogong/html-tools": {
-    "stars": 143,
+    "stars": 144,
     "created": "2025-12-25",
     "forks": 59,
     "contributors": 3,
@@ -376,14 +376,14 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5137,
+    "stars": 5156,
     "created": "2026-07-17",
     "forks": 356,
     "contributors": 16,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 88.4
+        "pct": 88.5
       },
       {
         "name": "JavaScript",
