@@ -1600,5 +1600,68 @@
     "stars": 0,
     "topic": "single-file-app",
     "discovered": "2026-09-14"
+  },
+  {
+    "repo": "Kvc34/Block-Blast-With-Rotation",
+    "name": "Block-Blast-With-Rotation",
+    "url": "https://github.com/Kvc34/Block-Blast-With-Rotation",
+    "description": "A modern, dark-themed Block Blast puzzle game featuring piece rotation ('R' key or tap), 3D cushion blocks, combo synth audio, and line-clear glow previews. Built with HTML5, Tailwind CSS, and JavaScript.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-09-21"
+  },
+  {
+    "repo": "hhhr0/fan-dazi",
+    "name": "fan-dazi",
+    "url": "https://hhhr0.github.io/fan-dazi/",
+    "description": "\u996d\u642d\u5b50 - \u6cbb\u6108\u7cfb\u996e\u98df\u5c0f\u52a9\u624b",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-09-21"
+  },
+  {
+    "repo": "Lunasen1/solo-okr",
+    "name": "solo-okr",
+    "url": "https://github.com/Lunasen1/solo-okr",
+    "description": "Solo OKR (\u72ec\u884cOKR) \u00b7 \u4e2a\u4eba OKR \u7ba1\u7406\u7cfb\u7edf \u2014 \u4e00\u4e2a\u4eba\u4e5f\u80fd\u8dd1 OKR",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-09-21"
+  },
+  {
+    "repo": "fborrasumh/sobria",
+    "name": "sobria",
+    "url": "https://fborrasumh.github.io/sobria/",
+    "description": "SobrIA \u2014 humanizador de manuscritos acad\u00e9micos en un \u00fanico HTML. Reproduce el skill humanizer_academic (K. Matsui).",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-21"
+  },
+  {
+    "repo": "catsmice/anshin-app",
+    "name": "anshin-app",
+    "url": "https://catsmice.github.io/anshin-app/taiwan-alert.html",
+    "description": "Multilingual disaster-alert app for foreigners in Taiwan, running on live Central Weather Administration open data. Warnings, earthquakes and typhoons in English, \u7e41\u9ad4\u4e2d\u6587 and \u65e5\u672c\u8a9e. One HTML file, no build step, no dependencies.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-21"
+  },
+  {
+    "repo": "YLBlack/Prompts-Generator",
+    "name": "Prompts-Generator",
+    "url": "https://ylblack.github.io/Prompts-Generator/",
+    "description": "A lightweight, client-side web tool designed to turn rough project briefs into structured, production-ready system prompts for AI coding agents like Claude Code, Codex, and Gemini CLI.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-21"
+  },
+  {
+    "repo": "xodapi/memoroid",
+    "name": "memoroid",
+    "url": "https://github.com/xodapi/memoroid",
+    "description": "\u041b\u043e\u043a\u0430\u043b\u044c\u043d\u0430\u044f \u0431\u0438\u0431\u043b\u0438\u043e\u0442\u0435\u043a\u0430 \u0438 \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u0449\u0438\u043a Markdown. \u041e\u0434\u0438\u043d HTML-\u0444\u0430\u0439\u043b, \u0431\u0435\u0437 \u0441\u0435\u0440\u0432\u0435\u0440\u0430 \u0438 \u0438\u043d\u0442\u0435\u0440\u043d\u0435\u0442\u0430. Local-first Markdown library \u2014 single HTML file, no server, no internet.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-21"
   }
 ]
