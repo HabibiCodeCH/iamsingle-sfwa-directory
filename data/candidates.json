@@ -1663,5 +1663,104 @@
     "stars": 0,
     "topic": "single-file-app",
     "discovered": "2026-09-21"
+  },
+  {
+    "repo": "2CHariko/magical-princess-save-editor",
+    "name": "magical-princess-save-editor",
+    "url": "https://github.com/2CHariko/magical-princess-save-editor",
+    "description": "Magical Princess \u6e38\u620f\u5b58\u6863\u7f16\u8f91\u5668\uff0c\u57fa\u4e8e Vue 3 + Vite \u6784\u5efa\u7684\u5355\u6587\u4ef6 Web \u5de5\u5177\u3002",
+    "stars": 3,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "travmies2000/ai-affiliate-suite",
+    "name": "ai-affiliate-suite",
+    "url": "https://travmies2000.github.io/ai-affiliate-suite/",
+    "description": "An interactive single-file web application companion for digital and affiliate marketers, featuring an AI marketing readiness audit, master prompt studio, content repurposing planner, and real-time ROI calculator. ",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "zurara/minimap",
+    "name": "minimap",
+    "url": "https://github.com/zurara/minimap",
+    "description": "A super mini mindmap tool. One HTML file \u2014 no account, no server, no network.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "Martin8O/kiteseason",
+    "name": "kiteseason",
+    "url": "https://kiteseason.vercel.app",
+    "description": "Should I go kiting today, and on which kite? Six weather models averaged into one verdict for Lo Stagnone (Sicily), sized to your weight, board and the kites you own. One HTML file, CZ/EN.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "usmannmurtazaa/Maniesta",
+    "name": "Maniesta",
+    "url": "https://maniesta.netlify.app",
+    "description": "Maniesta | a premium digital product ecosystem with an interactive 3D globe, parallax project showcase, and glassmorphism UI. Created by Usman Murtaza.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "forumdata-collab/paper-football",
+    "name": "paper-football",
+    "url": "https://football.we1co.me",
+    "description": "\u5c04\u9f8d\u9580\u00b7\u7d19\u4e0a\u8db3\u7403 (Shoot the Goal) \u2014 classic classroom pencil-flick football as a single-file web app. Two-stage timing aim, fallible AI, World Cup-style looped BGM, portrait/landscape adaptive, dark mode.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "Eigrutel/eigrutel-dedicaces",
+    "name": "eigrutel-dedicaces",
+    "url": "https://eigrutel.github.io/eigrutel-dedicaces/",
+    "description": "Agenda libre, autonome et bilingue pour organiser d\u00e9dicaces, festivals et d\u00e9placements. / Free, standalone bilingual planner for signings, festivals and travel.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "girishlade111/Phone-Directory",
+    "name": "Phone-Directory",
+    "url": "https://girishlade111.github.io/Phone-Directory/",
+    "description": "Contact directory web app \u2014 searchable, themed, data backed by Google Sheets",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "a2rp/single_file_app_cdn_links",
+    "name": "single_file_app_cdn_links",
+    "url": "https://a2rp.github.io/single_file_app_cdn_links/",
+    "description": "Single-file React presentation loaded from CDN links with no local build step.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "Flynntaggart26/Climate-energy",
+    "name": "Climate-energy",
+    "url": "https://flynntaggart26.github.io/Climate-energy/",
+    "description": "Interactive single-file dashboard exploring CO2 emissions, energy transitions and climate equity across 50 countries (1990-2023)",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-09-28"
+  },
+  {
+    "repo": "liyu1981/sifpress",
+    "name": "sifpress",
+    "url": "https://sifpress.liyu1981.xyz",
+    "description": "Blogging system in a single php file",
+    "stars": 0,
+    "topic": "single-file-web-app",
+    "discovered": "2026-09-28"
   }
 ]
