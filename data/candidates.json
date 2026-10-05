@@ -1762,5 +1762,122 @@
     "stars": 0,
     "topic": "single-file-web-app",
     "discovered": "2026-09-28"
+  },
+  {
+    "repo": "HirotakaDango/PHP-Music-Lite",
+    "name": "PHP-Music-Lite",
+    "url": "https://github.com/HirotakaDango/PHP-Music-Lite",
+    "description": "Lite version of PHP-Music. ",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "Kikubay/LocalNodeAI",
+    "name": "LocalNodeAI",
+    "url": "https://github.com/Kikubay/LocalNodeAI",
+    "description": "Build and export local AI workflows as a single HTML file. Runs 100% in your browser via WebGPU. No server, no API keys, no data leaks.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "CrashDiniz/thegarage",
+    "name": "thegarage",
+    "url": "https://crashdiniz.github.io/thegarage/",
+    "description": "\ud83d\udfe1\ud83d\udfe3 Gerador de pfp e banners em duotone halftone pra galera do THE/GARAGE \u2014 imers\u00e3o de 3 semanas do Superteam Brasil rumo ao Colosseum, o hackathon global da Solana. Sem login, sem backend, processamento no browser. Troca sua pfp, sobe a onda e bora amassar juntos.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "iorlchotae/not-that-much",
+    "name": "not-that-much",
+    "url": "https://iorlchotae.github.io/not-that-much/",
+    "description": "\u6ca1\u5403\u591a\u5c11 \u00b7 \u62cd\u7167\u8ba4\u83dc\u540d\u3001\u672c\u673a\u7b97\u70ed\u91cf\u7684\u5355\u6587\u4ef6\u7f51\u9875\u5e94\u7528\u3002\u5e26 1080x1440 \u5206\u4eab\u5361\u7247\u548c\u968f\u8fdb\u5ea6\u53d8\u5316\u7684\u81ea\u5632\u6587\u6848 / Single-file photo calorie tracker with a share card",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "Patrick16/CSSingleRun",
+    "name": "CSSingleRun",
+    "url": "https://github.com/Patrick16/CSSingleRun",
+    "description": "A Visual Studio Code extension for running, debugging, and exporting single C# files\u2014no .csproj or solution required. Each open file gets its own isolated temp project with full .NET and NuGet support.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "eduardohenrique-dev/dgames",
+    "name": "dgames",
+    "url": "https://eduardohenrique-nu.vercel.app/demos/dgames",
+    "description": "Controle de estoque e lucro para uma loja de revenda de games. Um arquivo s\u00f3, abre com dois cliques, sem instalar nada.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "lasticproductions247-hub/wpa-image-converter",
+    "name": "wpa-image-converter",
+    "url": "https://lasticproductions247-hub.github.io/wpa-image-converter/",
+    "description": "A darkroom-grade image converter. PNG, JPEG & WEBP - batch, resize, compress. 100% in-browser, zero uploads.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "zueszyz/ai-token-calculator",
+    "name": "ai-token-calculator",
+    "url": "https://github.com/zueszyz/ai-token-calculator",
+    "description": "AI Token Calculator Pro \u2014 \u5b9e\u65f6 Token \u8ba1\u6570 \u00b7 86 \u6a21\u578b\u7f16\u7801\u901f\u67e5 \u00b7 77 \u5bb6\u670d\u52a1\u5546\u4ef7\u683c\u5bf9\u6bd4\uff082026.10 \u6570\u636e\uff09| Realtime token counting & multi-vendor price comparison (2026.10 data)",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "NitishKashyapR/peoplecore-hris-sandbox",
+    "name": "peoplecore-hris-sandbox",
+    "url": "https://nitishkashyapr.github.io/peoplecore-hris-sandbox/",
+    "description": "Open-source enterprise HRIS sandbox & workforce academy: multi-country payroll, ATS, org design, and compliance labs in a 100% client-side app.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "sandrolimadf1984/controle-de-caixa",
+    "name": "controle-de-caixa",
+    "url": "https://github.com/sandrolimadf1984/controle-de-caixa",
+    "description": "Controle de caixa em arquivo \u00fanico que tamb\u00e9m roda como .exe no Windows (launcher em Go)",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "girishlade111/Offline-Budget-Tracker1",
+    "name": "Offline-Budget-Tracker1",
+    "url": "https://girishlade111.github.io/Offline-Budget-Tracker1/",
+    "description": "Offline Budget Tracker",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "girishlade111/AI-Chatbot-Interface",
+    "name": "AI-Chatbot-Interface",
+    "url": "https://girishlade111.github.io/AI-Chatbot-Interface/",
+    "description": "AI Chatbot Interface",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
+  },
+  {
+    "repo": "March7th0/dividend-portfolio-board",
+    "name": "dividend-portfolio-board",
+    "url": "https://march7th0.github.io/dividend-portfolio-board/",
+    "description": "\u957f\u671f\u80a1\u606f\u6295\u8d44\u7ec4\u5408\u8fdb\u5ea6\u770b\u677f \u2014\u2014 \u5355\u6587\u4ef6 HTML \u5e94\u7528:\u4f30\u503c\u770b\u677f/\u8d44\u91d1\u6c60\u7eaa\u5f8b/\u5206\u914d\u5f15\u64ce/\u591a\u4eba\u5173\u6ce8\u9694\u79bb,21 \u5957\u4ef6 916 \u9879\u65ad\u8a00\u5b88\u62a4",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-05"
   }
 ]
