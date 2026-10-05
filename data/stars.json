@@ -60,7 +60,7 @@
     ]
   },
   "TheJacksonCode/Agent-Architecture": {
-    "stars": 104,
+    "stars": 105,
     "created": "2026-04-07",
     "forks": 13,
     "contributors": 1,
@@ -76,9 +76,9 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8672,
+    "stars": 8673,
     "created": "2011-11-22",
-    "forks": 1250,
+    "forks": 1252,
     "contributors": 320,
     "languages": [
       {
@@ -376,18 +376,18 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5356,
+    "stars": 5365,
     "created": "2026-07-17",
-    "forks": 367,
+    "forks": 371,
     "contributors": 16,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 88.6
+        "pct": 87.9
       },
       {
         "name": "JavaScript",
-        "pct": 4.8
+        "pct": 5.5
       },
       {
         "name": "CSS",
