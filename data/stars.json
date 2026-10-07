@@ -76,7 +76,7 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8674,
+    "stars": 8673,
     "created": "2011-11-22",
     "forks": 1252,
     "contributors": 321,
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5393,
+    "stars": 5396,
     "created": "2025-12-16",
     "forks": 818,
     "contributors": 17,
@@ -376,7 +376,7 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5375,
+    "stars": 5385,
     "created": "2026-07-17",
     "forks": 372,
     "contributors": 16,
@@ -395,7 +395,7 @@
       },
       {
         "name": "HTML",
-        "pct": 1.7
+        "pct": 1.6
       },
       {
         "name": "Kotlin",
