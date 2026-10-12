@@ -1,8 +1,8 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 199,
+    "stars": 200,
     "created": "2025-08-07",
-    "forks": 194,
+    "forks": 196,
     "contributors": 4,
     "languages": [
       {
@@ -78,7 +78,7 @@
   "TiddlyWiki/TiddlyWiki5": {
     "stars": 8682,
     "created": "2011-11-22",
-    "forks": 1255,
+    "forks": 1256,
     "contributors": 321,
     "languages": [
       {
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5407,
+    "stars": 5411,
     "created": "2025-12-16",
     "forks": 820,
     "contributors": 17,
@@ -214,7 +214,7 @@
   "chicogong/html-tools": {
     "stars": 146,
     "created": "2025-12-25",
-    "forks": 61,
+    "forks": 63,
     "contributors": 3,
     "languages": [
       {
@@ -240,7 +240,7 @@
     ]
   },
   "chr15m/minimal-pwa": {
-    "stars": 486,
+    "stars": 485,
     "created": "2025-03-08",
     "forks": 29,
     "contributors": 1,
@@ -376,14 +376,14 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5426,
+    "stars": 5437,
     "created": "2026-07-17",
-    "forks": 376,
+    "forks": 375,
     "contributors": 20,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 88.0
+        "pct": 88.1
       },
       {
         "name": "JavaScript",
@@ -391,7 +391,7 @@
       },
       {
         "name": "CSS",
-        "pct": 3.1
+        "pct": 3.0
       },
       {
         "name": "HTML",
