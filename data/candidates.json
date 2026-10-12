@@ -1879,5 +1879,50 @@
     "stars": 0,
     "topic": "single-file-app",
     "discovered": "2026-10-05"
+  },
+  {
+    "repo": "Cogniform/AI-batch-raw-to-offline-guide",
+    "name": "AI-batch-raw-to-offline-guide",
+    "url": "https://github.com/Cogniform/AI-batch-raw-to-offline-guide",
+    "description": "\u521b\u9020\u4e00\u4e2a\u624b\u673a\u7aef\u79bb\u7ebf\u7f51\u9875\u5e94\u7528\uff0c\u6253\u5f00\u5373\u53ef\u67e5\u9605\u5168\u90e8\u653b\u7565\uff0c\u65e0\u9700\u7f51\u7edc\u3002\u4e13\u4e3a\u56ed\u533a\u5185\u624b\u673a\u4fe1\u53f7\u5dee\u6216\u65e0\u7f51\u7edc\u7684\u573a\u666f\u8bbe\u8ba1\u3002",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-12"
+  },
+  {
+    "repo": "hongcheng20071024-maker/tingxieben",
+    "name": "tingxieben",
+    "url": "https://hongcheng20071024-maker.github.io/tingxieben/",
+    "description": "\u82f1\u8bed\u5355\u8bcd\u542c\u5199\u672c \u00b7 \u53ef\u5b89\u88c5\u5230 iPad \u4e3b\u5c4f\u5e55\u7684\u7f51\u9875\u7248\uff08PWA\uff09\uff0c\u5355\u6587\u4ef6\u3001\u79bb\u7ebf\u53ef\u7528\u3002\u542b\u539f\u59cb\u6e90\u7801\u4e0e\u6784\u5efa\u811a\u672c\u3002",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-12"
+  },
+  {
+    "repo": "jtndrrao-rao/nexus-office-suite",
+    "name": "nexus-office-suite",
+    "url": "https://demo-projects-dashboard-tools.netlify.app/nexus-office-suite",
+    "description": "72 offline tools in one HTML file: PDF Studio, a 50,000-row Data Workbench, image tools, converters, calculators and AES-256 file encryption. Nothing is uploaded.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-12"
+  },
+  {
+    "repo": "lowriskbtc/flyer-studio",
+    "name": "flyer-studio",
+    "url": "https://github.com/lowriskbtc/flyer-studio",
+    "description": "Browser flyer and infographic generator: an LLM plans the layout, real type and live charts render it. No built-in image text, no server, single file.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-12"
+  },
+  {
+    "repo": "metadatastician/large-language-michelangelo",
+    "name": "large-language-michelangelo",
+    "url": "https://github.com/metadatastician/large-language-michelangelo",
+    "description": "Single-file 3D demonstration comparing subtractive and additive creation of the same deterministic voxel form, with synchronized timelines, live instruments, and an in-page verifier.",
+    "stars": 1,
+    "topic": "single-file-web-app",
+    "discovered": "2026-10-12"
   }
 ]
