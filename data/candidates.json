@@ -1924,5 +1924,113 @@
     "stars": 1,
     "topic": "single-file-web-app",
     "discovered": "2026-10-12"
+  },
+  {
+    "repo": "Farazjz/XOR-shield",
+    "name": "XOR-shield",
+    "url": "https://farazjz.github.io/XOR-shield/",
+    "description": "Obfuscate JavaScript strings with XOR right in your browser \u2014 no eval, no server; output stays a valid ES module you can re-deploy to Cloudflare Workers.",
+    "stars": 4,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "UlkhadPharaon/Cellab",
+    "name": "Cellab",
+    "url": "https://github.com/UlkhadPharaon/Cellab",
+    "description": "Cellab v1 \u2014 Touch-free 3D cell explorer: rotate, zoom and select organelles with webcam hand gestures (Three.js + MediaPipe Hands). One HTML file, zero setup, privacy-first. Celly v2 coming.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "maseaaao/change-info-streamer-bot",
+    "name": "change-info-streamer-bot",
+    "url": "https://github.com/maseaaao/maseaaao.tv/tree/main/apps/stream-info",
+    "description": "Stream Info has moved to maseaaao/maseaaao.tv (apps/stream-info). Historical repository; development and support continue there.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "Ayham-Megdadi/tahaddi-al-ayla",
+    "name": "tahaddi-al-ayla",
+    "url": "https://ayham-megdadi.github.io/tahaddi-al-ayla/",
+    "description": "Arabic Family Feud-style browser game \u2014 guess the most popular survey answers,  earn points, and challenge the opposing team. Smart matching, steal mechanic,  Fast Money round. Zero dependencies \u2014 single HTML file, works 100% offline.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "andrescampomar2010-dotcom/cronicas-del-pacto-eterno",
+    "name": "cronicas-del-pacto-eterno",
+    "url": "https://andrescampomar2010-dotcom.github.io/cronicas-del-pacto-eterno/",
+    "description": "Juego de mesa de estrategia (4-6 jugadores) con prototipo digital jugable en el navegador. Demo en GitHub Pages.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "DigiMancer3D/CountForge",
+    "name": "CountForge",
+    "url": "https://github.com/DigiMancer3D/CountForge",
+    "description": "Calculator-first inventory with an auditable count ledger, delivered as one offline HTML file",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "pchartie/cave-a-vin",
+    "name": "cave-a-vin",
+    "url": "https://github.com/pchartie/cave-a-vin",
+    "description": "Ma Cave \u2014 livre de cave \u00e0 vin en un seul fichier HTML : stock, apog\u00e9e, d\u00e9gustations, tableau de bord et carte des vins de France. Sans installation ni serveur.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "willhoop/hoopadex",
+    "name": "hoopadex",
+    "url": "https://willhoop.github.io/hoopadex/app/",
+    "description": "A Pok\u00e9dex that shows types, stats and evolutions exactly as they were in the game you pick \u2014 every generation, Pok\u00e9mon Champions, and six ROM hacks such as Renegade Platinum.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "juice-butterfly/monetary-finance-rates",
+    "name": "monetary-finance-rates",
+    "url": "https://juice-butterfly.github.io/monetary-finance-rates/",
+    "description": "\u8d27\u5e01\u91d1\u878d\u5b66 \u00b7 \u5229\u7387\u4f20\u5bfc\u8bca\u65ad\u53f0\uff1a\u628a\u8bfe\u7a0b\u77e5\u8bc6\u84b8\u998f\u6210\u53ef\u590d\u7528\u7684\u5206\u6790\u5e95\u5ea7\uff0c\u914d\u4e00\u4e2a\u5355\u6587\u4ef6\u4ea4\u4e92\u5e94\u7528",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "TORCWORKS/journeyMap",
+    "name": "journeyMap",
+    "url": "https://torcworks.github.io/journeyMap/",
+    "description": "Donor journey mapping for nonprofits \u2014 one self-contained file, offline, no accounts; donor data never leaves the browser.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "rollecode/train-netmap",
+    "name": "train-netmap",
+    "url": "https://github.com/rollecode/train-netmap",
+    "description": "Live map of your train in Finland and how good the mobile connection is along the way",
+    "stars": 3,
+    "topic": "single-html-file",
+    "discovered": "2026-10-19"
+  },
+  {
+    "repo": "CrowingAnkleBiter/N2-Messenger",
+    "name": "N2-Messenger",
+    "url": "https://github.com/CrowingAnkleBiter/N2-Messenger",
+    "description": "Vibecoded Single HTML P2P Messenger with a ridiculous amount of features and customizable interface",
+    "stars": 0,
+    "topic": "single-html-file",
+    "discovered": "2026-10-19"
   }
 ]
