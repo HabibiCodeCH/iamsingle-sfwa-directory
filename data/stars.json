@@ -1,6 +1,6 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 219,
+    "stars": 222,
     "created": "2025-08-07",
     "forks": 212,
     "contributors": 4,
@@ -60,7 +60,7 @@
     ]
   },
   "TheJacksonCode/Agent-Architecture": {
-    "stars": 109,
+    "stars": 110,
     "created": "2026-04-07",
     "forks": 13,
     "contributors": 1,
@@ -79,7 +79,7 @@
     "stars": 8694,
     "created": "2011-11-22",
     "forks": 1255,
-    "contributors": 321,
+    "contributors": 320,
     "languages": [
       {
         "name": "JavaScript",
@@ -172,9 +172,9 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5427,
+    "stars": 5426,
     "created": "2025-12-16",
-    "forks": 821,
+    "forks": 820,
     "contributors": 17,
     "languages": [
       {
@@ -376,29 +376,29 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5526,
+    "stars": 5537,
     "created": "2026-07-17",
-    "forks": 383,
+    "forks": 382,
     "contributors": 20,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 84.5
+        "pct": 83.6
       },
       {
         "name": "JavaScript",
-        "pct": 8.0
+        "pct": 8.5
       },
       {
         "name": "CSS",
         "pct": 2.7
       },
       {
-        "name": "Kotlin",
-        "pct": 1.4
+        "name": "HTML",
+        "pct": 1.6
       },
       {
-        "name": "HTML",
+        "name": "Kotlin",
         "pct": 1.3
       }
     ]
