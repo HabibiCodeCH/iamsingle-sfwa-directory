@@ -2032,5 +2032,95 @@
     "stars": 0,
     "topic": "single-html-file",
     "discovered": "2026-10-19"
+  },
+  {
+    "repo": "DSORIGINAL/Doomed",
+    "name": "Doomed",
+    "url": "https://github.com/DSORIGINAL/Doomed",
+    "description": "Doomed is a powerful, local-first Gemini API workbench built for deep intellectual exploration. Features advanced reasoning controls, branching conversations, thought-signature preservation, implicit and explicit context caching, native Gemini tools, detailed token analytics, and persistent chat history\u2014all in a single HTML file.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
+  },
+  {
+    "repo": "Cocoo23/LexForge",
+    "name": "LexForge",
+    "url": "https://github.com/Cocoo23/LexForge",
+    "description": "A fully offline English vocabulary trainer \u2014 learn words by reading AI-generated passages built around them. \u5b8c\u5168\u79bb\u7ebf\u7684\u82f1\u8bed\u8bcd\u6c47\u8bad\u7ec3\u5de5\u5177\uff1a\u8bfb AI \u751f\u6210\u7684\u6587\u7ae0\u6765\u7ec3\u5355\u8bcd\uff0c\u65e0\u670d\u52a1\u5668\u3001\u65e0\u8d26\u53f7\u3002",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
+  },
+  {
+    "repo": "JavenZheng/mcd-diet-buddy",
+    "name": "mcd-diet-buddy",
+    "url": "https://javenzheng.github.io/mcd-diet-buddy/",
+    "description": "\u9ea6\u5f53\u52b3\u51cf\u80a5\u62cd\u6863 \u00b7 \u57fa\u4e8e\u9ea6\u5f53\u52b3 MCP \u7684\u51cf\u8102\u914d\u9910\u4e0e\u5403\u6cd5\u6539\u9020\u52a9\u624b",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
+  },
+  {
+    "repo": "davide23567/octo-hop",
+    "name": "octo-hop",
+    "url": "https://davide23567.github.io/octo-hop/",
+    "description": "\ud83d\udc19 Gioco arcade sottomarino ispirato a Flappy Bird in un singolo file HTML5/Canvas. Include biomi dinamici, power-up, sistema Near-Miss, negozio skin, audio 8-bit procedurale (Web Audio API) e supporto multilingua (IT/EN). Zero dipendenze esterne.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
+  },
+  {
+    "repo": "GoodRelax/gr-scheduler",
+    "name": "gr-scheduler",
+    "url": "https://goodrelax.github.io/gr-scheduler/",
+    "description": "Single-HTML-file Gantt chart scheduler with plan vs. actual, delay diagnostics, MSPDI import/export, and an MCP server for AI agents. No install, no server.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
+  },
+  {
+    "repo": "Francesca1116/lifestation",
+    "name": "lifestation",
+    "url": "https://4e02747cedc7482d94dcddbc44e8af01.app.workbuddy.link/",
+    "description": "LifeStation \u751f\u6d3b\u7ad9 \u2014 a single-file personal workspace that turns daily tasks, habits & notes into a growth database: contribution model, knowledge conversion tracking, evidence of progress.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
+  },
+  {
+    "repo": "SBogorad/memoroid",
+    "name": "memoroid",
+    "url": "https://github.com/SBogorad/memoroid",
+    "description": "\u041b\u043e\u043a\u0430\u043b\u044c\u043d\u0430\u044f \u0431\u0438\u0431\u043b\u0438\u043e\u0442\u0435\u043a\u0430 \u0438 \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u0449\u0438\u043a Markdown. \u041e\u0434\u0438\u043d HTML-\u0444\u0430\u0439\u043b, \u0431\u0435\u0437 \u0441\u0435\u0440\u0432\u0435\u0440\u0430 \u0438 \u0438\u043d\u0442\u0435\u0440\u043d\u0435\u0442\u0430. Local-first Markdown library \u2014 single HTML file, no server, no internet.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
+  },
+  {
+    "repo": "mdshezkhn/gifted-scholars",
+    "name": "gifted-scholars",
+    "url": "https://gifted-scholars-teacher-mo.vercel.app/",
+    "description": "Free classroom points & virtual gifts for schools \u2014 teachers rate in one tap, students collect gifts. A gift to ZhongFangYuan Bilingual School by Mohammed Shehzad Khan (Teacher Mo). Never for sale.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
+  },
+  {
+    "repo": "davide23567/bubble-echoes",
+    "name": "bubble-echoes",
+    "url": "https://davide23567.github.io/bubble-echoes/",
+    "description": "\ud83c\udfaf Arcade Bubble Shooter mobile-first in puro HTML5, CSS3 e JS Vanilla (single-file). Grafica cel-shaded ad alta definizione, mira laser con rimbalzi predittivi, palle speciali, audio procedurale Web Audio API e controlli touch nativi.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
+  },
+  {
+    "repo": "Dynamix14/adi-ojt-interview-coach",
+    "name": "adi-ojt-interview-coach",
+    "url": "https://dynamix14.github.io/adi-ojt-interview-coach/",
+    "description": "Interactive OJT/internship interview coach for Analog Devices General Trias: 42 questions, example answers, circuit schematics",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-10-26"
   }
 ]
