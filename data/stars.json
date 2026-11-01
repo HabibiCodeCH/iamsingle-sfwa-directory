@@ -1,8 +1,8 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 240,
+    "stars": 243,
     "created": "2025-08-07",
-    "forks": 236,
+    "forks": 238,
     "contributors": 4,
     "languages": [
       {
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5443,
+    "stars": 5445,
     "created": "2025-12-16",
     "forks": 823,
     "contributors": 17,
@@ -212,9 +212,9 @@
     ]
   },
   "chicogong/html-tools": {
-    "stars": 161,
+    "stars": 162,
     "created": "2025-12-25",
-    "forks": 69,
+    "forks": 71,
     "contributors": 3,
     "languages": [
       {
@@ -376,7 +376,7 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5587,
+    "stars": 5596,
     "created": "2026-07-17",
     "forks": 388,
     "contributors": 20,
@@ -404,26 +404,18 @@
     ]
   },
   "pushme-pullyou/tootoo": {
-    "stars": 4,
-    "created": "2026-04-09",
-    "forks": 1,
+    "stars": 0,
+    "created": "2026-11-01",
+    "forks": 0,
     "contributors": 1,
     "languages": [
       {
         "name": "HTML",
-        "pct": 93.1
+        "pct": 98.7
       },
       {
         "name": "JavaScript",
-        "pct": 6.6
-      },
-      {
-        "name": "CSS",
-        "pct": 0.3
-      },
-      {
-        "name": "PowerShell",
-        "pct": 0.1
+        "pct": 1.3
       }
     ]
   },
