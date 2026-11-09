@@ -2275,5 +2275,86 @@
     "stars": 0,
     "topic": "single-file-app",
     "discovered": "2026-11-02"
+  },
+  {
+    "repo": "Hazem-Soliman-dev/Interactive-Sprint-Builder",
+    "name": "Interactive-Sprint-Builder",
+    "url": "https://sites.google.com/view/sprint1fundamentalsofsoftwaree/",
+    "description": "AI Agent Skill to turn any technical syllabus into self-contained, O'Reilly-styled Arabic interactive HTML handbooks with Vanilla JS simulators and diagnostic quizzes.",
+    "stars": 2,
+    "topic": "single-file-app",
+    "discovered": "2026-11-09"
+  },
+  {
+    "repo": "shfqrkhn/shfqrkhn.github.io",
+    "name": "shfqrkhn.github.io",
+    "url": "https://shfqrkhn.github.io/",
+    "description": "Omnevum: local-first apps, tools, games, guides, recipes and courses. Offline, installable, no account, no tracking. This repo holds the sources, the builder and the framework; GitHub builds and deploys the site.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-11-09"
+  },
+  {
+    "repo": "ismael-joffroy-chandoutis/inboxt",
+    "name": "inboxt",
+    "url": "https://github.com/ismael-joffroy-chandoutis/inboxt",
+    "description": "A one-page inbox an AI agent fills and a human decides: every channel sorted, every reply drafted, nothing sent without a go",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-09"
+  },
+  {
+    "repo": "AfeiIsFine/texture-pattern-generator",
+    "name": "texture-pattern-generator",
+    "url": "https://afeiisfine.github.io/texture-pattern-generator/",
+    "description": "14 parametric seamless vector patterns for design & 3D texturing \u2014 a single-file browser tool with live parameters, SVG/PNG export and a Chinese/English UI.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-09"
+  },
+  {
+    "repo": "Northstrix/kvish",
+    "name": "kvish",
+    "url": "https://kvish.netlify.app/",
+    "description": "A bit unorthodox graphic design tool.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-09"
+  },
+  {
+    "repo": "Samuelson777/unified-4d-cad-bim-fea-studio",
+    "name": "unified-4d-cad-bim-fea-studio",
+    "url": "https://samuelson777.github.io/unified-4d-cad-bim-fea-studio/",
+    "description": "Unified 4D CAD, Spatiotemporal BIM & FEA studio in a single HTML file. Combines SO(4) hyperspace geometry, IFC4 construction sequencing, 4D printing SMP stress simulation, and single-pass barycentric wireframe shaders.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-09"
+  },
+  {
+    "repo": "michaelkrisper/energieausweis-extraktor",
+    "name": "energieausweis-extraktor",
+    "url": "https://github.com/michaelkrisper/energieausweis-extraktor",
+    "description": "Offline browser tool that extracts key figures from Austrian energy performance certificate PDFs (Energieausweis, OIB RL 6) into Excel",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-09"
+  },
+  {
+    "repo": "imsrj57/test-management-qa",
+    "name": "test-management-qa",
+    "url": "https://github.com/imsrj57/test-management-qa",
+    "description": "Offline, single-file QA test execution manager. Manage test cases, run rounds, retests and regression, capture screenshot evidence, and export Excel/ZIP reports, all in your browser.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-09"
+  },
+  {
+    "repo": "githubAlong/teacherworktest",
+    "name": "teacherworktest",
+    "url": "https://githubalong.github.io/teacherworktest/",
+    "description": "\u963f\u9f99\u6559\u5e08\u5de5\u4f5c\u53f0\uff08\u53cc\u73af\u5883\uff1amaster=\u6d4b\u8bd5 / teacherworkmaster=\u7ebf\u4e0a\uff09",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-09"
   }
 ]
