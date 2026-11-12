@@ -1,8 +1,8 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 260,
+    "stars": 263,
     "created": "2025-08-07",
-    "forks": 265,
+    "forks": 267,
     "contributors": 4,
     "languages": [
       {
@@ -76,7 +76,7 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8708,
+    "stars": 8709,
     "created": "2011-11-22",
     "forks": 1257,
     "contributors": 325,
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5486,
+    "stars": 5489,
     "created": "2025-12-16",
     "forks": 830,
     "contributors": 17,
@@ -212,9 +212,9 @@
     ]
   },
   "chicogong/html-tools": {
-    "stars": 170,
+    "stars": 171,
     "created": "2025-12-25",
-    "forks": 72,
+    "forks": 73,
     "contributors": 3,
     "languages": [
       {
@@ -376,18 +376,18 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5658,
+    "stars": 5660,
     "created": "2026-07-17",
     "forks": 390,
     "contributors": 22,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 76.1
+        "pct": 75.6
       },
       {
         "name": "JavaScript",
-        "pct": 11.7
+        "pct": 12.3
       },
       {
         "name": "HTML",
@@ -395,11 +395,11 @@
       },
       {
         "name": "CSS",
-        "pct": 2.4
+        "pct": 2.3
       },
       {
         "name": "Kotlin",
-        "pct": 1.9
+        "pct": 1.8
       }
     ]
   },
