@@ -1,8 +1,8 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 264,
+    "stars": 266,
     "created": "2025-08-07",
-    "forks": 271,
+    "forks": 273,
     "contributors": 4,
     "languages": [
       {
@@ -152,7 +152,7 @@
     ]
   },
   "bitrate16/httprd": {
-    "stars": 81,
+    "stars": 82,
     "created": "2022-12-02",
     "forks": 8,
     "contributors": 1,
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5494,
+    "stars": 5496,
     "created": "2025-12-16",
     "forks": 830,
     "contributors": 17,
@@ -212,7 +212,7 @@
     ]
   },
   "chicogong/html-tools": {
-    "stars": 171,
+    "stars": 172,
     "created": "2025-12-25",
     "forks": 73,
     "contributors": 3,
@@ -376,22 +376,22 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5662,
+    "stars": 5663,
     "created": "2026-07-17",
     "forks": 392,
     "contributors": 22,
     "languages": [
       {
         "name": "TypeScript",
-        "pct": 75.6
+        "pct": 75.2
       },
       {
         "name": "JavaScript",
-        "pct": 12.3
+        "pct": 13.0
       },
       {
         "name": "HTML",
-        "pct": 4.3
+        "pct": 4.2
       },
       {
         "name": "CSS",
@@ -464,7 +464,7 @@
     ]
   },
   "xsukax/xsukax-Photo-Editor": {
-    "stars": 2,
+    "stars": 3,
     "created": "2025-11-01",
     "forks": 0,
     "contributors": 1,
