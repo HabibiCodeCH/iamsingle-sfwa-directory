@@ -2356,5 +2356,140 @@
     "stars": 0,
     "topic": "single-file-app",
     "discovered": "2026-11-09"
+  },
+  {
+    "repo": "zzzz8311/VocBuilder",
+    "name": "VocBuilder",
+    "url": "https://github.com/zzzz8311/VocBuilder",
+    "description": "\u6781\u7b80\u3001\u5355\u6587\u4ef6\u7684\u7eaf\u524d\u7aef\u80cc\u5355\u8bcd\u5de5\u5177 | \u652f\u6301 AI \u667a\u80fd\u5bfc\u5165\u3001\u9519\u9898\u672c\u4e0e\u6d4f\u89c8\u5668\u539f\u751f\u53d1\u97f3\u3002",
+    "stars": 6,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "MarketKernel/html-color-music",
+    "name": "html-color-music",
+    "url": "https://marketkernel.github.io/html-color-music/",
+    "description": "Endless generative music and visuals in a single HTML file \u2014 no samples, no network.",
+    "stars": 6,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "mrspot-dev/claude-settings-editor",
+    "name": "claude-settings-editor",
+    "url": "https://mrspot-dev.github.io/claude-settings-editor/",
+    "description": "A visual editor for Claude Code settings.json that runs as a single HTML file in your browser.",
+    "stars": 5,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "Iorlchoate/not-that-much",
+    "name": "not-that-much",
+    "url": "https://iorlchotae.github.io/not-that-much/",
+    "description": "\u6ca1\u5403\u591a\u5c11 \u00b7 \u62cd\u7167\u8ba4\u83dc\u540d\u3001\u672c\u673a\u7b97\u70ed\u91cf\u7684\u5355\u6587\u4ef6\u7f51\u9875\u5e94\u7528\u3002\u5e26 1080x1440 \u5206\u4eab\u5361\u7247\u548c\u968f\u8fdb\u5ea6\u53d8\u5316\u7684\u81ea\u5632\u6587\u6848 / Single-file photo calorie tracker with a share card",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "DavidValin/checklist4life",
+    "name": "checklist4life",
+    "url": "https://github.com/DavidValin/checklist4life",
+    "description": "Magic single .html that handles checklist pages made of stages which support notes, attachments, time log and cost log",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "Silverback-png/mana-crm",
+    "name": "mana-crm",
+    "url": "https://github.com/Silverback-png/mana-crm",
+    "description": "Lightweight client management pipeline \u2014 single-file Flask + SQLite. Client statuses, notes, templated email drafts, CSV export, automatic DB backups on every start. Built for solo consulting workflow.",
+    "stars": 1,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "ZKnobrega/gerador-de-chamados-milvus",
+    "name": "gerador-de-chamados-milvus",
+    "url": "https://github.com/ZKnobrega/gerador-de-chamados-milvus",
+    "description": "Abertura de chamados no Milvus Help Desk assistida por IA, com andamento e atendimento registrados no nome do operador. P\u00e1gina \u00fanica, sem build nem depend\u00eancias.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "julianhilgemann/liquiplan-app",
+    "name": "liquiplan-app",
+    "url": "https://julianhilgemann.github.io/liquiplan-app/",
+    "description": "Single-file browser app that plans a fixed-term deposit ladder to make savings last as long as possible (lexicographic MILP with HiGHS and an embedded simplex, verified by an independent simulator)",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "Ilya7369/Local-personal-finance-accounting",
+    "name": "Local-personal-finance-accounting",
+    "url": "https://ilya7369.github.io/Local-personal-finance-accounting/",
+    "description": "\u041b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0439 \u0443\u0447\u0435\u0442 \u043b\u0438\u0447\u043d\u044b\u0445 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "wangnichen/sui-yin-ji",
+    "name": "sui-yin-ji",
+    "url": "https://github.com/wangnichen/sui-yin-ji",
+    "description": "\u788e\u94f6\u8bb0 | \u7eaf\u672c\u5730\u8bb0\u8d26\uff1a\u5355\u6587\u4ef6 HTML + Android WebView \u58f3\uff0c\u7aef\u4fa7 OCR \u4e0e 0.5B \u6a21\u578b\u79bb\u7ebf\u63a8\u7406\uff0c\u96f6\u8d26\u53f7\u96f6\u4e91\u7aef",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "petrosfs/closet-assistant",
+    "name": "closet-assistant",
+    "url": "https://github.com/petrosfs/closet-assistant",
+    "description": "\u03a8\u03b7\u03c6\u03b9\u03b1\u03ba\u03ae \u03bd\u03c4\u03bf\u03c5\u03bb\u03ac\u03c0\u03b1 \u03ba\u03b1\u03b9 \u03c0\u03c1\u03bf\u03c4\u03ac\u03c3\u03b5\u03b9\u03c2 \u03bd\u03c4\u03c5\u03c3\u03af\u03bc\u03b1\u03c4\u03bf\u03c2 \u03c3\u03b5 \u03ad\u03bd\u03b1 \u03b1\u03c1\u03c7\u03b5\u03af\u03bf HTML. \u03a4\u03b1 \u03b4\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03b1 \u03bc\u03ad\u03bd\u03bf\u03c5\u03bd \u03c3\u03c4\u03b7 \u03c3\u03c5\u03c3\u03ba\u03b5\u03c5\u03ae. \u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u03b1\u03b3\u03b3\u03bb\u03b9\u03ba\u03ac.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "jilijhao/personal-workbench",
+    "name": "personal-workbench",
+    "url": "https://jilijhao.github.io/personal-workbench/",
+    "description": "\u96f6\u4f9d\u8d56\u5355\u6587\u4ef6\u5de5\u4f5c\u53f0\uff1a\u8bb0\u5f55\u6bcf\u5929\u5728\u5e72\u561b\uff0c\u81ea\u52a8\u590d\u76d8\uff0c\u4e00\u952e\u751f\u6210 Markdown \u5e74\u7ec8\u603b\u7ed3\u3002\u6570\u636e\u53ea\u5b58\u672c\u673a localStorage\u3002",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "YLP-Games/Between-the-lines",
+    "name": "Between-the-lines",
+    "url": "https://ylp-games.github.io/Between-the-lines/",
+    "description": "Take notes right between the lines of your lecture slides: a local-first, single-file PWA for PDFs, slides, Word files and scanned paper.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "diegoborburema/kit-apps-de-um-arquivo",
+    "name": "kit-apps-de-um-arquivo",
+    "url": "https://github.com/diegoborburema/kit-apps-de-um-arquivo",
+    "description": "Apps de um \u00fanico HTML: offline, sem instalar nada, nenhum dado sai do navegador.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
+  },
+  {
+    "repo": "jkw2lo/value-maxxing",
+    "name": "value-maxxing",
+    "url": "https://jkw2lo.github.io/value-maxxing/",
+    "description": "Type a product category, get a buying strategy: strike price, buy-or-wait call, deals found. Live demo with sample reports.",
+    "stars": 0,
+    "topic": "single-file-app",
+    "discovered": "2026-11-16"
   }
 ]
