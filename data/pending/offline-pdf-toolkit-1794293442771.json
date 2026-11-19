@@ -1,0 +1,10 @@
+{
+  "name": "Offline PDF Toolkit",
+  "url": "https://drsamonline.github.io/offline-pdf-toolkit/play/",
+  "repo": "drsamonline/offline-pdf-toolkit",
+  "desc": "Merge, split, rotate, watermark, number, redact, OCR and compress PDFs in one page; no file is ever uploaded.",
+  "tags": [
+    "tools"
+  ],
+  "added": "2026-11-10"
+}
