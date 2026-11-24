@@ -1,8 +1,8 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 291,
+    "stars": 295,
     "created": "2025-08-07",
-    "forks": 288,
+    "forks": 290,
     "contributors": 4,
     "languages": [
       {
@@ -76,7 +76,7 @@
     ]
   },
   "TiddlyWiki/TiddlyWiki5": {
-    "stars": 8714,
+    "stars": 8715,
     "created": "2011-11-22",
     "forks": 1260,
     "contributors": 325,
@@ -212,7 +212,7 @@
     ]
   },
   "chicogong/html-tools": {
-    "stars": 174,
+    "stars": 175,
     "created": "2025-12-25",
     "forks": 74,
     "contributors": 3,
@@ -376,7 +376,7 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5685,
+    "stars": 5686,
     "created": "2026-07-17",
     "forks": 395,
     "contributors": 24,
@@ -405,24 +405,32 @@
   },
   "pushme-pullyou/tootoo": {
     "stars": 0,
-    "created": "2026-11-01",
+    "created": "2026-11-22",
     "forks": 0,
     "contributors": 1,
     "languages": [
       {
         "name": "HTML",
-        "pct": 99.6
+        "pct": 76.4
       },
       {
         "name": "JavaScript",
-        "pct": 0.4
+        "pct": 21.1
+      },
+      {
+        "name": "CSS",
+        "pct": 1.4
+      },
+      {
+        "name": "PowerShell",
+        "pct": 1.1
       }
     ]
   },
   "pyrate-llama/hermes-ui": {
-    "stars": 205,
+    "stars": 204,
     "created": "2026-04-03",
-    "forks": 28,
+    "forks": 27,
     "contributors": 2,
     "languages": [
       {
