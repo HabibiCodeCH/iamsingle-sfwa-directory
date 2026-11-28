@@ -1,8 +1,8 @@
 {
   "CoolDude2349/Offline-HTML-Games-Pack": {
-    "stars": 297,
+    "stars": 299,
     "created": "2025-08-07",
-    "forks": 293,
+    "forks": 294,
     "contributors": 4,
     "languages": [
       {
@@ -78,7 +78,7 @@
   "TiddlyWiki/TiddlyWiki5": {
     "stars": 8721,
     "created": "2011-11-22",
-    "forks": 1260,
+    "forks": 1261,
     "contributors": 325,
     "languages": [
       {
@@ -87,7 +87,7 @@
       },
       {
         "name": "TeX",
-        "pct": 1.3
+        "pct": 1.2
       },
       {
         "name": "Shell",
@@ -172,7 +172,7 @@
     ]
   },
   "braedonsaunders/codeflow": {
-    "stars": 5512,
+    "stars": 5514,
     "created": "2025-12-16",
     "forks": 829,
     "contributors": 17,
@@ -376,9 +376,9 @@
     ]
   },
   "nyblnet/bento": {
-    "stars": 5692,
+    "stars": 5694,
     "created": "2026-07-17",
-    "forks": 396,
+    "forks": 395,
     "contributors": 24,
     "languages": [
       {
@@ -428,7 +428,7 @@
     ]
   },
   "pyrate-llama/hermes-ui": {
-    "stars": 204,
+    "stars": 205,
     "created": "2026-04-03",
     "forks": 27,
     "contributors": 2,
